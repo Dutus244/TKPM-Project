@@ -23,6 +23,7 @@ main{
     font-size: 2rem;
     font-weight: bold;
     background-color: #2ee549;
+    border-radius: .5rem;
 }
 
 .wordcount{

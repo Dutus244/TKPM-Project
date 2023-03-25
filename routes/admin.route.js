@@ -28,8 +28,6 @@ router.get('/addtopic', async function (req, res) {
 })
 
 router.post('/addtopic', async function (req, res){
-    const id = v4()
-    const topicname = req.body.topicname
 
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -41,24 +39,31 @@ router.post('/addtopic', async function (req, res){
         }
     })
 
-    const imagelink = '/public/img/' + id + '.png'
 
-    const topic={
-        topicid: id,
-        topicname: topicname,
-        topicavatar: imagelink,
-    }
+    const upload = multer({ storage: storage })
+    upload.array('fuMain', 1)(req, res, async function (err) {
+        const id = v4()
+        const topicname = req.body.topicname
+        const imagelink = '/public/img/' + id + '.png'
 
-    console.log(id)
+        const timestamp = new Date()
 
-    await adminServices.add(topic)
-    if (err instanceof multer.MulterError) {
-        // A Multer error occurred when uploading.
-        console.error(err);
-    } else if (err) {
-        // An unknown error occurred when uploading.
-        console.error(err);
-    }
+        const topic={
+            topicid: id,
+            topicname: topicname,
+            topicavatar: imagelink,
+        }
+
+        await adminServices.add(topic)
+        if (err instanceof multer.MulterError) {
+            // A Multer error occurred when uploading.
+            console.error(err);
+        } else if (err) {
+            // An unknown error occurred when uploading.
+            console.error(err);
+        }
+
+    })
 })
 
 export default router
