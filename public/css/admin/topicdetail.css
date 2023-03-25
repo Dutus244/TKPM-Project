@@ -1,0 +1,95 @@
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: whitesmoke;
+    position: relative;
+}
+
+.container{
+    width: 700px;
+    padding: 40px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+}
+
+/*.container > * {
+    margin-bottom: 20px;
+}*/
+
+#topicname{
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: #2ee549;
+}
+
+.wordcount{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ef5328;
+}
+
+.words{
+    margin-bottom: 20px;
+}
+
+.words span {
+    display: inline-block;
+    width: 40%;
+    box-sizing: border-box;
+    padding-left: 30px;
+    margin-right: 30px;
+  }
+
+.words span:hover {
+    background-color: #f8b0a1;
+    border-radius: .5rem;
+  }
+
+.testcount{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #feb746;
+}
+
+.tests{
+    margin-bottom: 20px;
+}
+
+.tests span {
+    display: inline-block;
+    width: 40%;
+    box-sizing: border-box;
+    padding-left: 30px;
+    margin-right: 30px;
+  }
+
+.tests span:hover{
+    background-color: #f9e8ce;
+    border-radius: .5rem;
+}
+
+.btnDel{
+    display: inline-block;
+    font-size: .9rem;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(249, 23, 23);
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+}
+.btnEdit{
+    display: inline-block;
+    font-size: .9rem;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(23, 98, 249);
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+}
