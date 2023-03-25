@@ -2,6 +2,7 @@
     <style>
         body {
             font: 14px/1.6em sans-serif;
+            justify-content: center;
         }
         a:hover, a:visited,a:active,a:link{
             text-decoration-color: black;
@@ -190,8 +191,9 @@
 {{#section 'js'}}
     <script>
         window.onload = function() {
-            height = document.getElementById('fixed').offsetHeight +10;
-            document.getElementById("under-fixed").style.marginTop = height+"px";
+            heightfixed = document.getElementById('fixed').offsetHeight +10;
+            document.getElementById("under-fixed").style.marginTop = heightfixed+"px";
+
         };
 
     </script>
@@ -211,11 +213,11 @@
 
     <div class ="card " id="under-fixed" style=" border-width: 0px; height: fit-content; " >
 {{#each topic}}
-        <a href="/user/topic/learn/{{topic.TopicID}}" class="card"  role="button" aria-pressed="true">
+        <a href="/user/topic/learn/{{TopicID}}" class="card"  role="button" aria-pressed="true">
             <div class="row no-gutters" style="width: 100%; height:100%" >
                 <div class="col-md-4 " style="padding: 8%" >
                     <img style="width: 7vw;height: 7vw; border: 2px solid #ddd; border-radius: 50%;"
-                         src="{{topic.TopicAvatar}}"
+                         src="{{TopicAvatar}}"
                          alt="...">
                 </div>
                 <div class="col-md-8" style="justify-content: center; align-self: center">
@@ -224,43 +226,5 @@
             </div>
         </a>
 {{/each}}
-        <a href="https://www.messenger.com/t/100009273187214" class="card "  role="button" aria-pressed="true">
-            <div class="row no-gutters" style="width: 100%; height:100%">
-                <div class="col-md-4 " >
-                    <img style="width: 7vw;height: 7vw; border: 2px solid #ddd; border-radius: 50%;"
-                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png"
-                         alt="...">
-                </div>
-                <div class="col-md-8" style="justify-content: center; align-self: center">
-                    <h2 >Card title </h2>
-                </div>
-            </div>
-        </a>
-        <a href="https://www.messenger.com/t/100009273187214" class="card "  role="button" aria-pressed="true">
-            <div class="row no-gutters" style="width: 100%; height:100%">
-                <div class="col-md-4 " >
-                    <img style="width: 7vw;height: 7vw; border: 2px solid #ddd; border-radius: 50%;"
-                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png"
-                         alt="...">
-                </div>
-                <div class="col-md-8" style="justify-content: center; align-self: center">
-                    <h2 >Card title </h2>
-                </div>
-            </div>
-        </a>
-        <a href="https://www.messenger.com/t/100009273187214" class="card "  role="button" aria-pressed="true">
-            <div class="row no-gutters" style="width: 100%; height:100%">
-                <div class="col-md-4 " style="padding: 10px" >
-                    <img style="width: 7vw;height: 7vw; border: 2px solid #ddd; border-radius: 50%;"
-                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png"
-                         alt="...">
-                </div>
-                <div class="col-md-8" style="justify-content: center; align-self: center">
-                    <h2 >Card title </h2>
-                </div>
-            </div>
-        </a>
-
-
     </div>
 </div>
