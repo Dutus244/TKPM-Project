@@ -1,0 +1,52 @@
+{{#section 'js'}}
+<script>
+  $(document).ready(function () {
+    $('.front').on('click', function (e) {
+      $('.flipper').css('transform', 'rotateY(180deg)')
+    });
+    $('.back').on('click', function (e) {
+      $('.flipper').css('transform', 'rotateY(0deg)')
+    });
+  });
+</script>
+{{/section}}
+
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/CSS/vwLearner/topicDetail.css">
+{{/section}}
+
+<div class="container-fluid">
+  <div class="p-5">
+    <div class="row">
+      <div class="col-3" style="background-color: antiquewhite;">
+        
+      </div>
+      <div class="col-6 flashcard-container">
+        <div class="flipper">
+          <div class="flashcard front">
+            <div class="card-body">
+              <div>
+                <p class="p-2 m-0 text-center word">Word</p>
+                <p class="p-2 m-0 text-center phonetic">Phonetic</p>
+                <p class="p-2 m-0 text-center meaning">Meaning</p>
+              </div>
+            </div>
+          </div>
+          <div class="flashcard back">
+            <div class="card-body">
+              <div class="center-img">
+                <img class="flashcard-img" src="/public/img/flashcard_img.png" alt="">
+              </div>
+              <div>
+                <p class="m-0 text-center example">Meaning</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-3" style="background-color: antiquewhite;">
+        
+      </div>
+    </div>
+  </div>
+</div>
