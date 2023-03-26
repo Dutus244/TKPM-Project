@@ -1,0 +1,230 @@
+{{#section 'css'}}
+    <style>
+        body {
+            font: 14px/1.6em sans-serif;
+            justify-content: center;
+        }
+        a:hover, a:visited,a:active,a:link{
+            text-decoration-color: black;
+            text-decoration: none;
+            color:black;
+            padding: 2px;
+            box-shadow: 5px 10px #888888;
+            margin-bottom: 20px;
+            margin-top: 15px;
+            border-radius: 15px;
+            border-width: 3px ;
+            min-width: 40vw;
+            min-height: 20vh;
+            height: fit-content;
+            width: fit-content;
+        }
+        a:hover{
+            margin-top: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0px 0px;
+        }
+        .ribbon {
+            width: 400px;
+            height: 60px;
+            margin: 5vh auto;
+            position: relative;
+            color: #fff;
+            font: 28px/60px sans-serif;
+            text-align: center;
+            text-transform: uppercase;
+            background: #3D79D0;
+
+            -webkit-animation: main 250ms;
+            -moz-animation: main 250ms;
+            -ms-animation: main 250ms;
+            animation: main 250ms;
+        }
+
+        .ribbon i {
+            position: absolute;
+        }
+
+        .ribbon i:first-child, .ribbon i:nth-child(2) {
+            position: absolute;
+            left: -20px;
+            bottom: -20px;
+            z-index: -1;
+            border: 20px solid transparent;
+            border-right-color: #043140;
+
+            -webkit-animation: edge 500ms;
+            -moz-animation: edge 500ms;
+            -ms-animation: edge 500ms;
+            animation: edge 500ms;
+        }
+
+        .ribbon i:nth-child(2) {
+            left: auto;
+            right: -20px;
+            border-right-color: transparent;
+            border-left-color: #043140;
+        }
+
+        .ribbon i:nth-child(3), .ribbon i:last-child {
+            width: 20px;
+            bottom: -20px;
+            left: -60px;
+            z-index: -2;
+            border: 30px solid #1D53C0;
+            border-left-color: transparent;
+
+            -webkit-animation: back 600ms;
+            -moz-animation: back 600ms;
+            -ms-animation: back 600ms;
+            animation: back 600ms;
+
+            -webkit-transform-origin: 100% 0;
+            -moz-transform-origin: 100% 0;
+            -ms-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+        }
+
+        .ribbon i:last-child {
+            bottom: -20px;
+            left: auto;
+            right: -60px;
+            border: 30px solid #1D53C0;
+            border-right-color: transparent;
+
+            -webkit-transform-origin: 0 0;
+            -moz-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+        }
+
+        p {
+            text-align: center;
+            color: #aaa;
+        }
+
+        /* animations */
+
+        @-webkit-keyframes main {
+            0% { -webkit-transform: scaleX(0); }
+            100% { -webkit-transform: scaleX(1); }
+        }
+
+        @-webkit-keyframes edge {
+            0%, 50% { -webkit-transform: scaleY(0); }
+            100% { -webkit-transform: scaleY(1); }
+        }
+
+        @-webkit-keyframes back {
+            0%, 75% { -webkit-transform: scaleX(0); }
+            100% { -webkit-transform: scaleX(1); }
+        }
+
+
+        @-moz-keyframes main {
+            0% { -moz-transform: scaleX(0); }
+            100% { -moz-transform: scaleX(1); }
+        }
+
+        @-moz-keyframes edge {
+            0%, 50% { -moz-transform: scaleY(0); }
+            100% { -moz-transform: scaleY(1); }
+        }
+
+        @-moz-keyframes back {
+            0%, 75% { -moz-transform: scaleX(0); }
+            100% { -moz-transform: scaleX(1); }
+        }
+
+
+        @keyframes main {
+            0% { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+        }
+
+        @keyframes edge {
+            0%, 50% { transform: scaleY(0); }
+            100% { transform: scaleY(1); }
+        }
+
+        @keyframes back {
+            0%, 75% { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+        }
+
+        p {
+            text-align: center;
+            color: #aaa;
+        }
+
+        .card{
+            width: 50vw;
+            height: 100vh;
+            margin: 0px auto 0px;
+            position: relative;
+        }
+
+        #fixed{
+            position: fixed;
+            top:0;
+            left: 0;
+            width: 100%;
+            padding-bottom: 10px;
+            justify-content: center;
+            background: white;
+            z-index: 1;
+        }
+        .topiccard{
+            margin: 0 auto 0;
+            border-radius: 20px;
+            border-width: 3px ;
+            width: 40vw;
+            min-height: 20vh;
+            height: fit-content;
+            margin: 20px auto 20px;
+            padding: 2px;
+        }
+
+    </style>
+{{/section}}
+
+{{#section 'js'}}
+    <script>
+        window.onload = function() {
+            heightfixed = document.getElementById('fixed').offsetHeight +10;
+            document.getElementById("under-fixed").style.marginTop = heightfixed+"px";
+
+        };
+
+    </script>
+{{/section}}
+
+
+<div class = "card" style="border-width: 0px" >
+    <div id="fixed" >
+        <div class="ribbon">
+            English Topic
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+        </div>
+    </div>
+
+    <div class ="card " id="under-fixed" style=" border-width: 0px; height: fit-content; " >
+{{#each topic}}
+        <a href="/user/topic/learn/{{TopicID}}" class="card"  role="button" aria-pressed="true">
+            <div class="row no-gutters" style="width: 100%; height:100%" >
+                <div class="col-md-4 " style="padding: 8%" >
+                    <img style="width: 7vw;height: 7vw; border: 2px solid #ddd; border-radius: 50%;"
+                         src="{{TopicAvatar}}"
+                         alt="...">
+                </div>
+                <div class="col-md-8" style="justify-content: center; align-self: center">
+                    <h2 >{{TopicName}} </h2>
+                </div>
+            </div>
+        </a>
+{{/each}}
+    </div>
+</div>
