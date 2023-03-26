@@ -29,6 +29,7 @@ router.get('/addtopic', async function (req, res) {
 
 router.post('/addtopic', async function (req, res){
 
+    const id = v4()
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, './public/img/')
@@ -42,7 +43,7 @@ router.post('/addtopic', async function (req, res){
 
     const upload = multer({ storage: storage })
     upload.array('fuMain', 1)(req, res, async function (err) {
-        const id = v4()
+        
         const topicname = req.body.topicname
         const imagelink = '/public/img/' + id + '.png'
 
