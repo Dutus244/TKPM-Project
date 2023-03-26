@@ -1,5 +1,19 @@
+body {
+  background-image: url('/public/img/flashcard_img.png');
+  background-size: cover;
+  background-position: center;
+}
+
 .flashcard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   perspective: 1000px;
+  width: 45%;
+  height: 100vh;
+  margin: auto;
+  background-color: antiquewhite;
 }
 
 .flipper {
@@ -9,13 +23,15 @@
   position: relative;
   transform-style: preserve-3d;
   transition: 0.6s;
-  height: 500px;
+  height: 450px;
+  width: 100%;
 }
 
 .front,
 .back {
   backface-visibility: hidden;
   position: absolute;
+  background-color: white;
 }
 
 .back {
@@ -23,15 +39,23 @@
   pointer-events: all; /* Allow the back face to receive events */
 }
 
+.back * {
+  pointer-events: all; /* Allow the back face to receive events */
+}
+
 .flashcard {
   width: 60%;
-  height: 25rem;
+  height: 90%;
   border: 2px solid #74a12e;
   border-radius: 2.5rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.flashcard:hover {
+  cursor: pointer;
 }
 
 .word {
@@ -60,4 +84,14 @@
 
 .center-img {
   text-align: center;
+}
+
+#btn-next {
+  background-color: greenyellow;
+  border: 1px solid #74a12e;
+  border-radius: 2.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  width: 12.5rem;
 }

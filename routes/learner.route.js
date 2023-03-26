@@ -1,13 +1,21 @@
-import express from 'express';
+import express from "express";
+import learnerService from "../services/learner.service.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/topic/:id', async(req, res) => {
-  const id = req.params.id
+router.get("/topic/:id", async (req, res) => {
+  const id = req.params.id;
+  const wordlist = await learnerService.findAllTopicWord(id);
+  if (wordlist.length == 0) {
+    res.status(404).render("404", {
+      layout: false,
+    });
+  }
 
-  res.render('vwLearner/topicDetail', {
+  res.render("vwLearner/topicDetail", {
+    words: JSON.stringify(wordlist),
+    firstWord: wordlist[0],
+  });
+});
 
-  })
-})
-
-export default router
+export default router;

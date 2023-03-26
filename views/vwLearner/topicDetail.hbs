@@ -1,12 +1,39 @@
 {{#section 'js'}}
 <script>
   $(document).ready(function () {
-    $('.front').on('click', function (e) {
-      $('.flipper').css('transform', 'rotateY(180deg)')
-    });
-    $('.back').on('click', function (e) {
+    var isBack = false
+    var curWord = 0
+    const words = {{{ words }}}
+    const length = words.length
+
+  $('.front').on('click', function (e) {
+    $('.flipper').css('transform', 'rotateY(180deg)')
+    isBack = !isBack
+  });
+  $('.back').on('click', function (e) {
+    $('.flipper').css('transform', 'rotateY(0deg)')
+    isBack = !isBack
+  });
+
+  $('#btn-next').on('click', function (e) {
+    curWord++
+    if (curWord >= length) {
+      return
+    }
+    if (isBack) {
+      $('.flipper').css('transition', '0s')
       $('.flipper').css('transform', 'rotateY(0deg)')
-    });
+      setTimeout(function () {
+        $('.flipper').css('transition', '0.6s')
+      })
+      isBack = !isBack
+    }
+    $('#wordname').text(words[curWord].wordname)
+    $('#wordpronounce').text(words[curWord].wordpronounce)
+    $('#wordmeaning').text(`${words[curWord].wordmeaning} (${words[curWord].wordtype})`)
+    $('#wordavatar').attr('src', words[curWord].wordavatar)
+    $('#wordexample').text(words[curWord].wordexample)
+  })
   });
 </script>
 {{/section}}
@@ -15,38 +42,29 @@
 <link rel="stylesheet" href="/public/CSS/vwLearner/topicDetail.css">
 {{/section}}
 
-<div class="container-fluid">
-  <div class="p-5">
-    <div class="row">
-      <div class="col-3" style="background-color: antiquewhite;">
-        
-      </div>
-      <div class="col-6 flashcard-container">
-        <div class="flipper">
-          <div class="flashcard front">
-            <div class="card-body">
-              <div>
-                <p class="p-2 m-0 text-center word">Word</p>
-                <p class="p-2 m-0 text-center phonetic">Phonetic</p>
-                <p class="p-2 m-0 text-center meaning">Meaning</p>
-              </div>
-            </div>
-          </div>
-          <div class="flashcard back">
-            <div class="card-body">
-              <div class="center-img">
-                <img class="flashcard-img" src="/public/img/flashcard_img.png" alt="">
-              </div>
-              <div>
-                <p class="m-0 text-center example">Meaning</p>
-              </div>
-            </div>
-          </div>
+<div class="flashcard-container">
+  <div class="flipper">
+    <div class="flashcard front">
+      <div class="card-body">
+        <div>
+          <p id="wordname" class="p-2 m-0 text-center word">{{firstWord.wordname}}</p>
+          <p id="wordpronounce" class="p-2 m-0 text-center phonetic">{{firstWord.wordpronounce}}</p>
+          <p id="wordmeaning" class="p-2 m-0 text-center meaning">
+            {{firstWord.wordmeaning}} ({{firstWord.wordtype}})
+          </p>
         </div>
       </div>
-      <div class="col-3" style="background-color: antiquewhite;">
-        
+    </div>
+    <div class="flashcard back">
+      <div class="card-body">
+        <div class="center-img">
+          <img id="wordavatar" class="flashcard-img" src={{firstWord.wordavatar}} alt="">
+        </div>
+        <div>
+          <p id="wordexample" class="m-0 text-center example">{{firstWord.wordexample}}</p>
+        </div>
       </div>
     </div>
   </div>
+  <button type="button" id="btn-next">Tiếp theo</button>
 </div>
