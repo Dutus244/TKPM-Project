@@ -27,6 +27,12 @@ router.get('/addtopic', async function (req, res) {
     })
 })
 
+router.get('/topiclist', async function (req, res) {
+    res.render('vwAdmin/topiclist', {
+        
+    })
+})
+
 router.post('/addtopic', async function (req, res){
 
     const id = v4()
