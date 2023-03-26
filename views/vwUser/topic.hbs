@@ -14,8 +14,8 @@
             margin-top: 15px;
             border-radius: 15px;
             border-width: 3px ;
-            min-width: 40vw;
-            min-height: 20vh;
+            min-width: 35vw;
+            min-height: 15vh;
             height: fit-content;
             width: fit-content;
         }
@@ -213,8 +213,10 @@
 
     <div class ="card " id="under-fixed" style=" border-width: 0px; height: fit-content; " >
 {{#each topic}}
-        <a href="/user/topic/learn/{{TopicID}}" class="card"  role="button" aria-pressed="true">
-            <div class="row no-gutters" style="width: 100%; height:100%" >
+        <a href="/user/topic/learn/{{TopicID}}" class="card"
+{{#if isRead}}style="background-color: #aaa"{{/if}}
+           role="button" aria-pressed="true">
+            <div class="row no-gutters"  >
                 <div class="col-md-4 " style="padding: 8%" >
                     <img style="width: 7vw;height: 7vw; border: 2px solid #ddd; border-radius: 50%;"
                          src="{{TopicAvatar}}"
