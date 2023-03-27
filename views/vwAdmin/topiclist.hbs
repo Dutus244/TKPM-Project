@@ -1,3 +1,21 @@
+{{#section 'js'}}
+<script>
+  const topics = {{{ topics }}}
+  const length = topics.length
+
+  $(document).ready(function() {
+  const topicList = $('.scroll-content ul');
+  topics.forEach(function(topic) {
+    const li = $('<span>').text(topic.TopicName);
+    li.on('click', function() {
+      window.location.href = 'topiclist/topicdetail/' + topic.TopicID;
+    });
+    topicList.append(li);
+  });
+});
+</script>
+{{/section}}
+
 {{#section 'css'}}
 <link rel="stylesheet" href="/public/CSS/admin/topiclist.css">
 <link rel="stylesheet"
@@ -13,44 +31,21 @@
   <div class="container">
     <div id="topicname">TOPIC LIST</div>
      <div class="topics">
-      <div class="topiccount">Total topics: 20</div>
+      <div class="topiccount" id="topiccount">Total topics: 20</div>
       <div class="custom-scrollbar">
         <div class="scroll-content">
             <ul>
-            <span>bucu</span>
-            <span>bucu</span>
-            <span>bucu</span>
-            <span>bucu</span>
-            <span>bucu</span>
-
-            <span>bucu</span>
-            <span>bucu</span>
-            <span>bucu</span>
-            <span>bucu</span>
-            <span>bucu</span>
-
-            <span>bucu</span>
-            <span>bucu</span>
-            <span>bucu</span>
-            <span>bucu</span>
-            <span>bucu</span>
-
-            <span>bucu</span>
-            <span>bucu</span>
-            <span>bucu</span>
-            <span>bucu</span>
-            <span>bucu</span>
             </ul>
         </div>
         </div>
     </div>
 
     <div class="buttongroup">
-      <button type="button" class="btnDel">
-          Delete
+      <button type="button" class="btnBck">
+          Back
       </button>
-      <button type="button" class="btnEdit">
-          Edit
+      <button type="button" class="btnAdd">
+          Add
       </button>
     </div>
   </div>

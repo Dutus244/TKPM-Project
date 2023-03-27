@@ -28,7 +28,23 @@ router.get('/addtopic', async function (req, res) {
 })
 
 router.get('/topiclist', async function (req, res) {
+    const topiclist = await adminServices.findAllTopic();
+    if (topiclist.length == 0) {
+      res.status(404).render("404", {
+        layout: false,
+      });
+    }
+    // console.log(topiclist);
+  
     res.render('vwAdmin/topiclist', {
+      topics: JSON.stringify(topiclist)
+    });
+})
+
+router.get('/topiclist/topicdetail/:id', async function (req, res) {
+    const id = req.params.id;
+    console.log(id);
+    res.render('vwAdmin/topicdetail', {
         
     })
 })

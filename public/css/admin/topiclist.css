@@ -118,7 +118,7 @@ main{
     background-color: #fafa48; 
   }
 
-.btnDel{
+.btnBck{
     display: inline-block;
     font-size: .9rem;
     font-weight: bold;
@@ -129,14 +129,14 @@ main{
     border-radius: .5rem;
     border: none;
 }
-.btnEdit{
-    display: inline-block;
-    font-size: .9rem;
-    font-weight: bold;
-    color: white;
-    background-color: rgb(23, 98, 249);
-    cursor: pointer;
-    padding: .4rem 1.5rem;
-    border-radius: .5rem;
-    border: none;
+.btnAdd{
+  display: inline-block;
+  font-size: .9rem;
+  font-weight: bold;
+  color: white;
+  background-color: #2ee549;
+  cursor: pointer;
+  padding: .4rem 1.5rem;
+  border-radius: .5rem;
+  border: none;
 }
