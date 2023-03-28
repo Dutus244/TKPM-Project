@@ -4,15 +4,14 @@ body {
   background-position: center;
 }
 
-.flashcard-container {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  perspective: 1000px;
   width: 45%;
-  height: 100vh;
-  margin: auto;
+  min-height: 100vh;
+  /* margin: auto; */
   background-color: rgba(216, 216, 216, 0.5);
 }
 
@@ -20,27 +19,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: 0.6s;
-  height: 450px;
+  flex-direction: column;
+  height: 400px;
   width: 100%;
-}
-
-.front,
-.back {
-  backface-visibility: hidden;
-  position: absolute;
-  background-color: white;
-}
-
-.back {
-  transform: rotateY(180deg);
-  pointer-events: all; /* Allow the back face to receive events */
-}
-
-.back * {
-  pointer-events: all; /* Allow the back face to receive events */
 }
 
 .flashcard {
@@ -54,44 +35,32 @@ body {
   align-items: center;
 }
 
-.flashcard:hover {
-  cursor: pointer;
+.front {
+  background-color: white;
 }
 
-.word {
-  font-size: 2.5rem;
+#msg {
+  font-size: 1.7rem;
   font-weight: bold;
 }
 
-.phonetic {
-  font-size: 1.2rem;
+.img {
+    height: 100%;
+    width: 100%;
 }
 
-.meaning {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.flashcard-img {
-  width: 100%;
-  height: 100%;
-  padding: 1rem;
-}
-
-.example {
-  font-size: 1.2rem;
-}
-
-.center-img {
-  text-align: center;
-}
-
-#btn-next, #btn-back {
-  background-color: greenyellow;
+#btn-next,
+#btn-back {
+  background-color: #00ff00;
   border: 1px solid #74a12e;
   border-radius: 2.5rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 0.5rem;
   font-size: 1.5rem;
   width: 12.5rem;
+  margin: 0.5rem;
+}
+
+.font {
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

@@ -12,10 +12,18 @@ router.get("/topic/:id", async (req, res) => {
     });
   }
 
-  res.render("vwLearner/topicDetail", {
+  res.render("vwLearner/topicLearn", {
     words: JSON.stringify(wordlist),
     firstWord: wordlist[0],
   });
 });
+
+router.get("/topic/:id/finish", async(req, res) => {
+  const id = req.params.id
+
+  res.render("vwLearner/topicLearnFinish", {
+
+  })
+})
 
 export default router;

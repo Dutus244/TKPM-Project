@@ -17,10 +17,14 @@
 
   $('#btn-next').on('click', function (e) {
     if (curWord >= length - 1) {
+      // Go to finish page
+      window.location.href += "/finish"
       return
     } else {
       curWord++
     }
+
+    percentage = Math.floor((curWord / length) * 100)
     if (isBack) {
       $('.flipper').css('transition', '0s')
       $('.flipper').css('transform', 'rotateY(0deg)')
@@ -34,6 +38,8 @@
     $('#wordmeaning').text(`${words[curWord].wordmeaning} (${words[curWord].wordtype})`)
     $('#wordavatar').attr('src', words[curWord].wordavatar)
     $('#wordexample').text(words[curWord].wordexample)
+    $('.progress-bar').css('width', `${percentage}%`)
+    $('.progress-bar').attr('aria-valuenow', percentage)
   })
   $('#btn-back').on('click', function (e) {
     if (curWord > 0) {
@@ -41,6 +47,8 @@
     } else {
       return
     }
+
+    percentage = Math.floor((curWord / length) * 100)
     if (isBack) {
       $('.flipper').css('transition', '0s')
       $('.flipper').css('transform', 'rotateY(0deg)')
@@ -54,20 +62,22 @@
     $('#wordmeaning').text(`${words[curWord].wordmeaning} (${words[curWord].wordtype})`)
     $('#wordavatar').attr('src', words[curWord].wordavatar)
     $('#wordexample').text(words[curWord].wordexample)
+    $('.progress-bar').css('width', `${percentage}%`)
+    $('.progress-bar').attr('aria-valuenow', percentage)
   })
   });
 </script>
 {{/section}}
 
 {{#section 'css'}}
-<link rel="stylesheet" href="/public/CSS/vwLearner/topicDetail.css">
+<link rel="stylesheet" href="/public/CSS/vwLearner/topicLearn.css">
 {{/section}}
 
 <div class="flashcard-container">
-  <div class="progress" style="width:100%;">
-    <div class="progress-bar bg-success" role="progressbar" style="width: 100%; height:5rem;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
   </div>
-  <button type="button" id="btn-back">Quay lại</button>
+  <button type="button" id="btn-back" class="font">Quay lại</button>
   <div class="flipper">
     <div class="flashcard front">
       <div class="card-body">
@@ -91,5 +101,5 @@
       </div>
     </div>
   </div>
-  <button type="button" id="btn-next">Tiếp theo</button>
+  <button type="button" id="btn-next" class="font">Tiếp theo</button>
 </div>
