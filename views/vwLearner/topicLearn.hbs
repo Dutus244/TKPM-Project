@@ -5,66 +5,71 @@
     var curWord = 0
     const words = {{{ words }}}
     const length = words.length
+    var percentage = Math.floor(((curWord + 1) / length) * 100)
 
-  $('.front').on('click', function (e) {
-    $('.flipper').css('transform', 'rotateY(180deg)')
-    isBack = !isBack
-  });
-  $('.back').on('click', function (e) {
-    $('.flipper').css('transform', 'rotateY(0deg)')
-    isBack = !isBack
-  });
 
-  $('#btn-next').on('click', function (e) {
-    if (curWord >= length - 1) {
-      // Go to finish page
-      window.location.href += "/finish"
-      return
-    } else {
-      curWord++
-    }
-
-    percentage = Math.floor((curWord / length) * 100)
-    if (isBack) {
-      $('.flipper').css('transition', '0s')
-      $('.flipper').css('transform', 'rotateY(0deg)')
-      setTimeout(function () {
-        $('.flipper').css('transition', '0.6s')
-      })
-      isBack = !isBack
-    }
-    $('#wordname').text(words[curWord].wordname)
-    $('#wordpronounce').text(words[curWord].wordpronounce)
-    $('#wordmeaning').text(`${words[curWord].wordmeaning} (${words[curWord].wordtype})`)
-    $('#wordavatar').attr('src', words[curWord].wordavatar)
-    $('#wordexample').text(words[curWord].wordexample)
     $('.progress-bar').css('width', `${percentage}%`)
     $('.progress-bar').attr('aria-valuenow', percentage)
-  })
-  $('#btn-back').on('click', function (e) {
-    if (curWord > 0) {
-      curWord--
-    } else {
-      return
-    }
 
-    percentage = Math.floor((curWord / length) * 100)
-    if (isBack) {
-      $('.flipper').css('transition', '0s')
-      $('.flipper').css('transform', 'rotateY(0deg)')
-      setTimeout(function () {
-        $('.flipper').css('transition', '0.6s')
-      })
+    $('.front').on('click', function (e) {
+      $('.flipper').css('transform', 'rotateY(180deg)')
       isBack = !isBack
-    }
-    $('#wordname').text(words[curWord].wordname)
-    $('#wordpronounce').text(words[curWord].wordpronounce)
-    $('#wordmeaning').text(`${words[curWord].wordmeaning} (${words[curWord].wordtype})`)
-    $('#wordavatar').attr('src', words[curWord].wordavatar)
-    $('#wordexample').text(words[curWord].wordexample)
-    $('.progress-bar').css('width', `${percentage}%`)
-    $('.progress-bar').attr('aria-valuenow', percentage)
-  })
+    });
+    $('.back').on('click', function (e) {
+      $('.flipper').css('transform', 'rotateY(0deg)')
+      isBack = !isBack
+    });
+
+    $('#btn-next').on('click', function (e) {
+      if (curWord >= length - 1) {
+        // Go to finish page
+        window.location.href += "/finish"
+        return
+      } else {
+        curWord++
+      }
+
+      percentage = Math.floor(((curWord + 1) / length) * 100)
+      if (isBack) {
+        $('.flipper').css('transition', '0s')
+        $('.flipper').css('transform', 'rotateY(0deg)')
+        setTimeout(function () {
+          $('.flipper').css('transition', '0.6s')
+        })
+        isBack = !isBack
+      }
+      $('#wordname').text(words[curWord].wordname)
+      $('#wordpronounce').text(words[curWord].wordpronounce)
+      $('#wordmeaning').text(`${words[curWord].wordmeaning} (${words[curWord].wordtype})`)
+      $('#wordavatar').attr('src', words[curWord].wordavatar)
+      $('#wordexample').text(words[curWord].wordexample)
+      $('.progress-bar').css('width', `${percentage}%`)
+      $('.progress-bar').attr('aria-valuenow', percentage)
+    })
+    $('#btn-back').on('click', function (e) {
+      if (curWord > 0) {
+        curWord--
+      } else {
+        return
+      }
+
+      percentage = Math.floor(((curWord + 1) / length) * 100)
+      if (isBack) {
+        $('.flipper').css('transition', '0s')
+        $('.flipper').css('transform', 'rotateY(0deg)')
+        setTimeout(function () {
+          $('.flipper').css('transition', '0.6s')
+        })
+        isBack = !isBack
+      }
+      $('#wordname').text(words[curWord].wordname)
+      $('#wordpronounce').text(words[curWord].wordpronounce)
+      $('#wordmeaning').text(`${words[curWord].wordmeaning} (${words[curWord].wordtype})`)
+      $('#wordavatar').attr('src', words[curWord].wordavatar)
+      $('#wordexample').text(words[curWord].wordexample)
+      $('.progress-bar').css('width', `${percentage}%`)
+      $('.progress-bar').attr('aria-valuenow', percentage)
+    })
   });
 </script>
 {{/section}}
