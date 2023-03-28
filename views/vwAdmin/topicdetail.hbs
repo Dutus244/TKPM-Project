@@ -11,26 +11,36 @@
 
 <main>
   <div class="container">
-    <div id="topicname">TOPIC NAME</div>
+    <div id="topicname">{{this.topic.[0].topicname}}</div>
     <div class="words">
-      <div class="wordcount">Total words: 10</div>
-      <span>Hello</span>
-      <span>Hello</span>
-      <span>Hello</span>
-      <span>Hello</span>
-      <span>Hello</span>
-      <span>Hello</span>
-      <span>Hello</span>
-      <span>Hello</span>
-      <span>Hello</span>
-      <span>Hello</span>
+      {{#if this.num}}
+        <div class="wordcount">Total words: {{this.num}}</div>
+        {{#each this.topic}}
+          <span>{{wordname}}</span>
+        {{/each}}
+      {{else}}
+        <div class="wordcount">Total words: 0</div>
+      {{/if}}
+      <a href="/admin/addword/{{this.topic.[0].topicid}}">
+        <br>
+        <button type="button" class="btnAdd">
+          Add
+        </button>
+      </a>
     </div>
     <div class="tests">
-      <div class="testcount">Total tests: 4</div>
-        <span>Hello</span>
-        <span>Hello</span>
-        <span>Hello</span>
-        <span>Hello</span>
+      <div class="testcount">Tests</div>
+      {{#if this.test}}
+        <button type="button" class="btnAdd">
+          Review
+        </button>
+      {{else}}
+        Chưa có bài test
+        <br>
+        <button type="button" class="btnAdd">
+          Add
+        </button>
+      {{/if}}
     </div>
     <div class="buttongroup">
       <button type="button" class="btnDel">
@@ -38,6 +48,9 @@
       </button>
       <button type="button" class="btnEdit">
           Edit
+      </button>
+      <button type="button" class="btnBack">
+          Back to list
       </button>
     </div>
   </div>

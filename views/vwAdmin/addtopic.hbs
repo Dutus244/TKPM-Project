@@ -1,5 +1,5 @@
 {{#section 'css'}}
-<link rel="stylesheet" href="/public/CSS/vwTeacher/addchapter.css">
+<link rel="stylesheet" href="/public/CSS/admin/addtopic.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/css/fileinput.min.css"
     integrity="sha512-sHiVTDN234pgseKqjDwH39VjS9DkyffX4S00kuAWWq+FrTq7HlFjPoWbfX/QFAxkdG9i9/1ftdG2sS+XWLcJmw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -29,7 +29,36 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/locales/vi.min.js"
     integrity="sha512-52ps7Exi2MgjCHJYotpowuwRpsHHsL0Moj9ZIJp1FapRfE4/4XQ1QRb9LLmQE2L1M43MljVDMcxPlfAsbuoFeQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script>
+    $('#fuMain').fileinput({
+        language: 'vi',
+        theme: 'fa4',
+        dropZoneEnabled: false,
+        maxFileCount: 1,
+        allowedFileExtension: ['png', 'jpg','jpeg'],
+
+    });
+
+    $('#frmRegister').on('submit', function (e) {
+        e.preventDefault();
+
+        const topicname = $('#txtTopicname').val();
+        if (topicname.length === 0) {
+            alert('Xin hãy nhập tên topic')
+            return
+        }
+
+        const img = $('#fuMain').val();
+        if (img.length === 0) {
+            alert('Xin hãy upload ảnh')
+            return
+        }
+
+        $('#frmRegister').off('submit').submit();
+    })
+</script>
+
 
 
 {{/section}}

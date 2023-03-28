@@ -1,0 +1,26 @@
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: whitesmoke;
+    position: relative;
+}
+
+h4.card-header{
+    background-color: #27c13e;
+    color:whitesmoke;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: .2rem;
+    border-radius: 1rem;
+}
+
+input#txtTopicname.form-control{
+    width: 700px;
+    display: inline-block;
+}
+
+div.card{
+    border-radius: 1rem;
+}

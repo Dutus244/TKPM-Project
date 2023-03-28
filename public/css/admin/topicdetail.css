@@ -15,9 +15,9 @@ main{
     box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
 }
 
-/*.container > * {
+.container > * {
     margin-bottom: 20px;
-}*/
+}
 
 #topicname{
     font-size: 2rem;
@@ -34,6 +34,9 @@ main{
 
 .words{
     margin-bottom: 20px;
+    border: 2px solid #f8aa94;
+    padding: 20px;
+    border-radius: .5rem;
 }
 
 .words span {
@@ -45,9 +48,21 @@ main{
   }
 
 .words span:hover {
-    background-color: #f8b0a1;
+    background-color: #fed6ce;
     border-radius: .5rem;
   }
+
+.words .btnAdd{
+    margin-top: 10px;
+    font-size: .9rem;
+    font-weight: bold;
+    color: white;
+    background-color: #fd866e;
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+}
 
 .testcount{
     font-size: 1.5rem;
@@ -57,6 +72,9 @@ main{
 
 .tests{
     margin-bottom: 20px;
+    border: 2px solid #ffdfac;
+    padding: 20px;
+    border-radius: .5rem;
 }
 
 .tests span {
@@ -70,6 +88,19 @@ main{
 .tests span:hover{
     background-color: #f9e8ce;
     border-radius: .5rem;
+}
+
+.tests .btnAdd{
+    margin-top: 10px;
+    display: inline-block;
+    font-size: .9rem;
+    font-weight: bold;
+    color: white;
+    background-color: #fea71b;
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
 }
 
 .btnDel{
@@ -89,6 +120,18 @@ main{
     font-weight: bold;
     color: white;
     background-color: rgb(23, 98, 249);
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+}
+
+.btnBack{
+    display: inline-block;
+    font-size: .9rem;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(147, 23, 249);
     cursor: pointer;
     padding: .4rem 1.5rem;
     border-radius: .5rem;
