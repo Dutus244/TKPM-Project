@@ -1,15 +1,22 @@
 {{#section 'css'}}
     <style>
         body {
-            font: 14px/1.6em sans-serif;
+            font: 14px/1.6em cursive;
             justify-content: center;
+            background-color: #F2F2F2;
+            align-content: center;
+        }
+        #container{
+            background-color: rgba(216, 216, 216, 0.5);
+
         }
         a:hover, a:visited,a:active,a:link{
+            font-weight: bold;
             text-decoration-color: black;
             text-decoration: none;
             color:black;
             padding: 2px;
-            box-shadow: 5px 10px #888888;
+            box-shadow: 5px 7px grey;
             margin-bottom: 20px;
             margin-top: 15px;
             border-radius: 15px;
@@ -18,27 +25,32 @@
             min-height: 15vh;
             height: fit-content;
             width: fit-content;
+            text-decoration-color: black;
         }
         a:hover{
+            font-weight: bold;
             margin-top: 20px;
             margin-bottom: 15px;
             box-shadow: 0px 0px;
+            /*text-decoration-color: black;*/
         }
+
         .ribbon {
-            width: 400px;
-            height: 60px;
+            width: 60%;
+            height: 50%;
             margin: 5vh auto;
             position: relative;
-            color: #fff;
-            font: 28px/60px sans-serif;
+            color: black;
+            font: 28px/60px cursive;
             text-align: center;
+            font-weight: bold;
             text-transform: uppercase;
-            background: #3D79D0;
-
+            background: #FFCB09;
             -webkit-animation: main 250ms;
             -moz-animation: main 250ms;
             -ms-animation: main 250ms;
             animation: main 250ms;
+            border-radius: 2px;
         }
 
         .ribbon i {
@@ -51,7 +63,7 @@
             bottom: -20px;
             z-index: -1;
             border: 20px solid transparent;
-            border-right-color: #043140;
+            border-right-color: #FF9701;
 
             -webkit-animation: edge 500ms;
             -moz-animation: edge 500ms;
@@ -63,15 +75,15 @@
             left: auto;
             right: -20px;
             border-right-color: transparent;
-            border-left-color: #043140;
+            border-left-color: #FF9701;
         }
 
         .ribbon i:nth-child(3), .ribbon i:last-child {
-            width: 20px;
+            width: 10%;
             bottom: -20px;
             left: -60px;
             z-index: -2;
-            border: 30px solid #1D53C0;
+            border: 30px solid #FF9701;
             border-left-color: transparent;
 
             -webkit-animation: back 600ms;
@@ -89,7 +101,7 @@
             bottom: -20px;
             left: auto;
             right: -60px;
-            border: 30px solid #1D53C0;
+            border: 30px solid #FF9701;
             border-right-color: transparent;
 
             -webkit-transform-origin: 0 0;
@@ -158,32 +170,24 @@
         }
 
         .card{
-            width: 50vw;
-            height: 100vh;
+            width: 40vw;
+            height: 80vh;
             margin: 0px auto 0px;
             position: relative;
-        }
 
+        }
         #fixed{
             position: fixed;
             top:0;
-            left: 0;
-            width: 100%;
-            padding-bottom: 10px;
+            width: 50vw;
+            height: 25vh;
+            padding-bottom: 2vh;
             justify-content: center;
             background: white;
+            margin:  auto;
             z-index: 1;
         }
-        .topiccard{
-            margin: 0 auto 0;
-            border-radius: 20px;
-            border-width: 3px ;
-            width: 40vw;
-            min-height: 20vh;
-            height: fit-content;
-            margin: 20px auto 20px;
-            padding: 2px;
-        }
+
 
     </style>
 {{/section}}
@@ -191,8 +195,13 @@
 {{#section 'js'}}
     <script>
         window.onload = function() {
-            heightfixed = document.getElementById('fixed').offsetHeight +10;
-            document.getElementById("under-fixed").style.marginTop = heightfixed+"px";
+            // heightfixed = document.getElementById('fixed').offsetHeight;
+            document.getElementById("under-fixed").style.paddingTop = 23+ "vh";
+            // document.getElementById("under-fixed").style.marginTop = heightfixed*0.7+"px";
+            screenwidth = document.innerWidth;
+            // document.getElementById("fixed").style.width = 50+"vw";
+            // document.getElementById("ribbon").style.width = 100+"%";
+
 
         };
 
@@ -200,25 +209,24 @@
 {{/section}}
 
 
-<div class = "card" style="border-width: 0px" >
-    <div id="fixed" >
-        <div class="ribbon">
-            English Topic
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-        </div>
+<div class = "card"  style="border-width: 0px; width: 50vw; height: 100%" >
+    <div id="fixed">
+            <div class="ribbon">
+                English Topic
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
     </div>
-
     <div class ="card " id="under-fixed" style=" border-width: 0px; height: fit-content; " >
 {{#each topic}}
         <a href="/user/topic/learn/{{TopicID}}" class="card"
-{{#if isRead}}style="background-color: #aaa"{{/if}}
+{{#if isRead}}style="background-image: linear-gradient(to right, #00FF00 , #43C01B); box-shadow: 5px 7px #699e67; text-decoration-color: white;"{{/if}}
            role="button" aria-pressed="true">
             <div class="row no-gutters"  >
-                <div class="col-md-4 " style="padding: 8%" >
-                    <img style="width: 7vw;height: 7vw; border: 2px solid #ddd; border-radius: 50%;"
+                <div class="col-md-4 " style="padding: 4%" >
+                    <img style="width: 10vh;height: 10vh; border: 2px solid #ddd; border-radius: 50%;"
                          src="{{TopicAvatar}}"
                          alt="...">
                 </div>
