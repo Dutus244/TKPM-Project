@@ -1,5 +1,5 @@
 body {
-  background-image: url('/public/img/flashcard_img.png');
+  background-image: url("/public/img/background/flashcard_background.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -13,7 +13,7 @@ body {
   width: 45%;
   height: 100vh;
   margin: auto;
-  background-color: antiquewhite;
+  background-color: rgba(216, 216, 216, 0.5);
 }
 
 .flipper {
@@ -46,7 +46,7 @@ body {
 .flashcard {
   width: 60%;
   height: 90%;
-  border: 2px solid #74a12e;
+  border: 5px solid #74a12e;
   border-radius: 2.5rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   display: flex;
@@ -86,7 +86,7 @@ body {
   text-align: center;
 }
 
-#btn-next {
+#btn-next, #btn-back {
   background-color: greenyellow;
   border: 1px solid #74a12e;
   border-radius: 2.5rem;
