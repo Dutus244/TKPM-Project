@@ -21,6 +21,16 @@ export default {
     return await db('testhistory').insert(entity);
   },
   async addTestHistoryDetail(entity) {
-    return db('testhistorydetail').insert(entity);
+    return await db('testhistorydetail').insert(entity);
+  },
+  async findAllTopicStudy(id) {
+    return db.raw('select topics.* ,(select count(*)\n' +
+        'from topichistory\n' +
+        'where topichistory.TopicID = topics.TopicID\n' +
+        'and topichistory.userID= "' + id + '"\n' +
+        ') as isRead\n' +
+        'from topics'
+
+    )
   },
 }
