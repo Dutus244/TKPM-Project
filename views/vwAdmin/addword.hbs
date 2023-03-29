@@ -1,0 +1,215 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/CSS/admin/addword.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/css/fileinput.min.css"
+    integrity="sha512-sHiVTDN234pgseKqjDwH39VjS9DkyffX4S00kuAWWq+FrTq7HlFjPoWbfX/QFAxkdG9i9/1ftdG2sS+XWLcJmw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+{{/section}}
+{{#section 'js'}}
+<script src="https://cdn.tiny.cloud/1/ut87clx77zh22eesveqc4ey4stvbymbvcyk53hq4xplc0nmy/tinymce/6/tinymce.min.js"
+    referrerpolicy="origin"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/buffer.min.js"
+    integrity="sha512-UwceJzw/HmnX6PtXeqS50Xt41ixKrJGJan+tGR6ZPQ++t1GeIWktNCuQ+WMvHZQrAroRexAk3nM/aRLTrsylwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/filetype.min.js"
+    integrity="sha512-YhQROJQqESKhmQy7Tfukx+6WkTj+63GLPBvXFY6Nk8z1oYueG6JT0ExJtuypAsU635rUE4+QBhJ4tdYSl5GBMg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/piexif.min.js"
+    integrity="sha512-7Gal4k+2XP+jya460hB5G4UouinZAr3iTagzd8evV/QRcxHJevyrU1tnzfVWAlWQmI9fd2nnmtaBMsEqjJN6Yw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/plugins/sortable.min.js"
+    integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/fileinput.min.js"
+    integrity="sha512-XxRivO6jA7xU9a0ozATMIFQFdNySyRrB8uE1QctFmjTTGSGUj9tC7CpnVf7xq1e/QeVhbY9ZLbxEzPFIWpW+xA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/themes/fa4/theme.min.js"
+    integrity="sha512-UbkgE5pR814vuQ2RSsNF+JNXXNjoQ3Ga1TSvup74ZOb1ETqRwQ1fGplsa5yoPX8vZU/Qo37VD4HbYWb7aDU34w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/js/locales/vi.min.js"
+    integrity="sha512-52ps7Exi2MgjCHJYotpowuwRpsHHsL0Moj9ZIJp1FapRfE4/4XQ1QRb9LLmQE2L1M43MljVDMcxPlfAsbuoFeQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    $('#fuMain').fileinput({
+        language: 'vi',
+        theme: 'fa4',
+        dropZoneEnabled: false,
+        maxFileCount: 1,
+        allowedFileExtension: ['png', 'jpg','jpeg'],
+
+    });
+
+     $('#frmRegister').on('submit', function (e){
+        e.preventDefault();
+        const wordname = $('#txtWordname').val();
+        if (!wordname.length) {
+            alert('Xin hãy nhập tên từ')
+            return
+        }
+
+        const img = $('#fuMain').val();
+        if (!img.length) {
+            alert('Xin hãy upload ảnh')
+            return
+        }
+
+        const wordmeaning = $('#txtWordmeaning').val();
+        if (!wordmeaning.length) {
+            alert('Xin hãy nhập nghĩa từ')
+            return
+        }
+
+        const wordpronounce = $('#txtWordpronounce').val();
+        if (!wordpronounce.length) {
+            alert('Xin hãy nhập phiên âm từ')
+            return
+        }
+
+        const wordexample = $('#txtWordexample').val();
+        if (!wordexample.length) {
+            alert('Xin hãy nhập ví dụ câu')
+            return
+        }
+
+        const question = $('#txtQuestion').val();
+        if (!question.length) {
+            alert('Xin hãy nhập câu hỏi')
+            return
+        }
+
+        const optionA = $('#txtOptionA').val();
+        if (!optionA.length) {
+            alert('Xin hãy nhập option A')
+            return
+        }
+
+        const optionB = $('#txtOptionB').val();
+        if (!optionB.length) {
+            alert('Xin hãy nhập option B')
+            return
+        }
+
+        const optionC = $('#txtOptionC').val();
+        if (!optionC.length) {
+            alert('Xin hãy nhập option C')
+            return
+        }
+
+        const optionD = $('#txtOptionD').val();
+        if (!optionD.length) {
+            alert('Xin hãy nhập option D')
+            return
+        }
+
+        $('#frmRegister').off('submit').submit();
+     })
+</script>
+
+{{/section}}
+<main>
+<div class="formdes">
+    {{#if msg}}
+    <div class="alert alert-success alert-dismissible fade show text-center pr-0" role="alert">
+        {{msg}}
+        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true" class="bg-inherit">&times;</span>
+        </button>
+    </div>
+    {{/if}}
+
+    <form method="post" id="frmRegister" enctype="multipart/form-data">
+        <div class="card mb-3">
+            <h4 class="card-header">
+                ADD NEW WORD
+            </h4>
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label for="txtWordname">Word's name:</label>
+                    <input name="wordname" type="text" class="form-control" id="txtWordname" autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtWordtype">Word's type</label>
+                    <select name="wordtype">
+                        <option value='verb'>verb</option>
+                        <option value='noun'>noun</option>
+                        <option value='adj'>adjective</option>
+                        <option value='adverb'>adverb</option>
+                        <option value='pronoun'>pronoun</option>
+                        <option value='preposition'>preposition</option>
+                        <option value='conjunction'>conjunction</option>
+                        <option value='interjection'>interjection</option>
+                    </select>
+                    <label id="wordtype"></label>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtWordmeaning">Word's meaning:</label>
+                    <input name="wordmeaning" type="text" class="form-control" id="txtWordmeaning" autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtWordpronounce">Word's pronounce:</label>
+                    <input name="wordpronounce" type="text" class="form-control" id="txtWordpronounce" autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtWordexample">Word's example:</label>
+                    <input name="wordexample" type="text" class="form-control" id="txtWordexample" autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="fuMain">Word's avatar</label>
+                    <input type="file" multiple name="fuMain" id="fuMain">
+                </div>
+
+                <h4 class="question-header">
+                    QUESTION SECTION
+                </h4>
+
+                <div class="questionsect">
+                <div class="form-group">
+                    <label for="txtQuestion">Question:</label>
+                    <input name="question" type="text" class="form-control" id="txtQuestion" autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtOptionA">Option A:</label>
+                    <input name="optionA" type="text" class="form-control" id="txtOptionA" autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtOptionB">Option B:</label>
+                    <input name="optionB" type="text" class="form-control" id="txtOptionB" autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtOptionC">Option C:</label>
+                    <input name="optionC" type="text" class="form-control" id="txtOptionC" autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtOptionD">Option D:</label>
+                    <input name="optionD" type="text" class="form-control" id="txtOptionD" autofocus>
+                </div>
+                </div>
+
+                <div class="card-footer text-muted">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        Submit
+                    </button>
+                    <a href="/admin/detail/{{this.topicid}}">
+                        <button type="button" class="btn btn-primary">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Back to topic
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</main>
