@@ -17,6 +17,7 @@ export default {
         'and topichistory.userID= "' + id + '"\n' +
         ') as isRead\n' +
         'from topics'
+
     )
   }
 }
