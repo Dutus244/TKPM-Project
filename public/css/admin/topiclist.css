@@ -15,11 +15,12 @@ main {
   box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.3);
 }
 
-#topicname {
-  font-size: 2rem;
-  font-weight: bold;
-  background-color: #2ee549;
-  border-radius: 0.5rem;
+#topicname{
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: #2ee549;
+    border-radius: .5rem;
+    padding-left: 1rem;
 }
 
 .topiccount {

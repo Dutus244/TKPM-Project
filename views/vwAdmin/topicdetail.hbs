@@ -11,7 +11,7 @@
 
 <main>
   <div class="container">
-    <div id="topicname">{{this.topic.[0].topicname}}</div>
+    <div id="topicname">{{topicname}}</div>
     <div class="words">
       {{#if this.num}}
         <div class="wordcount">Total words: {{this.num}}</div>
@@ -54,9 +54,11 @@
       <button type="button" class="btnEdit">
           Edit
       </button>
-      <button type="button" class="btnBack">
+      <a href="/admin/topiclist">
+        <button type="button" class="btnBack">
           Back to list
-      </button>
+        </button>
+      </a>
     </div>
   </div>
 </main>

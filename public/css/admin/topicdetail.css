@@ -24,6 +24,7 @@ main{
     font-weight: bold;
     background-color: #2ee549;
     border-radius: .5rem;
+    padding-left: 1rem;
 }
 
 .wordcount{

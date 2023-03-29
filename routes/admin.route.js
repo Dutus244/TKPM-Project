@@ -15,16 +15,18 @@ export const config = {
     }
 }
 
-router.get('/detail/:id', async function (req, res) {
+router.get('/topicdetail/:id', async function (req, res) {
     const topicid = req.params.id
+    const topicname = await adminServices.getTopicName(topicid)
     const topic = await adminServices.getTopicDetail(topicid)
     const word = await adminServices.countWords(topicid)
     const test = await adminServices.getTest(topicid)
 
     res.render('vwAdmin/topicdetail', {
-        topic: topic,
+        topicname: topicname[0].topicname,
+        topic,
         num: word,
-        test: test
+        test
     })
 })
 
@@ -105,14 +107,6 @@ router.get('/topiclist', async function (req, res) {
     res.render('vwAdmin/topiclist', {
       topics: JSON.stringify(topiclist)
     });
-})
-
-router.get('/topiclist/topicdetail/:id', async function (req, res) {
-    const id = req.params.id;
-    console.log(id);
-    res.render('vwAdmin/topicdetail', {
-        
-    })
 })
 
 router.post('/addtopic', async function (req, res){
