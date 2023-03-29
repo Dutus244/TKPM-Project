@@ -43,4 +43,12 @@ export default{
     async addQuestion(entity){
         return await db('multiplechoicequestions').insert(entity);
     },
+
+    async findAllTopic() {
+        const list = await db('topics')
+        .select('TopicID', 'TopicName')
+        
+        return list
+    }
 }
+

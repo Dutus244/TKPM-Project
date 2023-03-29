@@ -1,0 +1,175 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="/public/CSS/vwLearner/topicTest.css">
+{{/section}}
+
+<div class="container mt-sm-5 my-1">
+    <form id="question-form">
+        {{#each this.question}}
+            <div class="question ml-sm-5 pl-sm-5 pt-2">
+                <div class="py-2 h5"><b>{{question}}</b></div>
+                <div class="id" style="display: none">{{questionid}}</div>
+                <div class="answer" style="display: none">{{wordname}}</div>
+                <div class="" id="options">
+                    <label class="options">
+                        {{optiona}}
+                        <input type="radio" name="question{{@index}}" value={{optiona}}>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="options">
+                        {{optionb}}
+                        <input type="radio" name="question{{@index}}" value={{optionb}}>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="options">
+                        {{optionc}}
+                        <input type="radio" name="question{{@index}}" value={{optionc}}>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="options">
+                        {{optiond}}
+                        <input type="radio" name="question{{@index}}" value={{optiond}}>
+                        <span class="checkmark"></span>
+                    </label>
+                    <button type="button" onclick="checkAnswer({{@index}})" class="btn btn-primary">Check Answer</button>
+                    <div style="margin-top: 10px" class="answer-feedback"></div>
+                </div>
+            </div>
+        {{/each}}
+        <div class="text-center mt-4">
+            <button type="button" class="btn btn-primary mr-2" id="prev-btn" disabled>Previous</button>
+            <button type="button" class="btn btn-primary ml-2" id="next-btn">Next</button>
+        </div>
+
+    </form>
+    <div class="text-center" style="margin-top: 20px">
+        <button type="button" class="btn btn-primary" id="end-btn" style="display:none;">End</button>
+    </div>
+</div>
+
+<script>
+    const questions = document.getElementById('question-form').querySelectorAll('.question');
+
+    let currentQuestionIndex = 0;
+    const totalQuestions = {{this.question.length}};
+
+    function checkAnswer(index) {
+        const radios = document.getElementsByName(`question${index}`);
+        let selectedAnswer = null;
+
+        for (let i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                selectedAnswer = radios[i].value;
+                break;
+            }
+        }
+
+        if (!selectedAnswer) {
+            alert('Please select an answer');
+            return;
+        }
+
+        for (let i = 0; i < radios.length; i++) {
+            radios[i].disabled = true;
+        }
+
+        const temp = questions[index].querySelector('.answer')
+        const correctAnswer = temp.textContent;
+        const feedbackEl = questions[index].querySelector('.answer-feedback');
+
+        if (selectedAnswer.toUpperCase() === correctAnswer.toUpperCase()) {
+            feedbackEl.innerHTML = '<span class="text-success">Correct!</span>';
+        } else {
+            feedbackEl.innerHTML = '<span class="text-danger">Incorrect.</span> The correct answer is ' + correctAnswer.toUpperCase();
+        }
+    }
+
+    const prevButton = document.getElementById('prev-btn');
+    const nextButton = document.getElementById('next-btn');
+    const endButton = document.getElementById('end-btn');
+    const hideAllQuestions = () => {
+        const questions = document.getElementsByClassName('question');
+        for (let i = 1; i < questions.length; i++) {
+            questions[i].classList.add('d-none');
+        }
+    }
+
+    const hideQuestion = (index) => {
+        const questions = document.getElementsByClassName('question');
+        questions[index].classList.add('d-none');
+    }
+
+    const showQuestion = (index) => {
+        const questions = document.getElementsByClassName('question');
+        questions[index].classList.remove('d-none');
+    }
+
+    const updateButtons = (index) => {
+        prevButton.disabled = (index === 0);
+        nextButton.disabled = (index === totalQuestions - 1);
+        if (nextButton.disabled) {
+            endButton.style.display = 'block';
+        } else {
+            endButton.style.display = 'none';
+        }
+    }
+
+    function sendAnswersToDatabase() {
+        const answers = [];
+        for (let i = 0; i < totalQuestions; i++) {
+            const radios = document.getElementsByName(`question${i}`);
+            let selectedAnswer = null;
+            for (let j = 0; j < radios.length; j++) {
+                if (radios[j].checked) {
+                    selectedAnswer = radios[j].value;
+                    break;
+                }
+            }
+            if (!selectedAnswer) {
+                alert('There are still unfinished questions');
+                return;
+            }
+            const questionID = questions[i].querySelector('.id').textContent
+            answers.push({
+                questionId: questionID,
+                answer: selectedAnswer
+            });
+        }
+        fetch('/topic/test/submit-answers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(answers)
+        })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response from the server
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+    }
+
+    const goToNextQuestion = () => {
+        hideQuestion(currentQuestionIndex);
+        currentQuestionIndex++;
+        showQuestion(currentQuestionIndex);
+        updateButtons(currentQuestionIndex);
+    }
+
+    const goToPrevQuestion = () => {
+        hideQuestion(currentQuestionIndex);
+        currentQuestionIndex--;
+        showQuestion(currentQuestionIndex);
+        updateButtons(currentQuestionIndex);
+    }
+
+    nextButton.addEventListener('click', goToNextQuestion);
+    prevButton.addEventListener('click', goToPrevQuestion);
+    endButton.addEventListener('click', sendAnswersToDatabase);
+
+    hideAllQuestions()
+    // show the first question and update the buttons
+    showQuestion(currentQuestionIndex);
+    updateButtons(currentQuestionIndex);
+</script>
