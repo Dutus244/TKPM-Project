@@ -8,7 +8,7 @@
   topics.forEach(function(topic) {
     const li = $('<span>').text(topic.TopicName);
     li.on('click', function() {
-      window.location.href = 'topiclist/topicdetail/' + topic.TopicID;
+      window.location.href = '/admin/topicdetail/' + topic.TopicID;
     });
     topicList.append(li);
 
