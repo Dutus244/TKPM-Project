@@ -2,10 +2,10 @@
     <link rel="stylesheet" href="/public/CSS/vwLearner/topicTest.css">
 {{/section}}
 
-<div class="container mt-sm-5 my-1">
+<div class="container ">
     <form id="question-form">
         {{#each this.question}}
-            <div class="question ml-sm-5 pl-sm-5 pt-2">
+            <div class="question pl-sm-5 pt-2">
                 <div class="py-2 h5"><b>{{question}}</b></div>
                 <div class="id" style="display: none">{{questionid}}</div>
                 <div class="answer" style="display: none">{{wordname}}</div>
@@ -30,7 +30,7 @@
                         <input type="radio" name="question{{@index}}" value={{optiond}}>
                         <span class="checkmark"></span>
                     </label>
-                    <button type="button" onclick="checkAnswer({{@index}})" class="btn btn-primary">Check Answer</button>
+                    <button type="button" onclick="checkAnswer({{@index}})" class="btn-check">Check Answer</button>
                     <div style="margin-top: 10px" class="answer-feedback"></div>
                 </div>
             </div>
