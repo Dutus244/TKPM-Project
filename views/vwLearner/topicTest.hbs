@@ -106,7 +106,7 @@
     const updateButtons = (index) => {
         prevButton.disabled = (index === 0);
         nextButton.disabled = (index === totalQuestions - 1);
-        if (index === totalQuestions - 1) {
+        if (nextButton.disabled) {
             endButton.style.display = 'block';
         } else {
             endButton.style.display = 'none';
