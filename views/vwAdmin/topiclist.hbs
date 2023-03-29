@@ -1,0 +1,54 @@
+{{#section 'js'}}
+<script>
+  const topics = {{{ topics }}}
+  const length = topics.length
+
+  $(document).ready(function() {
+  const topicList = $('.scroll-content ul');
+  topics.forEach(function(topic) {
+    const li = $('<span>').text(topic.TopicName);
+    li.on('click', function() {
+      window.location.href = 'topiclist/topicdetail/' + topic.TopicID;
+    });
+    topicList.append(li);
+
+    $('#topiccount').text('Total topics: ' + length);
+  });
+});
+</script>
+{{/section}}
+
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/CSS/admin/topiclist.css">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/css/fileinput.min.css"
+    integrity="sha512-sHiVTDN234pgseKqjDwH39VjS9DkyffX4S00kuAWWq+FrTq7HlFjPoWbfX/QFAxkdG9i9/1ftdG2sS+XWLcJmw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+{{/section}}
+
+
+<main>
+  <div class="container">
+    <div id="topicname">TOPIC LIST</div>
+     <div class="topics">
+      <div class="topiccount" id="topiccount">Total topics: 20</div>
+      <div class="custom-scrollbar">
+        <div class="scroll-content">
+            <ul>
+            </ul>
+        </div>
+        </div>
+    </div>
+
+    <div class="buttongroup">
+      <button type="button" class="btnBck">
+          Back
+      </button>
+      <button type="button" class="btnAdd">
+          Add
+      </button>
+    </div>
+  </div>
+</main>
