@@ -18,7 +18,7 @@ export default {
     return list;
   },
   async addTestHistory(entity) {
-    return db('testhistory').insert(entity);
+    return await db('testhistory').insert(entity);
   },
   async addTestHistoryDetail(entity) {
     return db('testhistorydetail').insert(entity);
