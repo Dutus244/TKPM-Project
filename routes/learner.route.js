@@ -25,5 +25,11 @@ router.get("/topic/:id/finish", async(req, res) => {
 
   })
 })
-
+router.get('/topic', async function (req, res) {
+  const temp = await learnerService.findAllTopicStudy('c2229cc2-cbe1-11ed-b9d3-002248eb7c8a');
+  const topiclist = temp[0]
+  res.render('vwLearner/topic', {
+    topic: topiclist,
+  });
+})
 export default router;

@@ -11,6 +11,7 @@ export default function (app) {
     })
   })
 
+
   app.use('/', learnerRoute)
   app.use('/admin', adminRoute)
 
