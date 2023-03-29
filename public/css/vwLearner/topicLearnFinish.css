@@ -1,0 +1,66 @@
+body {
+  background-image: url("/public/img/background/flashcard_background.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 45%;
+  min-height: 100vh;
+  /* margin: auto; */
+  background-color: rgba(216, 216, 216, 0.5);
+}
+
+.flipper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 400px;
+  width: 100%;
+}
+
+.flashcard {
+  width: 60%;
+  height: 90%;
+  border: 5px solid #74a12e;
+  border-radius: 2.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.front {
+  background-color: white;
+}
+
+#msg {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.img {
+    height: 100%;
+    width: 100%;
+}
+
+#btn-next,
+#btn-back {
+  background-color: #00ff00;
+  border: 1px solid #74a12e;
+  border-radius: 2.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  width: 12.5rem;
+  margin: 0.5rem;
+}
+
+.font {
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
