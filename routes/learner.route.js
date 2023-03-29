@@ -1,7 +1,7 @@
 import express from "express";
 import learnerService from "../services/learner.service.js";
 import bodyParser from 'body-parser';
-import { v4 } from 'uuid'
+import { v4 } from 'uuid';
 const router = express.Router();
 
 router.get("/topic/:id", async (req, res) => {
