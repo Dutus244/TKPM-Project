@@ -1,6 +1,9 @@
 import express from 'express';
 
 import activate_session from './middlewares/session.mdw.js';
+// // Xóa 2 dòng sau nếu uncomment dòng trên
+// import * as dotenv from 'dotenv'
+// dotenv.config()
 import activate_views from './middlewares/view.mdw.js';
 import activate_resLocals from './middlewares/locals.mdw.js';
 import activate_routes from './middlewares/routes.mdw.js';
@@ -18,7 +21,7 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-activate_session(app);
+// activate_session(app);
 activate_views(app, __dirname);
 activate_resLocals(app);
 activate_routes(app);
