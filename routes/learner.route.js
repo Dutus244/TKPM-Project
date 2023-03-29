@@ -41,8 +41,6 @@ router.get('/topic/test/:id', async function (req, res) {
 router.post('/topic/test/submit-answers', async function (req, res) {
   const userAnswers = await req.body;
   const id = v4()
-  console.log("Hello")
-  console.log(userAnswers)
   // const testhistory = {
   //   testid: id,
   //   userid: "c2229cc2-cbe1-11ed-b9d3-002248eb7c8a",
