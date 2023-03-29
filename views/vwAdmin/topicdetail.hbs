@@ -21,12 +21,17 @@
       {{else}}
         <div class="wordcount">Total words: 0</div>
       {{/if}}
+      {{#ifEquals this.num 10}}
+      
+      {{else}}
       <a href="/admin/addword/{{this.topic.[0].topicid}}">
-        <br>
+      <br>
         <button type="button" class="btnAdd">
           Add
         </button>
       </a>
+      {{/ifEquals}}
+        
     </div>
     <div class="tests">
       <div class="testcount">Tests</div>

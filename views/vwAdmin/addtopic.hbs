@@ -44,13 +44,13 @@
         e.preventDefault();
 
         const topicname = $('#txtTopicname').val();
-        if (topicname.length === 0) {
+        if (!topicname.length) {
             alert('Xin hãy nhập tên topic')
             return
         }
 
         const img = $('#fuMain').val();
-        if (img.length === 0) {
+        if (!img.length) {
             alert('Xin hãy upload ảnh')
             return
         }

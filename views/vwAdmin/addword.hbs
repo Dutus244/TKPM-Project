@@ -43,61 +43,61 @@
      $('#frmRegister').on('submit', function (e){
         e.preventDefault();
         const wordname = $('#txtWordname').val();
-        if (wordname.length === 0) {
+        if (!wordname.length) {
             alert('Xin hãy nhập tên từ')
             return
         }
 
         const img = $('#fuMain').val();
-        if (img.length === 0) {
+        if (!img.length) {
             alert('Xin hãy upload ảnh')
             return
         }
 
         const wordmeaning = $('#txtWordmeaning').val();
-        if (wordmeaning.length === 0) {
+        if (!wordmeaning.length) {
             alert('Xin hãy nhập nghĩa từ')
             return
         }
 
         const wordpronounce = $('#txtWordpronounce').val();
-        if (wordpronounce.length === 0) {
+        if (!wordpronounce.length) {
             alert('Xin hãy nhập phiên âm từ')
             return
         }
 
         const wordexample = $('#txtWordexample').val();
-        if (wordexample.length === 0) {
+        if (!wordexample.length) {
             alert('Xin hãy nhập ví dụ câu')
             return
         }
 
         const question = $('#txtQuestion').val();
-        if (question.length === 0) {
+        if (!question.length) {
             alert('Xin hãy nhập câu hỏi')
             return
         }
 
         const optionA = $('#txtOptionA').val();
-        if (optionA.length === 0) {
+        if (!optionA.length) {
             alert('Xin hãy nhập option A')
             return
         }
 
         const optionB = $('#txtOptionB').val();
-        if (optionB.length === 0) {
+        if (!optionB.length) {
             alert('Xin hãy nhập option B')
             return
         }
 
         const optionC = $('#txtOptionC').val();
-        if (optionC.length === 0) {
+        if (!optionC.length) {
             alert('Xin hãy nhập option C')
             return
         }
 
         const optionD = $('#txtOptionD').val();
-        if (optionD.length === 0) {
+        if (!optionD.length) {
             alert('Xin hãy nhập option D')
             return
         }
