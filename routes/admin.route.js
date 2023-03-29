@@ -22,13 +22,11 @@ router.get('/topicdetail/:id', async function (req, res) {
     const word = await adminServices.countWords(topicid)
     const test = await adminServices.getTest(topicid)
 
-    console.log(topicname[0].topicname)
-
     res.render('vwAdmin/topicdetail', {
         topicname: topicname[0].topicname,
-        topic: topic,
+        topic,
         num: word,
-        test: test
+        test
     })
 })
 
