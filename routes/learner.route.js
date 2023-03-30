@@ -3,6 +3,7 @@ import learnerService from "../services/learner.service.js";
 import bodyParser from 'body-parser';
 import { v4 } from 'uuid';
 const router = express.Router();
+router.use(bodyParser.json());
 
 router.get("/topic/:id", async (req, res) => {
   const id = req.params.id;
@@ -31,11 +32,10 @@ router.get('/topic/test/:id', async function (req, res) {
   const topicid = req.params.id
   const listQuestion = await learnerService.findAllQuestionsTopic(topicid)
   res.render('vwLearner/topicTest', {
-    topicId: topicid,
+    topicid: topicid,
     question: listQuestion
   });
 });
-
 
 router.post('/topic/test/submit-answers', async function (req, res) {
   const userAnswers = await req.body;
@@ -55,6 +55,9 @@ router.post('/topic/test/submit-answers', async function (req, res) {
   //   const resdetail = await UserService.addTestHistoryDetail(testhistorydetail)
   // }
   // Process the user's answers and send a response
+  res.render("vwLearner/topicTestFinish", {
+    topicId: id,
+  })
 });
 
 router.get('/topic', async function (req, res) {
