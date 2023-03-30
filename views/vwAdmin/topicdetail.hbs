@@ -24,7 +24,7 @@
       {{#ifEquals this.num 10}}
       
       {{else}}
-      <a href="/admin/addword/{{this.topic.[0].topicid}}">
+      <a href="/admin/addword/{{this.topicid}}">
       <br>
         <button type="button" class="btnAdd">
           Add
@@ -41,10 +41,6 @@
         </button>
       {{else}}
         Chưa có bài test
-        <br>
-        <button type="button" class="btnAdd">
-          Add
-        </button>
       {{/if}}
     </div>
     <div class="buttongroup">

@@ -23,6 +23,7 @@ router.get('/topicdetail/:id', async function (req, res) {
     const test = await adminServices.getTest(topicid)
 
     res.render('vwAdmin/topicdetail', {
+        topicid,
         topicname: topicname[0].topicname,
         topic,
         num: word,
@@ -54,7 +55,7 @@ router.post('/addword/:id', async function (req, res){
     upload.array('fuMain', 1)(req, res, async function (err){
 
         const topicid = req.params.id
-        const imagelink = '/public/img/flashcard' + id + '.png'
+        const imagelink = '/public/img/flashcard/' + id + '.png'
 
         const {wordname, wordtype, wordmeaning, wordpronounce, wordexample} = req.body;
 
@@ -66,7 +67,8 @@ router.post('/addword/:id', async function (req, res){
             wordmeaning,
             wordpronounce,
             wordexample,
-            wordavatar: imagelink
+            wordavatar: imagelink,
+            isdelete: 0,
         }
 
         const {question, optionA, optionB, optionC, optionD} = req.body;
@@ -76,11 +78,25 @@ router.post('/addword/:id', async function (req, res){
             optiona: optionA,
             optionb: optionB,
             optionc: optionC,
-            optiond: optionD
+            optiond: optionD,
+            answer: id,
+            isdelete: 0
         }
 
         await adminServices.addWord(word)
         await adminServices.addQuestion(test)
+
+        const topicname = await adminServices.getTopicName(topicid)
+        const topic = await adminServices.getTopicDetail(topicid)
+        const num = await adminServices.countWords(topicid)
+        const tst = await adminServices.getTest(topicid)
+        res.render('vwAdmin/topicdetail', {
+            topicid,
+            topicname: topicname[0].topicname,
+            topic,
+            num,
+            test: tst
+        })
         if (err || err instanceof multer.MulterError) {
             // A Multer error occurred when uploading.
             // or an unknown error occurred when uploading.
@@ -130,9 +146,22 @@ router.post('/addtopic', async function (req, res){
             topicid: id,
             topicname,
             topicavatar: imagelink,
+            isdelete: 0
         }
 
         await adminServices.add(topic)
+
+        const topiclist = await adminServices.findAllTopic();
+        if (topiclist.length == 0) {
+        res.status(404).render("404", {
+            layout: false,
+        });
+        }
+        // console.log(topiclist);
+    
+        res.render('vwAdmin/topiclist', {
+        topics: JSON.stringify(topiclist)
+        });
         if (err || err instanceof multer.MulterError) {
             // A Multer error occurred when uploading.
             // or an unknown error occurred when uploading.
