@@ -1,19 +1,70 @@
 body {
-  background-image: url("/public/img/background/flashcard_background.jpg");
+  background-image: url("/public/img/background/flashcard_background.png");
   background-size: cover;
   background-position: center;
 }
 
-.flashcard-container {
+.container-fluid {
+  min-height: 100vh;
+  perspective: 1000px;
+}
+
+.col-sm-8 {
+  /* background-color: aliceblue; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.flip-card {
+  background-color: transparent;
+  width: 350px;
+  height: 450px;
   perspective: 1000px;
-  width: 45%;
-  min-height: 100vh;
-  margin: auto;
-  background-color: rgba(216, 216, 216, 0.5);
+}
+
+.flip-card:hover {
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 5px solid #AFD3D2;
+  border-radius: 2.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.flip-card-front {
+  background-color: white;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: white;
+  transform: rotateY(180deg);
+  pointer-events: all; /* Allow the back face to receive events */
+}
+
+.flip-card-back * {
+  pointer-events: all; /* Allow the back face to receive events */
 }
 
 .progress {
@@ -21,54 +72,13 @@ body {
   height: 1.75rem;
   margin: 1.8rem 0px;
   border-radius: 1rem;
+  border: #74a12e solid 2px;
   background-color: white;
 }
 
 .progress-bar {
   width: 0%;
   background: linear-gradient(to right, greenyellow, #00FF00);
-}
-
-.flipper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: 0.6s;
-  height: 450px;
-  width: 100%;
-}
-
-.front,
-.back {
-  backface-visibility: hidden;
-  position: absolute;
-  background-color: white;
-}
-
-.back {
-  transform: rotateY(180deg);
-  pointer-events: all; /* Allow the back face to receive events */
-}
-
-.back * {
-  pointer-events: all; /* Allow the back face to receive events */
-}
-
-.flashcard {
-  width: 60%;
-  height: 90%;
-  border: 5px solid #74a12e;
-  border-radius: 2.5rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.flashcard:hover {
-  cursor: pointer;
 }
 
 .word {
@@ -86,8 +96,8 @@ body {
 }
 
 .flashcard-img {
-  width: auto;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   padding: 1rem;
 }
 
@@ -95,21 +105,24 @@ body {
   font-size: 1.2rem;
 }
 
-.center-img {
-  text-align: center;
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  padding-top: 2rem;
 }
 
 #btn-next,
 #btn-back {
-  background-color: #00FF00;
-  border: 1px solid #74a12e;
+  background-color: #F4DF89;
+  border: 1px solid #F4DF89;
   border-radius: 2.5rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 0.5rem;
   font-size: 1.5rem;
+  font-weight: bold;
   width: 12.5rem;
 }
 
-.font {
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
+/* .font {
+  font-family: sans-serif;
+} */
