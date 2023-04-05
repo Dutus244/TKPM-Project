@@ -1,5 +1,5 @@
 body {
-    background-image: url("/public/img/background/flashcard_background.jpg");
+    background-image: url("/public/img/background/flashcard_background.png");
     background-size: cover;
     background-position: center;
 }
@@ -14,14 +14,14 @@ body {
     perspective: 1000px;
     width: 45vw;
     height: 100vh;
-    background-color: rgba(216, 216, 216, 0.5);
+    background-color: rgb(62, 78, 100);
 
 }
 a:hover,a:visited,a:active,a:link{
     font-weight: bold;
     text-decoration-color: black;
     text-decoration: none;
-    color:black;
+    color:white;
     padding: 2px;
     box-shadow: 5px 7px grey;
     margin-bottom: 20px;
@@ -33,6 +33,7 @@ a:hover,a:visited,a:active,a:link{
     height: fit-content;
     width: fit-content;
     text-decoration-color: black;
+    background-color: #556d8d;
 }
 a:hover{
     font-weight: bold;

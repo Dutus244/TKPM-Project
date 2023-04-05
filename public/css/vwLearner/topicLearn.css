@@ -1,5 +1,5 @@
 body {
-  background-image: url("/public/img/background/flashcard_background.jpg");
+  background-image: url("/public/img/background/flashcard_background.png");
   background-size: cover;
   background-position: center;
 }
@@ -13,7 +13,6 @@ body {
   width: 45%;
   min-height: 100vh;
   margin: auto;
-  background-color: rgba(216, 216, 216, 0.5);
 }
 
 .progress {
@@ -59,7 +58,7 @@ body {
 .flashcard {
   width: 60%;
   height: 90%;
-  border: 5px solid #74a12e;
+  border: 5px solid #9cd4d3;
   border-radius: 2.5rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   display: flex;
@@ -101,8 +100,8 @@ body {
 
 #btn-next,
 #btn-back {
-  background-color: #00FF00;
-  border: 1px solid #74a12e;
+  background-color: #f4df89;
+  border: 1px solid #f4df89;
   border-radius: 2.5rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 0.5rem;
