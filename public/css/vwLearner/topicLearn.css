@@ -151,8 +151,12 @@ body {
   }
 
   .flashcard-img {
-    width: 100px;
-    height: 100px;
+    width: 175px;
+    height: 175px;
     padding: 1rem;
+  }
+
+  .example {
+    font-size: 1rem;
   }
 }
