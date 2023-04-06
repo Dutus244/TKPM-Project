@@ -25,12 +25,23 @@ CREATE TABLE achives (
     PRIMARY KEY(UserID,Days)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+DROP TABLE IF EXISTS categories;
+CREATE TABLE categories (
+	CategoryID varchar(36) NOT NULL,
+    CategoryName varchar(100) COLLATE utf8_general_ci NOT NULL UNIQUE,
+    CategoryAvatar text,
+    IsDelete bool,
+    PRIMARY KEY(CategoryID)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
 DROP TABLE IF EXISTS topics;
 CREATE TABLE topics (
 	TopicID varchar(36) NOT NULL,
     TopicName varchar(100) COLLATE utf8_general_ci NOT NULL UNIQUE,
     TopicAvatar text,
+    CategoryID varchar(36) NOT NULL,
     IsDelete bool,
+    FOREIGN KEY (CategoryID) REFERENCES categories(CategoryID),
     PRIMARY KEY(TopicID)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -70,34 +81,41 @@ CREATE TABLE multipleChoiceQuestions (
     OptionB  varchar(50) COLLATE utf8_general_ci,
     OptionC  varchar(50) COLLATE utf8_general_ci,
     OptionD  varchar(50) COLLATE utf8_general_ci,
-    Answer varchar(36),
+    Answer varchar(50) COLLATE utf8_general_ci,
+    WordID varchar(36) NOT NULL,
+    QuestionAvatar text,
     IsDelete bool,
-	FOREIGN KEY (Answer) REFERENCES words(WordID),
+	FOREIGN KEY (WordID) REFERENCES words(WordID),
     PRIMARY KEY(QuestionID)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+DROP TABLE IF EXISTS  topicHistory;
+CREATE TABLE topicHistory (
+	TopicID  varchar(36) NOT NULL,
+    UserID varchar(36) NOT NULL,
+    CreateTime datetime,
+    FOREIGN KEY (TopicID) REFERENCES topics(TopicID),
+    FOREIGN KEY (UserID) REFERENCES users(UserID),
+    PRIMARY KEY(TopicID,UserID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 DROP TABLE IF EXISTS  testHistory;
 CREATE TABLE testHistory (
 	TestID  varchar(36) NOT NULL,
     UserID varchar(36) NOT NULL,
+    TopicID varchar(36) NOT NULL,
     CreateTime datetime,
     FOREIGN KEY (UserID) REFERENCES users(UserID),
-    PRIMARY KEY(TestID)
+    FOREIGN KEY (TopicID) REFERENCES topics(TopicID),
+    PRIMARY KEY(TestID,UserID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 DROP TABLE IF EXISTS  testHistoryDetail;
 CREATE TABLE testHistoryDetail (
 	TestID  varchar(36) NOT NULL,
 	QuestionID  varchar(36) NOT NULL,
-    UserChoose varchar(1),
+    UserChoose varchar(50) COLLATE utf8_general_ci,
 	FOREIGN KEY (TestID) REFERENCES testHistory(TestID),
     FOREIGN KEY (QuestionID) REFERENCES multipleChoiceQuestions(QuestionID),
-    PRIMARY KEY(TestID)
+    PRIMARY KEY(TestID,QuestionID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
-insert into topics value('bfc3143a-cb2d-11ed-afa1-0242ac120002','Animal 1','',0);
-
-insert into words values('e1c23250-cb2d-11ed-afa1-0242ac120002','Cat','Noun','Con mèo','','The cat in the house','','bfc3143a-cb2d-11ed-afa1-0242ac120002',0);
-insert into words values('e1c23566-cb2d-11ed-afa1-0242ac120002','Dog','Noun','Con chó','','The dog in the house','','bfc3143a-cb2d-11ed-afa1-0242ac120002',0);
-insert into words values('e1c23822-cb2d-11ed-afa1-0242ac120002','Cow','Noun','Con bò','','The cow in the house','','bfc3143a-cb2d-11ed-afa1-0242ac120002',0);
-insert into words values('e1c239c6-cb2d-11ed-afa1-0242ac120002','Sheep','Noun','Con cừu','','The sheep in the house','','bfc3143a-cb2d-11ed-afa1-0242ac120002',0);
