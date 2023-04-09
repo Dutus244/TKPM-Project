@@ -1,0 +1,30 @@
+{{#section 'js'}}
+{{/section}}
+
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/css/vwAccount/register.css">
+{{/section}}
+
+
+<div class="container-fluid">
+  <form id="login-form" method="post">
+    <div class="form-div">
+      {{!-- <p class="title">LOG IN</p> --}}
+
+      <div class="input-group">
+        <label class="form-label" for="username"></label>
+        <input class="input" type="text" name="username" id="username" placeholder="Username">
+        <label for="password"></label>
+        <input class="input" type="password" name="password" id="password" placeholder="Password">
+        <label for="confirm-password"></label>
+        <input class="input" type="password" name="confirm-password" id="confirm-password"
+          placeholder="Confirm password">
+      </div>
+
+      <button class="login-btn" type="submit" form="login-form">REGISTER</button>
+      <div class="info_div">
+        <p>Already have an account? <a href="/login">Log in</a></p>
+      </div>
+    </div>
+  </form>
+</div>
