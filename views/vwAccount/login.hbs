@@ -1,7 +1,7 @@
 {{#section 'js'}}
 <script>
   $(document).ready(function () {
-    $('#login-form').on('submit', function(e) {
+    $('#login-form').on('submit', function (e) {
       e.preventDefault()
 
       const username = $('#username').val()
@@ -15,6 +15,8 @@
         alert('Please fill in password')
         return
       }
+
+      $('#login-form').off('submit').submit();
     })
   })
 </script>
@@ -26,9 +28,17 @@
 
 
 <div class="container-fluid">
+  {{#if err_msg}}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{err_msg}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {{/if}}
+
   <form id="login-form" method="post">
     <div class="form-div">
-      {{!-- <p class="title">LOG IN</p> --}}
 
       <div class="input-group">
         <label class="form-label" for="username"></label>
