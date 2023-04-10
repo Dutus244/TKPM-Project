@@ -5,19 +5,19 @@
       e.preventDefault()
 
       const username = $('#username').val()
-      if (username.length === 0) {
+      if (!username.length) {
         alert("Please fill in username")
         return
       }
 
       const password = $('#password').val()
-      if (password.length === 0) {
+      if (!password.length) {
         alert('Please fill in password')
         return
       }
 
       const confirm_password = $('#confirm-password').val()
-      if (confirm_password.length === 0) {
+      if (!confirm_password.length) {
         alert('Please fill in confirm password')
         return
       }
@@ -29,7 +29,7 @@
       }
 
       $.getJSON(`/account/is-available?username=${username}`, function (data) {
-        if (data === false) {
+        if (!data) {
           alert(`${username} is not available`)
         } else {
           $('#register-form').off('submit').submit();
