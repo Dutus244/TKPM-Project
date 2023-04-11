@@ -14,6 +14,22 @@
     /*margin-bottom: 20px;*/
     /*padding-top: 30px;*/
 }
+.btn{
+    border-color: #F4DF89;
+    border-radius: 10%;
+    border-width: 1px;
+    background-color:#F4DF89 ;
+}
+.searchinput{
+    border-width: 1px;
+    border-color: black;
+
+}
+.categorycard{
+    border-width: 2px;
+    border-color: #AACDAF;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
 .row{
     width: 70%;
 }
