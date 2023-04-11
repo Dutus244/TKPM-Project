@@ -23,10 +23,6 @@ body {
   perspective: 1000px;
 }
 
-.flip-card:hover {
-  cursor: pointer;
-}
-
 .flip-card-inner {
   position: relative;
   width: 100%;
@@ -36,8 +32,7 @@ body {
   transform-style: preserve-3d;
 }
 
-.flip-card-front,
-.flip-card-back {
+.flip-card-front {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -47,7 +42,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 5px solid #afd3d2;
+  border: 5px solid #AFD3D2;
   border-radius: 2.5rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -57,73 +52,33 @@ body {
   color: black;
 }
 
-.flip-card-back {
-  background-color: white;
-  transform: rotateY(180deg);
-  pointer-events: all; /* Allow the back face to receive events */
-}
-
-.flip-card-back * {
-  pointer-events: all; /* Allow the back face to receive events */
-}
-
-.progress {
-  width: 80%;
-  height: 1.75rem;
-  margin: 1.8rem 0px;
-  border-radius: 1rem;
-  border: #afd3d2 solid 2px;
-  background-color: white;
-}
-
-.progress-bar {
-  width: 0%;
-  background: linear-gradient(to right, greenyellow, #00ff00);
-}
-
-.word {
-  font-size: 2.5rem;
-  font-weight: bold;
-}
-
-.phonetic {
-  font-size: 1.2rem;
-}
-
-.meaning {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
 .flashcard-img {
-  width: 250px;
-  height: 250px;
+  width: 100%;
+  height: 100%;
   padding: 1rem;
-}
-
-.example {
-  font-size: 1.2rem;
 }
 
 .btn-group {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
   gap: 1rem;
   padding-top: 2rem;
 }
 
 #btn-next,
 #btn-back {
-  background-color: #f4df89;
-  border: 1px solid #f4df89;
+  background-color: #F4DF89;
+  border: 1px solid #F4DF89;
   border-radius: 2.5rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 0.5rem;
   font-size: 1.5rem;
   font-weight: bold;
-  width: 11rem;
+  width: 12.5rem;
+}
+
+#msg {
+  font-size: 1.7rem;
+  font-weight: bold;
 }
 
 .font {
@@ -150,13 +105,4 @@ body {
     width: 8rem;
   }
 
-  .flashcard-img {
-    width: 175px;
-    height: 175px;
-    padding: 1rem;
-  }
-
-  .example {
-    font-size: 1rem;
-  }
 }
