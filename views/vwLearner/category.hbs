@@ -1,0 +1,111 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="/public/CSS/vwLearner/category.css">
+{{/section}}
+
+{{#section 'js'}}
+    <script>
+    </script>
+{{/section}}
+<div class="container">
+    <div id="title" class="card w-75 border-0" >
+        <div id="title_content"><h1 > Category </h1></div>
+        <div id="searchbar">
+            <form>
+            <div class="form-row w-100">
+                <div class="col-10">
+                        <input
+                                class='form-control mr-sm-2 w-100 rounded-pill'
+                                type='search'
+                                placeholder='Search for anything'
+                                name="category"
+                                aria-label='Search'
+                        />
+                </div>
+                <div class="col-2">
+                    <button
+                            class='btn btn-outline-success w-20 my-2 my-sm-0 inline form-control'
+                            type='submit'
+                            formaction="/course/search"
+                    >Search
+                        <i class='fa fa-search' aria-hidden='true'></i></button>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row w-100" >
+            <div class ="col col-3 mt-3">
+                <div class="card border-success"  >
+                    <img src="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg" class="card-img-top" alt="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class ="col col-3 mt-3">
+                <div class="card border-success"  >
+                    <img src="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg" class="card-img-top" alt="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class ="col col-3 mt-3">
+                <div class="card border-success"  >
+                    <img src="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg" class="card-img-top" alt="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class ="col col-3 mt-3">
+                <div class="card border-success"  >
+                    <img src="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg" class="card-img-top" alt="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class ="col col-3 mt-3">
+                <div class="card border-success"  >
+                    <img src="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg" class="card-img-top" alt="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="card-footer text-muted w-100">
+        <nav class="d-flex flex-row-reverse bd-highlight">
+            <ul class="pagination">
+                <li class="page-item {{#if this.prePage}}{{else}}disabled{{/if}} ">
+                    <a class="page-link" href="?page={{this.prePage}}">Previous</a>
+                </li>
+                {{#each pageNumber}}
+                    <li class="page-item {{#if isCurrent}}active{{/if}}"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+                {{/each}}
+                </li>
+                <li class="page-item  {{#if this.nextPage}}{{else}}disabled{{/if}} "><a class="page-link" href="?page={{this.nextPage}}">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
