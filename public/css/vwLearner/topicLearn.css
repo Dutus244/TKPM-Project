@@ -78,7 +78,7 @@ body {
 
 .progress-bar {
   width: 0%;
-  background: linear-gradient(to right, greenyellow, #00ff00);
+  background: linear-gradient(to right, #AACDAF, #71ACA9);
 }
 
 .word {
