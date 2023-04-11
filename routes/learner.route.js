@@ -8,11 +8,11 @@ router.use(bodyParser.json());
 router.get("/topic/:id", async (req, res) => {
   const id = req.params.id;
   const wordlist = await learnerService.findAllTopicWord(id);
-  // if (wordlist.length == 0) {
-  //   res.status(404).render("404", {
-  //     layout: false,
-  //   });
-  // }
+  if (wordlist.length == 0) {
+    res.status(404).render("404", {
+      layout: false,
+    });
+  }
 
   res.render("vwLearner/topicLearn", {
     words: JSON.stringify(wordlist),
