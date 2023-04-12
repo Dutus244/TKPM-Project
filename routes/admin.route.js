@@ -31,6 +31,36 @@ router.get('/topicdetail/:id', async function (req, res) {
     })
 })
 
+router.get('/addquestion/:id', async function (req, res){
+    const topicid = req.params.id
+    const wordlist = await adminServices.getWords(topicid)
+    res.render('vwAdmin/addquestion',{
+        topicid,
+        wordlist,
+    })
+})
+
+router.post('/addquestion/:id', async function (req, res){
+    const id = v4()
+
+    const word = req.body.word;
+    console.log(word)
+
+    const {question, optiona, optionb, optionc, optiond} = req.body;
+        const test={
+            questionid: id,
+            question,
+            optiona,
+            optionb,
+            optionc,
+            optiond,
+            answer: optiona,
+            isdelete: 0
+        }
+    console.log(test)
+    //await adminServices.addQuestion(test)
+})
+
 router.get('/addword/:id', async function (req, res){
     const topicid = req.params.id
     res.render('vwAdmin/addword',{
@@ -40,7 +70,6 @@ router.get('/addword/:id', async function (req, res){
 
 router.post('/addword/:id', async function (req, res){
     const id = v4()
-    const qid = v4()
 
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -71,20 +100,7 @@ router.post('/addword/:id', async function (req, res){
             isdelete: 0,
         }
 
-        const {question, optionA, optionB, optionC, optionD} = req.body;
-        const test={
-            questionid: qid,
-            question,
-            optiona: optionA,
-            optionb: optionB,
-            optionc: optionC,
-            optiond: optionD,
-            answer: id,
-            isdelete: 0
-        }
-
         await adminServices.addWord(word)
-        await adminServices.addQuestion(test)
 
         const topicname = await adminServices.getTopicName(topicid)
         const topic = await adminServices.getTopicDetail(topicid)

@@ -4,12 +4,13 @@ main{
     justify-content: center;
     background-color: whitesmoke;
     position: relative;
+    height: 100vh;
 }
 
 
 h4.card-header{
-    background-color: #27c13e;
-    color:whitesmoke;
+    background-color: #AACDAF;
+    color:black;
     font-weight: bold;
     text-align: center;
     letter-spacing: .2rem;
@@ -22,6 +23,18 @@ h4.question-header{
     text-align: center;
     letter-spacing: .2rem;
     padding: 15px;
+}
+
+.btn-primary{
+    background-color: #f4df89;
+    border-color: #f4df89;
+    color:black;
+}
+
+.btn-primary:hover{
+    background-color: #f69105;
+    border-color: #f69105;
+    color:white;
 }
 
 .questionsect{

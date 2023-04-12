@@ -44,6 +44,15 @@ export default{
         return list[0].amount
     },
 
+    async getWords(id){
+        const list = await db
+            .select('wordid', 'wordname')
+            .from('words')
+            .join('topics', 'words.topicid','topics.topicid')
+            .where('topics.topicid', id);
+        return list
+    },
+
     async addWord(entity){
         return await db('words').insert(entity);
     },
