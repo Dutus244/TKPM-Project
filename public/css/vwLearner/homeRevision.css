@@ -1,0 +1,123 @@
+.container-fluid {
+  min-height: 100vh;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+  /* display: grid;
+  place-items: center; */
+}
+
+.chart {
+  background-color: antiquewhite;
+  height: 400px;
+  width: 100%;
+  display: flex;
+  padding: 0 10px 0 10px;
+  gap: 20px;
+}
+
+.chart-header {
+  background-color: gray;
+  height: 10px;
+  display: flex;
+}
+
+.level-1,
+.level-2,
+.level-3,
+.level-4 {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.word-count {
+  align-self: center;
+  height: auto;
+  font-family: "Sriracha";
+  font-size: 1.2rem;
+}
+
+.bar {
+  height: 90%;
+  flex: 1 1 auto;
+  background-color: aqua;
+  border-radius: 25px 25px 0 0;
+}
+
+.chart-foot {
+  background-color: gray;
+  height: 10px;
+  width: 100%;
+}
+
+.level-text {
+    display: flex;
+    width: 100%;
+}
+
+.level-1-text,
+.level-2-text,
+.level-3-text,
+.level-4-text {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-family: "Sriracha";
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (min-width: 600px) {
+  .chart {
+    width: 70%;
+  }
+  .chart-foot {
+    width: 70%;
+  }
+  .level-text {
+    width: 70%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .chart {
+    width: 50%;
+  }
+  .chart-foot {
+    width: 50%;
+  }
+  .level-text {
+    width: 50%;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .chart {
+    width: 40%;
+  }
+  .chart-foot {
+    width: 40%;
+  }
+  .level-text {
+    width: 40%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .chart {
+    width: 35%;
+  }
+  .chart-foot {
+    width: 35%;
+  }
+  .level-text {
+    width: 35%;
+  }
+}

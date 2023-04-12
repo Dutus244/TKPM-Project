@@ -5,7 +5,13 @@ import { v4 } from 'uuid';
 const router = express.Router();
 router.use(bodyParser.json());
 
-router.get("/topic/:id", async (req, res) => {
+router.get('/revision', async function(req, res) {
+  res.render('vwLearner/homeRevision', {
+    
+  })
+})
+
+router.get("/topic/:id", async function(req, res) {
   const id = req.params.id;
   const wordlist = await learnerService.findAllTopicWord(id);
   // if (wordlist.length == 0) {
@@ -20,7 +26,7 @@ router.get("/topic/:id", async (req, res) => {
   });
 });
 
-router.get("/topic/:id/finish", async(req, res) => {
+router.get("/topic/:id/finish", async function(req, res) {
   const id = req.params.id
 
   res.render("vwLearner/topicLearnFinish", {
