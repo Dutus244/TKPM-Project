@@ -71,7 +71,7 @@ router.get('/topiclist/:category_id', async function (req, res) {
   const category_id = req.params.category_id;
   const temp = await learnerService.findAllTopicStudy(category_id);
   const topiclist = temp[0]
-  console.log('topicist',topiclist)
+  console.log(topiclist)
   res.render('vwLearner/topic', {
     topic: topiclist,
   });
