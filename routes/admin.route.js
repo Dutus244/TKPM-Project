@@ -43,7 +43,7 @@ router.get('/addquestion/:id', async function (req, res){
 router.post('/addquestion/:id', async function (req, res){
     const id = v4()
 
-    const word = req.body.word;
+    const word = req.body;
     console.log(word)
 
     const {question, optiona, optionb, optionc, optiond} = req.body;
