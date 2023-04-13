@@ -1,3 +1,43 @@
+{{#section 'js'}}
+<script>
+const topicdetail = {{{topic}}}
+const wordlist = {{{word}}}
+const testlist = {{{test}}}
+  
+$(document).ready(function() {
+  $('#topicname').text(topicdetail.topicname);
+  console.log(topicdetail.topicavatar)
+  $('#avatarsrc').attr('src', "/public/img/bfc3143a-cb2d-11ed-afa1-0242ac120002.jpg");
+  $('#wordcount').text("Total words: "+ wordlist.length);
+
+  const wordcontainer = $('.wordcontainer')
+  wordlist.forEach(function(word) {
+    const li = $('<span>').text(word.wordname);
+    wordcontainer.append(li);
+  });
+
+  $('#btnAddWord').attr('href', "/admin/addword/" + topicdetail.topicid);
+
+  const testcontainer = $('.testcontainer')
+  if(testlist.length == 0) {
+    const testEmptyDiv = $('<div>').text('Test is empty');
+    const addTestButton = $('<button>').attr('type', 'button').addClass('btnAdd').text('Add');
+    addTestButton.on('click', function() {
+      window.location.href = '/admin/addTest/' + topic.TopicID;
+    });
+    testcontainer.append(testEmptyDiv);
+    testcontainer.append(addTestButton);
+  } else {
+    const reviewTestButton = $('<button>').attr('type', 'button').addClass('btnReview').text('Review');
+    reviewTestButton.on('click', function() {
+      window.location.href = '/admin/review/' + topic.TopicID;
+    });
+    testcontainer.append(reviewTestButton);
+  }
+});
+</script>
+{{/section}}
+
 {{#section 'css'}}
 <link rel="stylesheet" href="/public/CSS/admin/topicdetail.css">
 <link rel="stylesheet"
@@ -8,40 +48,31 @@
 
 {{/section}}
 
-
 <main>
   <div class="container">
-    <div id="topicname">{{topicname}}</div>
+    <div id="topicname">topicname</div>
+    <div class="avatar">
+      <div class="avatarname">Image avatar</div>
+      <img id="avatarsrc" src="/public/img/background/flashcard_background.png">
+      {{!-- <img src="/public/img/background/pepe_ok.jpg"> --}}
+      <button type="button" class="btnEdit">
+          Edit
+        </button>
+    </div>
     <div class="words">
-      {{#if this.num}}
-        <div class="wordcount">Total words: {{this.num}}</div>
-        {{#each this.topic}}
-          <span>{{wordname}}</span>
-        {{/each}}
-      {{else}}
-        <div class="wordcount">Total words: 0</div>
-      {{/if}}
-      {{#ifEquals this.num 10}}
-      
-      {{else}}
-      <a href="/admin/addword/{{this.topicid}}">
+      <div id="wordcount" class="wordcount">Total words: 0</div>
+      <div class="wordcontainer"></div>
+      <a id="btnAddWord" href="/admin/addword/3068bcf4-d6d6-11ed-afa1-0242ac120002">
       <br>
         <button type="button" class="btnAdd">
           Add
         </button>
       </a>
-      {{/ifEquals}}
         
     </div>
     <div class="tests">
       <div class="testcount">Tests</div>
-      {{#if this.test}}
-        <button type="button" class="btnAdd">
-          Review
-        </button>
-      {{else}}
-        Chưa có bài test
-      {{/if}}
+      <div class="testcontainer"></div>
     </div>
     <div class="buttongroup">
       <button type="button" class="btnDel">

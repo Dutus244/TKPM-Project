@@ -13,6 +13,7 @@ main{
     border-radius: 8px;
     background-color: white;
     box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+    padding-bottom: 0px;
 }
 
 .container > * {
@@ -22,21 +23,58 @@ main{
 #topicname{
     font-size: 2rem;
     font-weight: bold;
-    background-color: #2ee549;
+    background-color: #AACDAF;
     border-radius: .5rem;
     padding-left: 1rem;
+}
+
+.avatarname{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #71ACA9;
+}
+
+.avatar{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border: 2px solid #AACDAF;
+    padding: 20px;
+    padding-top: 0px;
+    border-radius: .5rem;
+}
+
+.avatar img {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 12rem;
+  }
+
+.avatar .btnEdit{
+    margin-top: 10px;
+    display: inline-block;
+    font-size: .9rem;
+    font-weight: bold;
+    color: white;
+    background-color: #71ACA9;
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+    width: 15%;
 }
 
 .wordcount{
     font-size: 1.5rem;
     font-weight: bold;
-    color: #ef5328;
+    color: #71ACA9;
 }
 
 .words{
     margin-bottom: 20px;
-    border: 2px solid #f8aa94;
+    border: 2px solid #AACDAF;
     padding: 20px;
+    padding-top: 0px;
     border-radius: .5rem;
 }
 
@@ -58,7 +96,7 @@ main{
     font-size: .9rem;
     font-weight: bold;
     color: white;
-    background-color: #fd866e;
+    background-color: #71ACA9;
     cursor: pointer;
     padding: .4rem 1.5rem;
     border-radius: .5rem;
@@ -68,13 +106,14 @@ main{
 .testcount{
     font-size: 1.5rem;
     font-weight: bold;
-    color: #feb746;
+    color: #71ACA9;
 }
 
 .tests{
     margin-bottom: 20px;
-    border: 2px solid #ffdfac;
+    border: 2px solid #AACDAF;
     padding: 20px;
+    padding-top: 0px;
     border-radius: .5rem;
 }
 
@@ -97,7 +136,20 @@ main{
     font-size: .9rem;
     font-weight: bold;
     color: white;
-    background-color: #fea71b;
+    background-color: #71ACA9;
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+}
+
+.tests .btnReview{
+    margin-top: 10px;
+    display: inline-block;
+    font-size: .9rem;
+    font-weight: bold;
+    color: white;
+    background-color: #71ACA9;
     cursor: pointer;
     padding: .4rem 1.5rem;
     border-radius: .5rem;
@@ -120,7 +172,7 @@ main{
     font-size: .9rem;
     font-weight: bold;
     color: white;
-    background-color: rgb(23, 98, 249);
+    background-color: #71ACA9;
     cursor: pointer;
     padding: .4rem 1.5rem;
     border-radius: .5rem;

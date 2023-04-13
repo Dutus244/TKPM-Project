@@ -17,17 +17,17 @@ export const config = {
 
 router.get('/topicdetail/:id', async function (req, res) {
     const topicid = req.params.id
-    const topicname = await adminServices.getTopicName(topicid)
-    const topic = await adminServices.getTopicDetail(topicid)
-    const word = await adminServices.countWords(topicid)
-    const test = await adminServices.getTest(topicid)
+
+    const [topic, word, test] = await Promise.all([
+        adminServices.getTopicDetail(topicid),
+        adminServices.getTopicWordList(topicid),
+        adminServices.getTopicTest(topicid)
+      ])
 
     res.render('vwAdmin/topicdetail', {
-        topicid,
-        topicname: topicname[0].topicname,
-        topic,
-        num: word,
-        test
+        topic: JSON.stringify(topic), 
+        word: JSON.stringify(word),
+        test: JSON.stringify(test)
     })
 })
 
