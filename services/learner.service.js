@@ -23,14 +23,35 @@ export default {
   async addTestHistoryDetail(entity) {
     return await db('testhistorydetail').insert(entity);
   },
-  async findAllTopicStudy(id) {
+  async findAllTopicStudy(category,id) {
     return db.raw('select topics.* ,(select count(*)\n' +
         'from topichistory\n' +
         'where topichistory.TopicID = topics.TopicID\n' +
         'and topichistory.userID= "' + id + '"\n' +
+        'and topics.CategoryID= "' + category + '"\n' +
         ') as isRead\n' +
         'from topics'
-
     )
   },
+  async findAllTopicStudy(category) {
+    return db.raw('select topics.* ,(select count(*)\n' +
+        'from topichistory\n' +
+        'where topics.CategoryID= "' + category + '"\n' +
+        ') as isRead\n' +
+        'from topics'
+    )
+  },
+  async findCategory(){
+    return await db('categories').where('IsDelete',0)
+  },
+  async findCategoryByOffetWithLimit(offset, limit){
+    return await db('categories').where('IsDelete',0)
+        .limit(limit)
+        .offset(offset)
+  },
+  async countCategory(){
+    var sql = await db('categories').where('IsDelete',0).count({count: '*'}).first();
+    return sql.count
+  }
+
 }

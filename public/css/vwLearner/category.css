@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
 }
+
 #title {
     /*background-color: #F4DF89;*/
     /*border: 1px;*/
@@ -25,16 +26,28 @@
     border-color: black;
 
 }
-.categorycard{
+a:hover, a:link,a:visited,a:active{
+    text-decoration: none;
+}
+.categorycard,.categorycard:link ,.categorycard:visited ,.categorycard:hover ,.categorycard:active  {
+    color: black;
+    text-decoration: none;
     border-width: 2px;
     border-color: #AACDAF;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
+
 .row{
     width: 70%;
 }
 .card-footer{
     width: 70%;
+}
+.column{
+    width: 25%;
+    margin-top: 3px;
+    padding: 10px;
+    /*col-3 mt-3*/
 }
 .content{
     padding: 30px;
@@ -50,3 +63,66 @@ img{
     border: 1px;
     padding-top: 0px;
 }
+/*@media only screen and (max-width: 600px) {*/
+
+
+/*}*/
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+    .categorycard{
+        width: 100%;
+    }
+    .btn{
+        width: fit-content;
+    }
+    .card-footer{
+        /*visibility: hidden;*/
+    }
+    .card-text{
+        display: none;
+    }
+    img{
+        object-fit: scale-down;
+        padding: 5px;
+        height: 60px;
+        /*position: absolute;*/
+        /*float:left;*/
+    }
+    .categorycard{
+        display: flex;
+        /*align-items: start;*/
+        flex-direction: row;
+        /*justify-content: space-between;*/
+    }
+
+}
+/*.pagination > li > a*/
+/*{*/
+/*    background-color: white;*/
+/*    color: black;*/
+/*}*/
+/*.pagination > li > .selected*/
+/*{*/
+/*    color: #5A4181;*/
+/*    background-color: #5A4181 !Important;*/
+/*    border: solid 1px #5A4181 !Important;*/
+/*}*/
+/*.pagination .page-link { background-color:#1d1d1d !important; border: 1px solid grey; }*/
+.pagination { color:black !important; }
+
+.pagination > .active > a , .pagination > .active > a:hover, .pagination > .active > a:focus {
+    background-color: #AACDAF !important; border-color: #AACDAF !important;
+}
+.pagination > .disactive > a , .pagination > .disactive > a:hover, .pagination > .disactive > a:focus {
+    background-color: white !important;
+    color: black;
+}
+.pagination > .abled > a , .pagination > .abled > a:hover, .pagination > .abled > a:focus {
+    background-color: white !important;
+    color: #AACDAF;
+}
+
+
+

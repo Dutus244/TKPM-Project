@@ -25,7 +25,7 @@
                     <button
                             class='btn inline form-control'
                             type='submit'
-                            formaction="/course/search"
+                            formaction="/category/search"
                     ><strong>Search</strong>
                         <i class='fa fa-search' aria-hidden='true'></i></button>
                 </div>
@@ -35,76 +35,33 @@
     </div>
     <div class="container">
         <div class="row w-100" >
-            <div class ="col col-3 mt-3">
+            {{#each this.category}}
+                <div class ="column">
+                <a href="/topiclist/{{CategoryID}}" class="card">
+
                 <div class="card categorycard"  >
-                    <img src="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg" class="card-img-top" alt="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg">
+                    <img src="{{CategoryAvatar}}" alt="">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
-
+                        <h5 class="card-title">{{CategoryName}}</h5>
+                        <p class="card-text">{{CategoryDes}}</p>
                     </div>
                 </div>
+                </a>
             </div>
-            <div class ="col col-3 mt-3">
-                <div class="card border-success"  >
-                    <img src="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg" class="card-img-top" alt="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
-
-                    </div>
-                </div>
-            </div>
-            <div class ="col col-3 mt-3">
-                <div class="card border-success"  >
-                    <img src="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg" class="card-img-top" alt="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
-
-                    </div>
-                </div>
-            </div>
-            <div class ="col col-3 mt-3">
-                <div class="card border-success"  >
-                    <img src="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg" class="card-img-top" alt="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
-
-                    </div>
-                </div>
-            </div>
-            <div class ="col col-3 mt-3">
-                <div class="card border-success"  >
-                    <img src="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg" class="card-img-top" alt="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
-
-                    </div>
-                </div>
-            </div>
-
-
+            {{/each}}
         </div>
     </div>
     <div class="card-footer text-muted w-100">
         <nav class="d-flex flex-row-reverse bd-highlight">
             <ul class="pagination">
-                <li class="page-item {{#if this.prePage}}{{else}}disabled{{/if}} ">
+                <li class="page-item {{#if this.prePage}}abled{{else}}disabled{{/if}} ">
                     <a class="page-link" href="?page={{this.prePage}}">Previous</a>
                 </li>
                 {{#each pageNumber}}
-                    <li class="page-item {{#if isCurrent}}active{{/if}}"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+                    <li class="page-item {{#if isCurrent}}active{{else}}disactive{{/if}}"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
                 {{/each}}
                 </li>
-                <li class="page-item  {{#if this.nextPage}}{{else}}disabled{{/if}} "><a class="page-link" href="?page={{this.nextPage}}">Next</a></li>
+                <li class="page-item  {{#if this.nextPage}}abled{{else}}disabled{{/if}} "><a class="page-link" href="?page={{this.nextPage}}">Next</a></li>
             </ul>
         </nav>
     </div>

@@ -7,9 +7,10 @@
     </script>
 {{/section}}
 
-<div class ="container" >
-    <div id="header">
-        <div>
+<div class ="container">
+    <div class="row w-100" >
+    <div id="header" class ="column">
+        <div class="d-flex justify-content-center">
             <img class="box" src="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg"  alt="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg">
         </div>
         <div id="description">
@@ -19,7 +20,182 @@
                 Tại chương trình sinh viên sẽ được trải nghiệm một buổi phỏng vấn và được đại diện công ty tư vấn về CV cũng như các thiếu sót cần cải thiện trong quá trình phỏng vấn.</p>
         </div>
     </div>
-    <div>
+    <div id="content" class ="column">
+        <h3>Topic List</h3>
+        <div class="topiccontainer">
+            <div class="subtopiccontainer">
+                <div>
+                    {{#each topic}}
+                        <a href="/topic/{{TopicID}}" class="card"
+                            {{#if isRead}} style ="  background:linear-gradient(to right, greenyellow, #00FF00);"
+                            {{/if}}
+                           role="button" aria-pressed="true">
+                            <div class="row no-gutters"  >
+                                <div class="col-md-4 " style="padding: 4%" >
+                                    <img style="width: 10vh;height: 10vh; border: 2px solid #ddd; border-radius: 50%;"
+                                         src="{{TopicAvatar}}"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8" style="justify-content: center; align-self: center">
+                                    <h3 >{{TopicName}} </h3>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/topic/{{TopicID}}" class="card"
+                            {{#if isRead}} style ="  background:linear-gradient(to right, greenyellow, #00FF00);"
+                            {{/if}}
+                           role="button" aria-pressed="true">
+                            <div class="row no-gutters"  >
+                                <div class="col-md-4 " style="padding: 4%" >
+                                    <img style="width: 10vh;height: 10vh; border: 2px solid #ddd; border-radius: 50%;"
+                                         src="{{TopicAvatar}}"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8" style="justify-content: center; align-self: center">
+                                    <h3 >{{TopicName}} </h3>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/topic/{{TopicID}}" class="card"
+                            {{#if isRead}} style ="  background:linear-gradient(to right, greenyellow, #00FF00);"
+                            {{/if}}
+                           role="button" aria-pressed="true">
+                            <div class="row no-gutters"  >
+                                <div class="col-md-4 " style="padding: 4%" >
+                                    <img style="width: 10vh;height: 10vh; border: 2px solid #ddd; border-radius: 50%;"
+                                         src="{{TopicAvatar}}"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8" style="justify-content: center; align-self: center">
+                                    <h3 >{{TopicName}} </h3>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/topic/{{TopicID}}" class="card"
+                            {{#if isRead}} style ="  background:linear-gradient(to right, greenyellow, #00FF00);"
+                            {{/if}}
+                           role="button" aria-pressed="true">
+                            <div class="row no-gutters"  >
+                                <div class="col-md-4 " style="padding: 4%" >
+                                    <img style="width: 10vh;height: 10vh; border: 2px solid #ddd; border-radius: 50%;"
+                                         src="{{TopicAvatar}}"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8" style="justify-content: center; align-self: center">
+                                    <h3 >{{TopicName}} </h3>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/topic/{{TopicID}}" class="card"
+                            {{#if isRead}} style ="  background:linear-gradient(to right, greenyellow, #00FF00);"
+                            {{/if}}
+                           role="button" aria-pressed="true">
+                            <div class="row no-gutters"  >
+                                <div class="col-md-4 " style="padding: 4%" >
+                                    <img style="width: 10vh;height: 10vh; border: 2px solid #ddd; border-radius: 50%;"
+                                         src="{{TopicAvatar}}"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8" style="justify-content: center; align-self: center">
+                                    <h3 >{{TopicName}} </h3>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/topic/{{TopicID}}" class="card"
+                            {{#if isRead}} style ="  background:linear-gradient(to right, greenyellow, #00FF00);"
+                            {{/if}}
+                           role="button" aria-pressed="true">
+                            <div class="row no-gutters"  >
+                                <div class="col-md-4 " style="padding: 4%" >
+                                    <img style="width: 10vh;height: 10vh; border: 2px solid #ddd; border-radius: 50%;"
+                                         src="{{TopicAvatar}}"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8" style="justify-content: center; align-self: center">
+                                    <h3 >{{TopicName}} </h3>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/topic/{{TopicID}}" class="card"
+                            {{#if isRead}} style ="  background:linear-gradient(to right, greenyellow, #00FF00);"
+                            {{/if}}
+                           role="button" aria-pressed="true">
+                            <div class="row no-gutters"  >
+                                <div class="col-md-4 " style="padding: 4%" >
+                                    <img style="width: 10vh;height: 10vh; border: 2px solid #ddd; border-radius: 50%;"
+                                         src="{{TopicAvatar}}"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8" style="justify-content: center; align-self: center">
+                                    <h3 >{{TopicName}} </h3>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/topic/{{TopicID}}" class="card"
+                            {{#if isRead}} style ="  background:linear-gradient(to right, greenyellow, #00FF00);"
+                            {{/if}}
+                           role="button" aria-pressed="true">
+                            <div class="row no-gutters"  >
+                                <div class="col-md-4 " style="padding: 4%" >
+                                    <img style="width: 10vh;height: 10vh; border: 2px solid #ddd; border-radius: 50%;"
+                                         src="{{TopicAvatar}}"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8" style="justify-content: center; align-self: center">
+                                    <h3 >{{TopicName}} </h3>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/topic/{{TopicID}}" class="card"
+                            {{#if isRead}} style ="  background:linear-gradient(to right, greenyellow, #00FF00);"
+                            {{/if}}
+                           role="button" aria-pressed="true">
+                            <div class="row no-gutters"  >
+                                <div class="col-md-4 " style="padding: 4%" >
+                                    <img style="width: 10vh;height: 10vh; border: 2px solid #ddd; border-radius: 50%;"
+                                         src="{{TopicAvatar}}"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8" style="justify-content: center; align-self: center">
+                                    <h3 >{{TopicName}} </h3>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/topic/{{TopicID}}" class="card"
+                            {{#if isRead}} style ="  background:linear-gradient(to right, greenyellow, #00FF00);"
+                            {{/if}}
+                           role="button" aria-pressed="true">
+                            <div class="row no-gutters"  >
+                                <div class="col-md-4 " style="padding: 4%" >
+                                    <img style="width: 10vh;height: 10vh; border: 2px solid #ddd; border-radius: 50%;"
+                                         src="{{TopicAvatar}}"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8" style="justify-content: center; align-self: center">
+                                    <h3 >{{TopicName}} </h3>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/topic/{{TopicID}}" class="card"
+                            {{#if isRead}} style ="  background:linear-gradient(to right, greenyellow, #00FF00);"
+                            {{/if}}
+                           role="button" aria-pressed="true">
+                            <div class="row no-gutters"  >
+                                <div class="col-md-4 " style="padding: 4%" >
+                                    <img style="width: 10vh;height: 10vh; border: 2px solid #ddd; border-radius: 50%;"
+                                         src="{{TopicAvatar}}"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8" style="justify-content: center; align-self: center">
+                                    <h3 >{{TopicName}} </h3>
+                                </div>
+                            </div>
+                        </a>
 
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </div>

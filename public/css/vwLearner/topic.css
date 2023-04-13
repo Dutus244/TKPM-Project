@@ -1,29 +1,27 @@
 
 .container {
-/*    font-family: "Montserrat", sans-serif;*/
-/*    display: flex;*/
-/*    justify-content: start;*/
-/*    align-content: center;*/
-/*    flex-direction: column;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding-top: 15px;
 }
 #header{
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
-/*#description{*/
-/*    width: 50vw;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: start;*/
-/*}*/
-
+h1,h4,h3,p{
+    text-align: center;
+}
+#description{
+    /*padding-left: 50px;*/
+}
 img{
-    width: 20vw;
+    width: 40vw;
     height: 20vw;
     object-fit: scale-down;
-    border-radius: 50%;
 }
 #title {
     padding-top: 30px;
@@ -36,22 +34,43 @@ img{
 /*#title_body{*/
 /*    height: fit-content;*/
 /*}*/
-.box{
-    background: #fff;
-    font-family: Montserrat, sans-serif;;
-    font-size: 24px;
-    line-height: 30px;
-    font-weight: bold;
-    color: #009688;
-    padding: 40px;
-    box-shadow:
-            inset #009688 0 0 0 5px,
-            inset #059c8e 0 0 0 1px,
-            inset #0cab9c 0 0 0 10px,
-            inset #1fbdae 0 0 0 11px,
-            inset #8ce9ff 0 0 0 16px,
-            inset #48e4d6 0 0 0 17px,
-            inset #e5f9f7 0 0 0 21px,
-            inset #bfecf7 0 0 0 22px;
-    text-shadow: 3px 3px 1px #bfecf7;
+/*.box{*/
+/*    background: #fff;*/
+/*    font-family: Montserrat, sans-serif;;*/
+/*    font-size: 24px;*/
+/*    line-height: 30px;*/
+/*    font-weight: bold;*/
+/*    color: #009688;*/
+/*    padding: 40px;*/
+/*    box-shadow:*/
+/*            inset #009688 0 0 0 5px,*/
+/*            inset #059c8e 0 0 0 1px,*/
+/*            inset #0cab9c 0 0 0 10px,*/
+/*            inset #1fbdae 0 0 0 11px,*/
+/*            inset #8ce9ff 0 0 0 16px,*/
+/*            inset #48e4d6 0 0 0 17px,*/
+/*            inset #e5f9f7 0 0 0 21px,*/
+/*            inset #bfecf7 0 0 0 22px;*/
+/*    text-shadow: 3px 3px 1px #bfecf7;*/
+/*}*/
+.column{
+    width: 50%;
+    padding: 15px 10px 0;
+}
+a:hover, a:link,a:visited,a:active{
+    text-decoration: none;
+    color:black;
+    margin-top: 5px;
+    height: 15vh;
+
+}
+.topiccontainer{
+    height: 80vh;
+}
+.subtopiccontainer{
+    width: 100%;
+    height: 100%;
+    padding: 20px 50px;
+    overflow: hidden;
+    overflow-y: scroll;
 }
