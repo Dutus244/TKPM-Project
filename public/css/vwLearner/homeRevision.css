@@ -9,7 +9,7 @@
 }
 
 .chart {
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
   height: 400px;
   width: 100%;
   display: flex;
@@ -26,24 +26,49 @@
 .level-1,
 .level-2,
 .level-3,
-.level-4 {
+.level-4,
+.level-5 {
+  height: 100%;
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
 }
 
 .word-count {
-  align-self: center;
-  height: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
+  height: 10%;
   font-family: "Sriracha";
   font-size: 1.2rem;
 }
 
 .bar {
-  height: 90%;
+  height: auto;
   flex: 1 1 auto;
   background-color: aqua;
   border-radius: 25px 25px 0 0;
+}
+
+.level-1 > .bar {
+  background-color: #ff4062;
+}
+
+.level-2 > .bar {
+  background-color: #ff9c98;
+}
+
+.level-3 > .bar {
+  background-color: #facdab;
+}
+
+.level-4 > .bar {
+  background-color: #aacdaf;
+}
+
+.level-5 > .bar {
+  background-color: #71aca9;
 }
 
 .chart-foot {
@@ -53,14 +78,15 @@
 }
 
 .level-text {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .level-1-text,
 .level-2-text,
 .level-3-text,
-.level-4-text {
+.level-4-text,
+.level-5-text {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
@@ -70,54 +96,63 @@
   font-size: 1.5rem;
 }
 
-
 /* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .word-count {
+    font-size: 1rem;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   .chart {
-    width: 70%;
+    width: 80%;
   }
   .chart-foot {
-    width: 70%;
+    width: 80%;
   }
   .level-text {
-    width: 70%;
+    width: 80%;
   }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
   .chart {
-    width: 50%;
+    width: 60%;
   }
   .chart-foot {
-    width: 50%;
+    width: 60%;
   }
   .level-text {
-    width: 50%;
+    width: 60%;
+  }
+  .word-count {
+    font-size: 1.1rem;
   }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
   .chart {
-    width: 40%;
+    width: 50%;
   }
   .chart-foot {
-    width: 40%;
+    width: 50%;
   }
   .level-text {
-    width: 40%;
+    width: 50%;
   }
 }
 
 @media only screen and (min-width: 1200px) {
   .chart {
-    width: 35%;
+    width: 40%;
   }
   .chart-foot {
-    width: 35%;
+    width: 40%;
   }
   .level-text {
-    width: 35%;
+    width: 40%;
   }
 }
