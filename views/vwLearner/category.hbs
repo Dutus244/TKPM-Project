@@ -37,19 +37,18 @@
         <div class="row w-100" >
             {{#each this.category}}
                 <div class ="column">
-                <a href="/topiclist/{{CategoryID}}" class="card">
-
-                <div class="card categorycard"  >
-                    <div class="card border">
-                    <img src="{{CategoryAvatar}}" alt="">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{CategoryName}}</h5>
-                        <p class="card-text">{{CategoryDes}}</p>
-                    </div>
+                    <a href="/topiclist/{{CategoryID}}" class="card">
+                        <div class="card categorycard"  >
+                            <div class="card border">
+                                <img src="{{CategoryAvatar}}" alt="">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{CategoryName}}</h5>
+                                <p class="card-text">{{CategoryDes}}</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                </a>
-            </div>
             {{/each}}
         </div>
     </div>
@@ -60,10 +59,13 @@
                     <a class="page-link" href="?page={{this.prePage}}">Previous</a>
                 </li>
                 {{#each pageNumber}}
-                    <li class="page-item {{#if isCurrent}}active{{else}}disactive{{/if}}"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+                    <li class="page-item {{#if isCurrent}}active{{else}}disactive{{/if}}">
+                        <a class="page-link" href="?page={{value}}">{{value}}</a>
+                    </li>
                 {{/each}}
+                <li class="page-item  {{#if this.nextPage}}abled{{else}}disabled{{/if}} ">
+                    <a class="page-link" href="?page={{this.nextPage}}">Next</a>
                 </li>
-                <li class="page-item  {{#if this.nextPage}}abled{{else}}disabled{{/if}} "><a class="page-link" href="?page={{this.nextPage}}">Next</a></li>
             </ul>
         </nav>
     </div>

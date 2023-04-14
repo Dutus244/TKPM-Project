@@ -31,31 +31,6 @@ img{
 a{
     margin-bottom: 20px;
 }
-/*h1{*/
-/*    width: fit-content;*/
-/*}*/
-/*#title_body{*/
-/*    height: fit-content;*/
-/*}*/
-/*.box{*/
-/*    background: #fff;*/
-/*    font-family: Montserrat, sans-serif;;*/
-/*    font-size: 24px;*/
-/*    line-height: 30px;*/
-/*    font-weight: bold;*/
-/*    color: #009688;*/
-/*    padding: 40px;*/
-/*    box-shadow:*/
-/*            inset #009688 0 0 0 5px,*/
-/*            inset #059c8e 0 0 0 1px,*/
-/*            inset #0cab9c 0 0 0 10px,*/
-/*            inset #1fbdae 0 0 0 11px,*/
-/*            inset #8ce9ff 0 0 0 16px,*/
-/*            inset #48e4d6 0 0 0 17px,*/
-/*            inset #e5f9f7 0 0 0 21px,*/
-/*            inset #bfecf7 0 0 0 22px;*/
-/*    text-shadow: 3px 3px 1px #bfecf7;*/
-/*}*/
 .column{
     width: 50%;
     padding: 15px 10px 0;
@@ -95,8 +70,6 @@ a.card{
 
 }
 a > div > img{
-    /*border: 2px solid #ddd;*/
-    /*border-radius: 100%;*/
     object-fit: scale-down;
     max-height: 90%;
     aspect-ratio : 1 / 1;

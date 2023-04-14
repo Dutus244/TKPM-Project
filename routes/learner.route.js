@@ -77,89 +77,85 @@ router.get('/topiclist/:category_id', async function (req, res) {
   });
 })
 router.get('/category', async function (req, res) {
-  const total = await learnerService.countCategory();
-  const limit = 6;
-  const curPage = req.query.page || 1;
-  const offset = (curPage - 1) * limit;
-  const nPage = Math.ceil(total / limit);
-  const pageNumber = [];
-  for (let i = 1; i <= nPage; i++) {
-    pageNumber.push({
-      value: i,
-      isCurrent: i === +curPage,
+    const total = await learnerService.countCategory();
+    const limit = 6;
+    const curPage = req.query.page || 1;
+    const offset = (curPage - 1) * limit;
+    const nPage = Math.ceil(total / limit);
+    const pageNumber = [];
+    for (let i = 1; i <= nPage; i++) {
+      pageNumber.push({
+        value: i,
+        isCurrent: i === +curPage,
+      });
+    }
+    const list = await learnerService.findCategoryByOffetWithLimit(
+        offset,
+        limit
+    );
+    console.log(list)
+    let prePage;
+    let nextPage;
+    if (1 === +curPage) {
+      prePage = 0;
+    } else {
+      prePage = +curPage - 1;
+    }
+    if (+nPage === +curPage) {
+      nextPage = 0;
+    } else if (+nPage === 0) {
+      nextPage = 0;
+    } else {
+      nextPage = +curPage + 1;
+    }
+    console.log(total)
+    res.render('vwLearner/category', {
+      category: list,
+      pageNumber: pageNumber,
+      empty: list.length === 0,
+      prePage: prePage,
+      nextPage: nextPage,
     });
-  }
-  const list = await learnerService.findCategoryByOffetWithLimit(
-      offset,
-      limit
-  );
-  console.log(list)
-  let prePage;
-  let nextPage;
-  if (1 === +curPage) {
-    prePage = 0;
-  } else {
-    prePage = +curPage - 1;
-  }
-  if (+nPage === +curPage) {
-    nextPage = 0;
-  } else if (+nPage === 0) {
-    nextPage = 0;
-  } else {
-    nextPage = +curPage + 1;
-  }
-  console.log(total)
-  // const topiclist = temp[0]
-  // console.log(temp.count)
-  res.render('vwLearner/category', {
-    category: list,
-    pageNumber: pageNumber,
-    empty: list.length === 0,
-    prePage: prePage,
-    nextPage: nextPage,
-  });
 })
 router.get('/category/:category_page', async function (req, res) {
-  const total = await learnerService.countCategory();
-  console.log(total)
-  const limit = 6;
-  const curPage = req.query.page || 1;
-  const offset = (curPage - 1) * limit;
-  const nPage = Math.ceil(total / limit);
-  const pageNumber = [];
-  for (let i = 1; i <= nPage; i++) {
-    pageNumber.push({
-      value: i,
-      isCurrent: i === +curPage,
+    const total = await learnerService.countCategory();
+    console.log(total)
+    const limit = 6;
+    const curPage = req.query.page || 1;
+    const offset = (curPage - 1) * limit;
+    const nPage = Math.ceil(total / limit);
+    const pageNumber = [];
+    for (let i = 1; i <= nPage; i++) {
+      pageNumber.push({
+        value: i,
+        isCurrent: i === +curPage,
+      });
+    }
+    const list = await learnerService.findCategoryByOffetWithLimit(
+        offset,
+        limit
+    );
+    console.log(list)
+    let prePage;
+    let nextPage;
+    if (1 === +curPage) {
+      prePage = 0;
+    } else {
+      prePage = +curPage - 1;
+    }
+    if (+nPage === +curPage) {
+      nextPage = 0;
+    } else if (+nPage === 0) {
+      nextPage = 0;
+    } else {
+      nextPage = +curPage + 1;
+    }
+    res.render('vwLearner/category', {
+      category: list,
+      pageNumber: pageNumber,
+      empty: list.length === 0,
+      prePage: prePage,
+      nextPage: nextPage,
     });
-  }
-  const list = await learnerService.findCategoryByOffetWithLimit(
-      offset,
-      limit
-  );
-  console.log(list)
-  let prePage;
-  let nextPage;
-  if (1 === +curPage) {
-    prePage = 0;
-  } else {
-    prePage = +curPage - 1;
-  }
-  if (+nPage === +curPage) {
-    nextPage = 0;
-  } else if (+nPage === 0) {
-    nextPage = 0;
-  } else {
-    nextPage = +curPage + 1;
-  }
-  // const topiclist = temp[0]
-  // console.log(temp.count)
-  res.render('vwLearner/category', {
-    category: list,
-    pageNumber: pageNumber,
-    empty: list.length === 0,
-    prePage: prePage,
-    nextPage: nextPage,
-  });
 })
 export default router;
