@@ -41,22 +41,21 @@ router.post("/topic/:id/finish", async function(req, res) {
   const finishWords = []
   const timestamp = new Date()
   const wordData = {
-    userid: userid,
+    userid,
     memorylevel: 1,
     firsttime: timestamp,
     updatetime: timestamp,
     isstudy: false,
   }
-  for (let i = 0; i < words.length; i++) {
-    const wordid = words[i].wordid
-    const word = {wordid, ...wordData}
-    finishWords.push(word)
-  }
+  words.map(word_item => {
+    const wordid = word_item.wordid
+    finishWords.push({wordid, ...wordData})
+  })
   await learnerService.addWordHistory(finishWords)
 
   const topic = {
-    topicid: topicid,
-    userid: userid,
+    topicid,
+    userid,
     createtime: timestamp,
   }
   await learnerService.addTopicHistory(topic)

@@ -7,6 +7,9 @@
     const length = words.length
     var percentage = Math.floor(((curWord + 1) / length) * 100)
 
+    const KEY_LEFT = 37
+    const KEY_RIGHT = 39 
+
     function finishTopic() {
       $.ajax({
         url: window.location.href + "/finish",
@@ -91,9 +94,9 @@
       prevFlashcard()
     })
     $(document).keydown(function(e) {
-      if (e.keyCode == 37) {
+      if (e.keyCode == KEY_LEFT) {
         prevFlashcard()
-      } else if (e.keyCode == 39) {
+      } else if (e.keyCode == KEY_RIGHT) {
         nextFlashcard()
       }
     })

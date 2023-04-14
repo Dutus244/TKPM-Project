@@ -43,10 +43,6 @@ export default {
     const res = await db('topichistory')
       .where('userid', userid)
       .andWhere('topicid', topicid)
-    
-    if (!res) {
-      return false
-    }
-    return true
+    return res.length != 0
   }
 }
