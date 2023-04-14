@@ -3,7 +3,7 @@ import db from '../utils/db.js';
 export default {
   async findAllTopicWord(topicId) {
     const list = await db('words')
-      .select('wordname', 'wordtype', 'wordmeaning', 'wordpronounce', 'wordexample', 'wordavatar')
+      .select('wordid', 'wordname', 'wordtype', 'wordmeaning', 'wordpronounce', 'wordexample', 'wordavatar')
       .where('topicid', topicId)
       
     return list
@@ -33,4 +33,20 @@ export default {
 
     )
   },
+  async addWordHistory(words) {
+    return await db('wordhistory').insert(words)
+  },
+  async addTopicHistory(topic) {
+    return await db('topichistory').insert(topic)
+  },
+  async hasLearnedTopic(userid, topicid) {
+    const res = await db('topichistory')
+      .where('userid', userid)
+      .andWhere('topicid', topicid)
+    
+    if (!res) {
+      return false
+    }
+    return true
+  }
 }

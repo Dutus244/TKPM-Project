@@ -28,6 +28,40 @@ router.get("/topic/:id/finish", async(req, res) => {
   })
 });
 
+router.post("/topic/:id/finish", async function(req, res) {
+  const topicid = req.params.id
+  const userid = res.locals.authUser.userid
+  const words = req.body.words
+
+  const hasLearned = await learnerService.hasLearnedTopic(userid, topicid)
+  if (hasLearned) {
+    return
+  }
+
+  const finishWords = []
+  const timestamp = new Date()
+  const wordData = {
+    userid: userid,
+    memorylevel: 1,
+    firsttime: timestamp,
+    updatetime: timestamp,
+    isstudy: false,
+  }
+  for (let i = 0; i < words.length; i++) {
+    const wordid = words[i].wordid
+    const word = {wordid, ...wordData}
+    finishWords.push(word)
+  }
+  await learnerService.addWordHistory(finishWords)
+
+  const topic = {
+    topicid: topicid,
+    userid: userid,
+    createtime: timestamp,
+  }
+  await learnerService.addTopicHistory(topic)
+})
+
 router.get('/topic/test/:id', async function (req, res) {
   const topicid = req.params.id
   const listQuestion = await learnerService.findAllQuestionsTopic(topicid)
