@@ -50,8 +50,7 @@ export default {
         .offset(offset)
   },
   async countCategory(){
-    var sql = await db('categories').where('IsDelete',0).count({count: '*'}).first();
+    let sql = await db('categories').where('IsDelete',0).count({count: '*'}).first();
     return sql.count
   }
-
 }

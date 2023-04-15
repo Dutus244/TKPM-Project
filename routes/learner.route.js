@@ -68,17 +68,37 @@ router.get('/topiclist', async function (req, res) {
   });
 })
 router.get('/topiclist/:category_id', async function (req, res) {
-  const category_id = req.params.category_id;
-  const temp = await learnerService.findAllTopicStudy(category_id);
-  const topiclist = temp[0]
-  console.log(topiclist)
-  res.render('vwLearner/topic', {
-    topic: topiclist,
-  });
+    const {category_id} = req.params;
+    const raw_topiclist = await learnerService.findAllTopicStudy(category_id);
+    const topiclist = raw_topiclist[0]
+    res.render('vwLearner/topic', {
+        topic: topiclist,
+    });
 })
+function setup_pages(curPage, nPage){
+    let prePage = 0;
+    let nextPage;
+    if (1 === +curPage) {
+        prePage = 0;
+    } else {
+        prePage = +curPage - 1;
+    }
+    if (+nPage === +curPage) {
+        nextPage = 0;
+    } else if (+nPage === 0) {
+        nextPage = 0;
+    } else {
+        nextPage = +curPage + 1;
+    }
+    if (+nPage < +curPage){
+        nextPage = 0
+        prePage = 0
+    }
+        return [prePage , nextPage]
+}
 router.get('/category', async function (req, res) {
     const total = await learnerService.countCategory();
-    const limit = 6;
+    const limit = 12;
     const curPage = req.query.page || 1;
     const offset = (curPage - 1) * limit;
     const nPage = Math.ceil(total / limit);
@@ -93,22 +113,7 @@ router.get('/category', async function (req, res) {
         offset,
         limit
     );
-    console.log(list)
-    let prePage;
-    let nextPage;
-    if (1 === +curPage) {
-      prePage = 0;
-    } else {
-      prePage = +curPage - 1;
-    }
-    if (+nPage === +curPage) {
-      nextPage = 0;
-    } else if (+nPage === 0) {
-      nextPage = 0;
-    } else {
-      nextPage = +curPage + 1;
-    }
-    console.log(total)
+    let [prePage, nextPage] = setup_pages(curPage,nPage);
     res.render('vwLearner/category', {
       category: list,
       pageNumber: pageNumber,
@@ -119,7 +124,6 @@ router.get('/category', async function (req, res) {
 })
 router.get('/category/:category_page', async function (req, res) {
     const total = await learnerService.countCategory();
-    console.log(total)
     const limit = 6;
     const curPage = req.query.page || 1;
     const offset = (curPage - 1) * limit;
@@ -135,21 +139,8 @@ router.get('/category/:category_page', async function (req, res) {
         offset,
         limit
     );
-    console.log(list)
-    let prePage;
-    let nextPage;
-    if (1 === +curPage) {
-      prePage = 0;
-    } else {
-      prePage = +curPage - 1;
-    }
-    if (+nPage === +curPage) {
-      nextPage = 0;
-    } else if (+nPage === 0) {
-      nextPage = 0;
-    } else {
-      nextPage = +curPage + 1;
-    }
+    let [prePage, nextPage] = setup_pages(curPage,nPage);
+
     res.render('vwLearner/category', {
       category: list,
       pageNumber: pageNumber,

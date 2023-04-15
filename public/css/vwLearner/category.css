@@ -4,20 +4,24 @@
     justify-content: center;
     align-items: center;
 }
+
 .btn{
     border-color: #F4DF89;
     border-radius: 10%;
     border-width: 1px;
     background-color:#F4DF89 ;
 }
+
 .searchinput{
     border-width: 1px;
     border-color: black;
 
 }
+
 a:hover, a:link,a:visited,a:active{
     text-decoration: none;
 }
+
 .categorycard,.categorycard:link ,.categorycard:visited ,.categorycard:hover ,.categorycard:active  {
     color: black;
     text-decoration: none;
@@ -29,33 +33,40 @@ a:hover, a:link,a:visited,a:active{
 .row{
     width: 70%;
 }
+
 .card-footer{
     width: 70%;
 }
+
 .column{
     width: 25%;
     margin-top: 3px;
     padding: 10px;
     /*col-3 mt-3*/
 }
+
 .content{
     padding: 30px;
     display: flex;
     justify-content: space-between;
 }
+
 img{
     object-fit: scale-down;
     padding: 5px;
     aspect-ratio : 1 / 1;
 }
+
 .border{
     aspect-ratio : 1 / 1;
     border-width: 2px;
     margin: 10px
 }
+
 .card-body{
     border: 1px;
 }
+
 i{
     padding-left: 20px;
 }
@@ -64,26 +75,33 @@ i{
     .column {
         width: 100%;
     }
+
     i{
         padding-left: 10px;
     }
+
     .btn{
         width: fit-content;
     }
+
     .card-footer{
         /*visibility: hidden;*/
     }
+
     .card-text{
         display: none;
     }
+
     img{
         object-fit: scale-down;
         padding: 5px;
         aspect-ratio : 1 / 1;
     }
+
     .border{
         width: 25%;
     }
+
     .categorycard{
         width: 100%;
         display: flex;
@@ -95,13 +113,16 @@ i{
 }
 .pagination { color:black !important; }
 
+
 .pagination > .active > a , .pagination > .active > a:hover, .pagination > .active > a:focus {
     background-color: #AACDAF !important; border-color: #AACDAF !important;
 }
+
 .pagination > .disactive > a , .pagination > .disactive > a:hover, .pagination > .disactive > a:focus {
     background-color: white !important;
     color: black;
 }
+
 .pagination > .abled > a , .pagination > .abled > a:hover, .pagination > .abled > a:focus {
     background-color: white !important;
     color: #AACDAF;
