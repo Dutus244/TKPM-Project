@@ -41,20 +41,36 @@ router.get('/addquestion/:id', async function (req, res){
 })
 
 router.post('/addquestion/:id', async function (req, res){
-    const id = v4()
+    const qid = v4()
 
-    const word = req.body;
-    console.log(word)
+    const id = req.params.id
 
-    const {question, optiona, optionb, optionc, optiond} = req.body;
+    const wordid = req.body.word;
+    const  optiond  = await adminServices.getWord(id, wordid)
+    const wordlist = await adminServices.getWords(id)
+
+    const { wordname } = optiond[0]
+
+    const {question, optiona, optionb, optionc} = req.body;
+
+    const options = [optiona, optionb, optionc];
+
+    if (options.some(option => option === wordname)) {
+        res.render('vwAdmin/addquestion',{
+            topicid:id,
+            wordlist,
+            msg:"The answer is same to one of the three other options",
+        })
+    }
+    
         const test={
-            questionid: id,
+            questionid: qid,
             question,
             optiona,
             optionb,
             optionc,
-            optiond,
-            answer: optiona,
+            optiond: wordname,
+            answer: wordid,
             isdelete: 0
         }
     console.log(test)

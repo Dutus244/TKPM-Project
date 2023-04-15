@@ -5,6 +5,7 @@
     width: 100%;
     background-color: #AACDAF;
     font-size: 25px;
+    z-index: 10000;
   }
 
   .nav a{

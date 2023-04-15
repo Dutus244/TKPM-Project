@@ -66,6 +66,16 @@ export default{
         .select('TopicID', 'TopicName')
         
         return list
+    },
+
+    async getWord(id, wordid){
+        const word = await db
+            .select('wordname')
+            .from('words')
+            .join('topics', 'words.topicid','topics.topicid')
+            .where('topics.topicid', id)
+            .andWhere('words.wordid', wordid);
+        return word
     }
 }
 

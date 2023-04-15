@@ -33,7 +33,7 @@
 <script>
    tinymce.init({
         selector: "#txtQuestion",
-        height: 300,
+        height: 200,
         menubar: false,
         toolbar: [
             'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
@@ -43,6 +43,31 @@
      $('#frmRegister').on('submit', function (e){
         e.preventDefault();
         
+        const optA = $('#txtOptionA').val();
+        if (!optA.length) {
+            alert('Please input all three other option')
+            $('#txtOptionA').css('background-color', '#f2cece')
+            $('#txtOptionA').addClass('form-control-error')
+            return
+        }
+
+        const optB = $('#txtOptionB').val();
+        if (!optB.length) {
+            alert('Please input all three other option')
+            alert('Please input all three other option')
+            $('#txtOptionB').css('background-color', '#f2cece')
+            $('#txtOptionB').addClass('form-control-error')
+            return
+        }
+
+        const optC = $('#txtOptionC').val();
+        if (!optC.length) {
+            alert('Please input all three other option')
+            alert('Please input all three other option')
+            $('#txtOptionC').css('background-color', '#f2cece')
+            $('#txtOptionC').addClass('form-control-error')
+            return
+        }
 
         $('#frmRegister').off('submit').submit();
      })
@@ -50,6 +75,16 @@
 
 {{/section}}
 <main>
+<div>
+    {{#if msg}}
+    <div class="alert alert-success alert-dismissible fade show text-center pr-0" role="alert">
+        {{msg}}
+        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true" class="bg-inherit">&times;</span>
+        </button>
+    </div>
+    {{/if}}
+
     <form method="post" id="frmRegister">
 
         <div class="card mb-3">
@@ -57,6 +92,8 @@
                 ADD NEW QUESTION
             </h4>
         <div class="card-body">
+
+        <input type="hidden" name="wordlist" value="{{this.wordlist}}">
 
         <div class="form-group">
             <label for="word">Word:</label>
@@ -68,43 +105,18 @@
         </div>
 
         <div class="form-group">
-            <label for="txtOptionA">Option A:</label>
-            <select name="optiona">
-                {{#each this.wordlist}}
-                    <option value="{{wordname}}">{{wordname}}</option>
-                {{/each}}
-            </select>
-            <label id="OptionA"></label>
+            <label for="txtWordmeaning">Other option:</label>
+            <input name="optiona" type="text" class="form-control" id="txtOptionA" autofocus>
         </div>
 
         <div class="form-group">
-            <label for="txtOptionB">Option B:</label>
-            <select name="OptionB">
-                {{#each this.wordlist}}
-                    <option value="{{wordname}}">{{wordname}}</option>
-                {{/each}}
-            </select>
-            <label id="txtOptionB"></label>
+            <label for="txtWordmeaning">Other option:</label>
+            <input name="optionb" type="text" class="form-control" id="txtOptionB" autofocus>
         </div>
 
         <div class="form-group">
-            <label for="txtOptionC">Option C:</label>
-            <select name="OptionC">
-                {{#each this.wordlist}}
-                    <option value="{{wordname}}">{{wordname}}</option>
-                {{/each}}
-            </select>
-            <label id="txtOptionC"></label>
-        </div>
-
-        <div class="form-group">
-            <label for="txtOptionD">Option D:</label>
-            <select name="OptionD">
-                {{#each this.wordlist}}
-                    <option value="{{wordname}}">{{wordname}}</option>
-                {{/each}}
-            </select>
-            <label id="txtOptionD"></label>
+            <label for="txtWordmeaning">Other option:</label>
+            <input name="optionc" type="text" class="form-control" id="txtOptionC" autofocus>
         </div>
 
         <div class="form-group">
@@ -114,12 +126,12 @@
         </div>
 
         <div class="card-footer text-muted">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Submit
             </button>
         </div>
 
     </form>
-
+</div>
 </main>
