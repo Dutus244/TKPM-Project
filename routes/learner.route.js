@@ -60,13 +60,6 @@ router.post('/topic/test/submit-answers', async function (req, res) {
   })
 });
 
-router.get('/topiclist', async function (req, res) {
-  const temp = await learnerService.findAllTopicStudy('c2229cc2-cbe1-11ed-b9d3-002248eb7c8a');
-  const topiclist = temp[0]
-  res.render('vwLearner/topic', {
-    topic: topiclist,
-  });
-})
 router.get('/topiclist/:category_id', async function (req, res) {
     const {category_id} = req.params;
     const raw_topiclist = await learnerService.findAllTopicStudy(category_id);
@@ -124,7 +117,7 @@ router.get('/category', async function (req, res) {
 })
 router.get('/category/:category_page', async function (req, res) {
     const total = await learnerService.countCategory();
-    const limit = 6;
+    const limit = 12;
     const curPage = req.query.page || 1;
     const offset = (curPage - 1) * limit;
     const nPage = Math.ceil(total / limit);

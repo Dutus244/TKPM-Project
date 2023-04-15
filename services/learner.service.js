@@ -24,20 +24,20 @@ export default {
     return await db('testhistorydetail').insert(entity);
   },
   async findAllTopicStudy(category,id) {
-    return db.raw('select topics.* ,(select count(*)\n' +
-        'from topichistory\n' +
-        'where topichistory.TopicID = topics.TopicID\n' +
-        'and topichistory.userID= "' + id + '"\n' +
-        'and topics.CategoryID= "' + category + '"\n' +
-        ') as isRead\n' +
+    return db.raw('select topics.* ,(select count(*)' +
+        'from topichistory' +
+        'where topichistory.TopicID = topics.TopicID' +
+        'and topichistory.userID= "' + id + '"' +
+        'and topics.CategoryID= "' + category + '"' +
+        ') as isRead' +
         'from topics'
     )
   },
   async findAllTopicStudy(category) {
-    return db.raw('select topics.* ,(select count(*)\n' +
-        'from topichistory\n' +
-        'where topics.CategoryID= "' + category + '"\n' +
-        ') as isRead\n' +
+    return db.raw('select topics.* ,(select count(*)' +
+        'from topichistory' +
+        'where topics.CategoryID= "' + category + '"' +
+        ') as isRead' +
         'from topics'
     )
   },
