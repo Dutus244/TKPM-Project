@@ -2,6 +2,7 @@ import express from "express";
 import learnerService from "../services/learner.service.js";
 import bodyParser from 'body-parser';
 import { v4 } from 'uuid';
+import {PAGE_LIMIT} from './constants.js';
 const router = express.Router();
 router.use(bodyParser.json());
 
@@ -91,7 +92,7 @@ function setup_pages(curPage, nPage){
 }
 router.get('/category', async function (req, res) {
     const total = await learnerService.countCategory();
-    const limit = 12;
+    const limit = PAGE_LIMIT;
     const curPage = req.query.page || 1;
     const offset = (curPage - 1) * limit;
     const nPage = Math.ceil(total / limit);
@@ -117,7 +118,7 @@ router.get('/category', async function (req, res) {
 })
 router.get('/category/:category_page', async function (req, res) {
     const total = await learnerService.countCategory();
-    const limit = 12;
+    const limit = PAGE_LIMIT;
     const curPage = req.query.page || 1;
     const offset = (curPage - 1) * limit;
     const nPage = Math.ceil(total / limit);
