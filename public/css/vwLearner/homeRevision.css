@@ -39,7 +39,7 @@
   align-items: flex-end;
   justify-content: center;
   text-align: center;
-  height: 10%;
+  height: 95%;
   font-family: "Sriracha";
   font-size: 1.2rem;
 }
@@ -103,6 +103,10 @@
   align-items: center;
 }
 
+.review-test-text {
+  font-size: 1.2rem;
+}
+
 #review-btn {
   background-color: #f4df89;
   border: 1px solid #f4df89;
@@ -147,19 +151,25 @@
 
 .category-progress-item-name {
   width: 40%;
-  text-align: center;
+  /* text-align: center; */
   word-wrap: break-word;
+  align-self: flex-end;
 }
 
 .progress-container {
   width: 60%;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.percentage {
+  font-size: 1.5rem;
 }
 
 .progress {
   width: 100%;
   height: 1.75rem;
-  margin: 1.8rem 0px;
   border-radius: 1rem;
   border: #367772 solid 2px;
   background-color: white;
@@ -177,9 +187,6 @@
   }
   .category-progress-item {
     width: 80%;
-  }
-  .progress {
-    width: 70%;
   }
 }
 
@@ -200,6 +207,9 @@
   .category-progress-title {
     width: 70%;
   }
+  .category-progress-item {
+    width: 80%;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -218,6 +228,9 @@
   }
   .category-progress-title {
     width: 50%;
+  }
+  .category-progress-item {
+    width: 60%;
   }
 }
 
@@ -238,6 +251,9 @@
   .category-progress-title {
     width: 40%;
   }
+  .category-progress-item {
+    width: 50%;
+  }
 }
 
 @media only screen and (min-width: 1200px) {
@@ -255,5 +271,8 @@
   }
   .category-progress-title {
     width: 30%;
+  }
+  .category-progress-item {
+    width: 40%;
   }
 }
