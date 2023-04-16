@@ -23,14 +23,22 @@ export default {
   async addTestHistoryDetail(entity) {
     return await db('testhistorydetail').insert(entity);
   },
-  async findAllTopicStudy(id) {
-    return db.raw('select topics.* ,(select count(*)\n' +
-        'from topichistory\n' +
-        'where topichistory.TopicID = topics.TopicID\n' +
-        'and topichistory.userID= "' + id + '"\n' +
-        ') as isRead\n' +
-        'from topics'
-
+  async findAllTopicStudy(category,id) {
+    return db.raw('select topics.* ,(select count(*) ' +
+        'from topichistory ' +
+        'where topichistory.TopicID = topics.TopicID ' +
+        'and topichistory.userID= "' + id + '" '  +
+        'and topics.CategoryID= "' + category + '" ' +
+        ') as isRead ' +
+        'from topics '
+    )
+  },
+  async findAllTopicStudy(category) {
+    return db.raw('select topics.* ,(select count(*) ' +
+        'from topichistory ' +
+        'where topics.CategoryID= "' + category + '" ' +
+        ') as isRead ' +
+        'from topics '
     )
   },
   async addWordHistory(words) {
@@ -44,5 +52,17 @@ export default {
       .where('userid', userid)
       .andWhere('topicid', topicid)
     return res.length != 0
-  }
+  },
+  async findCategory(){
+    return await db('categories').where('IsDelete',0)
+  },
+  async findCategoryByOffetWithLimit(offset, limit){
+    return await db('categories').where('IsDelete',0)
+        .limit(limit)
+        .offset(offset)
+  },
+  async countCategory(){
+    let sql = await db('categories').where('IsDelete',0).count({count: '*'}).first();
+    return sql.count
+  },
 }
