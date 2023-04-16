@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import { v4 } from 'uuid';
 const router = express.Router();
 router.use(bodyParser.json());
+import moment from 'moment';
 
 router.get("/topic/:id", async (req, res) => {
   const id = req.params.id;
@@ -39,24 +40,30 @@ router.get('/topic/test/:id', async function (req, res) {
 
 router.post('/topic/test/submit-answers', async function (req, res) {
   const userAnswers = await req.body;
+  const topicid = userAnswers.topicid
   const id = v4()
-  // const testhistory = {
-  //   testid: id,
-  //   userid: "c2229cc2-cbe1-11ed-b9d3-002248eb7c8a",
-  //   createtime: moment().format('YYYY-MM-DD HH:mm:ss'),
-  // };
-  // const data = await UserService.addTestHistory(testhistory)
-  // for (const item of userAnswers) {
-  //   const testhistorydetail = {
-  //     testid: id,
-  //     questionid: item.questionId,
-  //     userchoose: item.answer
-  //   }
-  //   const resdetail = await UserService.addTestHistoryDetail(testhistorydetail)
-  // }
+  const testhistory = {
+    testid: id,
+    topicid: topicid,
+    userid: "6a6e7163-c669-480c-a28a-980246b50b98",
+    createtime: moment().format('YYYY-MM-DD HH:mm:ss'),
+  };
+  const data = await learnerService.addTestHistory(testhistory)
+  for (const item of userAnswers.anwsers) {
+    const testhistorydetail = {
+      testid: id,
+      questionid: item.questionID,
+      userchoose: item.userchoose,
+      optiona: item.optiona,
+      optionb: item.optionb,
+      optionc: item.optionc,
+      optiond: item.optiond,
+    }
+    const resdetail = await learnerService.addTestHistoryDetail(testhistorydetail)
+  }
   // Process the user's answers and send a response
   res.render("vwLearner/topicTestFinish", {
-    topicId: id,
+    topicId: topicid,
   })
 });
 
@@ -68,4 +75,16 @@ router.get('/topic', async function (req, res) {
   });
 })
 
+router.get('/dailytest', async function (req, res) {
+  const list = await learnerService.findAllQuestionDailyTest()
+  res.render('vwLearner/dailyTest', {
+    question: list
+  });
+})
+router.get('/resultdailytest', async function (req, res) {
+  // const userID = req.session.authUser.UserID
+  const {wordID,check} = req.query;
+  const userID = '6a6e7163-c669-480c-a28a-980246b50b98'
+  await learnerService.updateMemoryLevel(userID,wordID,check)
+})
 export default router;

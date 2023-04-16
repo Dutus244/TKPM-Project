@@ -1,22 +1,38 @@
 {{#section 'js'}}
     <script>
+        $(document).ready(function () {
+            $(document).ready(function () {
 
+            })
+        });
     </script>
 {{/section}}
 
 {{#section 'css'}}
+    <link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">
     <link rel="stylesheet" href="/public/CSS/vwLearner/topicLearnFinish.css">
 {{/section}}
 
-<div class="container">
-    <p id="msg" class="p-2 m-0 text-center font">Chúc mừng bạn đã hoàn thành bài kiểm tra</p>
-    <div class="flipper">
-        <div class="flashcard front">
-            <div class="card-body">
-                <img class="img" src="/public/img/background/pepe_ok.jpg" alt="ok">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <p id="msg" class="p-4 m-0 text-center font">YOU HAVE FINISHED THE TOPIC TEST</p>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div>
+                            <img class="flashcard-img" src="/public/img/background/pepe_ok.jpg" alt="ok">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button type="button" id="btn-next" class="font"
+                        onclick="window.location.href='/topic/test/{{this.topicId}}'">SEE THE TEST RESULT</button>
+                <button type="button" id="btn-back" class="font" onclick="window.location.href='/topic'">BACK TO TOPIC</button>
             </div>
         </div>
+        <div class="col-sm-2"></div>
     </div>
-    <button type="button" id="btn-next" class="font" onclick="window.location.href='/topic'">Học từ mới</button>
-    <button type="button" id="btn-back" class="font">Xem lại bài kiểm tra</button>
 </div>
