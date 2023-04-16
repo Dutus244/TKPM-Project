@@ -6,8 +6,26 @@ const router = express.Router();
 router.use(bodyParser.json());
 
 router.get('/revision', async function(req, res) {
+  // Gán cứng tạo nào PR #20 merge vô dev thì sửa lại
+  var categoriesProgress = await learnerService.getCategoriesProgress('6a6e7163-c669-480c-a28a-980246b50b98')
+  // var categoriesProgress = await learnerService.getCategoriesProgress(res.locals.authUser.userid)
+  categoriesProgress = categoriesProgress.map( it => ({
+    categoryname: it.categoryname,
+    percentage: (it.wordshaslearned / it.totalwords) * 100
+  }))
+
+  var memoryLevelCount = await learnerService.getUserMemoryLevelCount('6a6e7163-c669-480c-a28a-980246b50b98')
+  const maxNumber = memoryLevelCount.reduce((acc, cur) => {
+    return acc > cur.number ? acc : cur.number;
+  }, 0);
+  memoryLevelCount = memoryLevelCount.map( it => ({
+    ...it,
+    percentage: (it.number / maxNumber) * 100
+  }))
+
   res.render('vwLearner/homeRevision', {
-    
+    categoriesProgress: categoriesProgress,
+    memoryLevelCount: JSON.stringify(memoryLevelCount),
   })
 })
 

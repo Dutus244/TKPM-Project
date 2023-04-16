@@ -33,4 +33,30 @@ export default {
 
     )
   },
+  async getCategoriesProgress(userid) {
+    const list = await
+      db.raw(`select categoryname, count(wordhistory.wordid) as wordshaslearned, WordsCount.totalwords from wordhistory 
+      join words on wordhistory.wordid = words.wordid
+      join topics on words.topicid = topics.topicid
+      join categories on topics.categoryid = categories.categoryid
+      join (
+        select topics.categoryid, count(words.wordid) as totalwords from topics
+        join words on topics.topicid = words.topicid
+        group by topics.categoryid
+      ) WordsCount on WordsCount.categoryid = categories.categoryid
+      where userid = '${userid}'
+      group by categories.categoryid;`);
+      
+      return list[0]
+  },
+  async getUserMemoryLevelCount(userid) {
+    const list = await db('wordhistory')
+      .select('memorylevel')
+      .count('* as number')
+      .where('userid', userid)
+      .groupBy('memorylevel')
+      .orderBy('memorylevel', 'asc')
+      
+      return list
+  }
 }
