@@ -45,7 +45,7 @@ router.post("/topic/:id/finish", async function(req, res) {
     memorylevel: 1,
     firsttime: timestamp,
     updatetime: timestamp,
-    isstudy: false,
+    isstudy: true,
   }
   words.map(word_item => {
     const wordid = word_item.wordid
