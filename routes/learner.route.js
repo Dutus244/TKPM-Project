@@ -33,7 +33,7 @@ router.get('/revision', async function(req, res) {
 router.get("/topic/:id", async function(req, res) {
   const id = req.params.id;
   const wordlist = await learnerService.findAllTopicWord(id);
-  if (wordlist.length == 0) {
+  if (!wordlist.length) {
     return res.status(404).render("404", {
       layout: false,
     });

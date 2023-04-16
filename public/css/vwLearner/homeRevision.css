@@ -1,15 +1,11 @@
 .container-fluid {
   min-height: 100vh;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
-  /* display: grid;
-  place-items: center; */
 }
 
 .chart {
-  /* background-color: antiquewhite; */
   height: 400px;
   width: 100%;
   display: flex;
@@ -151,7 +147,6 @@
 
 .category-progress-item-name {
   width: 40%;
-  /* text-align: center; */
   word-wrap: break-word;
   align-self: flex-end;
 }

@@ -66,20 +66,20 @@ export default {
     return sql.count
   },
   async getCategoriesProgress(userid) {
-    const list = await
-      db.raw(`select categoryname, count(wordhistory.wordid) as wordshaslearned, WordsCount.totalwords from wordhistory 
-      join words on wordhistory.wordid = words.wordid
-      join topics on words.topicid = topics.topicid
-      join categories on topics.categoryid = categories.categoryid
-      join (
-        select topics.categoryid, count(words.wordid) as totalwords from topics
-        join words on topics.topicid = words.topicid
-        group by topics.categoryid
-      ) WordsCount on WordsCount.categoryid = categories.categoryid
-      where userid = '${userid}'
-      group by categories.categoryid;`);
-      
-      return list[0]
+    const query = `select categoryname, count(wordhistory.wordid) as wordshaslearned, WordsCount.totalwords from wordhistory 
+    join words on wordhistory.wordid = words.wordid
+    join topics on words.topicid = topics.topicid
+    join categories on topics.categoryid = categories.categoryid
+    join (
+      select topics.categoryid, count(words.wordid) as totalwords from topics
+      join words on topics.topicid = words.topicid
+      group by topics.categoryid
+    ) WordsCount on WordsCount.categoryid = categories.categoryid
+    where userid = '${userid}'
+    group by categories.categoryid;`;
+    
+    const list = await db.raw(query);
+    return list[0]
   },
   async getUserMemoryLevelCount(userid) {
     const list = await db('wordhistory')
