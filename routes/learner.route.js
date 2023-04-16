@@ -7,13 +7,13 @@ const router = express.Router();
 router.use(bodyParser.json());
 
 router.get('/revision', async function(req, res) {
-  var categoriesProgress = await learnerService.getCategoriesProgress(res.locals.authUser.userid)
+  let categoriesProgress = await learnerService.getCategoriesProgress(res.locals.authUser.userid)
   categoriesProgress = categoriesProgress.map( it => ({
     categoryname: it.categoryname,
     percentage: (it.wordshaslearned / it.totalwords) * 100,
   }))
 
-  var memoryLevelCount = await learnerService.getUserMemoryLevelCount(res.locals.authUser.userid)
+  let memoryLevelCount = await learnerService.getUserMemoryLevelCount(res.locals.authUser.userid)
   const maxNumber = memoryLevelCount.reduce((acc, cur) => {
     return acc > cur.number ? acc : cur.number;
   }, 0);
