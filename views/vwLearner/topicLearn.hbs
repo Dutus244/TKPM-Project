@@ -7,22 +7,24 @@
     const length = words.length
     var percentage = Math.floor(((curWord + 1) / length) * 100)
 
+    const KEY_LEFT = 37
+    const KEY_RIGHT = 39 
 
-    $('.progress-bar').css('width', `${percentage}%`)
-    $('.progress-bar').attr('aria-valuenow', percentage)
+    function finishTopic() {
+      $.ajax({
+        url: window.location.href + "/finish",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+          words: words,
+          })
+      })
+    }
 
-    $('.flip-card-front').on('click', function (e) {
-      $('.flip-card-inner').css('transform', 'rotateY(180deg)')
-      isBack = !isBack
-    });
-    $('.flip-card-back').on('click', function (e) {
-      $('.flip-card-inner').css('transform', 'rotateY(0deg)')
-      isBack = !isBack
-    });
-
-    $('#btn-next').on('click', function (e) {
+    function nextFlashcard() {
       if (curWord >= length - 1) {
         // Go to finish page
+        finishTopic()
         window.location.href += "/finish"
         return
       } else {
@@ -45,8 +47,9 @@
       $('#wordexample').text(words[curWord].wordexample)
       $('.progress-bar').css('width', `${percentage}%`)
       $('.progress-bar').attr('aria-valuenow', percentage)
-    })
-    $('#btn-back').on('click', function (e) {
+    }
+
+    function prevFlashcard() {
       if (curWord > 0) {
         curWord--
       } else {
@@ -69,6 +72,33 @@
       $('#wordexample').text(words[curWord].wordexample)
       $('.progress-bar').css('width', `${percentage}%`)
       $('.progress-bar').attr('aria-valuenow', percentage)
+    }
+
+
+    $('.progress-bar').css('width', `${percentage}%`)
+    $('.progress-bar').attr('aria-valuenow', percentage)
+
+    $('.flip-card-front').on('click', function (e) {
+      $('.flip-card-inner').css('transform', 'rotateY(180deg)')
+      isBack = !isBack
+    });
+    $('.flip-card-back').on('click', function (e) {
+      $('.flip-card-inner').css('transform', 'rotateY(0deg)')
+      isBack = !isBack
+    });
+
+    $('#btn-next').on('click', function (e) {
+      nextFlashcard()
+    })
+    $('#btn-back').on('click', function (e) {
+      prevFlashcard()
+    })
+    $(document).keydown(function(e) {
+      if (e.keyCode == KEY_LEFT) {
+        prevFlashcard()
+      } else if (e.keyCode == KEY_RIGHT) {
+        nextFlashcard()
+      }
     })
   });
 </script>
@@ -98,8 +128,8 @@
             </div>
           </div>
           <div class="flip-card-back">
-              <img id="wordavatar" class="flashcard-img" src={{firstWord.wordavatar}} alt="">
-              <p id="wordexample" class="m-0 text-center example">{{firstWord.wordexample}}</p>
+            <img id="wordavatar" class="flashcard-img" src={{firstWord.wordavatar}} alt="">
+            <p id="wordexample" class="m-0 text-center example">{{firstWord.wordexample}}</p>
           </div>
         </div>
       </div>

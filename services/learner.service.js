@@ -3,7 +3,7 @@ import db from '../utils/db.js';
 export default {
   async findAllTopicWord(topicId) {
     const list = await db('words')
-      .select('wordname', 'wordtype', 'wordmeaning', 'wordpronounce', 'wordexample', 'wordavatar')
+      .select('wordid', 'wordname', 'wordtype', 'wordmeaning', 'wordpronounce', 'wordexample', 'wordavatar')
       .where('topicid', topicId)
       
     return list
@@ -41,6 +41,18 @@ export default {
         'from topics '
     )
   },
+  async addWordHistory(words) {
+    return await db('wordhistory').insert(words)
+  },
+  async addTopicHistory(topic) {
+    return await db('topichistory').insert(topic)
+  },
+  async hasLearnedTopic(userid, topicid) {
+    const res = await db('topichistory')
+      .where('userid', userid)
+      .andWhere('topicid', topicid)
+    return res.length != 0
+  },
   async findCategory(){
     return await db('categories').where('IsDelete',0)
   },
@@ -52,5 +64,5 @@ export default {
   async countCategory(){
     let sql = await db('categories').where('IsDelete',0).count({count: '*'}).first();
     return sql.count
-  }
+  },
 }
