@@ -31,6 +31,53 @@ router.get('/topicdetail/:id', async function (req, res) {
     })
 })
 
+router.post('/topicdetail/:id', async function (req, res) {
+    const topicid = req.params.id
+
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, './public/img/topic')
+        },
+        filename: function (req, file, cb) {
+            cb(null, topicid + '.png')
+        }
+    })
+
+    const upload = multer({ storage: storage }).single('avatar');
+
+    upload(req, res, function(err) {
+        if(err) {
+            console.log(err);
+            return res.status(500).send('Error uploading file');
+        }
+        console.log('File uploaded successfully');
+    });
+
+    await adminServices.editTopicAva(topicid, "/public/img/topic/" + topicid + ".png")
+
+    const [topic, word, test] = await Promise.all([
+        adminServices.getTopicDetail(topicid),
+        adminServices.getTopicWordList(topicid),
+        adminServices.getTopicTest(topicid)
+      ])
+
+    res.render('vwAdmin/topicdetail', {
+        topic: JSON.stringify(topic), 
+        word: JSON.stringify(word),
+        test: JSON.stringify(test)
+    })
+})
+
+router.get('/deletetopic/:id', async function (req, res) {
+    const topicid = req.params.id
+
+    const result = await adminServices.deleteTopic(topicid);
+
+    res.render('vwAdmin/deletetopic', {
+        result
+    })
+})
+
 router.get('/addword/:id', async function (req, res){
     const topicid = req.params.id
     res.render('vwAdmin/addword',{

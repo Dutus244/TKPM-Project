@@ -15,7 +15,7 @@ export default{
 
     async getTopicWordList(id){
         const topic = await db
-        .select('wordid', 'wordname')
+            .select('wordid', 'wordname', 'wordmeaning', 'wordpronounce')
             .from('topics')
             .join('words','words.topicid','topics.topicid')
             .where('topics.topicid',id);
@@ -42,9 +42,17 @@ export default{
 
     async findAllTopic() {
         const list = await db('topics')
-        .select('TopicID', 'TopicName')
+            .select('TopicID', 'TopicName')
         
         return list
-    }
+    },
+
+    async deleteTopic(id) {
+        return await db('topics').update('isDelete', 1).where('topics.topicid',id);
+    },
+
+    async editTopicAva(id, newava) {
+        return await db('topics').update('TopicAvatar', newava).where('topics.topicid',id);
+    },
 }
 
