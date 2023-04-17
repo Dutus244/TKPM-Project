@@ -45,7 +45,7 @@ router.post('/topic/test/submit-answers', async function (req, res) {
   const testhistory = {
     testid: id,
     topicid: topicid,
-    userid: "6a6e7163-c669-480c-a28a-980246b50b98",
+    userid: req.session.authUser.UserID,
     createtime: moment().format('YYYY-MM-DD HH:mm:ss'),
   };
   const data = await learnerService.addTestHistory(testhistory)
@@ -61,7 +61,6 @@ router.post('/topic/test/submit-answers', async function (req, res) {
     }
     const resdetail = await learnerService.addTestHistoryDetail(testhistorydetail)
   }
-  // Process the user's answers and send a response
   res.render("vwLearner/topicTestFinish", {
     topicId: topicid,
   })
@@ -82,9 +81,8 @@ router.get('/dailytest', async function (req, res) {
   });
 })
 router.get('/resultdailytest', async function (req, res) {
-  // const userID = req.session.authUser.UserID
+  const userID = req.session.authUser.UserID
   const {wordID,check} = req.query;
-  const userID = '6a6e7163-c669-480c-a28a-980246b50b98'
   await learnerService.updateMemoryLevel(userID,wordID,check)
 })
 export default router;

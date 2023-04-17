@@ -105,7 +105,6 @@ export default {
 
         const questions = [];
         for (const word of words) {
-            // const randomType1 = Math.floor(Math.random() * 3);
             const randomType1 = Math.floor(Math.random() * 3);
             const randomType2 = Math.floor(Math.random() * 2);
 
