@@ -70,11 +70,12 @@ router.post('/addquestion/:id', async function (req, res){
             optionb,
             optionc,
             optiond: wordname,
-            answer: wordid,
+            answer: wordname,
+            wordid: wordid,
             isdelete: 0
         }
     console.log(test)
-    //await adminServices.addQuestion(test)
+    await adminServices.addQuestion(test)
 })
 
 router.get('/addword/:id', async function (req, res){

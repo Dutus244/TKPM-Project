@@ -54,7 +54,6 @@
         const optB = $('#txtOptionB').val();
         if (!optB.length) {
             alert('Please input all three other option')
-            alert('Please input all three other option')
             $('#txtOptionB').css('background-color', '#f2cece')
             $('#txtOptionB').addClass('form-control-error')
             return
@@ -63,9 +62,35 @@
         const optC = $('#txtOptionC').val();
         if (!optC.length) {
             alert('Please input all three other option')
-            alert('Please input all three other option')
             $('#txtOptionC').css('background-color', '#f2cece')
             $('#txtOptionC').addClass('form-control-error')
+            return
+        }
+
+        if(optA == optB){
+            alert('Same option')
+            $('#txtOptionA').css('background-color', '#f2cece')
+            $('#txtOptionA').addClass('form-control-error')
+            $('#txtOptionB').css('background-color', '#f2cece')
+            $('#txtOptionB').addClass('form-control-error')
+            return
+        }
+
+        if(optA == optC){
+            alert('Same option')
+            $('#txtOptionA').css('background-color', '#f2cece')
+            $('#txtOptionA').addClass('form-control-error')
+            $('#txtOptionC').css('background-color', '#f2cece')
+            $('#txtOptionC').addClass('form-control-error')
+            return
+        }
+
+        if(optB == optC){
+            alert('Same option')
+            $('#txtOptionC').css('background-color', '#f2cece')
+            $('#txtOptionC').addClass('form-control-error')
+            $('#txtOptionB').css('background-color', '#f2cece')
+            $('#txtOptionB').addClass('form-control-error')
             return
         }
 
@@ -77,7 +102,7 @@
 <main>
 <div>
     {{#if msg}}
-    <div class="alert alert-success alert-dismissible fade show text-center pr-0" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show text-center pr-0" role="alert">
         {{msg}}
         <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true" class="bg-inherit">&times;</span>
