@@ -1,0 +1,36 @@
+main{
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.delete-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30rem;
+    height: 12rem;
+    background-color: #F5F5F5;
+    border: 2px solid #71ACA9;
+    border-radius: 10%;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    margin-top: 2rem;
+  }
+  
+  .delete-container h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+.delete-container .btnBack{
+    font-size: .9rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #71ACA9;
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+}

@@ -1,3 +1,97 @@
+{{#section 'js'}}
+<script>
+  const topicdetail = {{{topic}}}
+  const wordlist = {{{word}}}
+  const testlist = {{{test}}}
+  
+  $(document).ready(function() {
+    //topic name
+    $('#topicname').text(topicdetail.topicname);
+
+    //topic avatar
+    console.log(topicdetail.topicavatar)
+    $("#avatarsrc").attr('src', topicdetail.topicavatar);
+    // edit button
+    $('.ava-container .btnEdit').on('click', function() {
+      // create file picker
+      const input = $('<input>').attr('type', 'file');
+      // when file is selected
+      input.on('change', function() {
+        const file = this.files[0];
+        // create form data
+        const formData = new FormData();
+        formData.append('avatar', file);
+        // send post request
+        $.ajax({
+          type: 'POST',
+          url: '/admin/topicdetail/' + topicdetail.topicid,
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(response) {
+            console.log('success');
+            const reader = new FileReader();
+            reader.onload = function(event) {
+              // update the src attribute of the image element with the new image data URL
+              $("#avatarsrc").attr('src', event.target.result);
+            };
+            reader.readAsDataURL(file);
+          },
+          error: function(error) {
+            console.log(error);
+          }
+        });
+      });
+      input.trigger('click');
+    });
+
+    //test
+
+
+    //word section
+    $('#wordcount').text("Total words: "+ wordlist.length);
+    //add word
+    $('.word-container .btnAdd').on('click', function() {
+      window.location.href = "/admin/addword/" + topicdetail.topicid;
+    });
+    //word table
+    const wordcontainer = $('table tbody')
+    wordlist.forEach(function(word) {
+      const row = $('<tr>')
+      const name = $('<td>').text(word.wordname);
+      const def = $('<td>').text(word.wordmeaning);
+      const pro = $('<td>').text(word.wordpronounce);
+      const editWordButton = $('<button>').attr('type', 'button').addClass('btnEditReview').text('Edit');
+      editWordButton.on('click', function() {
+        window.location.href = '/admin/editWord/' + word.wordID;
+      });
+      const reviewWordButton = $('<button>').attr('type', 'button').addClass('btnEditReview').text('Review');
+      reviewWordButton.on('click', function() {
+        window.location.href = '/admin/reviewWord/' + word.wordID;
+      });
+      const editreview = $('<td>')
+      editreview.append(editWordButton);
+      editreview.append(reviewWordButton);
+      row.append(name);
+      row.append(def);
+      row.append(pro);
+      row.append(editreview);
+      wordcontainer.append(row);
+    });
+
+    //back button
+    $('.delete-back-container .btnDel').on('click', async function() {
+      window.location.href = "/admin/deletetopic/" + topicdetail.topicid;
+    });
+    //back button
+    $('.delete-back-container .btnBack').on('click', function() {
+      window.location.href = "/admin/topiclist";
+    });
+});
+
+</script>
+{{/section}}
+
 {{#section 'css'}}
 <link rel="stylesheet" href="/public/CSS/admin/topicdetail.css">
 <link rel="stylesheet"
@@ -8,53 +102,50 @@
 
 {{/section}}
 
-
 <main>
   <div class="container">
-    <div id="topicname">{{topicname}}</div>
-    <div class="words">
-      {{#if this.num}}
-        <div class="wordcount">Total words: {{this.num}}</div>
-        {{#each this.topic}}
-          <span>{{wordname}}</span>
-        {{/each}}
-      {{else}}
-        <div class="wordcount">Total words: 0</div>
-      {{/if}}
-      {{#ifEquals this.num 10}}
-      
-      {{else}}
-      <a href="/admin/addword/{{this.topicid}}">
-      <br>
-        <button type="button" class="btnAdd">
-          Add
-        </button>
-      </a>
-      {{/ifEquals}}
-        
-    </div>
-    <div class="tests">
-      <div class="testcount">Tests</div>
-      {{#if this.test}}
-        <button type="button" class="btnAdd">
-          Review
-        </button>
-      {{else}}
-        Chưa có bài test
-      {{/if}}
-    </div>
-    <div class="buttongroup">
-      <button type="button" class="btnDel">
-          Delete
-      </button>
+    <div id="topicname">topicname</div>
+    <div class="ava-container">
+      <div class="title">Topic avatar</div>
+      <img id="avatarsrc" src="/public/img/background/flashcard_background.png">
       <button type="button" class="btnEdit">
           Edit
       </button>
-      <a href="/admin/topiclist">
-        <button type="button" class="btnBack">
-          Back to list
-        </button>
-      </a>
+    </div>
+    <div class="test-container">
+      <div class="title">Test</div>
+      <button type="button" class="btnEdit">
+          Edit
+      </button>
+      <button type="button" class="btnReview">
+          Review
+      </button>
+    </div>
+    <div class="word-container">
+      <div id="wordcount" class="title">Word count: </div>
+      <button type="button" class="btnAdd">
+          Add
+      </button>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Word</th>
+            <th>Definition</th>
+            <th>Pronounce</th>
+            <th>Edit/Review</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    <div class="delete-back-container">
+      <button type="button" class="btnDel">
+          Delete
+      </button>
+      <button type="button" class="btnBack">
+          Back
+      </button>
     </div>
   </div>
 </main>
