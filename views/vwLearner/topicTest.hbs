@@ -51,7 +51,7 @@
             }
             const temp = {
                 topicid: topicid,
-                anwsers: listAnswer,
+                answers: listAnswer,
             };
             fetch('/topic/test/submit-answers', {
                 method: 'POST',
@@ -177,7 +177,7 @@
                 {{#each this.question}}
                     {{#ifEquals  this.QuestionAvatar ""}}
                         <div class="question" id="question{{@index}}">
-                            <div class="p-2 m-0 text-center question-name-1">{{Question}}</div>
+                            <div class="p-2 m-0 text-center question-name-1">{{{Question}}}</div>
                             <div class="id" style="display: none">{{QuestionID}}</div>
                             <div class="answer" style="display: none">{{Answer}}</div>
 
@@ -195,7 +195,7 @@
                         </div>
                     {{else}}
                         <div class="question" id="question{{@index}}">
-                            <div class="p-2 m-0 text-center question-name">{{Question}}</div>
+                            <div class="p-2 m-0 text-center question-name">{{{Question}}}</div>
                             <div class="id" style="display: none">{{QuestionID}}</div>
                             <div class="answer" style="display: none">{{Answer}}</div>
 

@@ -23,8 +23,6 @@ export default {
             .select('wordid')
             .where('topicid', id);
 
-        const questions = [];
-
         const questions = await Promise.all(words.map(async (word) => {
             const result = await db('multiplechoicequestions')
                 .where('wordid', word.wordid)
@@ -215,15 +213,6 @@ export default {
       .where('topicid', topicId)
       
     return list
-  },
-  async findAllQuestionsTopic(id) {
-    const list = await db
-        .select('questionid','question','optiona','optionb','optionc','optiond','answer','picture','words.wordname')
-        .from('multiplechoicequestions')
-        .join('words','multiplechoicequestions.answer','words.wordid')
-        .join('topics','words.topicid','topics.topicid')
-        .where('topics.topicid', id);
-    return list;
   },
   async addTestHistory(entity) {
     return await db('testhistory').insert(entity);
