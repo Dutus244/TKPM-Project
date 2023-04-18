@@ -40,27 +40,30 @@ router.get('/topic/test/:id', async function (req, res) {
 
 router.post('/topic/test/submit-answers', async function (req, res) {
   const userAnswers = await req.body;
-  const topicid = userAnswers.topicid
+  const {topicid} = userAnswers
   const id = v4()
   const testhistory = {
     testid: id,
     topicid: topicid,
-    userid: req.session.authUser.UserID,
+    userid: req.session.authUser.userid,
     createtime: moment().format('YYYY-MM-DD HH:mm:ss'),
   };
   const data = await learnerService.addTestHistory(testhistory)
-  for (const item of userAnswers.anwsers) {
-    const testhistorydetail = {
+  const testhistorydetails = userAnswers.answers.map(item => {
+    return {
       testid: id,
       questionid: item.questionID,
       userchoose: item.userchoose,
       optiona: item.optiona,
       optionb: item.optionb,
       optionc: item.optionc,
-      optiond: item.optiond,
-    }
-    const resdetail = await learnerService.addTestHistoryDetail(testhistorydetail)
-  }
+      optiond: item.optiond
+    };
+  });
+
+  const results = await Promise.all(testhistorydetails.map(testhistorydetail => {
+    return learnerService.addTestHistoryDetail(testhistorydetail);
+  }));
   res.render("vwLearner/topicTestFinish", {
     topicId: topicid,
   })
@@ -81,8 +84,8 @@ router.get('/dailytest', async function (req, res) {
   });
 })
 router.get('/resultdailytest', async function (req, res) {
-  const userID = req.session.authUser.UserID
-  const {wordID,check} = req.query;
-  await learnerService.updateMemoryLevel(userID,wordID,check)
+  const userID = req.session.authUser.userid
+  const {wordID, check} = req.query;
+  await learnerService.updateMemoryLevel(userID, wordID, check)
 })
 export default router;

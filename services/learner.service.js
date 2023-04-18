@@ -25,31 +25,31 @@ export default {
 
         const questions = [];
 
-        for (const word of words) {
+        const questions = await Promise.all(words.map(async (word) => {
             const result = await db('multiplechoicequestions')
                 .where('wordid', word.wordid)
                 .andWhere('isdelete', false)
                 .orderByRaw('rand()')
                 .limit(1)
                 .select();
-
+            const {OptionA, OptionB, OptionC, OptionD} = result[0];
             if (result.length > 0) {
                 const shuffledOptions = shuffleArray([
-                    result[0].OptionA,
-                    result[0].OptionB,
-                    result[0].OptionC,
-                    result[0].OptionD,
+                    OptionA,
+                    OptionB,
+                    OptionC,
+                    OptionD,
                 ]);
 
-                questions.push({
+                return {
                     ...result[0],
                     OptionA: shuffledOptions[0],
                     OptionB: shuffledOptions[1],
                     OptionC: shuffledOptions[2],
                     OptionD: shuffledOptions[3],
-                });
+                };
             }
-        }
+        }));
 
         shuffleArray(questions);
 
@@ -119,15 +119,13 @@ export default {
                     .limit(1)
                     .select('Question','QuestionAvatar','Answer');
 
-                question.Question = tempquestion[0].Question
-                question.Answer = tempquestion[0].Answer
-                question.QuestionAvatar = tempquestion[0].QuestionAvatar
+                const {Question,Answer,QuestionAvatar} = tempquestion[0]
+                question.Question = Question
+                question.Answer = Answer
+                question.QuestionAvatar = QuestionAvatar
 
                 if (question.QuestionAvatar === "") {
-                    if (randomType2 == 0) {
-
-                    }
-                    else if (randomType2 == 1) {
+                    if (randomType2 == 1) {
                         const meaning = await db('words')
                             .select('wordmeaning')
                             .where('wordid', word.WordID);
@@ -148,15 +146,13 @@ export default {
                     .limit(1)
                     .select('Question','QuestionAvatar','Answer');
 
-                question.Question = tempquestion[0].Question
-                question.Answer = tempquestion[0].Answer
-                question.QuestionAvatar = tempquestion[0].QuestionAvatar
+                const {Question,Answer,QuestionAvatar} = tempquestion[0]
+                question.Question = Question
+                question.Answer = Answer
+                question.QuestionAvatar = QuestionAvatar
 
                 if (question.QuestionAvatar === "") {
-                    if (randomType2 == 0) {
-
-                    }
-                    else if (randomType2 == 1) {
+                    if (randomType2 == 1) {
                         const meaning = await db('words')
                             .select('wordmeaning')
                             .where('wordid', word.WordID);
@@ -175,27 +171,25 @@ export default {
                     .orderByRaw('rand()')
                     .limit(1)
                     .select();
-
+                
+                const {OptionA, OptionB, OptionC, OptionD,Question,Answer,QuestionAvatar} = tempquestion[0];
                 const shuffledOptions = shuffleArray([
-                    tempquestion[0].OptionA,
-                    tempquestion[0].OptionB,
-                    tempquestion[0].OptionC,
-                    tempquestion[0].OptionD,
+                    OptionA,
+                    OptionB,
+                    OptionC,
+                    OptionD,
                 ]);
                 
                 question.OptionA = shuffledOptions[0]
                 question.OptionB = shuffledOptions[1]
                 question.OptionC = shuffledOptions[2]
                 question.OptionD = shuffledOptions[3]
-                question.Question = tempquestion[0].Question
-                question.Answer = tempquestion[0].Answer
-                question.QuestionAvatar = tempquestion[0].QuestionAvatar
+                question.Question = Question
+                question.Answer = Answer
+                question.QuestionAvatar = QuestionAvatar
 
                 if (question.QuestionAvatar === "") {
-                    if (randomType2 == 0) {
-
-                    }
-                    else if (randomType2 == 1) {
+                    if (randomType2 == 1) {
                         const meaning = await db('words')
                             .select('wordmeaning')
                             .where('wordid', word.WordID);
