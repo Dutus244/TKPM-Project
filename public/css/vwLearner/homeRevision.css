@@ -1,0 +1,273 @@
+.container-fluid {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.chart {
+  height: 400px;
+  width: 100%;
+  display: flex;
+  padding: 0 10px 0 10px;
+  gap: 20px;
+}
+
+.chart-header {
+  background-color: gray;
+  height: 10px;
+  display: flex;
+}
+
+.level-1,
+.level-2,
+.level-3,
+.level-4,
+.level-5 {
+  height: 100%;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.word-count {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
+  height: 95%;
+  font-family: "Sriracha";
+  font-size: 1.2rem;
+}
+
+.bar {
+  height: auto;
+  flex: 1 1 auto;
+  background-color: aqua;
+  border-radius: 25px 25px 0 0;
+}
+
+.level-1 > .bar {
+  background-color: #ff4062;
+}
+
+.level-2 > .bar {
+  background-color: #ff9c98;
+}
+
+.level-3 > .bar {
+  background-color: #facdab;
+}
+
+.level-4 > .bar {
+  background-color: #aacdaf;
+}
+
+.level-5 > .bar {
+  background-color: #71aca9;
+}
+
+.chart-foot {
+  background-color: #bdbdbd;
+  height: 10px;
+  width: 100%;
+}
+
+.level-text {
+  display: flex;
+  width: 100%;
+}
+
+.level-1-text,
+.level-2-text,
+.level-3-text,
+.level-4-text,
+.level-5-text {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-family: "Sriracha";
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.review-test-text {
+  font-size: 1.2rem;
+}
+
+#review-btn {
+  background-color: #f4df89;
+  border: 1px solid #f4df89;
+  border-radius: 2.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 11rem;
+  font-family: "Sriracha";
+}
+
+.category-progress {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.category-progress-title {
+  background-color: #9dd6d4;
+  border: 1px solid #9dd6d4;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 85%;
+  font-family: "Sriracha";
+  text-align: center;
+}
+
+.category-progress-item {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: "Sriracha";
+}
+
+.category-progress-item-name {
+  width: 40%;
+  word-wrap: break-word;
+  align-self: flex-end;
+}
+
+.progress-container {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.percentage {
+  font-size: 1.5rem;
+}
+
+.progress {
+  width: 100%;
+  height: 1.75rem;
+  border-radius: 1rem;
+  border: #367772 solid 2px;
+  background-color: white;
+}
+
+.progress-bar {
+  width: 0%;
+  background: linear-gradient(to right, #AACDAF, #71ACA9);
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .word-count {
+    font-size: 1rem;
+  }
+  .category-progress-item {
+    width: 80%;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .chart {
+    width: 80%;
+  }
+  .chart-foot {
+    width: 80%;
+  }
+  .level-text {
+    width: 80%;
+  }
+  .word-count {
+    font-size: 1.05rem;
+  }
+  .category-progress-title {
+    width: 70%;
+  }
+  .category-progress-item {
+    width: 80%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .chart {
+    width: 60%;
+  }
+  .chart-foot {
+    width: 60%;
+  }
+  .level-text {
+    width: 60%;
+  }
+  .word-count {
+    font-size: 1.05rem;
+  }
+  .category-progress-title {
+    width: 50%;
+  }
+  .category-progress-item {
+    width: 60%;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .chart {
+    width: 50%;
+  }
+  .chart-foot {
+    width: 50%;
+  }
+  .level-text {
+    width: 50%;
+  }
+  .word-count {
+    font-size: 1.1rem;
+  }
+  .category-progress-title {
+    width: 40%;
+  }
+  .category-progress-item {
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .chart {
+    width: 40%;
+  }
+  .chart-foot {
+    width: 40%;
+  }
+  .level-text {
+    width: 40%;
+  }
+  .word-count {
+    font-size: 1.1rem;
+  }
+  .category-progress-title {
+    width: 30%;
+  }
+  .category-progress-item {
+    width: 40%;
+  }
+}
