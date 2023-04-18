@@ -6,14 +6,38 @@ import {PAGE_LIMIT} from './constants.js';
 const router = express.Router();
 router.use(bodyParser.json());
 
-router.get("/topic/:id", async (req, res) => {
+router.get('/revision', async function(req, res) {
+  let categoriesProgress = await learnerService.getCategoriesProgress(res.locals.authUser.userid)
+  categoriesProgress = categoriesProgress.map( it => ({
+    categoryname: it.categoryname,
+    percentage: (it.wordshaslearned / it.totalwords) * 100,
+  }))
+
+  let memoryLevelCount = await learnerService.getUserMemoryLevelCount(res.locals.authUser.userid)
+  const maxNumber = memoryLevelCount.reduce((acc, cur) => {
+    return acc > cur.number ? acc : cur.number;
+  }, 0);
+  const totalWords = memoryLevelCount.reduce((acc, cur) => acc + cur.number, 0)
+  memoryLevelCount = memoryLevelCount.map( it => ({
+    ...it,
+    percentage: (it.number / maxNumber) * 100
+  }))
+
+  res.render('vwLearner/homeRevision', {
+    categoriesProgress: categoriesProgress,
+    memoryLevelCount: JSON.stringify(memoryLevelCount),
+    totalWords: totalWords
+  })
+})
+
+router.get("/topic/:id", async function(req, res) {
   const id = req.params.id;
   const wordlist = await learnerService.findAllTopicWord(id);
-  // if (wordlist.length == 0) {
-  //   res.status(404).render("404", {
-  //     layout: false,
-  //   });
-  // }
+  if (!wordlist.length) {
+    return res.status(404).render("404", {
+      layout: false,
+    });
+  }
 
   res.render("vwLearner/topicLearn", {
     words: JSON.stringify(wordlist),
@@ -21,7 +45,7 @@ router.get("/topic/:id", async (req, res) => {
   });
 });
 
-router.get("/topic/:id/finish", async(req, res) => {
+router.get("/topic/:id/finish", async function(req, res) {
   const id = req.params.id
 
   res.render("vwLearner/topicLearnFinish", {
