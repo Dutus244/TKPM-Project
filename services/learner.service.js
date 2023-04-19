@@ -41,6 +41,10 @@ export default {
         'from topics '
     )
   },
+  async findCategoryByID(category_id){
+    const a = await db('categories').where('CategoryID', category_id)
+    return a[0]
+  },
   async addWordHistory(words) {
     return await db('wordhistory').insert(words)
   },

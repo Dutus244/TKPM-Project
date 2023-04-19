@@ -7,52 +7,118 @@
 {{#section 'js'}}
 {{/section}}
 
-<div class ="container">
-    <div class="row w-100" >
-        <div id="header" class ="column">
-            <div class="d-flex justify-content-center">
-                <img class="box" src="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg"  alt="https://i.pinimg.com/564x/4f/0a/64/4f0a643ca1b0f37755a56f4abe4b5a79.jpg">
-            </div>
-            <div id="description">
-                <h1> Tên Category</h1>
-                <h4> Description </h4>
-                <p >Phỏng vấn thử - việc thật là chương trình đồng hành cùng Ngày hội việc làm Khoa CNTT tổ chức với mục đích tạo cơ hội cho sinh viên trải nghiệm quy trình tuyển dụng của các công ty, tập đoàn hàng đầu và rèn luyện kỹ năng xin việc trong tương lai.
-                    Tại chương trình sinh viên sẽ được trải nghiệm một buổi phỏng vấn và được đại diện công ty tư vấn về CV cũng như các thiếu sót cần cải thiện trong quá trình phỏng vấn.</p>
-            </div>
+
+        <div id="header" >
+                <img src={{category.CategoryAvatar}} alt="">
+                <div id="description">
+                    <h1> {{category.CategoryName}}</h1>
+                    <p >{{category.CategoryDes}}</p>
+                </div>
         </div>
-        <div id="content" class ="column">
-            <h3>Topic List</h3>
-            <div class="topiccontainer">
-                <div class="subtopiccontainer">
-                    <div>
+<h3>Topic List</h3>
+
+    <div id="content" >
+            <div class="container">
+                <div class="row">
                         {{#each topic}}
-                            <a href="/topic/{{TopicID}}" class="card"
-                               class="isRead"
-                               role="button" aria-pressed="true">
-                                <div class="row no-gutters topic"  >
-                              {{#ifEquals isRead 0}}
-                                  <div class="col col-2">
-                                      <div class="d-flex justify-content-center">
-                                      <i  class="fa fa-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
-                                  </div>
+                            <div class ="column">
+                                <a id = "topic"href="/topic/{{TopicID}}" class="card"
+                                   class="isRead"
+                                   role="button" aria-pressed="true">
+                                    <div class="row no-gutters topic"  >
+                                        {{#ifEquals isRead 0}}
+                                            <div class="col col-2">
+                                                <div class="d-flex justify-content-center">
+                                                    <i  class="fa fa-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
+                                            </div>
 
-                              {{else}}
-                                  <div class="col col-2">
-                                      <div class="d-flex justify-content-center">
-                                          <i  class="fa fa-check-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
-                                  </div>
-                              {{/ifEquals}}
-
-                                    <img class="col col-2"
+                                        {{else}}
+                                            <div class="col col-2">
+                                                <div class="d-flex justify-content-center">
+                                                    <i  class="fa fa-check-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
+                                            </div>
+                                        {{/ifEquals}}
+                                        <img class="col col-2"
                                              src={{TopicAvatar}}
                                              alt="...">
-                                    <h3 class="col col-8">{{TopicName}}</h3>
-                                </div>
-                            </a>
+                                        <h3 class="col col-8">{{TopicName}}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class ="column">
+                                <a id = "topic"href="/topic/{{TopicID}}" class="card"
+                                   class="isRead"
+                                   role="button" aria-pressed="true">
+                                    <div class="row no-gutters topic"  >
+                                        {{#ifEquals isRead 0}}
+                                            <div class="col col-2">
+                                                <div class="d-flex justify-content-center">
+                                                    <i  class="fa fa-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
+                                            </div>
+
+                                        {{else}}
+                                            <div class="col col-2">
+                                                <div class="d-flex justify-content-center">
+                                                    <i  class="fa fa-check-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
+                                            </div>
+                                        {{/ifEquals}}
+                                        <img class="col col-2"
+                                             src={{TopicAvatar}}
+                                             alt="...">
+                                        <h3 class="col col-8">{{TopicName}}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class ="column">
+                                <a id = "topic"href="/topic/{{TopicID}}" class="card"
+                                   class="isRead"
+                                   role="button" aria-pressed="true">
+                                    <div class="row no-gutters topic"  >
+                                        {{#ifEquals isRead 0}}
+                                            <div class="col col-2">
+                                                <div class="d-flex justify-content-center">
+                                                    <i  class="fa fa-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
+                                            </div>
+
+                                        {{else}}
+                                            <div class="col col-2">
+                                                <div class="d-flex justify-content-center">
+                                                    <i  class="fa fa-check-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
+                                            </div>
+                                        {{/ifEquals}}
+                                        <img class="col col-2"
+                                             src={{TopicAvatar}}
+                                             alt="...">
+                                        <h3 class="col col-8">{{TopicName}}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class ="column">
+                                <a id = "topic"href="/topic/{{TopicID}}" class="card"
+                                   class="isRead"
+                                   role="button" aria-pressed="true">
+                                    <div class="row no-gutters topic"  >
+                                        {{#ifEquals isRead 0}}
+                                            <div class="col col-2">
+                                                <div class="d-flex justify-content-center">
+                                                    <i  class="fa fa-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
+                                            </div>
+
+                                        {{else}}
+                                            <div class="col col-2">
+                                                <div class="d-flex justify-content-center">
+                                                    <i  class="fa fa-check-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
+                                            </div>
+                                        {{/ifEquals}}
+                                        <img class="col col-2"
+                                             src={{TopicAvatar}}
+                                             alt="...">
+                                        <h3 class="col col-8">{{TopicName}}</h3>
+                                    </div>
+                                </a>
+                            </div>
+
                         {{/each}}
-                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
