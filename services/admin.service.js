@@ -64,7 +64,7 @@ export default{
             .where('topics.topicid', id)
             .andWhere('words.wordid', wordid);
         return word
-    }
+    },
     
     async deleteTopic(id) {
         return await db('topics').update('isDelete', 1).where('topics.topicid',id);
