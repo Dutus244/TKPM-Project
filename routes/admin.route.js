@@ -78,6 +78,53 @@ router.get('/deletetopic/:id', async function (req, res) {
     })
 })
 
+router.get('/addquestion/:id', async function (req, res){
+    const topicid = req.params.id
+    const wordlist = await adminServices.getWords(topicid)
+    res.render('vwAdmin/addquestion',{
+        topicid,
+        wordlist,
+    })
+})
+
+router.post('/addquestion/:id', async function (req, res){
+    const qid = v4()
+
+    const id = req.params.id
+
+    const wordid = req.body.word;
+    const  optiond  = await adminServices.getWord(id, wordid)
+    const wordlist = await adminServices.getWords(id)
+
+    const { wordname } = optiond[0]
+
+    const {question, optiona, optionb, optionc} = req.body;
+
+    const options = [optiona, optionb, optionc];
+
+    if (options.some(option => option === wordname)) {
+        res.render('vwAdmin/addquestion',{
+            topicid:id,
+            wordlist,
+            msg:"The answer is same to one of the three other options",
+        })
+    }
+    
+        const test={
+            questionid: qid,
+            question,
+            optiona,
+            optionb,
+            optionc,
+            optiond: wordname,
+            answer: wordname,
+            wordid: wordid,
+            isdelete: 0
+        }
+    console.log(test)
+    await adminServices.addQuestion(test)
+})
+
 router.get('/addword/:id', async function (req, res){
     const topicid = req.params.id
     res.render('vwAdmin/addword',{
@@ -87,7 +134,6 @@ router.get('/addword/:id', async function (req, res){
 
 router.post('/addword/:id', async function (req, res){
     const id = v4()
-    const qid = v4()
 
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -118,20 +164,7 @@ router.post('/addword/:id', async function (req, res){
             isdelete: 0,
         }
 
-        const {question, optionA, optionB, optionC, optionD} = req.body;
-        const test={
-            questionid: qid,
-            question,
-            optiona: optionA,
-            optionb: optionB,
-            optionc: optionC,
-            optiond: optionD,
-            answer: id,
-            isdelete: 0
-        }
-
         await adminServices.addWord(word)
-        await adminServices.addQuestion(test)
 
         const topicname = await adminServices.getTopicName(topicid)
         const topic = await adminServices.getTopicDetail(topicid)

@@ -32,6 +32,15 @@ export default{
         return test;
     },
 
+    async getWords(id){
+        const list = await db
+            .select('wordid', 'wordname')
+            .from('words')
+            .join('topics', 'words.topicid','topics.topicid')
+            .where('topics.topicid', id);
+        return list
+    },
+
     async addWord(entity){
         return await db('words').insert(entity);
     },
@@ -47,6 +56,16 @@ export default{
         return list
     },
 
+    async getWord(id, wordid){
+        const word = await db
+            .select('wordname')
+            .from('words')
+            .join('topics', 'words.topicid','topics.topicid')
+            .where('topics.topicid', id)
+            .andWhere('words.wordid', wordid);
+        return word
+    }
+    
     async deleteTopic(id) {
         return await db('topics').update('isDelete', 1).where('topics.topicid',id);
     },
