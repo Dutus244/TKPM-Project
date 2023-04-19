@@ -5,6 +5,7 @@ import { v4 } from 'uuid';
 import {PAGE_LIMIT} from './constants.js';
 const router = express.Router();
 router.use(bodyParser.json());
+import moment from 'moment';
 
 router.get('/revision', async function(req, res) {
   let categoriesProgress = await learnerService.getCategoriesProgress(res.locals.authUser.userid)
@@ -97,24 +98,32 @@ router.get('/topic/test/:id', async function (req, res) {
 
 router.post('/topic/test/submit-answers', async function (req, res) {
   const userAnswers = await req.body;
+  const {topicid} = userAnswers
   const id = v4()
-  // const testhistory = {
-  //   testid: id,
-  //   userid: "c2229cc2-cbe1-11ed-b9d3-002248eb7c8a",
-  //   createtime: moment().format('YYYY-MM-DD HH:mm:ss'),
-  // };
-  // const data = await UserService.addTestHistory(testhistory)
-  // for (const item of userAnswers) {
-  //   const testhistorydetail = {
-  //     testid: id,
-  //     questionid: item.questionId,
-  //     userchoose: item.answer
-  //   }
-  //   const resdetail = await UserService.addTestHistoryDetail(testhistorydetail)
-  // }
-  // Process the user's answers and send a response
+  const testhistory = {
+    testid: id,
+    topicid: topicid,
+    userid: req.session.authUser.userid,
+    createtime: moment().format('YYYY-MM-DD HH:mm:ss'),
+  };
+  const data = await learnerService.addTestHistory(testhistory)
+  const testhistorydetails = userAnswers.answers.map(item => {
+    return {
+      testid: id,
+      questionid: item.questionID,
+      userchoose: item.userchoose,
+      optiona: item.optiona,
+      optionb: item.optionb,
+      optionc: item.optionc,
+      optiond: item.optiond
+    };
+  });
+
+  const results = await Promise.all(testhistorydetails.map(testhistorydetail => {
+    return learnerService.addTestHistoryDetail(testhistorydetail);
+  }));
   res.render("vwLearner/topicTestFinish", {
-    topicId: id,
+    topicId: topicid,
   })
 });
 
@@ -191,13 +200,17 @@ router.get('/category/:category_page', async function (req, res) {
         limit
     );
     let [prePage, nextPage] = setup_pages(curPage,nPage);
+})
 
-    res.render('vwLearner/category', {
-      category: list,
-      pageNumber: pageNumber,
-      empty: list.length === 0,
-      prePage: prePage,
-      nextPage: nextPage,
-    });
+router.get('/dailytest', async function (req, res) {
+  const list = await learnerService.findAllQuestionDailyTest()
+  res.render('vwLearner/dailyTest', {
+    question: list
+  });
+})
+router.get('/resultdailytest', async function (req, res) {
+  const userID = req.session.authUser.userid
+  const {wordID, check} = req.query;
+  await learnerService.updateMemoryLevel(userID, wordID, check)
 })
 export default router;

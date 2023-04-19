@@ -1,4 +1,5 @@
 {{#section 'css'}}
+    <link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">
     <link rel="stylesheet" href="/public/CSS/vwLearner/topicTest.css">
 {{/section}}
 
@@ -9,37 +10,7 @@
         let currentQuestionIndex = 0;
         const totalQuestions = {{this.question.length}};
         const topicid = "{{this.topicid}}";
-        function checkAnswer(index) {
-            const radios = document.getElementsByName(`question${index}`);
-            let selectedAnswer = null;
-
-            for (let i = 0; i < radios.length; i++) {
-                if (radios[i].checked) {
-                    selectedAnswer = radios[i].value;
-                    break;
-                }
-            }
-
-            if (!selectedAnswer) {
-                alert('Please select an answer');
-                return;
-            }
-
-            for (let i = 0; i < radios.length; i++) {
-                radios[i].disabled = true;
-            }
-
-            const temp = questions[index].querySelector('.answer')
-            const correctAnswer = temp.textContent;
-            const feedbackEl = questions[index].querySelector('.answer-feedback');
-
-            if (selectedAnswer.toUpperCase() === correctAnswer.toUpperCase()) {
-                feedbackEl.innerHTML = '<span class="text-success">Correct!</span>';
-            } else {
-                feedbackEl.innerHTML = '<span class="text-danger">Incorrect.</span> The correct answer is ' + correctAnswer.toUpperCase();
-            }
-        }
-
+        const listAnswer = []
         const prevButton = document.getElementById('prev-btn');
         const nextButton = document.getElementById('next-btn');
         const endButton = document.getElementById('end-btn');
@@ -74,29 +45,13 @@
         }
 
         function sendAnswersToDatabase() {
-            const answers = [];
-            for (let i = 0; i < totalQuestions; i++) {
-                const radios = document.getElementsByName(`question${i}`);
-                let selectedAnswer = null;
-                for (let j = 0; j < radios.length; j++) {
-                    if (radios[j].checked) {
-                        selectedAnswer = radios[j].value;
-                        break;
-                    }
-                }
-                if (!selectedAnswer) {
-                    alert('There are still unfinished questions');
-                    return;
-                }
-                const questionID = questions[i].querySelector('.id').textContent
-                answers.push({
-                    questionId: questionID,
-                    answer: selectedAnswer
-                });
+            if (listAnswer.length != totalQuestions) {
+                alert('There are still unfinished questions');
+                return;
             }
             const temp = {
                 topicid: topicid,
-                anwsers: answers,
+                answers: listAnswer,
             };
             fetch('/topic/test/submit-answers', {
                 method: 'POST',
@@ -130,6 +85,18 @@
             updateButtons(currentQuestionIndex);
         }
 
+        document.addEventListener("keydown", function(event) {
+            if (event.code === "ArrowRight") {
+                if (currentQuestionIndex !== totalQuestions - 1) {
+                    goToNextQuestion();
+                }
+            } else if (event.code === "ArrowLeft") {
+                if (currentQuestionIndex !== 0 ) {
+                    goToPrevQuestion();
+                }
+            }
+        });
+
         nextButton.addEventListener('click', goToNextQuestion);
         prevButton.addEventListener('click', goToPrevQuestion);
         endButton.addEventListener('click', sendAnswersToDatabase);
@@ -138,52 +105,130 @@
         // show the first question and update the buttons
         showQuestion(currentQuestionIndex);
         updateButtons(currentQuestionIndex);
+
+        const options = document.querySelectorAll('#options span');
+
+        // Add a click event listener to each option
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                // Get the correct answer for this question
+                const tempAnswer = questions[currentQuestionIndex].querySelector('.answer')
+                const correctAnswer = tempAnswer.textContent;
+
+                const tempQuestionID = questions[currentQuestionIndex].querySelector('.id')
+                const questionID = tempQuestionID.textContent;
+
+
+                // Get the selected answer
+                const selectedAnswer = option.textContent.substring(3);
+
+
+                const isCorrect = selectedAnswer === correctAnswer;
+                const parent = option.parentNode;
+                const cell = parent.querySelector(`div[value="${selectedAnswer}"]`);
+                const spanOptionA = parent.querySelector('.spanOptionA');
+                const OptionA = spanOptionA.textContent.substring(3);
+
+                const spanOptionB = parent.querySelector('.spanOptionB');
+                const OptionB = spanOptionB.textContent.substring(3);
+
+                const spanOptionC = parent.querySelector('.spanOptionC');
+                const OptionC = spanOptionC.textContent.substring(3);
+
+                const spanOptionD = parent.querySelector('.spanOptionD');
+                const OptionD = spanOptionD.textContent.substring(3);
+
+
+                cell.style.background = isCorrect ? 'rgb(43,190,28)' : 'rgb(231,75,75)';
+                option.style.color = 'rgb(255,255,255)'
+                option.style.fontWeight = 'bold'
+
+                options.forEach(otherOption => {
+                    if (otherOption !== option && otherOption.parentNode === option.parentNode) {
+                        otherOption.removeEventListener('click', () => {
+                        });
+                        otherOption.style.pointerEvents = 'none'; // Disable pointer events on span elements
+                    }
+                });
+
+                const answer = {
+                    questionID: questionID,
+                    optiona: OptionA,
+                    optionb: OptionB,
+                    optionc: OptionC,
+                    optiond: OptionD,
+                    userchoose: selectedAnswer,
+                }
+                listAnswer.push(answer)
+            });
+        });
     </script>
 {{/section}}
 
-<div class="container ">
-    <form id="question-form">
-        {{#each this.question}}
-            <div class="question pl-sm-5 pt-2">
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="py-2 h5"><b>{{question}}</b></div>
-                <div class="id" style="display: none">{{questionid}}</div>
-                <div class="answer" style="display: none">{{wordname}}</div>
-                <div class="" id="options">
-                    <label class="options">
-                        {{optiona}}
-                        <input type="radio" name="question{{@index}}" value={{optiona}}>
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="options">
-                        {{optionb}}
-                        <input type="radio" name="question{{@index}}" value={{optionb}}>
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="options">
-                        {{optionc}}
-                        <input type="radio" name="question{{@index}}" value={{optionc}}>
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="options">
-                        {{optiond}}
-                        <input type="radio" name="question{{@index}}" value={{optiond}}>
-                        <span class="checkmark"></span>
-                    </label>
-                    <button type="button" onclick="checkAnswer({{@index}})" class="btn-check">Check Answer</button>
-                    <div style="margin-top: 10px" class="answer-feedback"></div>
-                </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                     aria-valuemax="100"></div>
             </div>
-        {{/each}}
-        <div class="text-center mt-4">
-            <button type="button" class="btn btn-primary mr-2" id="prev-btn" disabled>Previous</button>
-            <button type="button" class="btn btn-primary ml-2" id="next-btn">Next</button>
-        </div>
+            <div id="question-form">
+                {{#each this.question}}
+                    {{#ifEquals  this.QuestionAvatar ""}}
+                        <div class="question" id="question{{@index}}">
+                            <div class="p-2 m-0 text-center question-name-1">{{{Question}}}</div>
+                            <div class="id" style="display: none">{{QuestionID}}</div>
+                            <div class="answer" style="display: none">{{Answer}}</div>
 
-    </form>
-    <div class="text-center" style="margin-top: 20px">
-        <button type="button" class="btn btn-primary" id="end-btn" style="display:none;">End</button>
+                            <div class="" id="options">
+                                <div class="divOptionA" value={{OptionA}}></div>
+                                <div class="divOptionB" value={{OptionB}}></div>
+                                <div class="divOptionC" value={{OptionC}}></div>
+                                <div class="divOptionD" value={{OptionD}}></div>
+                                <span class="spanOptionA">A. {{OptionA}}</span>
+                                <span class="spanOptionB">B. {{OptionB}}</span>
+                                <span class="spanOptionC">C. {{OptionC}}</span>
+                                <span class="spanOptionD">D. {{OptionD}}</span>
+                            </div>
+
+                        </div>
+                    {{else}}
+                        <div class="question" id="question{{@index}}">
+                            <div class="p-2 m-0 text-center question-name">{{{Question}}}</div>
+                            <div class="id" style="display: none">{{QuestionID}}</div>
+                            <div class="answer" style="display: none">{{Answer}}</div>
+
+                            <div class="" id="options">
+                                <div class="img-wrapper">
+                                    <img src="{{QuestionAvatar}}" alt="Question Avatar">
+                                </div>
+                                <div class="divOptionA" value={{OptionA}}></div>
+                                <div class="divOptionB" value={{OptionB}}></div>
+                                <div class="divOptionC" value={{OptionC}}></div>
+                                <div class="divOptionD" value={{OptionD}}></div>
+                                <span class="spanOptionA">A. {{OptionA}}</span>
+                                <span class="spanOptionB">B. {{OptionB}}</span>
+                                <span class="spanOptionC">C. {{OptionC}}</span>
+                                <span class="spanOptionD">D. {{OptionD}}</span>
+                            </div>
+
+                        </div>
+                    {{/ifEquals}}
+
+
+
+                {{/each}}
+            </div>
+
+        </div>
     </div>
+
 </div>
+<button type="button" class="btn btn-primary" id="prev-btn" disabled>
+    <i class="bi bi-arrow-left text-dark"></i>
+</button>
+<button type="button" class="btn btn-primary" id="next-btn" disabled>
+    <i class="bi bi-arrow-right text-dark"></i>
+</button>
+<button type="button" class="btn btn-primary" id="end-btn" style="display:none;">End</button>
