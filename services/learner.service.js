@@ -291,5 +291,13 @@ export default {
       .orderBy('memorylevel', 'asc')
       
       return list
-  }
+  },
+  async getUserReviewWordsCount(userid) {
+    const query = `select count(*) as count from wordhistory
+    where (updatetime <= curdate() and memorylevel = 1) 
+        or (updatetime < curdate() and memorylevel != 1)
+        and userid = '${userid}'`
+    const list = await db.raw(query)
+    return list[0][0]
+  },
 }

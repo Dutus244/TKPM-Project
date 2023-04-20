@@ -15,6 +15,12 @@
         $(`.level-${i+1} .word-count`).text('0')
       }
     }
+
+    $('.instruction > .bi-question-circle').hover(function () {
+      $('.chart > .hide').css('display', 'block')
+    }, function () {
+      $(".chart > .hide").css("display", "none");
+    })
   })
 </script>
 {{/section}}
@@ -25,7 +31,24 @@
 {{/section}}
 
 <div class="container-fluid">
-  <div class="chart pt-3">
+  <div class="instruction">
+    <i class="bi bi-question-circle"></i>
+  </div>
+
+  <div class="chart">
+    <div class="hide">
+      <p class="instruction-text">
+        You will learn new words and they will be divided into 5 levels. <br>
+        <b>Level 1</b> includes the new words and they will be tested daily. <br>
+        <b>Level 2</b> includes words from level 1 that you answer correctly in the review test, and these words will appear again in
+        the review test after 3 days. <br>
+        <b>Level 3</b> includes words from level 2 that you answer correctly, and they will appear again in the review test after 5
+        days. <br>
+        <b>Level 4</b> includes words from level 3 that you answer correctly, and they will appear again in the review test after 7
+        days. <br>
+        <b>Level 5</b>'s words will not appear in the review test as you have completely learned them by heart. <br>
+      </p>
+    </div>
     <div class="level-1">
       <div class="word-count"></div>
       <div class="bar"></div>
@@ -57,7 +80,7 @@
   </div>
 
   <div class="review mb-5">
-    <p class="review-test-text">Today review test has {{this.totalWords}} words</p>
+    <p class="review-test-text">Today review test has {{this.reviewWordsCount}} words</p>
     <button type="button" id="review-btn" class="btn">REVIEW</button>
   </div>
 
