@@ -8,9 +8,9 @@ router.use(bodyParser.json());
 import moment from 'moment';
 
 router.get('/revision', async function(req, res) {
-  let categoriesProgress = await learnerService.getCategoriesProgress(res.locals.authUser.userid)
-  categoriesProgress = categoriesProgress.map( it => ({
-    categoryname: it.categoryname,
+  let lessonsProgress = await learnerService.getLessonsProgress(res.locals.authUser.userid)
+  lessonsProgress = lessonsProgress.map( it => ({
+    lessonname: it.lessonname,
     percentage: (it.wordshaslearned / it.totalwords) * 100,
   }))
 
@@ -25,7 +25,7 @@ router.get('/revision', async function(req, res) {
   }))
 
   res.render('vwLearner/homeRevision', {
-      categoriesProgress: categoriesProgress,
+      lessonsProgress: lessonsProgress,
       memoryLevelCount: JSON.stringify(memoryLevelCount),
       totalWords: totalWords,
       active: {Review: true }
@@ -136,14 +136,14 @@ router.post('/topic/test/submit-answers', async function (req, res) {
   })
 });
 
-router.get('/topiclist/:category_id', async function (req, res) {
-    const {category_id} = req.params;
-    const raw_topiclist = await learnerService.findAllTopicStudy(category_id);
+router.get('/topiclist/:lesson_id', async function (req, res) {
+    const {lesson_id} = req.params;
+    const raw_topiclist = await learnerService.findAllTopicStudy(lesson_id);
     const topiclist = raw_topiclist[0]
-    const category = await learnerService.findCategoryByID(category_id)
+    const lesson = await learnerService.findLessonByID(lesson_id)
     res.render('vwLearner/topic', {
         topic: topiclist,
-        category,
+        lesson,
         active: {Learn: true }
     });
 })
@@ -168,8 +168,8 @@ function setup_pages(curPage, nPage){
     }
         return [prePage , nextPage]
 }
-router.get('/category', async function (req, res) {
-    const total = await learnerService.countCategory();
+router.get('/lesson', async function (req, res) {
+    const total = await learnerService.countLesson();
     const limit = PAGE_LIMIT;
     const curPage = req.query.page || 1;
     const offset = (curPage - 1) * limit;
@@ -181,14 +181,14 @@ router.get('/category', async function (req, res) {
         isCurrent: i === +curPage,
       });
     }
-    const list = await learnerService.findCategoryByOffetWithLimit(
+    const list = await learnerService.findLessonByOffetWithLimit(
         offset,
         limit
     );
     let [prePage, nextPage] = setup_pages(curPage,nPage);
 
-    res.render('vwLearner/category', {
-        category: list,
+    res.render('vwLearner/lesson', {
+        lesson: list,
         pageNumber: pageNumber,
         empty: list.length === 0,
         prePage: prePage,
@@ -197,8 +197,8 @@ router.get('/category', async function (req, res) {
 
     });
 })
-router.get('/category/:category_page', async function (req, res) {
-    const total = await learnerService.countCategory();
+router.get('/lesson/:lesson_page', async function (req, res) {
+    const total = await learnerService.countLesson();
     const limit = PAGE_LIMIT;
     const curPage = req.query.page || 1;
     const offset = (curPage - 1) * limit;
@@ -210,13 +210,13 @@ router.get('/category/:category_page', async function (req, res) {
         isCurrent: i === +curPage,
       });
     }
-    const list = await learnerService.findCategoryByOffetWithLimit(
+    const list = await learnerService.findLessonByOffetWithLimit(
         offset,
         limit
     );
     let [prePage, nextPage] = setup_pages(curPage,nPage);
-    res.render('vwLearner/category', {
-        category: list,
+    res.render('vwLearner/lesson', {
+        lesson: list,
         pageNumber: pageNumber,
         empty: list.length === 0,
         prePage: prePage,
