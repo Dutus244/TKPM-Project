@@ -26,7 +26,7 @@ router.get('/revision', async function(req, res) {
   const { count = 0 } = await learnerService.getUserReviewWordsCount(res.locals.authUser.userid)
 
   res.render('vwLearner/homeRevision', {
-    lessonsProgress: lessonsProgress,
+    lessonsProgress,
     memoryLevelCount: JSON.stringify(memoryLevelCount),
     reviewWordsCount: count,
     active: {Review: true }

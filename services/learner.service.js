@@ -294,9 +294,12 @@ export default {
   },
   async getUserReviewWordsCount(userid) {
     const query = `select count(*) as count from wordhistory
-    where (updatetime <= curdate() and memorylevel = 1) 
-        or (updatetime < curdate() and memorylevel != 1)
-        and userid = '${userid}'`
+    where ((datediff(curdate(), updatetime) >= 1 and memorylevel = 1)
+        or (datediff(curdate(), updatetime) >= 3 and memorylevel = 2)
+        or (datediff(curdate(), updatetime) >= 5 and memorylevel = 3)
+        or (datediff(curdate(), updatetime) >= 7 and memorylevel = 4))
+        and userid =  '${userid}'
+        and isstudy = 1;`
     const list = await db.raw(query)
     return list[0][0]
   },
