@@ -25,12 +25,10 @@ router.get('/revision', async function(req, res) {
   }))
 
   res.render('vwLearner/homeRevision', {
-    categoriesProgress: categoriesProgress,
-    memoryLevelCount: JSON.stringify(memoryLevelCount),
-    totalWords: totalWords,
+      categoriesProgress: categoriesProgress,
+      memoryLevelCount: JSON.stringify(memoryLevelCount),
+      totalWords: totalWords,
       active: {Review: true }
-
-
   })
 })
 
@@ -39,14 +37,14 @@ router.get("/topic/:id", async function(req, res) {
   const wordlist = await learnerService.findAllTopicWord(id);
   if (!wordlist.length) {
     return res.status(404).render("404", {
-      layout: false,
+        layout: false,
         active: {Learn: true }
     });
   }
 
   res.render("vwLearner/topicLearn", {
-    words: JSON.stringify(wordlist),
-    firstWord: wordlist[0],
+      words: JSON.stringify(wordlist),
+      firstWord: wordlist[0],
       active: {Learn: true }
 
   });
@@ -87,9 +85,9 @@ router.post("/topic/:id/finish", async function(req, res) {
   await learnerService.addWordHistory(finishWords)
 
   const topic = {
-    topicid,
-    userid,
-    createtime: timestamp,
+      topicid,
+      userid,
+      createtime: timestamp,
       active: {Learn: true }
   }
   await learnerService.addTopicHistory(topic)
@@ -99,8 +97,8 @@ router.get('/topic/test/:id', async function (req, res) {
   const topicid = req.params.id
   const listQuestion = await learnerService.findAllQuestionsTopic(topicid)
   res.render('vwLearner/topicTest', {
-    topicid: topicid,
-    question: listQuestion,
+      topicid: topicid,
+      question: listQuestion,
       active: {Learn: true }
   });
 });
@@ -110,10 +108,10 @@ router.post('/topic/test/submit-answers', async function (req, res) {
   const {topicid} = userAnswers
   const id = v4()
   const testhistory = {
-    testid: id,
-    topicid: topicid,
-    userid: req.session.authUser.userid,
-    createtime: moment().format('YYYY-MM-DD HH:mm:ss'),
+      testid: id,
+      topicid: topicid,
+      userid: req.session.authUser.userid,
+      createtime: moment().format('YYYY-MM-DD HH:mm:ss'),
       active: {Learn: true }
   };
   const data = await learnerService.addTestHistory(testhistory)
@@ -133,7 +131,7 @@ router.post('/topic/test/submit-answers', async function (req, res) {
     return learnerService.addTestHistoryDetail(testhistorydetail);
   }));
   res.render("vwLearner/topicTestFinish", {
-    topicId: topicid,
+      topicId: topicid,
       active: {Learn: true }
   })
 });
@@ -231,9 +229,8 @@ router.get('/category/:category_page', async function (req, res) {
 router.get('/dailytest', async function (req, res) {
   const list = await learnerService.findAllQuestionDailyTest()
   res.render('vwLearner/dailyTest', {
-    question: list,
+      question: list,
       active: {Review: true }
-
   });
 })
 router.get('/resultdailytest', async function (req, res) {
@@ -242,9 +239,7 @@ router.get('/resultdailytest', async function (req, res) {
   await learnerService.updateMemoryLevel(userID, wordID, check)
 })
 router.get('/handbook', async function (req, res) {
-    // const list = await learnerService.findAllQuestionDailyTest()
     res.render('vwLearner/handbook', {
-        // question: list
         active: {Handbook: true }
 
     });
