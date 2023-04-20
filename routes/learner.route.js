@@ -125,7 +125,7 @@ router.get('/topiclist/:category_id', async function (req, res) {
     const category = await learnerService.findCategoryByID(category_id)
     res.render('vwLearner/topic', {
         topic: topiclist,
-        category:category,
+        category,
     });
 })
 function setup_pages(curPage, nPage){
