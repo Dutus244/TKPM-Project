@@ -4,16 +4,78 @@
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-    width: 60vw;
+}
+.title{
+    width: 100%;
 }
 .searchinput{
     border-width: 1px;
     border-color: black;
-
 }
 .btn{
     border-color: #F4DF89;
     border-radius: 10%;
     border-width: 1px;
     background-color:#F4DF89 ;
+}
+.subnav a{
+    text-decoration: none;
+    color: black;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 100%;
+    width: 12vw;
+    text-align: center;
+}
+.subnav a.active{
+    border-radius: 5px;
+    color:white;
+}
+#level-1.active{
+    background-color:#ff4062 ;
+}
+#level-2.active{
+    background-color: #ff9c98;
+}
+#level-3.active{
+    background-color: #facdab;
+}
+#level-4.active{
+    background-color: #aacdaf;
+}
+#level-5.active{
+    background-color: #71aca9;
+}
+.subnav a{
+    color:black;
+    text-decoration: none;
+}
+.subnav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+.content{
+    margin-top: 30px;
+    width: 60vw;
+}
+table{
+    width: 100%;
+}
+table >.learn {
+    width: 5%;
+}
+table > .wordname{
+    width: 25%;
+}
+table > .wordtype{
+    width: 15%;
+}
+table > .wordmeaning{
+    width: 50%;
 }

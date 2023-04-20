@@ -138,7 +138,8 @@ router.post('/topic/test/submit-answers', async function (req, res) {
 
 router.get('/topiclist/:lesson_id', async function (req, res) {
     const {lesson_id} = req.params;
-    const raw_topiclist = await learnerService.findAllTopicStudy(lesson_id);
+    const user_id = res.locals.authUser.userid
+    const raw_topiclist = await learnerService.findAllTopicStudy(lesson_id,user_id);
     const topiclist = raw_topiclist[0]
     const lesson = await learnerService.findLessonByID(lesson_id)
     res.render('vwLearner/topic', {

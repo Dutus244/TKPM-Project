@@ -227,15 +227,8 @@ export default {
         'and topichistory.userID= "' + id + '" '  +
         'and topics.LessonID= "' + lesson + '" ' +
         ') as isRead ' +
-        'from topics '
-    )
-  },
-  async findAllTopicStudy(lesson) {
-    return db.raw('select topics.* ,(select count(*) ' +
-        'from topichistory ' +
-        'where topics.LessonID= "' + lesson + '" ' +
-        ') as isRead ' +
-        'from topics '
+        'from topics '+
+        'where topics.IsDelete = 0'
     )
   },
   async findLessonByID(lesson_id){

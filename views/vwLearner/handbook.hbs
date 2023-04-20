@@ -4,26 +4,46 @@
 {{/section}}
 
 {{#section 'js'}}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.subnav a').on('click', function() {
+                $("#level-1").removeClass('active')
+                $("#level-2").removeClass('active')
+                $("#level-3").removeClass('active')
+                $("#level-4").removeClass('active')
+                $("#level-5").removeClass('active')
+                $(this).addClass('active')
+            });
+        })
+
+        // window.onbeforeunload = function(event) {
+        //     $('element').show();
+        //     return;
+        // };
+    </script>
     <script>
+        $(document).ready(function(){
+            $('a').on('click', function() {
+                if(this.id === 'level-1'||this.id === 'level-2'||this.id === 'level-3'||this.id === 'level-4'||this.id === 'level-5'){
+                }
+                else{
+                    alert('123')
+                }
+
+            });
+        })
     </script>
 {{/section}}
-<div class="container">
-    <div id="title" class="card w-75 border-0" >
-        <nav class="navbar">
-            <a id="Review" class="{{#if active.Review}}active{{/if}}"  href="/revision" >Review</a>
-            <a id="Learn"  class="{{#if active.Learn}}active{{/if}}"} href="/lesson">Learn</a>
-            <a id="Handbook" class="{{#if active.Handbook}}active{{/if}}" href="/handbook" >Handbook</a>
+<div class="container" class="card-75 border-0">
+    <div id="title" >
+        <nav class="subnav">
+            <a id="level-1"  class="active" href="#" >Level 1</a>
+            <a id="level-2"  href="#">Level 2</a>
+            <a id="level-3" href="#" >Level 3</a>
+            <a id="level-4" href="#" >Level 4</a>
+            <a id="level-5" href="#" >Level 5</a>
             <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-            <script type="text/javascript">
-                $(document).ready(function(){
-                    $('nav > a').on('click', function() {
-                        $("#Learn").removeClass('active')
-                        $("#Review").removeClass('active')
-                        $("#Handbook").removeClass('active')
-                        $(this).addClass('active')
-                    });
-                })
-            </script>
+
         </nav>
         <div id="searchbar">
             <form>
@@ -33,7 +53,7 @@
                                 class='form-control mr-sm-2 w-100 rounded-pill searchinput'
                                 type='search'
                                 placeholder='Search for anything'
-                                name="word"
+                                name="lesson"
                                 aria-label='Search'
                         />
                     </div>
@@ -41,7 +61,7 @@
                         <button
                                 class='btn inline form-control'
                                 type='submit'
-                                formaction="/word/search"
+                                formaction="/lesson/search"
                         ><strong>Search</strong>
                             <i class='fa fa-search' aria-hidden='true'></i></button>
                     </div>
@@ -49,7 +69,19 @@
             </form>
         </div>
     </div>
-    <div class="container">
+    <div class="content" class="card-75 border-0">
+        <table>
+            <tr>
+                <td id=".learn">
+                    <i class="fa fa-check-circle-o" style="color:#F4DF89; font-size: 30px " aria-hidden="true"></i>
+<!--                    <i class="fa fa-circle-o" style="color:#F4DF89; font-size: 30px " aria-hidden="true"></i>-->
+                </td>
+                <td id="wordname">WordName</td>
+                <td id="wordtype">WordType</td>
+                <td id="wordmeaning">WordMeaning</td>
 
+            </tr>
+
+        </table>
     </div>
 </div>
