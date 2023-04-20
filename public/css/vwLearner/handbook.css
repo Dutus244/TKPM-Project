@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 60vw;
+}
+.searchinput{
+    border-width: 1px;
+    border-color: black;
+
+}
+.btn{
+    border-color: #F4DF89;
+    border-radius: 10%;
+    border-width: 1px;
+    background-color:#F4DF89 ;
+}

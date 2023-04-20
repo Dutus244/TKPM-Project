@@ -1,0 +1,55 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="/public/CSS/vwLearner/handbook.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{{/section}}
+
+{{#section 'js'}}
+    <script>
+    </script>
+{{/section}}
+<div class="container">
+    <div id="title" class="card w-75 border-0" >
+        <nav class="navbar">
+            <a id="Review" class="{{#if active.Review}}active{{/if}}"  href="/revision" >Review</a>
+            <a id="Learn"  class="{{#if active.Learn}}active{{/if}}"} href="/lesson">Learn</a>
+            <a id="Handbook" class="{{#if active.Handbook}}active{{/if}}" href="/handbook" >Handbook</a>
+            <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $('nav > a').on('click', function() {
+                        $("#Learn").removeClass('active')
+                        $("#Review").removeClass('active')
+                        $("#Handbook").removeClass('active')
+                        $(this).addClass('active')
+                    });
+                })
+            </script>
+        </nav>
+        <div id="searchbar">
+            <form>
+                <div class="form-row w-100">
+                    <div class="col-10">
+                        <input
+                                class='form-control mr-sm-2 w-100 rounded-pill searchinput'
+                                type='search'
+                                placeholder='Search for anything'
+                                name="word"
+                                aria-label='Search'
+                        />
+                    </div>
+                    <div class="col-2">
+                        <button
+                                class='btn inline form-control'
+                                type='submit'
+                                formaction="/word/search"
+                        ><strong>Search</strong>
+                            <i class='fa fa-search' aria-hidden='true'></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+
+    </div>
+</div>
