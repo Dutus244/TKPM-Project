@@ -208,18 +208,6 @@ router.post('/addword/:id', async function (req, res){
         }
 
         await adminServices.addWord(word)
-
-        const topicname = await adminServices.getTopicName(topicid)
-        const topic = await adminServices.getTopicDetail(topicid)
-        const num = await adminServices.countWords(topicid)
-        const tst = await adminServices.getTest(topicid)
-        res.render('vwAdmin/topicdetail', {
-            topicid,
-            topicname: topicname[0].topicname,
-            topic,
-            num,
-            test: tst
-        })
         if (err || err instanceof multer.MulterError) {
             // A Multer error occurred when uploading.
             // or an unknown error occurred when uploading.
