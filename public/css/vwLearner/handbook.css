@@ -67,15 +67,135 @@
 table{
     width: 100%;
 }
-table >.learn {
-    width: 5%;
+td button{
+    background-color: white;
+    border-width: 0;
 }
-table > .wordname{
+td.lean{
+    width:5%;
+}
+td.wordname{
     width: 25%;
 }
-table > .wordtype{
-    width: 15%;
+td.wordtype{
+    width: 20%;
 }
-table > .wordmeaning{
+td.wordmeaning{
     width: 50%;
 }
+
+#dialog{
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+}
+#cancel{
+    align-self: end;
+    font-weight: bold;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    display: inline-block;
+    border: 3px solid #ffffff;
+    border-radius: 10px;
+}
+#save{
+    font-weight: bold;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 40px 10px 40px;
+    position: relative;
+    border: 3px solid #ffffff;
+    border-radius: 20px;
+}
+#leave{
+    background-color: white;
+    font-weight: bold;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    padding: 10px 40px 10px 40px;
+    position: relative;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+.dialog-body{
+    padding: 40px;
+    width: fit-content;
+    border: 2px solid black;
+    background-color: white;
+    border-radius: 20px;
+
+}
+.dialog-body h3{
+    text-align: center;
+    padding-bottom: 20px;
+}
+.dialog-body button i{
+    /*width: 100%;*/
+    font-size: 20px;
+    /*text-align: right;*/
+}
+.overplay{
+    /*background-color:black ;*/
+}
+input{
+    padding-bottom:20px;
+}
+tr{
+    height: 40px;
+}
+table {
+    border-collapse: collapse;
+}
+tr {
+    border: solid;
+    border-width: 1px 0;
+}
+tr:first-child {
+    border-top: none;
+}
+tr:last-child {
+    border-bottom: none;
+}
+.formcheck {
+
+    /*border: 2px solid black;*/
+    /*height: fit-content;*/
+    /*width: fit-content;*/
+    /*border-radius: 50%;*/
+}
+
+input[type="checkbox"]{
+    opacity: 1;
+    cursor: pointer;
+    appearance: none;
+    outline: none;
+}
+
+input[type="checkbox"]::after{
+    content: url("https://img.icons8.com/ios/16/000000/star.png");
+    border-radius: 50%;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type="checkbox"]:checked:after {
+    content: url("https://img.icons8.com/ios-filled/16/000000/star.png");
+
+}
+
+

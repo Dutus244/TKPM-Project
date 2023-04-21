@@ -37,6 +37,9 @@ export default function (app, __dirname) {
           }
           return array;
         },
+        json: function(context) {
+          return JSON.stringify(context);
+        },
       },
     })
   );

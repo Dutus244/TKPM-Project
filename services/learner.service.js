@@ -250,6 +250,11 @@ export default {
   async findLesson(){
     return await db('lessons').where('IsDelete',0)
   },
+    async getWord(level,user_id){
+        return await db('wordhistory').join('words').select('words.wordid', 'wordname', 'wordtype', 'wordmeaning','MemoryLevel','isStudy')
+            .where('userid',user_id)
+            .andWhere('isDelete',0)
+    },
   async findLessonByOffetWithLimit(offset, limit){
     return await db('lessons').where('IsDelete',0)
         .limit(limit)

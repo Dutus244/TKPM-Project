@@ -240,8 +240,18 @@ router.get('/resultdailytest', async function (req, res) {
   await learnerService.updateMemoryLevel(userID, wordID, check)
 })
 router.get('/handbook', async function (req, res) {
+    const userID = req.session.authUser.userid
+    const words = await learnerService.getWord(1,userID)
+    // console.log(words.length)
     res.render('vwLearner/handbook', {
+        words,
         active: {Handbook: true }
+    });
+})
+router.post('/handbook', async function (req, res) {
+    const re = req.body
+    console.log(re);
+    res.render('vwLearner/handbook', {
 
     });
 })

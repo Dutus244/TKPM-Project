@@ -23,15 +23,54 @@
     </script>
     <script>
         $(document).ready(function(){
+            const modal = document.getElementById("dialog");
+            let path = "";
+            let change = true;
+            let dataChange = [];
             $('a').on('click', function() {
-                if(this.id === 'level-1'||this.id === 'level-2'||this.id === 'level-3'||this.id === 'level-4'||this.id === 'level-5'){
+                if(this.id === 'Handbook'||this.id === 'level-1'||this.id === 'level-2'||this.id === 'level-3'||this.id === 'level-4'||this.id === 'level-5'){
+
                 }
                 else{
-                    alert('123')
+                    if(change){
+                        path = this.href
+                        event.preventDefault()
+                        modal.style.display="flex";
+                    }
+                    <!--var words = '{{json words}}';-->
+                    <!--alert((words));-->
+                }
+            });
+            $('button').on('click', function() {
+                // alert(this.classList)
+                if(this.id === 'cancel'){
+                    modal.style.display="none";
+                }
+                else if(this.id === 'leave'){
+                    location.href=path
+                }
+                else if(this.id ==='save'){
+                    document.getElementById("updateDataForm").submit();
+                }
+                else{
+
                 }
 
             });
         })
+    </script>
+    <script>
+
+        function isStudyClick(a){
+            <!--const a = document.getElementById('dialog')-->
+            <!--a.style.display = "block"-->
+            <!--let a= document.createElement('a');-->
+            <!--a.target= '_blank';-->
+            <!--a.href= "#save-change";-->
+            <!--a.click();-->
+            <!--let myData = {{level1}};-->
+            <!--alert(myData);-->
+        }
     </script>
 {{/section}}
 <div class="container" class="card-75 border-0">
@@ -46,14 +85,14 @@
 
         </nav>
         <div id="searchbar">
-            <form>
+            <form >
                 <div class="form-row w-100">
                     <div class="col-10">
                         <input
                                 class='form-control mr-sm-2 w-100 rounded-pill searchinput'
                                 type='search'
                                 placeholder='Search for anything'
-                                name="lesson"
+                                name="word"
                                 aria-label='Search'
                         />
                     </div>
@@ -61,7 +100,7 @@
                         <button
                                 class='btn inline form-control'
                                 type='submit'
-                                formaction="/lesson/search"
+                                formaction="/handbook/search"
                         ><strong>Search</strong>
                             <i class='fa fa-search' aria-hidden='true'></i></button>
                     </div>
@@ -70,18 +109,49 @@
         </div>
     </div>
     <div class="content" class="card-75 border-0">
-        <table>
-            <tr>
-                <td id=".learn">
-                    <i class="fa fa-check-circle-o" style="color:#F4DF89; font-size: 30px " aria-hidden="true"></i>
-<!--                    <i class="fa fa-circle-o" style="color:#F4DF89; font-size: 30px " aria-hidden="true"></i>-->
-                </td>
-                <td id="wordname">WordName</td>
-                <td id="wordtype">WordType</td>
-                <td id="wordmeaning">WordMeaning</td>
+        <form id="updateDataForm" method="POST">
 
+        <table >
+            <tr>
+                {{#each words}}
+                <td class="lean" id="{{wordid}}">
+<!--                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">-->
+                    <div class="formcheck">
+                        <input  type="checkbox" value= true name="{{wordid}}" id="{{wordid}}" {{#if isStudy}}checked{{/if}}>
+                    </div>
+
+<!--                    <button onclick="isStudyClick('{{wordid}}')">-->
+<!--                    {{#if isStudy}}-->
+<!--                    <i class="fa fa-check-circle-o" style="color:#F4DF89; font-size: 30px " aria-hidden="true"></i>-->
+<!--                    {{else}}-->
+<!--                    <i class="fa fa-circle-o" style="color:#F4DF89; font-size: 30px " aria-hidden="true"></i>-->
+<!--                    {{/if}}-->
+<!--                    </button>-->
+                </td>
+                <td class="wordname">{{wordname}}</td>
+                <td class="wordtype">({{wordtype}})</td>
+                <td class="wordmeaning" >{{wordmeaning}}</td>
             </tr>
+                {{/each}}
 
         </table>
+        </form>
+    </div>
+    <div id="dialog" class="overplay"  id="save-change">
+        <div class="dialog-body">
+            <div class="card w-100 d-flex-justify-content-end border-0">
+                <button class="btn" id="cancel">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <h3 >Save Change?</h3>
+            <button class="btn" id="leave">
+                Leave without save
+            </button>
+            <button class="btn" id="save">
+                Save
+            </button>
+        </div>
     </div>
 </div>
