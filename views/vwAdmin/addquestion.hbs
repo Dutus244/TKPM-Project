@@ -42,6 +42,11 @@
 
      $('#frmRegister').on('submit', function (e){
         e.preventDefault();
+
+        const question = $('txtQuestion').val();
+        if(!question.length){
+            alert('Please input question')
+        }
         
         const optA = $('#txtOptionA').val();
         if (!optA.length) {
