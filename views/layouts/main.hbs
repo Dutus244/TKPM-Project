@@ -19,21 +19,32 @@
     <div class="nav">
         <a href="/revision" class="left">MATCHA</a>
         <nav class="navbar">
-            <a id="Review" class="{{#if active.Review}}active{{/if}}" href="/revision">Review</a>
-            <a id="Learn" class="{{#if active.Learn}}active{{/if}}" href="/lesson">Learn</a>
-            <a id="Handbook" class="{{#if active.Handbook}}active{{/if}}" href="/handbook">Handbook</a>
+            <a class="Review {{#if active.Review}}active{{/if}}" href="/revision">Review</a>
+            <a class="Learn {{#if active.Learn}}active{{/if}}" href="/lesson">Learn</a>
+            <a class="Handbook {{#if active.Handbook}}active{{/if}}" href="/handbook">Handbook</a>
         </nav>
         {{#if auth}}
-        <div class="dropdown">
-            <div class="right">{{authUser.username}}</div>
-            <div class="dropdown-content">
-                <form id="frmLogout" action="/logout" method="post"></form>
-                <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">Log out</a>
-            </div>
+        <div>
+            <form id="frmLogout" action="/logout" method="post"></form>
+            <a class="right" href="javascript: $('#frmLogout').submit();">Log out</a>
         </div>
         {{else}}
         <a href="/login" class="right">Log in</a>
         {{/if}}
+        <div class="dropdown">
+            <i class="more-icon bi bi-three-dots-vertical"></i>
+            <div class="dropdown-content">
+                <a class="Review dropdown-item {{#if active.Review}}active{{/if}}" href="/revision">Review</a>
+                <a class="Learn dropdown-item {{#if active.Learn}}active{{/if}}" href="/lesson">Learn</a>
+                <a class="Handbook dropdown-item {{#if active.Handbook}}active{{/if}}" href="/handbook">Handbook</a>
+                {{#if auth}}
+                <form id="frmLogout" action="/logout" method="post"></form>
+                <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">Log out</a>
+                {{else}}
+                <a href="/login" class="dropdown-item">Log in</a>
+                {{/if}}
+            </div>
+        </div>
     </div>
 
     {{{body}}}
@@ -48,12 +59,10 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('nav > a').on('click', function () {
-                $("#Learn").removeClass('active')
-                $("#Review").removeClass('active')
-                $("#Handbook").removeClass('active')
+                $(".Learn").removeClass('active')
+                $(".Review").removeClass('active')
+                $(".Handbook").removeClass('active')
                 $(this).addClass('active')
-
-                
             });
         })
     </script>
