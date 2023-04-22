@@ -225,11 +225,11 @@ export default {
         'from topichistory ' +
         'where topichistory.TopicID = topics.TopicID ' +
         'and topichistory.userID= "' + id + '" '  +
-        'and topics.LessonID= "' + lesson + '" ' +
         ') as isRead ' +
         'from topics '+
-        'where topics.IsDelete = 0'
-    )
+        'where topics.IsDelete = 0 '+
+        'and topics.LessonID= "' + lesson + '" '
+  )
   },
   async findLessonByID(lesson_id){
     const raw_lesson = await db('lessons').where('LessonID', lesson_id)
@@ -250,10 +250,12 @@ export default {
   async findLesson(){
     return await db('lessons').where('IsDelete',0)
   },
-    async getWord(level,user_id){
-        return await db('wordhistory').join('words').select('words.wordid', 'wordname', 'wordtype', 'wordmeaning','MemoryLevel','isStudy')
-            .where('userid',user_id)
-            .andWhere('isDelete',0)
+    async getWord(user_id){
+        return await db('wordhistory')
+            .rightJoin('words','wordhistory.wordid','words.wordid')
+            .select('words.wordid', 'wordname', 'wordtype', 'wordmeaning','MemoryLevel','isStudy')
+            .where('wordhistory.userid',user_id)
+            .andWhere('words.isDelete',0)
     },
   async findLessonByOffetWithLimit(offset, limit){
     return await db('lessons').where('IsDelete',0)

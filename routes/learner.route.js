@@ -6,6 +6,7 @@ import {PAGE_LIMIT} from './constants.js';
 const router = express.Router();
 router.use(bodyParser.json());
 import moment from 'moment';
+import Handlebars from 'handlebars';
 
 router.get('/revision', async function(req, res) {
   let lessonsProgress = await learnerService.getLessonsProgress(res.locals.authUser.userid)
@@ -137,11 +138,12 @@ router.post('/topic/test/submit-answers', async function (req, res) {
 });
 
 router.get('/topiclist/:lesson_id', async function (req, res) {
-    const {lesson_id} = req.params;
+    const lesson_id = req.params.lesson_id;
     const user_id = res.locals.authUser.userid
     const raw_topiclist = await learnerService.findAllTopicStudy(lesson_id,user_id);
     const topiclist = raw_topiclist[0]
     const lesson = await learnerService.findLessonByID(lesson_id)
+    // console.log(topiclist)
     res.render('vwLearner/topic', {
         topic: topiclist,
         lesson,
@@ -239,20 +241,34 @@ router.get('/resultdailytest', async function (req, res) {
   const {wordID, check} = req.query;
   await learnerService.updateMemoryLevel(userID, wordID, check)
 })
-router.get('/handbook', async function (req, res) {
-    const userID = req.session.authUser.userid
-    const words = await learnerService.getWord(1,userID)
-    // console.log(words.length)
-    res.render('vwLearner/handbook', {
-        words,
-        active: {Handbook: true }
-    });
-})
 router.post('/handbook', async function (req, res) {
     const re = req.body
     console.log(re);
     res.render('vwLearner/handbook', {
-
     });
 })
+
+router.get('/handbook', async function (req, res) {
+    const userID = req.session.authUser.userid
+    const words = await learnerService.getWord(userID)
+    var filterlevel = {};
+    Handlebars.registerHelper('setVarWithName',  function(name, value) {
+        filterlevel[name] = value;
+        console.log(filterlevel);
+        return '';
+    });
+    Handlebars.registerHelper('raw-helper', function(options) {
+        return options.fn();
+    });
+    Handlebars.registerHelper('s',  function(obj) {
+        return JSON.stringify(obj);
+    });
+    res.render('vwLearner/handbook', {
+        words,
+        filterlevel,
+        // filterlevel: 2,
+        active: {Handbook: true }
+    });
+})
+
 export default router;

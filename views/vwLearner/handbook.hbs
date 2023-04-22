@@ -15,30 +15,37 @@
                 $(this).addClass('active')
             });
         })
-
-        // window.onbeforeunload = function(event) {
-        //     $('element').show();
-        //     return;
-        // };
     </script>
     <script>
+        let currentLevel = 1;
+            {{setVarWithName "level" 1}}
         $(document).ready(function(){
             const modal = document.getElementById("dialog");
             let path = "";
             let change = true;
-            let dataChange = [];
             $('a').on('click', function() {
-                if(this.id === 'Handbook'||this.id === 'level-1'||this.id === 'level-2'||this.id === 'level-3'||this.id === 'level-4'||this.id === 'level-5'){
-
+                if(this.id === 'Handbook'){}
+                else if(this.id === 'level-1'){
+                    currentLevel = 1;
                 }
+                else if(this.id === 'level-2'){
+                    currentLevel = 2;
+                }
+                else if(this.id === 'level-3'){
+                    prefilters(3)
+                }
+                else if(this.id === 'level-4'){
+                    prefilters(4)
+                }
+                else if(this.id === 'level-5'){
+                }
+
                 else{
                     if(change){
                         path = this.href
                         event.preventDefault()
                         modal.style.display="flex";
                     }
-                    <!--var words = '{{json words}}';-->
-                    <!--alert((words));-->
                 }
             });
             $('button').on('click', function() {
@@ -59,30 +66,19 @@
             });
         })
     </script>
-    <script>
-
-        function isStudyClick(a){
-            <!--const a = document.getElementById('dialog')-->
-            <!--a.style.display = "block"-->
-            <!--let a= document.createElement('a');-->
-            <!--a.target= '_blank';-->
-            <!--a.href= "#save-change";-->
-            <!--a.click();-->
-            <!--let myData = {{level1}};-->
-            <!--alert(myData);-->
-        }
-    </script>
+<!--    <script id="template" type="text/x-handlebars-template">-->
+<!--            {{setVarWithName "level" 1}}-->
+<!--    </script>-->
 {{/section}}
 <div class="container" class="card-75 border-0">
     <div id="title" >
         <nav class="subnav">
-            <a id="level-1"  class="active" href="#" >Level 1</a>
-            <a id="level-2"  href="#">Level 2</a>
+            <a id="level-1" onclick="{{setVarWithName "level" 1}}" class="active" href="#" >Level 1</a>
+            <a id="level-2" onclick="{{setVarWithName "level" 2}}" href="#">Level 2</a>
             <a id="level-3" href="#" >Level 3</a>
             <a id="level-4" href="#" >Level 4</a>
             <a id="level-5" href="#" >Level 5</a>
             <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-
         </nav>
         <div id="searchbar">
             <form >
@@ -111,30 +107,23 @@
     <div class="content" class="card-75 border-0">
         <form id="updateDataForm" method="POST">
 
-        <table >
+            <table >
             <tr>
                 {{#each words}}
-                <td class="lean" id="{{wordid}}">
-<!--                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">-->
-                    <div class="formcheck">
-                        <input  type="checkbox" value= true name="{{wordid}}" id="{{wordid}}" {{#if isStudy}}checked{{/if}}>
-                    </div>
-
-<!--                    <button onclick="isStudyClick('{{wordid}}')">-->
-<!--                    {{#if isStudy}}-->
-<!--                    <i class="fa fa-check-circle-o" style="color:#F4DF89; font-size: 30px " aria-hidden="true"></i>-->
-<!--                    {{else}}-->
-<!--                    <i class="fa fa-circle-o" style="color:#F4DF89; font-size: 30px " aria-hidden="true"></i>-->
-<!--                    {{/if}}-->
-<!--                    </button>-->
-                </td>
-                <td class="wordname">{{wordname}}</td>
-                <td class="wordtype">({{wordtype}})</td>
-                <td class="wordmeaning" >{{wordmeaning}}</td>
-            </tr>
+                    {{#ifEquals MemoryLevel ../level}}
+                        <td class="lean" id="{{wordid}}">
+                            <div class="formcheck">
+                                <input  type="checkbox" value= true name="{{wordid}}" id="{{wordid}}" {{#if isStudy}}checked{{/if}}>
+                            </div>
+                        </td>
+                        <td class="wordname">{{wordname}}</td>
+                        <td class="wordtype">({{wordtype}})</td>
+                        <td class="wordmeaning" >{{wordmeaning}}</td>
+                    </tr>
+                    {{/ifEquals}}
                 {{/each}}
 
-        </table>
+            </table>
         </form>
     </div>
     <div id="dialog" class="overplay"  id="save-change">
@@ -154,4 +143,7 @@
             </button>
         </div>
     </div>
+</div>
+<div id="body">
+    <p>{{filterlevel.level}}</p>
 </div>
