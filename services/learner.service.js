@@ -257,6 +257,14 @@ export default {
             .where('wordhistory.userid',user_id)
             .andWhere('words.isDelete',0)
     },
+    async getWordWithLetter(user_id,letter){
+        return await db('wordhistory')
+            .rightJoin('words','wordhistory.wordid','words.wordid')
+            .select('words.wordid', 'wordname', 'wordtype', 'wordmeaning','MemoryLevel','isStudy')
+            .where('wordhistory.userid',user_id)
+            .andWhere('words.isDelete',0)
+            .whereILike('words.wordname','%'+letter+'%')
+    },
   async findLessonByOffetWithLimit(offset, limit){
     return await db('lessons').where('IsDelete',0)
         .limit(limit)

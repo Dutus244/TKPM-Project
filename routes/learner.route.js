@@ -251,24 +251,31 @@ router.post('/handbook', async function (req, res) {
 router.get('/handbook', async function (req, res) {
     const userID = req.session.authUser.userid
     const words = await learnerService.getWord(userID)
-    var filterlevel = {};
-    Handlebars.registerHelper('setVarWithName',  function(name, value) {
-        filterlevel[name] = value;
-        console.log(filterlevel);
-        return '';
-    });
-    Handlebars.registerHelper('raw-helper', function(options) {
-        return options.fn();
-    });
-    Handlebars.registerHelper('s',  function(obj) {
-        return JSON.stringify(obj);
-    });
     res.render('vwLearner/handbook', {
         words,
-        filterlevel,
-        // filterlevel: 2,
+        level: 1,
         active: {Handbook: true }
     });
 })
-
+router.get('/handbook/search/w', async function (req, res) {
+    const userID = req.session.authUser.userid
+    const {word} = req.query;
+    const words = await learnerService.getWordWithLetter(userID,word);
+    
+    res.render('vwLearner/handbook', {
+        words,
+        level: 1,
+        active: {Handbook: true }
+    });
+})
+router.get('/handbook/:level', async function (req, res) {
+    const userID = req.session.authUser.userid
+    const words = await learnerService.getWord(userID)
+    const level= req.query.level;
+    res.render('vwLearner/handbook', {
+        words,
+        level,
+        active: {Handbook: true }
+    });
+})
 export default router;
