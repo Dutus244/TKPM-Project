@@ -108,7 +108,7 @@ router.post('/addlesson', async function (req, res){
             lessondes: description,
             isdelete: 0
         }
-        await adminServices.addlesson(lesson)
+        await adminServices.addLesson(lesson)
     
         if (err || err instanceof multer.MulterError) {
             // A Multer error occurred when uploading.
@@ -275,7 +275,7 @@ router.post('/addtopic/:id', async function (req, res){
             isdelete: 0
         }
 
-        await adminServices.addtopic(topic)
+        await adminServices.addTopic(topic)
 
         const topiclist = await adminServices.findAllTopic();
         if (topiclist.length == 0) {
