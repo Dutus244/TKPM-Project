@@ -1,7 +1,7 @@
 import db from '../utils/db.js';
 
 export default{
-    async addlesson(entity) {
+    async addLesson(entity) {
         return await db('lessons').insert(entity);
     },
 
@@ -21,7 +21,7 @@ export default{
         return topicname[0];
     },
 
-    async addtopic(entity){
+    async addTopic(entity){
         return await db('topics').insert(entity);
     },
 

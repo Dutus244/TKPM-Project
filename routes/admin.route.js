@@ -170,7 +170,7 @@ router.get('/addword/:id', async function (req, res){
     const topicid = req.params.id
     const {topicname} = await adminServices.getTopicname(topicid)
     res.render('vwAdmin/addword',{
-        topicid: topicid,
+        topicid,
         topicname,
     })
 })
@@ -208,6 +208,19 @@ router.post('/addword/:id', async function (req, res){
         }
 
         await adminServices.addWord(word)
+        
+        const [topic, wordlist, test] = await Promise.all([
+            adminServices.getTopicDetail(topicid),
+            adminServices.getTopicWordList(topicid),
+            adminServices.getTopicTest(topicid)
+          ])
+    
+        res.render('vwAdmin/topicdetail', {
+            topic: JSON.stringify(topic), 
+            word: JSON.stringify(wordlist),
+            test: JSON.stringify(test)
+        })
+        
         if (err || err instanceof multer.MulterError) {
             // A Multer error occurred when uploading.
             // or an unknown error occurred when uploading.
