@@ -270,10 +270,20 @@ export default {
         .limit(limit)
         .offset(offset)
   },
+    
+    async findLessonByOffetWithLimitSearch(letter,offset, limit){
+        return await db('lessons').where('IsDelete',0).whereILike('lessonname','%'+letter+'%')
+            .limit(limit)
+            .offset(offset)
+    },
   async countLesson(){
     let sql = await db('lessons').where('IsDelete',0).count({count: '*'}).first();
     return sql.count
   },
+    async countLessonSearch(letter){
+        let sql = await db('lessons').where('IsDelete',0).count({count: '*'}) .whereILike('lessonname','%'+letter+'%').first();
+        return sql.count
+    },
   async getLessonsProgress(userid) {
     const query = `select lessonname, count(wordhistory.wordid) as wordshaslearned, WordsCount.totalwords from wordhistory 
     join words on wordhistory.wordid = words.wordid

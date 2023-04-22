@@ -200,8 +200,9 @@ router.get('/lesson', async function (req, res) {
 
     });
 })
-router.get('/lesson/:lesson_page', async function (req, res) {
-    const total = await learnerService.countLesson();
+router.get('/lesson/search', async function (req, res) {
+    const {lesson_letter} = req.query;
+    const total = await learnerService.countLessonSearch(lesson_letter);
     const limit = PAGE_LIMIT;
     const curPage = req.query.page || 1;
     const offset = (curPage - 1) * limit;
@@ -212,6 +213,34 @@ router.get('/lesson/:lesson_page', async function (req, res) {
         value: i,
         isCurrent: i === +curPage,
       });
+    }
+    const list = await learnerService.findLessonByOffetWithLimitSearch(lesson_letter,
+        offset,
+        limit
+    );
+    let [prePage, nextPage] = setup_pages(curPage,nPage);
+    res.render('vwLearner/lesson', {
+        lesson: list,
+        pageNumber: pageNumber,
+        empty: list.length === 0,
+        prePage: prePage,
+        nextPage: nextPage,
+        active: {Learn: true }
+
+    });
+})
+router.get('/lesson/:lesson_page', async function (req, res) {
+    const total = await learnerService.countLesson();
+    const limit = PAGE_LIMIT;
+    const curPage = req.query.page || 1;
+    const offset = (curPage - 1) * limit;
+    const nPage = Math.ceil(total / limit);
+    const pageNumber = [];
+    for (let i = 1; i <= nPage; i++) {
+        pageNumber.push({
+            value: i,
+            isCurrent: i === +curPage,
+        });
     }
     const list = await learnerService.findLessonByOffetWithLimit(
         offset,
