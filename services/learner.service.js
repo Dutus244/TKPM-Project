@@ -309,5 +309,29 @@ export default {
       .orderBy('memorylevel', 'asc')
       
       return list
-  }
+  },
+  async updateWordStudy(userid, listwordid){
+      const words = await this.getWord(userid);
+      console.log(words);
+      if (words) {
+          await Promise.all(words.map(async (w) => {
+              await db('wordhistory')
+                  .update('isStudy', 0)
+                  .where('wordhistory.wordid', w.wordid)
+                    .andWhere('userid',userid);
+          }));
+      }
+      if( listwordid) {
+          await Promise.all(listwordid.map(async (lid) => {
+              await db('wordhistory')
+                  .update('isStudy', 1)
+                  .where('wordhistory.wordid', lid)
+          .andWhere('userid',userid);
+
+
+          }));
+      }
+      console.log('done')
+  },
+  
 }

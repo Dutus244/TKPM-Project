@@ -50,7 +50,8 @@
                     location.href=path
                 }
                 else if(this.id ==='save'){
-                    document.getElementById("updateDataForm").submit();
+
+                    $("#updateDataForm").submit();
                 }
                 else{
 
@@ -102,7 +103,7 @@
                 {{#each words}}
                         <td class="lean" id="{{wordid}}">
                             <div class="formcheck">
-                                <input  type="checkbox" value= true name="{{wordid}}" id="{{wordid}}" {{#if isStudy}}checked{{/if}}>
+                                <input  type="checkbox" value= {{wordid}} name="id[]" id="{{wordid}}" {{#if isStudy}}checked{{/if}}>
                             </div>
                         </td>
                         <td class="wordname">{{wordname}}</td>
@@ -110,7 +111,6 @@
                         <td class="wordmeaning" >{{wordmeaning}}</td>
                     </tr>
                 {{/each}}
-
             </table>
         </form>
     </div>

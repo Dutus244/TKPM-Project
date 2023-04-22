@@ -272,9 +272,10 @@ router.get('/resultdailytest', async function (req, res) {
 })
 router.post('/handbook', async function (req, res) {
     const re = req.body
+    const userID = req.session.authUser.userid
     console.log(re);
-    res.render('vwLearner/handbook', {
-    });
+    const words = await learnerService.updateWordStudy(userID, re.id);
+    // res.redirect(re.href);
 })
 
 router.get('/handbook', async function (req, res) {
