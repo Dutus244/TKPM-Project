@@ -5,7 +5,7 @@
 }
 
 .instruction {
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
 }
@@ -27,13 +27,17 @@
 
 .hide {
   display: none;
-  width: 100%;
+  width: 90%;
   position: absolute;
   z-index: 2;
   background-color: white;
   border: 5px solid #afd3d2;
   border-radius: 2.5rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* top: 50%; */
+  left: 50%;
+  -ms-transform: translate(-50%, 0%);
+  transform: translate(-50%, 0%);
 }
 
 .instruction-text {
@@ -205,6 +209,9 @@
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+  .chart {
+    height: 300px;
+  }
   .word-count {
     font-size: 1rem;
   }
@@ -215,6 +222,9 @@
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+  .instruction {
+    width: 80%;
+  }
   .chart {
     width: 80%;
   }
@@ -237,6 +247,9 @@
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .instruction {
+    width: 60%;
+  }
   .chart {
     width: 60%;
   }
@@ -259,6 +272,9 @@
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+  .instruction {
+    width: 40%;
+  }
   .chart {
     width: 50%;
   }

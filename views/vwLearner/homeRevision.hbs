@@ -3,6 +3,7 @@
   $(document).ready(function() {
     const memoryLevelCount = {{{ memoryLevelCount }}}
     const MEMORY_LEVEL = 5
+    let instructionOn = false
 
     for (let i = 0; i < MEMORY_LEVEL; i++) {
       try {
@@ -21,6 +22,18 @@
     }, function () {
       $(".chart > .hide").css("display", "none");
     })
+
+    if ('ontouchstart' in window) {
+      $('.bi-question-circle').on('touchstart', function() {
+        if (!instructionOn) {
+          $('.chart > .hide').css('display', 'block')
+          instructionOn = true
+        } else {
+          $('.chart > .hide').css('display', 'none')
+          instructionOn = false
+        }
+      })
+    }
   })
 </script>
 {{/section}}
