@@ -61,13 +61,13 @@
     <button type="button" id="review-btn" class="btn">REVIEW</button>
   </div>
 
-  <div class="category-progress">
-    <div class="category-progress-title mb-4">
-      Learning categories
+  <div class="lesson-progress">
+    <div class="lesson-progress-title mb-4">
+      Learning lessons
     </div>
-    {{#each categoriesProgress}}
-    <div class="category-progress-item">
-      <div class="category-progress-item-name">{{this.categoryname}}</div>
+    {{#each lessonsProgress}}
+    <div class="lesson-progress-item">
+      <div class="lesson-progress-item-name">{{this.lessonname}}</div>
       <div class="progress-container">
         <div class="percentage">{{this.percentage}}%</div>
         <div class="progress">

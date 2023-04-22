@@ -220,27 +220,27 @@ export default {
   async addTestHistoryDetail(entity) {
     return await db('testhistorydetail').insert(entity);
   },
-  async findAllTopicStudy(category,id) {
+  async findAllTopicStudy(lesson,id) {
     return db.raw('select topics.* ,(select count(*) ' +
         'from topichistory ' +
         'where topichistory.TopicID = topics.TopicID ' +
         'and topichistory.userID= "' + id + '" '  +
-        'and topics.CategoryID= "' + category + '" ' +
+        'and topics.LessonID= "' + lesson + '" ' +
         ') as isRead ' +
         'from topics '
     )
   },
-  async findAllTopicStudy(category) {
+  async findAllTopicStudy(lesson) {
     return db.raw('select topics.* ,(select count(*) ' +
         'from topichistory ' +
-        'where topics.CategoryID= "' + category + '" ' +
+        'where topics.LessonID= "' + lesson + '" ' +
         ') as isRead ' +
         'from topics '
     )
   },
-  async findCategoryByID(category_id){
-    const raw_category = await db('categories').where('CategoryID', category_id)
-    return raw_category[0]
+  async findLessonByID(lesson_id){
+    const raw_lesson = await db('lessons').where('LessonID', lesson_id)
+    return raw_lesson[0]
   },
   async addWordHistory(words) {
     return await db('wordhistory').insert(words)
@@ -254,30 +254,30 @@ export default {
       .andWhere('topicid', topicid)
     return res.length != 0
   },
-  async findCategory(){
-    return await db('categories').where('IsDelete',0)
+  async findLesson(){
+    return await db('lessons').where('IsDelete',0)
   },
-  async findCategoryByOffetWithLimit(offset, limit){
-    return await db('categories').where('IsDelete',0)
+  async findLessonByOffetWithLimit(offset, limit){
+    return await db('lessons').where('IsDelete',0)
         .limit(limit)
         .offset(offset)
   },
-  async countCategory(){
-    let sql = await db('categories').where('IsDelete',0).count({count: '*'}).first();
+  async countLesson(){
+    let sql = await db('lessons').where('IsDelete',0).count({count: '*'}).first();
     return sql.count
   },
-  async getCategoriesProgress(userid) {
-    const query = `select categoryname, count(wordhistory.wordid) as wordshaslearned, WordsCount.totalwords from wordhistory 
+  async getLessonsProgress(userid) {
+    const query = `select lessonname, count(wordhistory.wordid) as wordshaslearned, WordsCount.totalwords from wordhistory 
     join words on wordhistory.wordid = words.wordid
     join topics on words.topicid = topics.topicid
-    join categories on topics.categoryid = categories.categoryid
+    join lessons on topics.lessonid = lessons.lessonid
     join (
-      select topics.categoryid, count(words.wordid) as totalwords from topics
+      select topics.lessonid, count(words.wordid) as totalwords from topics
       join words on topics.topicid = words.topicid
-      group by topics.categoryid
-    ) WordsCount on WordsCount.categoryid = categories.categoryid
+      group by topics.lessonid
+    ) WordsCount on WordsCount.lessonid = lessons.lessonid
     where userid = '${userid}'
-    group by categories.categoryid;`;
+    group by lessons.lessonid;`;
     
     const list = await db.raw(query);
     return list[0]
