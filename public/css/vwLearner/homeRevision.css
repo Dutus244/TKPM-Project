@@ -1,8 +1,19 @@
 .container-fluid {
-  min-height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.instruction {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.bi-question-circle {
+  font-size: 2rem;
+  color: #367772;
+  align-self: flex-end;
 }
 
 .chart {
@@ -11,6 +22,27 @@
   display: flex;
   padding: 0 10px 0 10px;
   gap: 20px;
+  position: relative;
+}
+
+.hide {
+  display: none;
+  width: 90%;
+  position: absolute;
+  z-index: 2;
+  background-color: white;
+  border: 5px solid #afd3d2;
+  border-radius: 2.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* top: 50%; */
+  left: 50%;
+  -ms-transform: translate(-50%, 0%);
+  transform: translate(-50%, 0%);
+}
+
+.instruction-text {
+  padding: 25px;
+  margin: 0;
 }
 
 .chart-header {
@@ -172,11 +204,14 @@
 
 .progress-bar {
   width: 0%;
-  background: linear-gradient(to right, #AACDAF, #71ACA9);
+  background: linear-gradient(to right, #aacdaf, #71aca9);
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+  .chart {
+    height: 300px;
+  }
   .word-count {
     font-size: 1rem;
   }
@@ -187,6 +222,9 @@
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+  .instruction {
+    width: 80%;
+  }
   .chart {
     width: 80%;
   }
@@ -209,6 +247,9 @@
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .instruction {
+    width: 60%;
+  }
   .chart {
     width: 60%;
   }
@@ -231,6 +272,9 @@
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+  .instruction {
+    width: 40%;
+  }
   .chart {
     width: 50%;
   }
@@ -252,6 +296,9 @@
 }
 
 @media only screen and (min-width: 1200px) {
+  .instruction {
+    width: 40%;
+  }
   .chart {
     width: 40%;
   }

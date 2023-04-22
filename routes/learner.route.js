@@ -11,24 +11,25 @@ router.get('/revision', async function(req, res) {
   let lessonsProgress = await learnerService.getLessonsProgress(res.locals.authUser.userid)
   lessonsProgress = lessonsProgress.map( it => ({
     lessonname: it.lessonname,
-    percentage: (it.wordshaslearned / it.totalwords) * 100,
+    percentage: Math.ceil((it.wordshaslearned / it.totalwords) * 100),
   }))
 
   let memoryLevelCount = await learnerService.getUserMemoryLevelCount(res.locals.authUser.userid)
   const maxNumber = memoryLevelCount.reduce((acc, cur) => {
     return acc > cur.number ? acc : cur.number;
   }, 0);
-  const totalWords = memoryLevelCount.reduce((acc, cur) => acc + cur.number, 0)
   memoryLevelCount = memoryLevelCount.map( it => ({
     ...it,
     percentage: (it.number / maxNumber) * 100
   }))
 
+  const { count = 0 } = await learnerService.getUserReviewWordsCount(res.locals.authUser.userid)
+
   res.render('vwLearner/homeRevision', {
-      lessonsProgress: lessonsProgress,
-      memoryLevelCount: JSON.stringify(memoryLevelCount),
-      totalWords: totalWords,
-      active: {Review: true }
+    lessonsProgress,
+    memoryLevelCount: JSON.stringify(memoryLevelCount),
+    reviewWordsCount: count,
+    active: {Review: true }
   })
 })
 
