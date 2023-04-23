@@ -58,13 +58,13 @@
             updateButtons(currentQuestionIndex);
         }
 
-        document.addEventListener("keydown", function(event) {
+        document.addEventListener("keydown", function (event) {
             if (event.code === "ArrowRight") {
                 if (currentQuestionIndex !== totalQuestions - 1) {
                     goToNextQuestion();
                 }
             } else if (event.code === "ArrowLeft") {
-                if (currentQuestionIndex !== 0 ) {
+                if (currentQuestionIndex !== 0) {
                     goToPrevQuestion();
                 }
             }
@@ -81,7 +81,7 @@
 
         nextButton.addEventListener('click', goToNextQuestion);
         prevButton.addEventListener('click', goToPrevQuestion);
-        endButton.addEventListener('click',goToHomePage);
+        endButton.addEventListener('click', goToHomePage);
 
         hideAllQuestions()
         // show the first question and update the buttons
@@ -136,7 +136,7 @@
                 const feedback = questions[i].querySelector('#feedback0');
                 const health = questions[i].querySelector('#hp-left0');
 
-                submitButton.addEventListener('click', async function() {
+                submitButton.addEventListener('click', async function () {
                     const guess = guessInput.value.toLowerCase();
 
                     if (guess.length === 1) {
@@ -162,15 +162,14 @@
                                 guessInput.disabled = true;
                                 submitButton.disabled = true;
                                 health.textContent = 0;
-                                await resultQuestion(wordID,0)
+                                await resultQuestion(wordID, 0)
                             } else {
                                 feedback.textContent = `Incorrect.`;
                                 feedback.style.color = 'red';
                                 health.textContent = maxIncorrectGuesses - incorrectGuesses
                             }
                         }
-                    }
-                    else {
+                    } else {
                         if (guess === word) {
                             for (let i = 0; i < word.length; i++) {
                                 blanks[i] = word[i];
@@ -180,9 +179,8 @@
                             feedback.style.color = 'green';
                             guessInput.disabled = true;
                             submitButton.disabled = true;
-                            await resultQuestion(wordID,1)
-                        }
-                        else {
+                            await resultQuestion(wordID, 1)
+                        } else {
                             incorrectGuesses++;
                             if (incorrectGuesses === maxIncorrectGuesses) {
                                 feedback.textContent = `Sorry, you lost. The word was "${word}".`;
@@ -190,7 +188,7 @@
                                 guessInput.disabled = true;
                                 submitButton.disabled = true;
                                 health.textContent = 0;
-                                await resultQuestion(wordID,0)
+                                await resultQuestion(wordID, 0)
                             } else {
                                 feedback.textContent = `Incorrect.`;
                                 feedback.style.color = 'red';
@@ -200,8 +198,7 @@
                     }
                     guessInput.value = '';
                 });
-            }
-            else if (type === "1") {
+            } else if (type === "1") {
                 const answerType = questions[i].querySelector('.answer')
                 const word = answerType.textContent.toLowerCase();
                 const feedback = questions[i].querySelector('#feedback0');
@@ -248,8 +245,7 @@
                         buttonsubmit.disabled = true;
                     }
                 })
-            }
-            else if (type === "2") {
+            } else if (type === "2") {
                 const options = document.querySelectorAll('#options span');
                 console.log(options)
                 options.forEach(option => {
@@ -310,7 +306,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2"></div>
-        <div class="col-sm-8">
+    <div class="col-sm-8">
+        {{#if this.empty}}
+            <div class="p-2 m-0 text-center question-name-1">No words to do today</div>
+        {{else}}
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
                      aria-valuemax="100"></div>
@@ -319,17 +318,18 @@
                 {{#each this.question}}
                     {{#ifEquals  this.QuestionType "0"}}
                         {{#ifEquals  this.QuestionAvatar ""}}
-                        <div class="question" id="question{{@index}}">
-                            <div class="p-2 m-0 text-center question-name-1">{{{Question}}}</div>
-                            <div class="answer" style="display: none">{{Answer}}</div>
-                            <div class="type" style="display: none">{{QuestionType}}</div>
-                            <div class="wordid" style="display: none">{{WordID}}</div>
-                            <div class="hp"><i class="bi bi-heart-fill text-danger"></i><span>   </span><span id="hp-left0">3</span></div>
-                            <p id="word0"></p>
-                            <input type="text" id="guess0" placeholder="Enter a letter">
-                            <button id="submit0">Submit</button>
-                            <p id="feedback0"></p>
-                        </div>
+                            <div class="question" id="question{{@index}}">
+                                <div class="p-2 m-0 text-center question-name-1">{{{Question}}}</div>
+                                <div class="answer" style="display: none">{{Answer}}</div>
+                                <div class="type" style="display: none">{{QuestionType}}</div>
+                                <div class="wordid" style="display: none">{{WordID}}</div>
+                                <div class="hp"><i class="bi bi-heart-fill text-danger"></i><span>   </span><span
+                                        id="hp-left0">3</span></div>
+                                <p id="word0"></p>
+                                <input type="text" id="guess0" placeholder="Enter a letter">
+                                <button id="submit0">Submit</button>
+                                <p id="feedback0"></p>
+                            </div>
                         {{else}}
                             <div class="question" id="question{{@index}}">
                                 <div class="p-2 m-0 text-center question-name">{{{Question}}}</div>
@@ -339,7 +339,8 @@
                                 <div class="img-wrapper">
                                     <img src="{{QuestionAvatar}}" alt="Question Avatar">
                                 </div>
-                                <div class="hp"><i class="bi bi-heart-fill text-danger"></i><span>   </span><span id="hp-left0"> 3</span></div>
+                                <div class="hp"><i class="bi bi-heart-fill text-danger"></i><span>   </span><span
+                                        id="hp-left0"> 3</span></div>
                                 <p id="word0"></p>
                                 <input type="text" id="guess0" placeholder="Enter a letter">
                                 <button id="submit0">Submit</button>
@@ -421,16 +422,16 @@
                     {{/ifEquals}}
                 {{/each}}
             </div>
-
-            </div>
         </div>
-
+        {{/if}}
     </div>
+
 </div>
-    <button type="button" class="btn btn-primary" id="prev-btn" disabled>
-        <i class="bi bi-arrow-left text-dark"></i>
-    </button>
-    <button type="button" class="btn btn-primary" id="next-btn" disabled>
-        <i class="bi bi-arrow-right text-dark"></i>
-    </button>
-    <button type="button" class="btn btn-primary" id="end-btn" style="display:none;">End</button>
+</div>
+<button type="button" class="btn btn-primary" id="prev-btn" disabled>
+    <i class="bi bi-arrow-left text-dark"></i>
+</button>
+<button type="button" class="btn btn-primary" id="next-btn" disabled>
+    <i class="bi bi-arrow-right text-dark"></i>
+</button>
+<button type="button" class="btn btn-primary" id="end-btn" style="display:none;">End</button>
