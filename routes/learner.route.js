@@ -285,7 +285,7 @@ router.get('/handbook', async function (req, res) {
         active: {Handbook: true }
     });
 })
-router.get('/handbook/search/w', async function (req, res) {
+router.get('/handbook/search', async function (req, res) {
     const userID = req.session.authUser.userid
     const {word} = req.query;
     const words = await learnerService.getWordWithLetter(userID,word);
