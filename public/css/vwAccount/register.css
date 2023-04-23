@@ -65,22 +65,10 @@
     border-radius: 2.5rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
-
-  .register-btn {
-    background-color: #71aca9;
-    color: white;
-    border: 2px solid #71aca9;
-    border-radius: 2.5rem;
-    width: 50%;
-    height: 2.5rem;
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin: 20px;
-  }
 }
 
 .container-fluid {
-  /* min-height: 100vh; */
+  min-height: 90vh;
   display: grid;
   place-items: center;
 }
@@ -103,4 +91,16 @@
   width: 80%;
   margin: 5px 0 5px 0;
   padding: 10px;
+}
+
+.register-btn {
+  background-color: #71aca9;
+  color: white;
+  border: 2px solid #71aca9;
+  border-radius: 2.5rem;
+  width: 50%;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 20px;
 }
