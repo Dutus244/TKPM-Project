@@ -169,7 +169,7 @@ export default {
                     .orderByRaw('rand()')
                     .limit(1)
                     .select();
-                
+
                 const {OptionA, OptionB, OptionC, OptionD,Question,Answer,QuestionAvatar} = tempquestion[0];
                 const shuffledOptions = shuffleArray([
                     OptionA,
@@ -177,7 +177,7 @@ export default {
                     OptionC,
                     OptionD,
                 ]);
-                
+
                 question.OptionA = shuffledOptions[0]
                 question.OptionB = shuffledOptions[1]
                 question.OptionC = shuffledOptions[2]
@@ -211,7 +211,7 @@ export default {
     const list = await db('words')
       .select('wordid', 'wordname', 'wordtype', 'wordmeaning', 'wordpronounce', 'wordexample', 'wordavatar')
       .where('topicid', topicId)
-      
+
     return list
   },
   async addTestHistory(entity) {
@@ -225,18 +225,11 @@ export default {
         'from topichistory ' +
         'where topichistory.TopicID = topics.TopicID ' +
         'and topichistory.userID= "' + id + '" '  +
-        'and topics.LessonID= "' + lesson + '" ' +
         ') as isRead ' +
-        'from topics '
-    )
-  },
-  async findAllTopicStudy(lesson) {
-    return db.raw('select topics.* ,(select count(*) ' +
-        'from topichistory ' +
-        'where topics.LessonID= "' + lesson + '" ' +
-        ') as isRead ' +
-        'from topics '
-    )
+        'from topics '+
+        'where topics.IsDelete = 0 '+
+        'and topics.LessonID= "' + lesson + '" '
+  )
   },
   async findLessonByID(lesson_id){
     const raw_lesson = await db('lessons').where('LessonID', lesson_id)
@@ -257,15 +250,47 @@ export default {
   async findLesson(){
     return await db('lessons').where('IsDelete',0)
   },
-  async findLessonByOffetWithLimit(offset, limit){
+    async getWord(user_id){
+        return await db('wordhistory')
+            .rightJoin('words','wordhistory.wordid','words.wordid')
+            .select('words.wordid', 'wordname', 'wordtype', 'wordmeaning','MemoryLevel','isStudy')
+            .where('wordhistory.userid',user_id)
+            .andWhere('words.isDelete',0)
+    },
+    async getWordWithLetter(user_id,letter){
+        const raw = await db.raw("select words.wordid,wordname,wordtype,wordmeaning, wordhistory.isStudy,MemoryLevel , ( case when " +
+            "        words.WordName like '%"+letter+"%' then true" +
+            "        else false" +
+            "        end )" +
+            "        as isSearch" +
+            "        from wordhistory" +
+            "        join words" +
+            "        on wordhistory.WordID = words.WordID" +
+            "       and wordhistory.userID= '"+user_id+"' "+
+            "       and words.IsDelete = 0"
+        )
+        return raw[0]
+
+    },
+  async findLessonByOffsetWithLimit(offset, limit){
     return await db('lessons').where('IsDelete',0)
         .limit(limit)
         .offset(offset)
   },
+
+    async findLessonByOffsetWithLimitSearch(letter,offset, limit){
+        return await db('lessons').where('IsDelete',0).whereILike('lessonname','%'+letter+'%')
+            .limit(limit)
+            .offset(offset)
+    },
   async countLesson(){
     let sql = await db('lessons').where('IsDelete',0).count({count: '*'}).first();
     return sql.count
   },
+    async countLessonSearch(letter){
+        let sql = await db('lessons').where('IsDelete',0).count({count: '*'}) .whereILike('lessonname','%'+letter+'%').first();
+        return sql.count
+    },
   async getLessonsProgress(userid) {
     const query = `select lessonname, count(wordhistory.wordid) as wordshaslearned, WordsCount.totalwords from wordhistory 
     join words on wordhistory.wordid = words.wordid
@@ -278,7 +303,7 @@ export default {
     ) WordsCount on WordsCount.lessonid = lessons.lessonid
     where userid = '${userid}'
     group by lessons.lessonid;`;
-    
+
     const list = await db.raw(query);
     return list[0]
   },
@@ -289,9 +314,32 @@ export default {
       .where('userid', userid)
       .groupBy('memorylevel')
       .orderBy('memorylevel', 'asc')
-      
+
       return list
   },
+
+  async updateWordStudy(userid, listwordid){
+      const words = await this.getWord(userid);
+      if (words) {
+          await Promise.all(words.map(async (w) => {
+              await db('wordhistory')
+                  .update('isStudy', 0)
+                  .where('wordhistory.wordid', w.wordid)
+                    .andWhere('userid',userid);
+          }));
+      }
+      if( listwordid) {
+          await Promise.all(listwordid.map(async (lid) => {
+              await db('wordhistory')
+                  .update('isStudy', 1)
+                  .where('wordhistory.wordid', lid)
+          .andWhere('userid',userid);
+
+
+          }));
+      }
+  },
+    
   async getUserReviewWordsCount(userid) {
     const query = `select count(*) as count from wordhistory
     where ((datediff(curdate(), updatetime) >= 1 and memorylevel = 1)
