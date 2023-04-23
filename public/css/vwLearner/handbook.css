@@ -100,7 +100,6 @@ td.wordmeaning{
     align-self: end;
     font-weight: bold;
     font-size: 1em;
-    letter-spacing: 0.1em;
     text-decoration: none;
     display: inline-block;
     border: 3px solid #ffffff;
@@ -131,16 +130,12 @@ td.wordmeaning{
     border-radius: 20px;
 }
 .dialog-body{
-    padding: 40px;
+    padding: 10px;
     width: fit-content;
     border: 2px solid black;
     background-color: white;
     border-radius: 20px;
 
-}
-.dialog-body h3{
-    text-align: center;
-    padding-bottom: 20px;
 }
 .dialog-body button i{
     font-size: 20px;
@@ -189,4 +184,13 @@ input[type="checkbox"]:checked:after {
 }
 .visible{
     display: block;
+}
+.dialog-body h4{
+    margin-bottom: 10px;
+    text-align: center;
+}
+.dialog-body div{
+}
+.dialog-body button{
+    margin: 20px;
 }
