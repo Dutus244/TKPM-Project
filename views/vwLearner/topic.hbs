@@ -1,18 +1,15 @@
 {{#section 'css'}}
     <link rel="stylesheet" href="/public/CSS/vwLearner/topic.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 {{/section}}
 
 {{#section 'js'}}
 {{/section}}
-
-
         <div id="header" >
-                <img src={{lesson.LessonAvatar}} alt="">
+                <img src="{{lesson.LessonAvatar}}">
                 <div id="description">
                     <h1> {{lesson.LessonName}}</h1>
-                    <p >{{lesson.LessonDes}}</p>
+                    <p >{{{lesson.LessonDes}}}</p>
                 </div>
         </div>
 <h3>Topic List</h3>
@@ -39,8 +36,8 @@
                                             </div>
                                         {{/ifEquals}}
                                         <img class="col col-2"
-                                             src={{TopicAvatar}}
-                                             alt="...">
+                                             src="{{TopicAvatar}}"
+                                        >
                                         <h3 class="col col-8">{{TopicName}}</h3>
                                     </div>
                                 </a>
