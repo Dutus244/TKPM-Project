@@ -183,7 +183,7 @@ router.get('/lesson', async function (req, res) {
         isCurrent: i === +curPage,
       });
     }
-    const list = await learnerService.findLessonByOffetWithLimit(
+    const list = await learnerService.findLessonByOffsetWithLimit(
         offset,
         limit
     );
@@ -213,7 +213,7 @@ router.get('/lesson/search', async function (req, res) {
         isCurrent: i === +curPage,
       });
     }
-    const list = await learnerService.findLessonByOffetWithLimitSearch(lesson_letter,
+    const list = await learnerService.findLessonByOffsetWithLimitSearch(lesson_letter,
         offset,
         limit
     );
@@ -241,7 +241,7 @@ router.get('/lesson/:lesson_page', async function (req, res) {
             isCurrent: i === +curPage,
         });
     }
-    const list = await learnerService.findLessonByOffetWithLimit(
+    const list = await learnerService.findLessonByOffsetWithLimit(
         offset,
         limit
     );
