@@ -97,21 +97,21 @@
       const name = $('<td>').text(word.wordname);
       const def = $('<td>').text(word.wordmeaning);
       const pro = $('<td>').text(word.wordpronounce);
-      const editWordButton = $('<button>').attr('type', 'button').addClass('btnEditReview').text('Edit');
+      const editWordButton = $('<button>').attr('type', 'button').addClass('btnEditPreview').text('Edit');
       editWordButton.on('click', function() {
         window.location.href = '/admin/editWord/' + word.wordID;
       });
-      const reviewWordButton = $('<button>').attr('type', 'button').addClass('btnEditReview').text('Review');
-      reviewWordButton.on('click', function() {
+      const previewWordButton = $('<button>').attr('type', 'button').addClass('btnEditPreview').text('Preview');
+      previewWordButton.on('click', function() {
         window.location.href = '/admin/reviewWord/' + word.wordID;
       });
-      const editreview = $('<td>')
-      editreview.append(editWordButton);
-      editreview.append(reviewWordButton);
+      const editpreview = $('<td>')
+      editpreview.append(editWordButton);
+      editpreview.append(previewWordButton);
       row.append(name);
       row.append(def);
       row.append(pro);
-      row.append(editreview);
+      row.append(editpreview);
       wordcontainer.append(row);
     });
 
@@ -164,7 +164,7 @@
             <th>Word</th>
             <th>Definition</th>
             <th>Pronounce</th>
-            <th>Edit/Review</th>
+            <th>Edit/Preview</th>
           </tr>
         </thead>
         <tbody>

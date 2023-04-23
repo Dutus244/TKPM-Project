@@ -55,7 +55,7 @@ main{
     padding: .4rem 1.5rem;
     border-radius: .5rem;
     border: none;
-    width: 10%;
+    min-width: 10%;
 }
 
 .topic-container {
@@ -80,7 +80,7 @@ main{
     padding: .4rem 1.5rem;
     border-radius: .5rem;
     border: none;
-    width: 10%;
+    min-width: 10%;
 }
 
 table {
@@ -129,7 +129,7 @@ table .btnEdit{
     padding: .4rem 1.5rem;
     border-radius: .5rem;
     border: none;
-    width: 10%;
+    min-width: 10%;
 }
 
 .delete-back-container .btnBack{
@@ -141,7 +141,7 @@ table .btnEdit{
     padding: .4rem 1.5rem;
     border-radius: .5rem;
     border: none;
-    width: 10%;
+    min-width: 10%;
 }
 
 .delete-modal {
