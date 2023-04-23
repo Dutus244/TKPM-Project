@@ -258,12 +258,6 @@ export default {
             .andWhere('words.isDelete',0)
     },
     async getWordWithLetter(user_id,letter){
-        // return await db('wordhistory')
-        //     .rightJoin('words','wordhistory.wordid','words.wordid')
-        //     .select('words.wordid', 'wordname', 'wordtype', 'wordmeaning','MemoryLevel','isStudy')
-        //     .where('wordhistory.userid',user_id)
-        //     .andWhere('words.isDelete',0)
-        //     .whereILike('words.wordname','%'+letter+'%')
         const raw = await db.raw("select words.wordid,wordname,wordtype,wordmeaning, wordhistory.isStudy,MemoryLevel , ( case when " +
             "        words.WordName like '%"+letter+"%' then true" +
             "        else false" +
