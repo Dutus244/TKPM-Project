@@ -52,75 +52,47 @@
                         }
                         break;
                 }
-                // if(this.id === 'Handbook'){}
-                // else if(this.id === 'level-1'){
-                //     invisibleAllLevel()
-                //     visibleLevel(1)
-                // }
-                // else if(this.id === 'level-2'){
-                //     invisibleAllLevel()
-                //     visibleLevel(2)
-                // }
-                // else if(this.id === 'level-3'){
-                //     invisibleAllLevel()
-                //     visibleLevel(3)
-                // }
-                // else if(this.id === 'level-4'){
-                //     invisibleAllLevel()
-                //     visibleLevel(4)
-                // }
-                // else if(this.id === 'level-5'){
-                //     invisibleAllLevel()
-                //     visibleLevel(5)
-                // }
-                // else{
-                //     if(change){
-                //         path = this.href
-                //         event.preventDefault()
-                //         modal.style.display="flex";
-                //     }
-                // }
             });
             $('button').on('click', function() {
-                if(this.id === 'cancel'){
-                    modal.style.display="none";
-                    searchAction = false;
-                }
-                else if(this.id === 'leave'){
-                    location.href=path
-                    if(searchAction){
-                        const searchform = document.getElementById("searchFrm");
-                        searchform.submit()
-                    }
-                }
-                else if(this.id ==='save'){
-                    if(!searchAction){
-
-                        const form = document.getElementById("updateDataForm");
-                        const newInput = document.createElement("input");
-                        newInput.setAttribute("type", "hidden");
-                        newInput.setAttribute("name", "href");
-                        newInput.setAttribute("value", path);
-                        form.appendChild(newInput);
-                        form.submit();
-                    }
-                    else {
-                        const form = document.getElementById("updateDataForm");
-                        const newInput = document.createElement("input");
-                        let path = "/handbook/search?word=" + document.getElementById("searchTxt").value.toString();
-                        newInput.setAttribute("type", "hidden");
-                        newInput.setAttribute("name", "href");
-                        newInput.setAttribute("value", path);
-                        form.appendChild(newInput);
-                        form.submit();
-                    }
-                }
-                else if (this.id==="searchBtn"){
-                    searchAction = true;
-                    if(change){
-                        event.preventDefault()
-                        modal.style.display="flex";
-                    }
+                switch(this.id) {
+                    case 'cancel':
+                        modal.style.display = "none";
+                        searchAction = false;
+                        break;
+                    case 'leave':
+                        location.href = path
+                        if (searchAction) {
+                            const searchform = document.getElementById("searchFrm");
+                            searchform.submit()
+                        }
+                        break;
+                    case 'save':
+                        if (!searchAction) {
+                            const form = document.getElementById("updateDataForm");
+                            const newInput = document.createElement("input");
+                            newInput.setAttribute("type", "hidden");
+                            newInput.setAttribute("name", "href");
+                            newInput.setAttribute("value", path);
+                            form.appendChild(newInput);
+                            form.submit();
+                        } else {
+                            const form = document.getElementById("updateDataForm");
+                            const newInput = document.createElement("input");
+                            let path = "/handbook/search?word=" + document.getElementById("searchTxt").value.toString();
+                            newInput.setAttribute("type", "hidden");
+                            newInput.setAttribute("name", "href");
+                            newInput.setAttribute("value", path);
+                            form.appendChild(newInput);
+                            form.submit();
+                        }
+                        break;
+                    case 'searchBtn':
+                        searchAction = true;
+                        if (change) {
+                            event.preventDefault()
+                            modal.style.display = "flex";
+                        }
+                        break;
                 }
             });
             $('input').on('click', function() {
