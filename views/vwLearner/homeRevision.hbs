@@ -22,18 +22,6 @@
     }, function () {
       $(".chart > .hide").css("display", "none");
     })
-
-    if ('ontouchstart' in window) {
-      $('.bi-question-circle').on('touchstart', function() {
-        if (!instructionOn) {
-          $('.chart > .hide').css('display', 'block')
-          instructionOn = true
-        } else {
-          $('.chart > .hide').css('display', 'none')
-          instructionOn = false
-        }
-      })
-    }
   })
 </script>
 {{/section}}
