@@ -25,9 +25,31 @@ export default{
         return await db('topics').insert(entity);
     },
 
+    async getLessonList() {
+        const list = await db('lessons')
+            .select('lessonid', 'lessonname')
+            .where('IsDelete',0)
+        return list
+    },
+
+    async getLessonDetail(id) {
+        const lesson = await db('lessons')
+            .select('lessonid', 'lessonname', 'lessonavatar', 'lessondes')
+            .where('lessons.LessonID',id);
+        return lesson[0]
+    },
+
+    async getLessonTopicList(id) {
+        const list = await db('topics')
+            .select('topicid', 'topicname')
+            .where('topics.LessonID',id)
+            .andWhere('IsDelete',0);
+        return list
+    },
+
     async getTopicDetail(id) {
         const topic = await db
-            .select('topicid','topicname', 'topicavatar')
+            .select('topicid','topicname', 'topicavatar', 'lessonid')
             .from('topics')
             .where('topics.topicid',id);
         return topic[0];
@@ -38,7 +60,8 @@ export default{
             .select('wordid', 'wordname', 'wordmeaning', 'wordpronounce')
             .from('topics')
             .join('words','words.topicid','topics.topicid')
-            .where('topics.topicid',id);
+            .where('topics.topicid',id)
+            .andWhere('topics.IsDelete',0);
         return topic;
     },
 
@@ -48,7 +71,8 @@ export default{
             .from('multiplechoicequestions')
             .join('words','multiplechoicequestions.answer','words.wordid')
             .join('topics','words.topicid','topics.topicid')
-            .where('topics.topicid',id);
+            .where('topics.topicid',id)
+            .andWhere('multiplechoicequestions.IsDelete',0);
         return test;
     },
 
@@ -57,7 +81,8 @@ export default{
             .select('wordid', 'wordname')
             .from('words')
             .join('topics', 'words.topicid','topics.topicid')
-            .where('topics.topicid', id);
+            .where('topics.topicid', id)
+            .andWhere('words.IsDelete',0);
         return list
     },
 
@@ -69,13 +94,6 @@ export default{
         return await db('multiplechoicequestions').insert(entity);
     },
 
-    async findAllTopic() {
-        const list = await db('topics')
-            .select('TopicID', 'TopicName')
-        
-        return list
-    },
-
     async getWord(id, wordid){
         const word = await db
             .select('wordname')
@@ -84,6 +102,14 @@ export default{
             .where('topics.topicid', id)
             .andWhere('words.wordid', wordid);
         return word
+    },
+
+    async deleteLesson(id) {
+        return await db('lessons').update('isDelete', 1).where('lessons.lessonid',id);
+    },
+
+    async editLessonAva(id, newava) {
+        return await db('lessons').update('LessonAvatar', newava).where('lessons.lessonid',id);
     },
     
     async deleteTopic(id) {

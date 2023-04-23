@@ -15,6 +15,88 @@ export const config = {
     }
 }
 
+router.get('/lessonlist', async function (req, res){
+    const lesson = await adminServices.getLessonList()
+
+    res.render('vwAdmin/lessonlist',{
+        lesson: JSON.stringify(lesson), 
+    })
+})
+
+router.get('/lessondetail/:id', async function (req, res){
+    const lessonid = req.params.id
+
+    const [lesson, topic] = await Promise.all([
+        adminServices.getLessonDetail(lessonid),
+        adminServices.getLessonTopicList(lessonid),
+    ])
+
+    res.render('vwAdmin/lessondetail',{
+        lesson: JSON.stringify(lesson),
+        topic: JSON.stringify(topic),
+    })
+})
+
+router.post('/lessondetail/:id', async function (req, res) {
+    const lessonid = req.params.id
+
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, './public/img/lesson')
+        },
+        filename: function (req, file, cb) {
+            cb(null, lessonid + '.png')
+        }
+    })
+
+    const upload = multer({ storage: storage }).single('avatar');
+
+    upload(req, res, function(err) {
+        if(err) {
+            console.log(err);
+            return res.status(500).send('Error uploading file');
+        }
+    });
+
+    await adminServices.editLessonAva(lessonid, "/public/img/lesson/" + lessonid + ".png")
+
+    const [lesson, topic] = await Promise.all([
+        adminServices.getLessonDetail(lessonid),
+        adminServices.getLessonTopicList(lessonid),
+    ])
+
+    res.render('vwAdmin/lessondetail',{
+        lesson: JSON.stringify(lesson),
+        topic: JSON.stringify(topic),
+    })
+})
+
+router.get('/deletelesson/:id', async function (req, res) {
+    const lessonid = req.params.id
+
+    try {
+        const deleteResult = await adminServices.deleteLesson(lessonid);
+        res.render('vwAdmin/deletemessagebox', {
+            result: {
+                success: true,
+                message: 'Lesson successfully deleted',
+                back: 'Go back to lesson list',
+                backurl: '/admin/lessonlist'
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.render('vwAdmin/deletemessagebox', {
+            result: {
+                success: false,
+                message: 'Error deleting lesson',
+                back: 'Go back to lesson list',
+                backurl: '/admin/lessonlist'
+            }
+        });
+    }
+})
+
 router.get('/topicdetail/:id', async function (req, res) {
     const topicid = req.params.id
 
@@ -22,7 +104,7 @@ router.get('/topicdetail/:id', async function (req, res) {
         adminServices.getTopicDetail(topicid),
         adminServices.getTopicWordList(topicid),
         adminServices.getTopicTest(topicid)
-      ])
+    ])
 
     res.render('vwAdmin/topicdetail', {
         topic: JSON.stringify(topic), 
@@ -50,7 +132,6 @@ router.post('/topicdetail/:id', async function (req, res) {
             console.log(err);
             return res.status(500).send('Error uploading file');
         }
-        console.log('File uploaded successfully');
     });
 
     await adminServices.editTopicAva(topicid, "/public/img/topic/" + topicid + ".png")
@@ -70,12 +151,29 @@ router.post('/topicdetail/:id', async function (req, res) {
 
 router.get('/deletetopic/:id', async function (req, res) {
     const topicid = req.params.id
+    const topicdetail = await adminServices.getTopicDetail(topicid)
 
-    const result = await adminServices.deleteTopic(topicid);
-
-    res.render('vwAdmin/deletetopic', {
-        result
-    })
+    try {
+        const deleteResult = await adminServices.deleteTopic(topicid);
+        res.render('vwAdmin/deletemessagebox', {
+            result: {
+                success: true,
+                message: `Topic successfully deleted`,
+                back: 'Go back to lesson detail',
+                backurl: '/admin/lessondetail/' + topicdetail.lessonid
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.render('vwAdmin/deletemessagebox', {
+            result: {
+                success: false,
+                message: `Error deleting topic`,
+                back: 'Go back to lesson detail',
+                backurl: '/admin/lessondetail/' + topicdetail.lessonid
+            }
+        });
+    }
 })
 
 router.get('/addlesson', function (req, res) {
@@ -235,18 +333,6 @@ router.get('/addtopic/:id', async function (req, res) {
     res.render('vwAdmin/addtopic', {
         lessonname,
     })
-})
-
-router.get('/topiclist', async function (req, res) {
-    const topiclist = await adminServices.findAllTopic();
-    if (topiclist.length == 0) {
-      res.status(404).render("404", {
-        layout: false,
-      });
-    }
-    // console.log(topiclist);
-  
-   
 })
 
 router.post('/addtopic/:id', async function (req, res){

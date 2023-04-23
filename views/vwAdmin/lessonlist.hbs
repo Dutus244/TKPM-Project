@@ -1,25 +1,25 @@
 {{#section 'js'}}
 <script>
-  const topics = {{{ topics }}}
-  const length = topics.length
+  const lesson = {{{ lesson }}}
+  const length = lesson.length
 
   $(document).ready(function() {
-  const topicList = $('.scroll-content ul');
-  topics.forEach(function(topic) {
-    const li = $('<span>').text(topic.TopicName);
+  const lessonList = $('.scroll-content ul');
+  lesson.forEach(function(lesson) {
+    const li = $('<span>').text(lesson.lessonname);
     li.on('click', function() {
-      window.location.href = '/admin/topicdetail/' + topic.TopicID;
+      window.location.href = '/admin/lessondetail/' + lesson.lessonid;
     });
-    topicList.append(li);
+    lessonList.append(li);
 
-    $('#topiccount').text('Total topics: ' + length);
+    $('#lessoncount').text('Total lessons: ' + length);
   });
 });
 </script>
 {{/section}}
 
 {{#section 'css'}}
-<link rel="stylesheet" href="/public/CSS/admin/topiclist.css">
+<link rel="stylesheet" href="/public/CSS/admin/lessonlist.css">
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/css/fileinput.min.css"
@@ -31,9 +31,9 @@
 
 <main>
   <div class="container">
-    <div id="topicname">TOPIC LIST</div>
-     <div class="topics">
-      <div class="topiccount" id="topiccount">Total topics: 20</div>
+    <div id="lessonname">LESSON LIST</div>
+     <div class="lessons">
+      <div class="lessoncount" id="lessoncount">Total lessons: 20</div>
       <div class="custom-scrollbar">
         <div class="scroll-content">
             <ul>
