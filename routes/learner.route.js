@@ -132,7 +132,7 @@ router.post('/topic/test/submit-answers', async function (req, res) {
     return learnerService.addTestHistoryDetail(testhistorydetail);
   }));
   res.render("vwLearner/topicTestFinish", {
-      topicId: topicid,
+      topicId,
       active: {Learn: true }
   })
 });
@@ -191,10 +191,10 @@ router.get('/lesson', async function (req, res) {
 
     res.render('vwLearner/lesson', {
         lesson: list,
-        pageNumber: pageNumber,
+        pageNumber,
         empty: list.length === 0,
-        prePage: prePage,
-        nextPage: nextPage,
+        prePage,
+        nextPage,
         active: {Learn: true }
 
     });
@@ -220,10 +220,10 @@ router.get('/lesson/search', async function (req, res) {
     let [prePage, nextPage] = setup_pages(curPage,nPage);
     res.render('vwLearner/lesson', {
         lesson: list,
-        pageNumber: pageNumber,
+        pageNumber,
         empty: list.length === 0,
-        prePage: prePage,
-        nextPage: nextPage,
+        prePage,
+        nextPage,
         active: {Learn: true }
 
     });
@@ -248,10 +248,10 @@ router.get('/lesson/:lesson_page', async function (req, res) {
     let [prePage, nextPage] = setup_pages(curPage,nPage);
     res.render('vwLearner/lesson', {
         lesson: list,
-        pageNumber: pageNumber,
+        pageNumber,
         empty: list.length === 0,
-        prePage: prePage,
-        nextPage: nextPage,
+        prePage,
+        nextPage,
         active: {Learn: true }
 
     });
