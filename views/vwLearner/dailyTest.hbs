@@ -247,7 +247,6 @@
                 })
             } else if (type === "2") {
                 const options = document.querySelectorAll('#options span');
-                console.log(options)
                 options.forEach(option => {
                     option.addEventListener('click', async () => {
                         // Get the correct answer for this question
@@ -296,6 +295,46 @@
                             }
                         });
                     });
+                });
+            } else if (type === "3") {
+                const synth = window.speechSynthesis;
+                const answerType = questions[i].querySelector('.answer')
+                const word = answerType.textContent.toLowerCase();
+                questions[i].querySelector(".speak").addEventListener("click", function() {
+                    speak(word)
+                });
+
+                const speak = (text) => {
+                    const speakText = new SpeechSynthesisUtterance(text);
+
+                    // Get the voice by name
+                    const voices = synth.getVoices();
+                    const voice = voices.find(voice => voice.name === 'Microsoft David - English (United States)');
+
+                    // Set the voice
+                    speakText.voice = voice;
+
+                    // Speak
+                    synth.speak(speakText);
+                };
+
+                const guessInput = questions[i].querySelector('#guess0');
+                const submitButton = questions[i].querySelector('#submit0');
+                const feedback = questions[i].querySelector('#feedback0');
+
+                submitButton.addEventListener('click', async function () {
+                    const guess = guessInput.value.toLowerCase();
+                    if (guess === word) {
+                        feedback.textContent = 'You win!';
+                        feedback.style.color = 'green';
+                        await resultQuestion(wordID, 1)
+                        submitButton.disabled = true;
+                    } else {
+                        feedback.textContent = `Sorry, you lost. The word was "${word}".`;
+                        feedback.style.color = 'red';
+                        await resultQuestion(wordID, 0)
+                        submitButton.disabled = true;
+                    }
                 });
             }
         }
@@ -419,6 +458,18 @@
 
                             </div>
                         {{/ifEquals}}
+                    {{/ifEquals}}
+                    {{#ifEquals this.QuestionType "3"}}
+                        <div class="question" id="question{{@index}}">
+                            <div class="answer" style="display: none">{{Answer}}</div>
+                            <div class="type" style="display: none">{{QuestionType}}</div>
+                            <div class="wordid" style="display: none">{{WordID}}</div>
+                            <button class="speak" ><i class="bi bi-volume-up"  style="font-size: 30px;"></i></button>
+                            <div class="question-name">Listen to the vocabulary and fill in the box below</div>
+                            <input type="text" id="guess1" placeholder="Enter a word">
+                            <button id="submit0">Submit</button>
+                            <p id="feedback0"></p>
+                        </div>
                     {{/ifEquals}}
                 {{/each}}
             </div>

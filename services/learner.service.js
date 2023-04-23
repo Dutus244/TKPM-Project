@@ -8,6 +8,10 @@ function shuffleArray(array) {
     return array;
 }
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export default {
     async findAllTopicWord(topicId) {
         const list = await db('words')
@@ -92,8 +96,8 @@ export default {
 
         const questions = [];
         for (const word of words) {
-            const randomType1 = Math.floor(Math.random() * 3);
-            const randomType2 = Math.floor(Math.random() * 2);
+            const randomType1 = getRandomInt(0, 3);
+            const randomType2 = getRandomInt(0, 1);
 
             let question = {}
             question.WordID = word.WordID
@@ -182,6 +186,10 @@ export default {
 
                 }
                 question.QuestionType = "2"
+            }
+            else if (randomType1 === 3) {
+                question.Answer = word.WordName
+                question.QuestionType = "3"
             }
             questions.push(question)
         }
