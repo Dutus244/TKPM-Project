@@ -14,7 +14,7 @@
 }
 
 .left {
-  padding-left: 20px;
+  padding-left: 35px;
   font-weight: 700;
   letter-spacing: 2px;
 }
@@ -65,7 +65,8 @@
   text-align: center;
 }
 
-.dropdown-item.active {
+a.dropdown-item.active,
+a.dropdown-item:hover {
   background-color: #71aca9;
   color: white;
 }
