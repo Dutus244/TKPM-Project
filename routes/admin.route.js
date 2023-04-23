@@ -294,7 +294,8 @@ router.get('/previewWord/:wordid', async function(req, res) {
 
     res.render('vwAdmin/wordPreview', {
         word,
-        topicid: JSON.stringify(topicid)
+        topicid: JSON.stringify(topicid),
+        wordname: JSON.stringify(word.wordname),
     })
 })
 
