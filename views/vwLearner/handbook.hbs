@@ -120,8 +120,8 @@
 <div class="container" class="card-75 border-0">
     <div id="title" >
         <nav class="subnav">
-            <a id="level-1" onclick="" class="active" href="#" >Level 1</a>
-            <a id="level-2" onclick="" href="#">Level 2</a>
+            <a id="level-1"  href="#" >Level 1</a>
+            <a id="level-2"  href="#">Level 2</a>
             <a id="level-3" href="#" >Level 3</a>
             <a id="level-4" href="#" >Level 4</a>
             <a id="level-5" href="#" >Level 5</a>
@@ -155,8 +155,8 @@
         <form id="updateDataForm" method="POST" action="/handbook">
             <table >
                 {{#each words}}
-                    {{#if isSearch}}
-                        <tr class="level-{{MemoryLevel}}">
+
+                    <tr class="level-{{MemoryLevel}}"  {{#if isSearch}}{{else}}style="display: none" {{/if}}>
                         <td class="lean" id="{{wordid}}">
                             <div class="formcheck">
                                 <input  type="checkbox" value= {{wordid}} name="id[]" id="{{wordid}}" {{#if isStudy}}checked{{/if}}>
@@ -166,7 +166,7 @@
                         <td class="wordtype">({{wordtype}})</td>
                         <td class="wordmeaning" >{{wordmeaning}}</td>
                     </tr>
-                    {{/if}}
+
                 {{/each}}
             </table>
         </form>

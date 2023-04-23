@@ -288,6 +288,7 @@ router.get('/handbook/search/w', async function (req, res) {
     const userID = req.session.authUser.userid
     const {word} = req.query;
     const words = await learnerService.getWordWithLetter(userID,word);
+    console.log(words)
     res.render('vwLearner/handbook', {
         words,
         level: 1,
