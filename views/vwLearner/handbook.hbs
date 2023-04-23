@@ -17,22 +17,33 @@
         })
     </script>
     <script>
-        let currentLevel = 1;
         $(document).ready(function(){
             const modal = document.getElementById("dialog");
             let path = "";
-            let change = true;
+            let change = false;
+            let searchAction = false;
             $('a').on('click', function() {
                 if(this.id === 'Handbook'){}
-                else if(this.id === 'level-1'){}
-                else if(this.id === 'level-2'){}
+                else if(this.id === 'level-1'){
+                    invisibleAllLevel()
+                    visibleLevel(1)
+                }
+                else if(this.id === 'level-2'){
+                    invisibleAllLevel()
+                    visibleLevel(2)
+                }
                 else if(this.id === 'level-3'){
+                    invisibleAllLevel()
+                    visibleLevel(3)
                 }
                 else if(this.id === 'level-4'){
+                    invisibleAllLevel()
+                    visibleLevel(4)
                 }
                 else if(this.id === 'level-5'){
+                    invisibleAllLevel()
+                    visibleLevel(5)
                 }
-
                 else{
                     if(change){
                         path = this.href
@@ -42,23 +53,68 @@
                 }
             });
             $('button').on('click', function() {
-                // alert(this.classList)
                 if(this.id === 'cancel'){
                     modal.style.display="none";
+                    searchAction = false;
                 }
                 else if(this.id === 'leave'){
                     location.href=path
+                    if(searchAction){
+                        const searchform = document.getElementById("searchFrm");
+                        searchform.submit()
+                    }
                 }
                 else if(this.id ==='save'){
+                    if(!searchAction){
 
-                    $("#updateDataForm").submit();
+                        const form = document.getElementById("updateDataForm");
+                        const newInput = document.createElement("input");
+                        newInput.setAttribute("type", "hidden");
+                        newInput.setAttribute("name", "href");
+                        newInput.setAttribute("value", path);
+                        form.appendChild(newInput);
+                        form.submit();
+                    }
+                    else {
+                        const form = document.getElementById("updateDataForm");
+                        const newInput = document.createElement("input");
+                        let path = "/handbook/search/w?word=" + document.getElementById("searchTxt").value.toString();
+                        newInput.setAttribute("type", "hidden");
+                        newInput.setAttribute("name", "href");
+                        newInput.setAttribute("value", path);
+                        form.appendChild(newInput);
+                        form.submit();
+                    }
                 }
-                else{
-
+                else if (this.id==="searchBtn"){
+                    searchAction = true;
+                    if(change){
+                        event.preventDefault()
+                        modal.style.display="flex";
+                    }
                 }
-
+            });
+            $('input').on('click', function() {
+                if(this.id !== 'searchTxt')
+                change = true;
             });
         })
+    </script>
+    <script>
+        function invisibleAllLevel(){
+            var tr = document.getElementsByTagName("tr");
+            for (var i = 0; i < tr.length; i++) {
+                tr[i].style.display = 'none';
+            }
+        }
+        function visibleLevel(level){
+            let name = ".level-"+level.toString()
+            const boxes = document.querySelectorAll(name);
+            boxes.forEach(box => {
+                box.style.display = 'table-row';
+            });
+        }
+
     </script>
 {{/section}}
 <div class="container" class="card-75 border-0">
@@ -72,10 +128,10 @@
             <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         </nav>
         <div id="searchbar">
-            <form >
+            <form id="searchFrm" >
                 <div class="form-row w-100">
                     <div class="col-10">
-                        <input
+                        <input id="searchTxt"
                                 class='form-control mr-sm-2 w-100 rounded-pill searchinput'
                                 type='search'
                                 placeholder='Search for anything'
@@ -84,7 +140,7 @@
                         />
                     </div>
                     <div class="col-2">
-                        <button
+                        <button id="searchBtn"
                                 class='btn inline form-control'
                                 type='submit'
                                 formaction="/handbook/search/w"
@@ -96,11 +152,11 @@
         </div>
     </div>
     <div class="content" class="card-75 border-0">
-        <form id="updateDataForm" method="POST">
-
+        <form id="updateDataForm" method="POST" action="/handbook">
             <table >
-            <tr>
                 {{#each words}}
+                    {{#if isSearch}}
+                        <tr class="level-{{MemoryLevel}}">
                         <td class="lean" id="{{wordid}}">
                             <div class="formcheck">
                                 <input  type="checkbox" value= {{wordid}} name="id[]" id="{{wordid}}" {{#if isStudy}}checked{{/if}}>
@@ -110,6 +166,7 @@
                         <td class="wordtype">({{wordtype}})</td>
                         <td class="wordmeaning" >{{wordmeaning}}</td>
                     </tr>
+                    {{/if}}
                 {{/each}}
             </table>
         </form>
@@ -122,16 +179,13 @@
                 </button>
             </div>
 
-            <h3 >Save Change?</h3>
+            <h4 >You did not save change yet</h4>
             <button class="btn" id="leave">
-                Leave without save
+                Not save
             </button>
             <button class="btn" id="save">
                 Save
             </button>
         </div>
     </div>
-</div>
-<div id="body">
-    <p>{{filterlevel.level}}</p>
 </div>

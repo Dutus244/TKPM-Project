@@ -161,21 +161,17 @@ table {
 }
 tr {
     border: solid;
-    border-width: 1px 0;
+    border-width: 0;
+    border-bottom-width: 1px;
+    display: table-row;
+    /*display: block;*/
 }
-tr:first-child {
-    border-top: none;
-}
-tr:last-child {
-    border-bottom: none;
-}
-.formcheck {
-
-    /*border: 2px solid black;*/
-    /*height: fit-content;*/
-    /*width: fit-content;*/
-    /*border-radius: 50%;*/
-}
+/*tr:first-child {*/
+/*    border-top: none;*/
+/*}*/
+/*tr:last-child {*/
+/*    border-bottom: none;*/
+/*}*/
 
 input[type="checkbox"]{
     opacity: 1;
@@ -198,4 +194,9 @@ input[type="checkbox"]:checked:after {
 
 }
 
-
+.invisible{
+    display: none;
+}
+.visible{
+    display: block;
+}

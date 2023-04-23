@@ -6,7 +6,6 @@ import {PAGE_LIMIT} from './constants.js';
 const router = express.Router();
 router.use(bodyParser.json());
 import moment from 'moment';
-import Handlebars from 'handlebars';
 
 router.get('/revision', async function(req, res) {
   let lessonsProgress = await learnerService.getLessonsProgress(res.locals.authUser.userid)
@@ -143,7 +142,6 @@ router.get('/topiclist/:lesson_id', async function (req, res) {
     const raw_topiclist = await learnerService.findAllTopicStudy(lesson_id,user_id);
     const topiclist = raw_topiclist[0]
     const lesson = await learnerService.findLessonByID(lesson_id)
-    // console.log(topiclist)
     res.render('vwLearner/topic', {
         topic: topiclist,
         lesson,
@@ -273,14 +271,13 @@ router.get('/resultdailytest', async function (req, res) {
 router.post('/handbook', async function (req, res) {
     const re = req.body
     const userID = req.session.authUser.userid
-    console.log(re);
     const words = await learnerService.updateWordStudy(userID, re.id);
-    // res.redirect(re.href);
+    res.redirect(re.href);
 })
 
 router.get('/handbook', async function (req, res) {
     const userID = req.session.authUser.userid
-    const words = await learnerService.getWord(userID)
+    const words = await learnerService.getWordWithLetter(userID,'')
     res.render('vwLearner/handbook', {
         words,
         level: 1,
@@ -291,21 +288,11 @@ router.get('/handbook/search/w', async function (req, res) {
     const userID = req.session.authUser.userid
     const {word} = req.query;
     const words = await learnerService.getWordWithLetter(userID,word);
-    
     res.render('vwLearner/handbook', {
         words,
         level: 1,
         active: {Handbook: true }
     });
 })
-router.get('/handbook/:level', async function (req, res) {
-    const userID = req.session.authUser.userid
-    const words = await learnerService.getWord(userID)
-    const level= req.query.level;
-    res.render('vwLearner/handbook', {
-        words,
-        level,
-        active: {Handbook: true }
-    });
-})
+
 export default router;
