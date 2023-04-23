@@ -56,7 +56,6 @@ router.post('/lessondetail/:id', async function (req, res) {
             console.log(err);
             return res.status(500).send('Error uploading file');
         }
-        console.log('File uploaded successfully');
     });
 
     await adminServices.editLessonAva(lessonid, "/public/img/lesson/" + lessonid + ".png")
@@ -133,7 +132,6 @@ router.post('/topicdetail/:id', async function (req, res) {
             console.log(err);
             return res.status(500).send('Error uploading file');
         }
-        console.log('File uploaded successfully');
     });
 
     await adminServices.editTopicAva(topicid, "/public/img/topic/" + topicid + ".png")

@@ -99,11 +99,11 @@
       const pro = $('<td>').text(word.wordpronounce);
       const editWordButton = $('<button>').attr('type', 'button').addClass('btnEditPreview').text('Edit');
       editWordButton.on('click', function() {
-        window.location.href = '/admin/editWord/' + word.wordID;
+        window.location.href = '/admin/editWord/' + word.wordid;
       });
       const previewWordButton = $('<button>').attr('type', 'button').addClass('btnEditPreview').text('Preview');
       previewWordButton.on('click', function() {
-        window.location.href = '/admin/reviewWord/' + word.wordID;
+        window.location.href = '/admin/reviewWord/' + word.wordid;
       });
       const editpreview = $('<td>')
       editpreview.append(editWordButton);
