@@ -332,4 +332,35 @@ router.get('/topictesthistory/:test_id', async function (req, res) {
         active: {Learn: true}
     });
 })
+router.get('/topictesthistorylist', async function (req, res) {
+    const userID = req.session.authUser.userid
+    const list = await learnerService.getTestHistory(userID)
+    const listlesson = await learnerService.findLesson()
+    res.render('vwLearner/topicTestHistoryList', {
+        listlesson: listlesson,
+        empty: list.length === 0,
+        list: list,
+        active: {Handbook: true}
+    });
+})
+router.get('/getalltopichistory', async function (req, res) {
+    const userID = req.session.authUser.userid
+    const list = await learnerService.getTestHistory(userID)
+    res.send(list)
+})
+router.get('/gettopichistory', async function (req, res) {
+    const {lessonid} = req.query;
+    const userID = req.session.authUser.userid
+    const list = await learnerService.getTestHistoryByLesson(userID, lessonid)
+    res.send(list)
+})
+
+router.get('/topictesthistory/:test_id', async function (req, res) {
+    const {test_id} = req.params;
+    const list = await learnerService.getTestDetail(test_id)
+    res.render('vwLearner/topicTestHistoryDetail', {
+        list: list,
+        active: {Learn: true}
+    });
+})
 export default router;
