@@ -6,7 +6,7 @@
 {{#section 'js'}}
     <script>
         const questions = document.getElementById('question-form').querySelectorAll('.question');
-
+        let totalCorrect = 0;
         let currentQuestionIndex = 0;
         const totalQuestions = {{this.question.length}};
         const topicid = "{{this.topicid}}";
@@ -49,8 +49,10 @@
                 alert('There are still unfinished questions');
                 return;
             }
-            const temp = {
+            const data = {
                 topicid: topicid,
+                totalQuestions: totalQuestions,
+                totalCorrect: totalCorrect,
                 answers: listAnswer,
             };
             fetch('/topic/test/submit-answers', {
@@ -58,7 +60,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(temp)
+                body: JSON.stringify(data)
             })
                     .then(response => response.text()) // Use response.text() instead of response.json()
                     .then(html => {
@@ -142,6 +144,10 @@
                 cell.style.background = isCorrect ? 'rgb(43,190,28)' : 'rgb(231,75,75)';
                 option.style.color = 'rgb(255,255,255)'
                 option.style.fontWeight = 'bold'
+
+                if (isCorrect) {
+                    totalCorrect++;
+                }
 
                 options.forEach(otherOption => {
                     if (otherOption !== option && otherOption.parentNode === option.parentNode) {

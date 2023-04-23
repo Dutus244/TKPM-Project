@@ -373,4 +373,15 @@ router.post('/addtopic/:id', async function (req, res){
     })
 })
 
+router.get('/previewWord/:wordid', async function(req, res) {
+    const wordid = req.params.wordid
+    const word = await adminServices.getWordAllInfo(wordid)
+    const { topicid } = word
+
+    res.render('vwAdmin/wordPreview', {
+        word,
+        topicid: JSON.stringify(topicid)
+    })
+})
+
 export default router

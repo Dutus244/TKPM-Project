@@ -5,6 +5,26 @@
     align-items: center;
 }
 
+#title_content {
+    font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    margin-top: 10px;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#lessonDropdown {
+    font-size: 20px;
+}
+
+.custom-dropdown {
+    width: 150px;
+}
+
 .btn{
     border-color: #F4DF89;
     border-radius: 10%;
@@ -27,13 +47,11 @@ a:hover, a:link,a:visited,a:active{
     text-decoration: none;
     border-width: 2px;
     border-color: #AACDAF;
-    height: 100%;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
-.row{
+.row-1{
     width: 70%;
-
 }
 
 .card-footer{
@@ -44,12 +62,8 @@ a:hover, a:link,a:visited,a:active{
     width: 25%;
     margin-top: 3px;
     padding: 10px;
-    /*col-3 mt-3*/
 }
-.column a{
-    width: 100%;
-    height: 100%;
-}
+
 .content{
     padding: 30px;
     display: flex;
@@ -59,12 +73,23 @@ a:hover, a:link,a:visited,a:active{
 img{
     object-fit: scale-down;
     padding: 5px;
-    aspect-ratio : 1/1;
+    aspect-ratio : 1 / 1;
 }
 
 .border{
+    aspect-ratio : 1 / 1;
     border-width: 2px;
     margin: 10px
+}
+
+.question-name-1 {
+    font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-weight: Light;
+    font-size: 50px;
+    position: absolute;
+    top: 250px;
+    width: 80%;
+    left: 10%;
 }
 
 .card-body{
@@ -86,10 +111,6 @@ i{
 
     .btn{
         width: fit-content;
-    }
-
-    .card-footer{
-        /*visibility: hidden;*/
     }
 
     .card-text{
@@ -115,22 +136,5 @@ i{
     }
 
 }
-.pagination { color:black !important; }
-
-
-.pagination > .active > a , .pagination > .active > a:hover, .pagination > .active > a:focus {
-    background-color: #AACDAF !important; border-color: #AACDAF !important;
-}
-
-.pagination > .disactive > a , .pagination > .disactive > a:hover, .pagination > .disactive > a:focus {
-    background-color: white !important;
-    color: black;
-}
-
-.pagination > .abled > a , .pagination > .abled > a:hover, .pagination > .abled > a:focus {
-    background-color: white !important;
-    color: #AACDAF;
-}
-
 
 

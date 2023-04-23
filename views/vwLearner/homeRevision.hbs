@@ -22,18 +22,6 @@
     }, function () {
       $(".chart > .hide").css("display", "none");
     })
-
-    if ('ontouchstart' in window) {
-      $('.bi-question-circle').on('touchstart', function() {
-        if (!instructionOn) {
-          $('.chart > .hide').css('display', 'block')
-          instructionOn = true
-        } else {
-          $('.chart > .hide').css('display', 'none')
-          instructionOn = false
-        }
-      })
-    }
   })
 </script>
 {{/section}}
@@ -94,7 +82,7 @@
 
   <div class="review mb-5">
     <p class="review-test-text">Today review test has {{this.reviewWordsCount}} words</p>
-    <button type="button" id="review-btn" class="btn">REVIEW</button>
+    <button type="button" id="review-btn" class="btn" onclick="window.location.href='/dailytest'">REVIEW</button>
   </div>
 
   <div class="lesson-progress">

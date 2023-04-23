@@ -119,5 +119,12 @@ export default{
     async editTopicAva(id, newava) {
         return await db('topics').update('TopicAvatar', newava).where('topics.topicid',id);
     },
+
+    async getWordAllInfo(wordid) {
+        const word = await db('words')
+            .select('wordname', 'wordtype', 'wordmeaning', 'wordpronounce', 'wordexample', 'wordavatar', 'topicid')
+            .where('wordid', wordid)
+        return word[0]
+    }
 }
 

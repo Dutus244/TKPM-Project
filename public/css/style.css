@@ -1,43 +1,104 @@
-.nav{
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  width: 100%;
+  background-color: #aacdaf;
+  font-size: 25px;
+}
+
+.nav a {
+  color: black;
+  text-decoration: none;
+}
+
+.left {
+  padding-left: 35px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.right {
+  padding-right: 20px;
+}
+
+.navbar {
+  padding: 0;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: black;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 100%;
+}
+
+.navbar a.active,
+.navbar a:hover {
+  background-color: #71aca9;
+  border-radius: 5px;
+  color: white;
+}
+
+.dropdown {
+  width: auto;
+  height: 100%;
+  position: relative;
+  display: none;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #aacdaf;
+  top: 100%;
+  right: 0;
+  z-index: 1;
+}
+
+.dropdown-item {
+  width: 100%;
+  text-align: center;
+}
+
+a.dropdown-item.active,
+a.dropdown-item:hover {
+  background-color: #71aca9;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.more-icon {
+  /* padding-right: 20px; */
+  display: none;
+  align-self: center;
+  justify-self: center;
+}
+
+/* When the screen is less than 660 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+@media screen and (max-width: 660px) {
+  .dropdown {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    background-color: #AACDAF;
-    font-size: 25px;
   }
-
-  .nav a{
-     color:black;
-     text-decoration: none;
+  .left {
+    margin: auto;
   }
-
-  .left{
-    padding-left: 20px;
-    font-weight: 700;
-    letter-spacing: 2px;
+  .dropdown {
+    width: 10%;
   }
-
-  .right{
-    padding-right: 20px;
+  .navbar a,
+  .right {
+    display: none;
   }
-
-  nav.navbar{
-    height: 100%;
+  .more-icon {
+    float: right;
+    display: block;
   }
-
-  .navbar a{
-    text-decoration: none;
-    color: black;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-top: 0;
-    margin-bottom: 0;
-    height: 100%;
-  }
-
-  .navbar a.active, .navbar a:hover{
-    background-color: #71ACA9;
-    border-radius: 5px;
-    color:white;
-  }
+}
