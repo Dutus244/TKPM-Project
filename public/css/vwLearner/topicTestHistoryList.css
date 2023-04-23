@@ -1,0 +1,140 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#title_content {
+    font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    margin-top: 10px;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#lessonDropdown {
+    font-size: 20px;
+}
+
+.custom-dropdown {
+    width: 150px;
+}
+
+.btn{
+    border-color: #F4DF89;
+    border-radius: 10%;
+    border-width: 1px;
+    background-color:#F4DF89 ;
+}
+
+.searchinput{
+    border-width: 1px;
+    border-color: black;
+
+}
+
+a:hover, a:link,a:visited,a:active{
+    text-decoration: none;
+}
+
+.lessoncard,.lessoncard:link ,.lessoncard:visited ,.lessoncard:hover ,.lessoncard:active  {
+    color: black;
+    text-decoration: none;
+    border-width: 2px;
+    border-color: #AACDAF;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.row-1{
+    width: 70%;
+}
+
+.card-footer{
+    width: 70%;
+}
+
+.column{
+    width: 25%;
+    margin-top: 3px;
+    padding: 10px;
+}
+
+.content{
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+img{
+    object-fit: scale-down;
+    padding: 5px;
+    aspect-ratio : 1 / 1;
+}
+
+.border{
+    aspect-ratio : 1 / 1;
+    border-width: 2px;
+    margin: 10px
+}
+
+.question-name-1 {
+    font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-weight: Light;
+    font-size: 50px;
+    position: absolute;
+    top: 250px;
+    width: 80%;
+    left: 10%;
+}
+
+.card-body{
+    border: 1px;
+}
+
+i{
+    padding-left: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+
+    i{
+        padding-left: 10px;
+    }
+
+    .btn{
+        width: fit-content;
+    }
+
+    .card-text{
+        display: none;
+    }
+
+    img{
+        object-fit: scale-down;
+        padding: 5px;
+        aspect-ratio : 1 / 1;
+    }
+
+    .border{
+        width: 25%;
+    }
+
+    .lessoncard{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+}
+
+

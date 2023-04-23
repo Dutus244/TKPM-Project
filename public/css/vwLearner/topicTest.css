@@ -1,5 +1,4 @@
 body {
-
     background-size: cover;
     background-position: center;
 }
@@ -257,7 +256,7 @@ body {
     .divOptionA {
         width: 48%;
         height: 40px;
-        background: rgba(149, 172, 254, 1);
+        background: #f4df89;
         opacity: 1;
         position: absolute;
         top: 330px;
@@ -273,7 +272,7 @@ body {
     .divOptionB {
         width: 48%;
         height: 40px;
-        background: rgba(149, 172, 254, 1);
+        background: #f4df89;
         opacity: 1;
         position: absolute;
         top: 330px;
@@ -289,7 +288,7 @@ body {
     .divOptionC {
         width: 48%;
         height: 40px;
-        background: rgba(149, 172, 254, 1);
+        background: #f4df89;
         opacity: 1;
         position: absolute;
         top: 380px;
@@ -305,7 +304,7 @@ body {
     .divOptionD {
         width: 48%;
         height: 40px;
-        background: rgba(149, 172, 254, 1);
+        background: #f4df89;
         opacity: 1;
         position: absolute;
         top: 380px;
