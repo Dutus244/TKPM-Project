@@ -5,7 +5,7 @@ body {
 }
 
 .container-fluid {
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
   perspective: 1000px;
 }
 

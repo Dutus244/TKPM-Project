@@ -1,0 +1,53 @@
+{{#section 'js'}}
+<script>
+  $(document).ready(function () {
+    $('.flip-card-front').on('click', function (e) {
+      $('.flip-card-inner').css('transform', 'rotateY(180deg)')
+    });
+    $('.flip-card-back').on('click', function (e) {
+      $('.flip-card-inner').css('transform', 'rotateY(0deg)')
+    });
+
+    $('#btn-back').on('click', function() {
+      window.location.href = '/admin/topicdetail/' + {{{ topicid }}}
+    })
+  })
+</script>
+{{/section}}
+
+{{#section 'css'}}
+<link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">
+<link rel="stylesheet" href="/public/CSS/admin/wordPreview.css">
+{{/section}}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div>
+              <p id="wordname" class="p-2 m-0 text-center word">{{word.wordname}}</p>
+              <p id="wordpronounce" class="p-2 m-0 text-center phonetic">{{word.wordpronounce}}</p>
+              <p id="wordmeaning" class="p-2 m-0 text-center meaning">
+                {{word.wordmeaning}} ({{word.wordtype}})
+              </p>
+            </div>
+          </div>
+          <div class="flip-card-back">
+            <img id="wordavatar" class="flashcard-img" src="{{word.wordavatar}}" alt="">
+            <p id="wordexample" class="m-0 text-center example">{{word.wordexample}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button type="button" id="btn-back" class="font">BACK TO TOPIC DETAIL</button>
+      </div>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>
