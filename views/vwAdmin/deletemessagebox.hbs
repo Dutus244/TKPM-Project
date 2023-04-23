@@ -1,13 +1,3 @@
-{{#section 'js'}}
-<script>
-    $(document).ready(function() {
-        $('.btnBack').on('click', function() {
-            window.location.href = "/admin/topiclist";
-        });
-    });
-</script>
-{{/section}}
-
 {{#section 'css'}}
 <link rel="stylesheet" href="/public/CSS/admin/deletetopic.css">
 <link rel="stylesheet"
@@ -20,7 +10,9 @@
 
 <main>
     <div class="delete-container">
-        <h2>Topic deleted successfully!</h2>
-        <button class="btnBack">Go back to topic list</button>
+        <h2>{{{result.message}}}</h2>
+        <a href="{{{result.backurl}}}">
+            <button class="btnBack">{{{result.back}}}</button>
+        </a>
     </div>
 </main>
