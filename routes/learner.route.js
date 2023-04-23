@@ -270,10 +270,10 @@ router.get('/resultdailytest', async function (req, res) {
   await learnerService.updateMemoryLevel(userID, wordID, check)
 })
 router.post('/handbook', async function (req, res) {
-    const re = req.body
+    const reqbody = req.body
     const userID = req.session.authUser.userid
-    const words = await learnerService.updateWordStudy(userID, re.id);
-    res.redirect(re.href);
+    const words = await learnerService.updateWordStudy(userID, reqbody.id);
+    res.redirect(reqbody.href);
 })
 
 router.get('/handbook', async function (req, res) {
