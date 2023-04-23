@@ -77,8 +77,8 @@ body {
 }
 
 .progress-bar {
-  width: 0%;
-  background: linear-gradient(to right, #AACDAF, #71ACA9);
+  width: 100%;
+  background: linear-gradient(to right, #aacdaf, #71aca9);
 }
 
 .word {
@@ -114,20 +114,19 @@ body {
   padding-top: 2rem;
 }
 
-#btn-next,
 #btn-back {
   background-color: #f4df89;
   border: 1px solid #f4df89;
   border-radius: 2.5rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  padding: 0.5rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
   font-size: 1.5rem;
   font-weight: bold;
-  width: 11rem;
+  width: 100%;
 }
 
 .font {
-  font-family: "Sriracha"
+  font-family: "Sriracha";
 }
 
 /* Extra small devices (phones, 600px and down) */

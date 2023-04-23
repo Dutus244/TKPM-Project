@@ -67,7 +67,7 @@
       });
       const reviewWordButton = $('<button>').attr('type', 'button').addClass('btnEditReview').text('Review');
       reviewWordButton.on('click', function() {
-        window.location.href = '/admin/reviewWord/' + word.wordID;
+        window.location.href = '/admin/previewWord/' + word.wordid;
       });
       const editreview = $('<td>')
       editreview.append(editWordButton);
