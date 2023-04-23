@@ -4,7 +4,7 @@ body{
 
 main{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     height: 100vh;
     margin-top: 10px;
@@ -72,22 +72,11 @@ select{
     width: 40%;
 }
 
-input#txtWordname.form-control{
-    width: 70%;
+input{
+    min-width: 500px;
     display: inline-block;
 }
 
-input#txtWordmeaning.form-control{
-    width: 70%;
-    display: inline-block;
-}
-
-input#txtWordpronounce.form-control{
-    width: 70%;
-    display: inline-block;
-}
-
-input#txtWordpronounce.form-control{
-    width: 70%;
-    display: inline-block;
+form{
+    width: 700px;
 }

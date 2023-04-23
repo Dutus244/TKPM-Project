@@ -78,6 +78,47 @@ router.get('/deletetopic/:id', async function (req, res) {
     })
 })
 
+router.get('/addlesson', function (req, res) {
+    res.render('vwAdmin/addlesson', {
+        
+    })
+})
+
+router.post('/addlesson', async function (req, res){
+    const id = v4()
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, './public/img/lesson')
+        },
+        filename: function (req, file, cb) {
+            cb(null, id + '.png')
+        }
+    })
+
+    const upload = multer({ storage: storage })
+    upload.array('fuMain', 1)(req, res, async function (err) {
+        
+        const {lessonname, description} = req.body;
+        const imagelink = '/public/img/lesson/' + id + '.png'
+
+        const lesson={
+            lessonid: id,
+            lessonname,
+            lessonavatar: imagelink,
+            lessondes: description,
+            isdelete: 0
+        }
+        await adminServices.addLesson(lesson)
+    
+        if (err || err instanceof multer.MulterError) {
+            // A Multer error occurred when uploading.
+            // or an unknown error occurred when uploading.
+            console.error(err);
+        } 
+
+    })
+})
+
 router.get('/addquestion/:id', async function (req, res){
     const topicid = req.params.id
     const wordlist = await adminServices.getWords(topicid)
@@ -127,8 +168,10 @@ router.post('/addquestion/:id', async function (req, res){
 
 router.get('/addword/:id', async function (req, res){
     const topicid = req.params.id
+    const {topicname} = await adminServices.getTopicname(topicid)
     res.render('vwAdmin/addword',{
-        topicid: topicid,
+        topicid,
+        topicname,
     })
 })
 
@@ -165,18 +208,19 @@ router.post('/addword/:id', async function (req, res){
         }
 
         await adminServices.addWord(word)
-
-        const topicname = await adminServices.getTopicName(topicid)
-        const topic = await adminServices.getTopicDetail(topicid)
-        const num = await adminServices.countWords(topicid)
-        const tst = await adminServices.getTest(topicid)
+        
+        const [topic, wordlist, test] = await Promise.all([
+            adminServices.getTopicDetail(topicid),
+            adminServices.getTopicWordList(topicid),
+            adminServices.getTopicTest(topicid)
+          ])
+    
         res.render('vwAdmin/topicdetail', {
-            topicid,
-            topicname: topicname[0].topicname,
-            topic,
-            num,
-            test: tst
+            topic: JSON.stringify(topic), 
+            word: JSON.stringify(wordlist),
+            test: JSON.stringify(test)
         })
+        
         if (err || err instanceof multer.MulterError) {
             // A Multer error occurred when uploading.
             // or an unknown error occurred when uploading.
@@ -185,9 +229,11 @@ router.post('/addword/:id', async function (req, res){
     })
 })
 
-router.get('/addtopic', function (req, res) {
+router.get('/addtopic/:id', async function (req, res) {
+    const lessonid = req.params.id
+    const {lessonname} = await adminServices.getLessonname(lessonid)
     res.render('vwAdmin/addtopic', {
-        
+        lessonname,
     })
 })
 
@@ -200,16 +246,15 @@ router.get('/topiclist', async function (req, res) {
     }
     // console.log(topiclist);
   
-    res.render('vwAdmin/topiclist', {
-      topics: JSON.stringify(topiclist)
-    });
+   
 })
 
-router.post('/addtopic', async function (req, res){
+router.post('/addtopic/:id', async function (req, res){
     const id = v4()
+    const lessonid = req.params.id
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, './public/img/')
+            cb(null, './public/img/topic')
         },
         filename: function (req, file, cb) {
             cb(null, id + '.png')
@@ -220,16 +265,17 @@ router.post('/addtopic', async function (req, res){
     upload.array('fuMain', 1)(req, res, async function (err) {
         
         const {topicname} = req.body;
-        const imagelink = '/public/img/' + id + '.png'
+        const imagelink = '/public/img/topic/' + id + '.png'
 
         const topic={
+            lessonid,
             topicid: id,
             topicname,
             topicavatar: imagelink,
             isdelete: 0
         }
 
-        await adminServices.add(topic)
+        await adminServices.addTopic(topic)
 
         const topiclist = await adminServices.findAllTopic();
         if (topiclist.length == 0) {
@@ -237,16 +283,6 @@ router.post('/addtopic', async function (req, res){
             layout: false,
         });
         }
-        // console.log(topiclist);
-    
-        res.render('vwAdmin/topiclist', {
-        topics: JSON.stringify(topiclist)
-        });
-        if (err || err instanceof multer.MulterError) {
-            // A Multer error occurred when uploading.
-            // or an unknown error occurred when uploading.
-            console.error(err);
-        } 
 
     })
 })

@@ -31,6 +31,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
+
     $('#fuMain').fileinput({
         language: 'vi',
         theme: 'fa4',
@@ -40,28 +41,41 @@
 
     });
 
+    tinymce.init({
+        selector: "#txtDescription",
+        height: 200,
+        menubar: false,
+        toolbar: [
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
+        ],
+    });
+
     $('#frmRegister').on('submit', function (e) {
         e.preventDefault();
 
-        const topicname = $('#txtTopicname').val();
-        if (!topicname.length) {
-            alert('Please input topic name')
-            $('#txtTopicname').css('background-color', '#f2cece')
-            $('#txtTopicname').addClass('form-control-error')
+        const lessonname = $('#txtLessonname').val();
+        if (!lessonname.length) {
+            alert('Please input lesson name')
+            $('#txtLessonname').css('background-color', '#f2cece')
+            $('#txtLessonname').addClass('form-control-error')
             return
         }
 
         const img = $('#fuMain').val();
         if (!img.length) {
-            alert('Please choose an image')
+            alert('Please upload photo')
+            return
+        }
+
+        const description = $("#txtDescription").val();
+        if(!description.length){
+            alert('Please input description')
             return
         }
 
         $('#frmRegister').off('submit').submit();
     })
 </script>
-
-
 
 {{/section}}
 <main>
@@ -78,24 +92,24 @@
     <form method="post" id="frmRegister" enctype="multipart/form-data">
         <div class="card mb-3">
             <h4 class="card-header">
-                ADD NEW TOPIC
+                ADD NEW LESSON
             </h4>
             <div class="card-body">
 
                 <div class="form-group">
-                    <label for="txtLessonname">Lesson add:</label>
-                    <input name="lessonname" type="text" class="form-control" id="txtLessonname" 
-                    placeholder="{{this.lessonname}}" disabled>
+                    <label for="txtCatname">Lesson's name:</label>
+                    <input name="lessonname" type="text" class="form-control" id="txtLessonname" autofocus>
                 </div>
 
                 <div class="form-group">
-                    <label for="txtTopicname">Topic's name:</label>
-                    <input name="topicname" type="text" class="form-control" id="txtTopicname" autofocus>
-                </div>
-
-                <div class="form-group">
-                    <label for="fuMain">Topic's avatar</label>
+                    <label for="fuMain">Lesson's avatar</label>
                     <input type="file" multiple name="fuMain" id="fuMain">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtDescription">Description</label>
+                    <textarea name="description" type="text" class="form-control" id="txtDescription">
+                    </textarea>
                 </div>
 
                 <div class="card-footer text-muted">
@@ -103,10 +117,10 @@
                         <i class="fa fa-check" aria-hidden="true"></i>
                         Save
                     </button>
-                    <a href="/admin/topiclist">
+                    <a href="/admin">
                         <button type="button" class="btn btn-primary">
                             <i class="fa fa-check" aria-hidden="true"></i>
-                            Back to topic
+                            Back to category
                         </button>
                     </a>
                 </div>

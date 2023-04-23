@@ -7,7 +7,6 @@ const router = express.Router();
 const SALT_LENGTH = 10;
 
 router.get("/login", function (req, res) {
-  req.session.retUrl = req.headers.referer
   res.render("vwAccount/login", {});
 });
 

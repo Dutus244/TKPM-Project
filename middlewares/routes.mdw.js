@@ -11,10 +11,11 @@ export default function (app) {
       
     })
   })
+
+  app.use('/admin', adminRoute)
   app.use('/', accountRoute)
   app.use('/', authWithRequiredPermission(0), learnerRoute)
-  app.use('/admin', adminRoute)
-
+  
 }
 
 
