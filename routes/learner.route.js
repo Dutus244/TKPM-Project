@@ -8,23 +8,22 @@ import moment from 'moment';
 const router = express.Router();
 router.use(bodyParser.json());
 
-router.get('/revision', async function(req, res) {
-  let lessonsProgress = await learnerService.getLessonsProgress(res.locals.authUser.userid)
-  lessonsProgress = lessonsProgress.map( it => ({
-    lessonname: it.lessonname,
-    percentage: Math.ceil((it.wordshaslearned / it.totalwords) * 100),
-  }))
+router.get('/revision', async function (req, res) {
+    let lessonsProgress = await learnerService.getLessonsProgress(res.locals.authUser.userid)
+    lessonsProgress = lessonsProgress.map(it => ({
+        lessonname: it.lessonname,
+        percentage: (it.wordshaslearned / it.totalwords) * 100,
+    }))
 
-  let memoryLevelCount = await learnerService.getUserMemoryLevelCount(res.locals.authUser.userid)
-  const maxNumber = memoryLevelCount.reduce((acc, cur) => {
-    return acc > cur.number ? acc : cur.number;
-  }, 0);
-  memoryLevelCount = memoryLevelCount.map( it => ({
-    ...it,
-    percentage: (it.number / maxNumber) * 100
-  }))
-
-  const { count = 0 } = await learnerService.getUserReviewWordsCount(res.locals.authUser.userid)
+    let memoryLevelCount = await learnerService.getUserMemoryLevelCount(res.locals.authUser.userid)
+    const maxNumber = memoryLevelCount.reduce((acc, cur) => {
+        return acc > cur.number ? acc : cur.number;
+    }, 0);
+    const totalWords = memoryLevelCount.reduce((acc, cur) => acc + cur.number, 0)
+    memoryLevelCount = memoryLevelCount.map(it => ({
+        ...it,
+        percentage: (it.number / maxNumber) * 100
+    }))
 
   res.render('vwLearner/homeRevision', {
     lessonsProgress,
@@ -221,7 +220,8 @@ router.get('/lesson/search', async function (req, res) {
         offset,
         limit
     );
-    let [prePage, nextPage] = setup_pages(curPage,nPage);
+    let [prePage, nextPage] = setup_pages(curPage, nPage);
+
     res.render('vwLearner/lesson', {
         lesson: list,
         pageNumber,
@@ -299,6 +299,37 @@ router.get('/handbook/search', async function (req, res) {
         words,
         level: 1,
         active: {Handbook: true }
+    });
+})
+router.get('/topictesthistorylist', async function (req, res) {
+    const userID = req.session.authUser.userid
+    const list = await learnerService.getTestHistory(userID)
+    const listlesson = await learnerService.findLesson()
+    res.render('vwLearner/topicTestHistoryList', {
+        listlesson: listlesson,
+        empty: list.length === 0,
+        list: list,
+        active: {Handbook: true}
+    });
+})
+router.get('/getalltopichistory', async function (req, res) {
+    const userID = req.session.authUser.userid
+    const list = await learnerService.getTestHistory(userID)
+    res.send(list)
+})
+router.get('/gettopichistory', async function (req, res) {
+    const {lessonid} = req.query;
+    const userID = req.session.authUser.userid
+    const list = await learnerService.getTestHistoryByLesson(userID, lessonid)
+    res.send(list)
+})
+
+router.get('/topictesthistory/:test_id', async function (req, res) {
+    const {test_id} = req.params;
+    const list = await learnerService.getTestDetail(test_id)
+    res.render('vwLearner/topicTestHistoryDetail', {
+        list: list,
+        active: {Learn: true}
     });
 })
 router.get('/topictesthistorylist', async function (req, res) {
