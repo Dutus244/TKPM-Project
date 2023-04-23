@@ -345,8 +345,7 @@ export default {
           }));
       }
   },
-
-}
+    
   async getUserReviewWordsCount(userid) {
     const query = `select count(*) as count from wordhistory
     where ((datediff(curdate(), updatetime) >= 1 and memorylevel = 1)
