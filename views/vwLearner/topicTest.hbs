@@ -49,7 +49,7 @@
                 alert('There are still unfinished questions');
                 return;
             }
-            const temp = {
+            const data = {
                 topicid: topicid,
                 totalQuestions: totalQuestions,
                 totalCorrect: totalCorrect,
@@ -60,7 +60,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(temp)
+                body: JSON.stringify(data)
             })
                     .then(response => response.text()) // Use response.text() instead of response.json()
                     .then(html => {

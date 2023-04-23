@@ -62,7 +62,6 @@ a:hover, a:link,a:visited,a:active{
     width: 25%;
     margin-top: 3px;
     padding: 10px;
-    /*col-3 mt-3*/
 }
 
 .content{
@@ -112,10 +111,6 @@ i{
 
     .btn{
         width: fit-content;
-    }
-
-    .card-footer{
-        /*visibility: hidden;*/
     }
 
     .card-text{
