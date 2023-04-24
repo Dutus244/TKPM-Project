@@ -255,8 +255,14 @@ export default {
         return raw[0]
 
     },
-    async findLessonByOffsetWithLimit(offset, limit) {
-        return await db('lessons').where('IsDelete', 0)
+  async findLessonByOffsetWithLimit(offset, limit){
+    return await db('lessons').where('IsDelete',0)
+        .limit(limit)
+        .offset(offset)
+  },
+
+    async findLessonByOffsetWithLimitSearch(letter,offset, limit){
+        return await db('lessons').where('IsDelete',0).whereILike('lessonname','%'+letter+'%')
             .limit(limit)
             .offset(offset)
     },
