@@ -123,27 +123,6 @@
       synth.speak(speakText);
     };
   });
-  // Init SpeechSynth API
-  const synth = window.speechSynthesis;
-
-  document.getElementById("speak").addEventListener("click", function() {
-      const words = {{{ words }}}
-      speak(words[curWord].wordname)
-  });
-
-  const speak = (text) => {
-      const speakText = new SpeechSynthesisUtterance(text);
-
-      // Get the voice by name
-      const voices = synth.getVoices();
-      const voice = voices.find(voice => voice.name === 'Microsoft David - English (United States)');
-
-      // Set the voice
-      speakText.voice = voice;
-
-      // Speak
-      synth.speak(speakText);
-  };
 </script>
 {{/section}}
 
@@ -180,7 +159,6 @@
       <div class="btn-group">
         <button type="button" id="btn-back" class="font">PREVIOUS</button>
         <button type="button" id="btn-next" class="font">NEXT</button>
-          <button type="button" id="speak">SPEAK</button>
       </div>
     </div>
     <div class="col-sm-2"></div>
