@@ -249,8 +249,29 @@ export default {
     async findLesson() {
         return await db('lessons').where('IsDelete', 0)
     },
-    async findLessonByOffetWithLimit(offset, limit) {
-        return await db('lessons').where('IsDelete', 0)
+    async getWordWithLetter(user_id,letter){
+        const raw = await db.raw("select words.wordid,wordname,wordtype,wordmeaning, wordhistory.isStudy,MemoryLevel , ( case when " +
+            "        words.WordName like '%"+letter+"%' then true" +
+            "        else false" +
+            "        end )" +
+            "        as isSearch" +
+            "        from wordhistory" +
+            "        join words" +
+            "        on wordhistory.WordID = words.WordID" +
+            "       and wordhistory.userID= '"+user_id+"' "+
+            "       and words.IsDelete = 0"
+        )
+        return raw[0]
+
+    },
+  async findLessonByOffsetWithLimit(offset, limit){
+    return await db('lessons').where('IsDelete',0)
+        .limit(limit)
+        .offset(offset)
+  },
+
+    async findLessonByOffsetWithLimitSearch(letter,offset, limit){
+        return await db('lessons').where('IsDelete',0).whereILike('lessonname','%'+letter+'%')
             .limit(limit)
             .offset(offset)
     },
