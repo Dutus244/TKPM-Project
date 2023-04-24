@@ -55,9 +55,11 @@ router.get("/topic/:id", async function (req, res) {
 
 router.get("/topic/:id/finish", async function (req, res) {
     const id = req.params.id
+    const { lessonid } = await learnerService.findTopic(id)
 
     res.render("vwLearner/topicLearnFinish", {
         topicId: id,
+        lessonid,
         active: {Learn: true}
     })
 });

@@ -13,15 +13,6 @@ function getRandomInt(min, max) {
 }
 
 export default {
-    async findAllTopicWord(topicId) {
-        const list = await db('words')
-            .select('wordname', 'wordtype', 'wordmeaning', 'wordpronounce', 'wordexample', 'wordavatar')
-            .where('topicid', topicId)
-
-        return list
-    },
-
-
     async findAllQuestionsTopic(id) {
         const words = await db('words')
             .select('wordid')
@@ -379,4 +370,12 @@ export default {
         const list = await db.raw(query)
         return list[0][0]
     },
+    async findTopic(topicid) {
+        const list = await db('topics')
+            .select('topicid', 'topicname', 'topicavatar', 'lessonid')
+            .where('topicid', topicid)
+            .andWhere('isdelete', 0)
+
+        return list[0]
+    }
 }
