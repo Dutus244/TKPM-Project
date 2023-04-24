@@ -262,9 +262,18 @@ export default {
     },
 
     async findLessonByOffsetWithLimitSearch(letter, offset, limit) {
-        return await db('lessons').where('IsDelete', 0).whereILike('lessonname', '%' + letter + '%')
+        return await db('lessons')
+            .where('IsDelete', 0)
+            .whereILike('lessonname', '%' + letter + '%')
+            .union([
+                db.select('lessons.*')
+                    .from('lessons')
+                    .join('topics','topics.LessonID','lessons.LessonID')
+                    .whereILike('topics.TopicName', '%' + letter + '%')
+            ])
             .limit(limit)
             .offset(offset)
+
     },
     async countLesson() {
         let sql = await db('lessons').where('IsDelete', 0).count({ count: '*' }).first();
