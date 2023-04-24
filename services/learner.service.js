@@ -203,24 +203,18 @@ export default {
     async addTestHistoryDetail(entity) {
         return await db('testhistorydetail').insert(entity);
     },
-    async findAllTopicStudy(lesson, id) {
+    async findAllTopicStudy(lesson,id) {
         return db.raw('select topics.* ,(select count(*) ' +
             'from topichistory ' +
             'where topichistory.TopicID = topics.TopicID ' +
-            'and topichistory.userID= "' + id + '" ' +
-            'and topics.LessonID= "' + lesson + '" ' +
+            'and topichistory.userID= "' + id + '" '  +
             ') as isRead ' +
-            'from topics '
+            'from topics '+
+            'where topics.IsDelete = 0 '+
+            'and topics.LessonID= "' + lesson + '" '
         )
     },
-    async findAllTopicStudy(lesson) {
-        return db.raw('select topics.* ,(select count(*) ' +
-            'from topichistory ' +
-            'where topics.LessonID= "' + lesson + '" ' +
-            ') as isRead ' +
-            'from topics '
-        )
-    },
+
     async findLessonByID(lesson_id) {
         const raw_lesson = await db('lessons').where('LessonID', lesson_id)
         return raw_lesson[0]
@@ -255,8 +249,14 @@ export default {
         return raw[0]
 
     },
-    async findLessonByOffsetWithLimit(offset, limit) {
-        return await db('lessons').where('IsDelete', 0)
+  async findLessonByOffsetWithLimit(offset, limit){
+    return await db('lessons').where('IsDelete',0)
+        .limit(limit)
+        .offset(offset)
+  },
+
+    async findLessonByOffsetWithLimitSearch(letter,offset, limit){
+        return await db('lessons').where('IsDelete',0).whereILike('lessonname','%'+letter+'%')
             .limit(limit)
             .offset(offset)
     },
@@ -346,6 +346,14 @@ export default {
         const list = await db.raw(sql)
         return list[0]
     },
+    async getWord(user_id){
+        return await db('wordhistory')
+            .rightJoin('words','wordhistory.wordid','words.wordid')
+            .select('words.wordid', 'wordname', 'wordtype', 'wordmeaning','MemoryLevel','isStudy')
+            .where('wordhistory.userid',user_id)
+            .andWhere('words.isDelete',0)
+    },
+
     async updateWordStudy(userid, listwordid) {
         const words = await this.getWord(userid);
         if (words) {
