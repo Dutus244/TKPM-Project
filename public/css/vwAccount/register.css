@@ -104,3 +104,12 @@
   font-weight: bold;
   margin: 20px;
 }
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem #5aa3a1;
+}
+
+.info-div {
+  font-size: 1.2rem;
+}

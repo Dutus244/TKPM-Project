@@ -86,9 +86,9 @@
 }
 
 .title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
 }
 
 .input-group {
@@ -103,4 +103,17 @@
   width: 80%;
   margin: 5px 0 5px 0;
   padding: 10px;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem #5aa3a1;
+}
+
+.sub-text {
+  font-size: 1.2rem;
+}
+
+.info-div {
+  font-size: 1.2rem;
 }
