@@ -176,6 +176,77 @@ router.get('/deletetopic/:id', async function (req, res) {
     }
 })
 
+router.get('/worddetail/:id', async function (req, res) {
+    const wordid = req.params.id
+
+    const word = await adminServices.getWordDetail(wordid) 
+
+    res.render('vwAdmin/worddetail', {
+        word: JSON.stringify(word)
+    })
+})
+
+router.post('/worddetail/:id', async function (req, res){
+    const wordid = req.params.id
+    const worddetail = await adminServices.getWordDetail(wordid)
+    const topicid = worddetail.topicid
+    const imagelink = '/public/img/flashcard/' + wordid + '.png'
+
+    const {wordname, wordtype, wordmeaning, wordpronounce, wordexample} = req.body;
+    const word={
+        topicid,
+        wordid,
+        wordname,
+        wordtype,
+        wordmeaning,
+        wordpronounce,
+        wordexample,
+        wordavatar: imagelink,
+        isdelete: 0,
+    }
+
+    await adminServices.updateWord(word)
+
+    const [topic, wordlist, test] = await Promise.all([
+        adminServices.getTopicDetail(topicid),
+        adminServices.getTopicWordList(topicid),
+        adminServices.getTopicTest(topicid)
+        ])
+
+    res.render('vwAdmin/topicdetail', {
+        topic: JSON.stringify(topic), 
+        word: JSON.stringify(wordlist),
+        test: JSON.stringify(test)
+    })
+})
+
+router.get('/deleteword/:id', async function (req, res) {
+    const wordid = req.params.id
+    const worddetail = await adminServices.getWordDetail(wordid)
+
+    try {
+        const deleteResult = await adminServices.deleteWord(wordid);
+        res.render('vwAdmin/deletemessagebox', {
+            result: {
+                success: true,
+                message: `Word successfully deleted`,
+                back: 'Go back to topic detail',
+                backurl: '/admin/topicdetail/' + worddetail.topicid
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.render('vwAdmin/deletemessagebox', {
+            result: {
+                success: false,
+                message: `Error deleting word`,
+                back: 'Go back to topic detail',
+                backurl: '/admin/topicdetail/' + worddetail.topicid
+            }
+        });
+    }
+})
+
 router.get('/addlesson', function (req, res) {
     res.render('vwAdmin/addlesson', {
         
