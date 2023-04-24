@@ -16,6 +16,7 @@
 
     // Init SpeechSynth API
     const synth = window.speechSynthesis;
+    const VOICE_NAME = 'Microsoft David - English (United States)'
     $('#btn-speak').on('click', function () {
       speak(wordname)
     })
@@ -23,7 +24,7 @@
       const speakText = new SpeechSynthesisUtterance(text);
       // Get the voice by name
       const voices = synth.getVoices();
-      const voice = voices.find(voice => voice.name === 'Microsoft David - English (United States)');
+      const voice = voices.find(voice => voice.name === VOICE_NAME);
       // Set the voice
       speakText.voice = voice;
       // Speak
