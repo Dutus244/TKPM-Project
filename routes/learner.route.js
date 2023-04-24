@@ -25,6 +25,8 @@ router.get('/revision', async function (req, res) {
         percentage: (it.number / maxNumber) * 100
     }))
 
+    const { count = 0 } = await learnerService.getUserReviewWordsCount(res.locals.authUser.userid)
+
   res.render('vwLearner/homeRevision', {
     lessonsProgress,
     memoryLevelCount: JSON.stringify(memoryLevelCount),
