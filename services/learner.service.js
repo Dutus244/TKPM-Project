@@ -341,5 +341,38 @@ export default {
          where testhistorydetail.TestID = '${testid}'`
         const list = await db.raw(sql)
         return list[0]
-    }
+    },
+    async updateWordStudy(userid, listwordid){
+        const words = await this.getWord(userid);
+        if (words) {
+            await Promise.all(words.map(async (w) => {
+                await db('wordhistory')
+                    .update('isStudy', 0)
+                    .where('wordhistory.wordid', w.wordid)
+                    .andWhere('userid',userid);
+            }));
+        }
+        if( listwordid) {
+            await Promise.all(listwordid.map(async (lid) => {
+                await db('wordhistory')
+                    .update('isStudy', 1)
+                    .where('wordhistory.wordid', lid)
+                    .andWhere('userid',userid);
+
+
+            }));
+        }
+    },
+
+    async getUserReviewWordsCount(userid) {
+        const query = `select count(*) as count from wordhistory
+    where ((datediff(curdate(), updatetime) >= 1 and memorylevel = 1)
+        or (datediff(curdate(), updatetime) >= 3 and memorylevel = 2)
+        or (datediff(curdate(), updatetime) >= 5 and memorylevel = 3)
+        or (datediff(curdate(), updatetime) >= 7 and memorylevel = 4))
+        and userid =  '${userid}'
+        and isstudy = 1;`
+        const list = await db.raw(query)
+        return list[0][0]
+    },
 }
