@@ -34,7 +34,7 @@ export default {
                 .orderByRaw('rand()')
                 .limit(1)
                 .select();
-            const {OptionA, OptionB, OptionC, OptionD} = result[0];
+            const { OptionA, OptionB, OptionC, OptionD } = result[0];
             if (result.length > 0) {
                 const shuffledOptions = shuffleArray([
                     OptionA,
@@ -110,7 +110,7 @@ export default {
                     .limit(1)
                     .select('Question', 'QuestionAvatar', 'Answer');
 
-                const {Question, Answer, QuestionAvatar} = tempquestion[0]
+                const { Question, Answer, QuestionAvatar } = tempquestion[0]
                 question.Question = Question
                 question.Answer = Answer
                 question.QuestionAvatar = QuestionAvatar
@@ -135,7 +135,7 @@ export default {
                     .limit(1)
                     .select('Question', 'QuestionAvatar', 'Answer');
 
-                const {Question, Answer, QuestionAvatar} = tempquestion[0]
+                const { Question, Answer, QuestionAvatar } = tempquestion[0]
                 question.Question = Question
                 question.Answer = Answer
                 question.QuestionAvatar = QuestionAvatar
@@ -159,7 +159,7 @@ export default {
                     .limit(1)
                     .select();
 
-                const {OptionA, OptionB, OptionC, OptionD, Question, Answer, QuestionAvatar} = tempquestion[0];
+                const { OptionA, OptionB, OptionC, OptionD, Question, Answer, QuestionAvatar } = tempquestion[0];
                 const shuffledOptions = shuffleArray([
                     OptionA,
                     OptionB,
@@ -255,7 +255,7 @@ export default {
             .offset(offset)
     },
     async countLesson() {
-        let sql = await db('lessons').where('IsDelete', 0).count({count: '*'}).first();
+        let sql = await db('lessons').where('IsDelete', 0).count({ count: '*' }).first();
         return sql.count
     },
     async getLessonsProgress(userid) {
@@ -320,5 +320,16 @@ export default {
          where testhistorydetail.TestID = '${testid}'`
         const list = await db.raw(sql)
         return list[0]
-    }
+    },
+    async getUserReviewWordsCount(userid) {
+        const query = `select count(*) as count from wordhistory
+        where ((datediff(curdate(), updatetime) >= 1 and memorylevel = 1)
+            or (datediff(curdate(), updatetime) >= 3 and memorylevel = 2)
+            or (datediff(curdate(), updatetime) >= 5 and memorylevel = 3)
+            or (datediff(curdate(), updatetime) >= 7 and memorylevel = 4))
+            and userid =  '${userid}'
+            and isstudy = 1;`
+        const list = await db.raw(query)
+        return list[0][0]
+    },
 }
