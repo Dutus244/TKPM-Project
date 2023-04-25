@@ -27,14 +27,18 @@ export default {
             .select('wordid')
             .where('topicid', id);
 
-        const questions = await Promise.all(words.map(async (word) => {
+        let questions = await Promise.all(words.map(async (word) => {
             const result = await db('multiplechoicequestions')
                 .where('wordid', word.wordid)
                 .andWhere('isdelete', false)
                 .orderByRaw('rand()')
                 .limit(1)
                 .select();
-            const {OptionA, OptionB, OptionC, OptionD} = result[0];
+
+            if (result.length === 0) {
+                return null;
+            }
+            const { OptionA, OptionB, OptionC, OptionD } = result[0];
             if (result.length > 0) {
                 const shuffledOptions = shuffleArray([
                     OptionA,
@@ -52,6 +56,8 @@ export default {
                 };
             }
         }));
+
+        questions = questions.filter(question => question !== null);
 
         shuffleArray(questions);
 
@@ -109,129 +115,127 @@ export default {
             let question = {}
             question.WordID = word.WordID
 
-            if (randomType1 == 0) {
-                let tempquestion = await db('multipleChoiceQuestions')
-                    .where('WordID', word.WordID)
-                    .andWhere('IsDelete', false)
-                    .orderByRaw('rand()')
-                    .limit(1)
-                    .select('Question', 'QuestionAvatar', 'Answer');
+            switch(randomType1) {
+                case 0:
+                    let tempquestion = await db('multipleChoiceQuestions')
+                        .where('WordID', word.WordID)
+                        .andWhere('IsDelete', false)
+                        .orderByRaw('rand()')
+                        .limit(1)
+                        .select('Question', 'QuestionAvatar', 'Answer');
 
-                const {Question, Answer, QuestionAvatar} = tempquestion[0]
-                question.Question = Question
-                question.Answer = Answer
-                question.QuestionAvatar = QuestionAvatar
+                    const {Question, Answer, QuestionAvatar} = tempquestion[0]
+                    question.Question = Question
+                    question.Answer = Answer
+                    question.QuestionAvatar = QuestionAvatar
 
-                if (question.QuestionAvatar === "") {
-                    if (randomType2 == 1) {
-                        const meaning = await db('words')
-                            .select('wordmeaning')
-                            .where('wordid', word.WordID);
-                        question.Question = meaning[0].wordmeaning
+                    if (question.QuestionAvatar === "") {
+                        if (randomType2 == 1) {
+                            const meaning = await db('words')
+                                .select('wordmeaning')
+                                .where('wordid', word.WordID);
+                            question.Question = meaning[0].wordmeaning
+                        }
                     }
-                } else {
+                    question.QuestionType = "0"
+                    break
+                case 1:
+                    let tempquestion = await db('multipleChoiceQuestions')
+                        .where('WordID', word.WordID)
+                        .andWhere('IsDelete', false)
+                        .orderByRaw('rand()')
+                        .limit(1)
+                        .select('Question', 'QuestionAvatar', 'Answer');
 
-                }
-                question.QuestionType = "0"
+                    const {Question, Answer, QuestionAvatar} = tempquestion[0]
+                    question.Question = Question
+                    question.Answer = Answer
+                    question.QuestionAvatar = QuestionAvatar
 
-            } else if (randomType1 === 1) {
-                let tempquestion = await db('multipleChoiceQuestions')
-                    .where('WordID', word.WordID)
-                    .andWhere('IsDelete', false)
-                    .orderByRaw('rand()')
-                    .limit(1)
-                    .select('Question', 'QuestionAvatar', 'Answer');
-
-                const {Question, Answer, QuestionAvatar} = tempquestion[0]
-                question.Question = Question
-                question.Answer = Answer
-                question.QuestionAvatar = QuestionAvatar
-
-                if (question.QuestionAvatar === "") {
-                    if (randomType2 == 1) {
-                        const meaning = await db('words')
-                            .select('wordmeaning')
-                            .where('wordid', word.WordID);
-                        question.Question = meaning[0].wordmeaning
+                    if (question.QuestionAvatar === "") {
+                        if (randomType2 == 1) {
+                            const meaning = await db('words')
+                                .select('wordmeaning')
+                                .where('wordid', word.WordID);
+                            question.Question = meaning[0].wordmeaning
+                        }
                     }
-                } else {
+                    question.QuestionType = "1"
+                    break
+                case 2:
+                    const tempquestion = await db('multipleChoiceQuestions')
+                        .where('WordID', word.WordID)
+                        .andWhere('IsDelete', false)
+                        .orderByRaw('rand()')
+                        .limit(1)
+                        .select();
 
-                }
-                question.QuestionType = "1"
-            } else if (randomType1 === 2) {
-                const tempquestion = await db('multipleChoiceQuestions')
-                    .where('WordID', word.WordID)
-                    .andWhere('IsDelete', false)
-                    .orderByRaw('rand()')
-                    .limit(1)
-                    .select();
+                    const {OptionA, OptionB, OptionC, OptionD, Question, Answer, QuestionAvatar} = tempquestion[0];
+                    const shuffledOptions = shuffleArray([
+                        OptionA,
+                        OptionB,
+                        OptionC,
+                        OptionD,
+                    ]);
 
-                const {OptionA, OptionB, OptionC, OptionD, Question, Answer, QuestionAvatar} = tempquestion[0];
-                const shuffledOptions = shuffleArray([
-                    OptionA,
-                    OptionB,
-                    OptionC,
-                    OptionD,
-                ]);
+                    question.OptionA = shuffledOptions[0]
+                    question.OptionB = shuffledOptions[1]
+                    question.OptionC = shuffledOptions[2]
+                    question.OptionD = shuffledOptions[3]
+                    question.Question = Question
+                    question.Answer = Answer
+                    question.QuestionAvatar = QuestionAvatar
 
-                question.OptionA = shuffledOptions[0]
-                question.OptionB = shuffledOptions[1]
-                question.OptionC = shuffledOptions[2]
-                question.OptionD = shuffledOptions[3]
-                question.Question = Question
-                question.Answer = Answer
-                question.QuestionAvatar = QuestionAvatar
-
-                if (question.QuestionAvatar === "") {
-                    if (randomType2 == 1) {
-                        const meaning = await db('words')
-                            .select('wordmeaning')
-                            .where('wordid', word.WordID);
-                        question.Question = meaning[0].wordmeaning
+                    if (question.QuestionAvatar === "") {
+                        if (randomType2 == 1) {
+                            const meaning = await db('words')
+                                .select('wordmeaning')
+                                .where('wordid', word.WordID);
+                            question.Question = meaning[0].wordmeaning
+                        }
                     }
-                } else {
+                    question.QuestionType = "2"
+                    break
+                case 3:
+                    question.Answer = word.WordName
+                    question.QuestionType = "3"
+                    break
+                case 4:
+                    const meaning = await db('words')
+                        .select('wordmeaning')
+                        .where('wordid', word.WordID);
+                    question.Question = meaning[0].wordmeaning
+                    question.Answer = word.WordName
+                    question.QuestionType = "4"
+                    break
+                case 5:
+                    const meaning = await db('words')
+                        .select('wordmeaning')
+                        .where('wordid', word.WordID);
+                    question.Question = meaning[0].wordmeaning
+                    question.Answer = word.WordName
+                    question.QuestionType = "5"
+                    break
+                case 6:
+                    const avatar = await db('words')
+                        .select('wordavatar')
+                        .where('wordid', word.WordID);
+                    question.Question = "What is this?"
+                    question.QuestionAvatar = avatar[0].wordavatar
+                    question.Answer = word.WordName
+                    question.QuestionType = "6"
+                    break
+                case 7:
+                    const avatar = await db('words')
+                        .select('wordavatar')
+                        .where('wordid', word.WordID);
+                    question.Question = "What is this?"
+                    question.QuestionAvatar = avatar[0].wordavatar
+                    question.Answer = word.WordName
+                    question.QuestionType = "7"
+                    break
+            }
 
-                }
-                question.QuestionType = "2"
-            }
-            else if (randomType1 === 3) {
-                question.Answer = word.WordName
-                question.QuestionType = "3"
-            }
-            else if (randomType1 === 4) {
-                const meaning = await db('words')
-                    .select('wordmeaning')
-                    .where('wordid', word.WordID);
-                question.Question = meaning[0].wordmeaning
-                question.Answer = word.WordName
-                question.QuestionType = "4"
-            }
-            else if (randomType1 === 5) {
-                const meaning = await db('words')
-                    .select('wordmeaning')
-                    .where('wordid', word.WordID);
-                question.Question = meaning[0].wordmeaning
-                question.Answer = word.WordName
-                question.QuestionType = "5"
-            }
-            else if (randomType1 === 6) {
-                const avatar = await db('words')
-                    .select('wordavatar')
-                    .where('wordid', word.WordID);
-                question.Question = "What is this?"
-                question.QuestionAvatar = avatar[0].wordavatar
-                question.Answer = word.WordName
-                question.QuestionType = "6"
-            }
-            else if (randomType1 === 7) {
-                const avatar = await db('words')
-                    .select('wordavatar')
-                    .where('wordid', word.WordID);
-                question.Question = "What is this?"
-                question.QuestionAvatar = avatar[0].wordavatar
-                question.Answer = word.WordName
-                question.QuestionType = "7"
-            }
             questions.push(question)
         }
         return questions

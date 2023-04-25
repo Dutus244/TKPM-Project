@@ -175,57 +175,62 @@
     <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
-                     aria-valuemax="100"></div>
-            </div>
-            <div id="question-form">
-                {{#each this.question}}
-                    {{#ifEquals  this.QuestionAvatar ""}}
-                        <div class="question" id="question{{@index}}">
-                            <div class="p-2 m-0 text-center question-name-1">{{{Question}}}</div>
-                            <div class="id" style="display: none">{{QuestionID}}</div>
-                            <div class="answer" style="display: none">{{Answer}}</div>
+    {{#if this.empty}}
+            <div class="p-2 m-0 text-center question-name-1">No test in this topic</div>
+    {{else}}
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                 aria-valuemax="100"></div>
+        </div>
+        <div id="question-form">
+            {{#each this.question}}
+                {{#ifEquals  this.QuestionAvatar ""}}
+                    <div class="question" id="question{{@index}}">
+                        <div class="p-2 m-0 text-center question-name-1">{{{Question}}}</div>
+                        <div class="id" style="display: none">{{QuestionID}}</div>
+                        <div class="answer" style="display: none">{{Answer}}</div>
 
-                            <div class="" id="options">
-                                <div class="divOptionA" value={{OptionA}}></div>
-                                <div class="divOptionB" value={{OptionB}}></div>
-                                <div class="divOptionC" value={{OptionC}}></div>
-                                <div class="divOptionD" value={{OptionD}}></div>
-                                <span class="spanOptionA">A. {{OptionA}}</span>
-                                <span class="spanOptionB">B. {{OptionB}}</span>
-                                <span class="spanOptionC">C. {{OptionC}}</span>
-                                <span class="spanOptionD">D. {{OptionD}}</span>
-                            </div>
-
+                        <div class="" id="options">
+                            <div class="divOptionA" value={{OptionA}}></div>
+                            <div class="divOptionB" value={{OptionB}}></div>
+                            <div class="divOptionC" value={{OptionC}}></div>
+                            <div class="divOptionD" value={{OptionD}}></div>
+                            <span class="spanOptionA">A. {{OptionA}}</span>
+                            <span class="spanOptionB">B. {{OptionB}}</span>
+                            <span class="spanOptionC">C. {{OptionC}}</span>
+                            <span class="spanOptionD">D. {{OptionD}}</span>
                         </div>
-                    {{else}}
-                        <div class="question" id="question{{@index}}">
-                            <div class="p-2 m-0 text-center question-name">{{{Question}}}</div>
-                            <div class="id" style="display: none">{{QuestionID}}</div>
-                            <div class="answer" style="display: none">{{Answer}}</div>
 
-                            <div class="" id="options">
-                                <div class="img-wrapper">
-                                    <img src="{{QuestionAvatar}}" alt="Question Avatar">
-                                </div>
-                                <div class="divOptionA" value={{OptionA}}></div>
-                                <div class="divOptionB" value={{OptionB}}></div>
-                                <div class="divOptionC" value={{OptionC}}></div>
-                                <div class="divOptionD" value={{OptionD}}></div>
-                                <span class="spanOptionA">A. {{OptionA}}</span>
-                                <span class="spanOptionB">B. {{OptionB}}</span>
-                                <span class="spanOptionC">C. {{OptionC}}</span>
-                                <span class="spanOptionD">D. {{OptionD}}</span>
+                    </div>
+                {{else}}
+                    <div class="question" id="question{{@index}}">
+                        <div class="p-2 m-0 text-center question-name">{{{Question}}}</div>
+                        <div class="id" style="display: none">{{QuestionID}}</div>
+                        <div class="answer" style="display: none">{{Answer}}</div>
+
+                        <div class="" id="options">
+                            <div class="img-wrapper">
+                                <img src="{{QuestionAvatar}}" alt="Question Avatar">
                             </div>
-
+                            <div class="divOptionA" value={{OptionA}}></div>
+                            <div class="divOptionB" value={{OptionB}}></div>
+                            <div class="divOptionC" value={{OptionC}}></div>
+                            <div class="divOptionD" value={{OptionD}}></div>
+                            <span class="spanOptionA">A. {{OptionA}}</span>
+                            <span class="spanOptionB">B. {{OptionB}}</span>
+                            <span class="spanOptionC">C. {{OptionC}}</span>
+                            <span class="spanOptionD">D. {{OptionD}}</span>
                         </div>
-                    {{/ifEquals}}
+
+                    </div>
+                {{/ifEquals}}
 
 
 
-                {{/each}}
-            </div>
+            {{/each}}
+        </div>
+    {{/if}}
+
 
         </div>
     </div>

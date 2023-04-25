@@ -91,7 +91,6 @@ router.post("/topic/:id/finish", async function (req, res) {
         topicid,
         userid,
         createtime: timestamp,
-        active: {Learn: true}
     }
     await learnerService.addTopicHistory(topic)
 })
@@ -102,6 +101,7 @@ router.get('/topic/test/:id', async function (req, res) {
     res.render('vwLearner/topicTest', {
         topicid: topicid,
         question: listQuestion,
+        empty: listQuestion.length === 0,
         active: {Learn: true}
     });
 });
