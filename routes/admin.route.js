@@ -474,7 +474,7 @@ router.get('/edittest/:topicid', async function(req, res) {
     res.render('vwAdmin/questionListByWord', {
         n: questions.length,
         empty: questions.length == 0,
-        questions: questions,
+        questions,
         wordsOption,
         chosenOption: JSON.stringify(word),
     })

@@ -1,8 +1,8 @@
 {{#section 'js'}}
 <script>
   $(document).ready(function () {
-    const chosenOption = {{{ chosenOption }}}
     let delQuestionId = null
+    const chosenOption = {{{ chosenOption }}}
     const confirmModal = $('#deleteModalCenter')
     const successModal = $('#success-modal')
 
@@ -80,7 +80,7 @@
           </button>
         </div>
         <div class="modal-body">
-          Do you want to delete this question!
+          Do you want to delete this question?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
