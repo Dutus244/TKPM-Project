@@ -36,124 +36,124 @@
         theme: 'fa4',
         dropZoneEnabled: false,
         maxFileCount: 1,
-        allowedFileExtension: ['png', 'jpg','jpeg'],
+        allowedFileExtension: ['png', 'jpg', 'jpeg'],
     });
 
-     $('#frmRegister').on('submit', function (e){
+    $('#frmRegister').on('submit', function (e) {
         e.preventDefault();
         const wordname = $('#txtWordname').val();
         if (!wordname.length) {
-            alert('Xin hãy nhập tên từ')
+            alert('Please enter a word in the name field!')
             return
         }
 
         const img = $('#fuMain').val();
         if (!img.length) {
-            alert('Xin hãy upload ảnh')
+            alert('Please upload an image in the avatar field!')
             return
         }
 
         const wordmeaning = $('#txtWordmeaning').val();
         if (!wordmeaning.length) {
-            alert('Xin hãy nhập nghĩa từ')
+            alert('Please enter a word in the meaning field!')
             return
         }
 
         const wordpronounce = $('#txtWordpronounce').val();
         if (!wordpronounce.length) {
-            alert('Xin hãy nhập phiên âm từ')
+            alert('Please enter a word in the pronounce field!')
             return
         }
 
         const wordexample = $('#txtWordexample').val();
         if (!wordexample.length) {
-            alert('Xin hãy nhập ví dụ câu')
+            alert('Please enter a word in the example field!')
             return
         }
 
         $('#frmRegister').off('submit').submit();
-     })
+    })
 </script>
 
 {{/section}}
 <main>
-<div class="formdes">
-    {{#if msg}}
-    <div class="alert alert-success alert-dismissible fade show text-center pr-0" role="alert">
-        {{msg}}
-        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true" class="bg-inherit">&times;</span>
-        </button>
-    </div>
-    {{/if}}
+    <div class="formdes">
+        {{#if msg}}
+        <div class="alert alert-success alert-dismissible fade show text-center pr-0" role="alert">
+            {{msg}}
+            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true" class="bg-inherit">&times;</span>
+            </button>
+        </div>
+        {{/if}}
 
-    <form method="post" id="frmRegister" enctype="multipart/form-data">
-        <div class="card mb-3">
-            <h4 class="card-header">
-                ADD NEW WORD
-            </h4>
-            <div class="card-body">
+        <form method="post" id="frmRegister" enctype="multipart/form-data">
+            <div class="card mb-3">
+                <h4 class="card-header">
+                    ADD NEW WORD
+                </h4>
+                <div class="card-body">
 
-                <div class="form-group">
-                    <label for="txtLessonname">Topic add:</label>
-                    <input name="lessonname" type="text" class="form-control" id="txtLessonname" 
-                    placeholder="{{this.topicname}}" disabled>
-                </div>
+                    <div class="form-group">
+                        <label for="txtLessonname">Topic add:</label>
+                        <input name="lessonname" type="text" class="form-control" id="txtLessonname"
+                            placeholder="{{this.topicname}}" disabled>
+                    </div>
 
-                <div class="form-group">
-                    <label for="txtWordname">Word's name:</label>
-                    <input name="wordname" type="text" class="form-control" id="txtWordname" autofocus>
-                </div>
+                    <div class="form-group">
+                        <label for="txtWordname">Word's name:</label>
+                        <input name="wordname" type="text" class="form-control" id="txtWordname" autofocus>
+                    </div>
 
-                <div class="form-group">
-                    <label for="txtWordtype">Word's type</label>
-                    <select name="wordtype">
-                        <option value='verb'>verb</option>
-                        <option value='noun'>noun</option>
-                        <option value='adj'>adjective</option>
-                        <option value='adverb'>adverb</option>
-                        <option value='pronoun'>pronoun</option>
-                        <option value='preposition'>preposition</option>
-                        <option value='conjunction'>conjunction</option>
-                        <option value='interjection'>interjection</option>
-                    </select>
-                    <label id="wordtype"></label>
-                </div>
+                    <div class="form-group">
+                        <label for="txtWordtype">Word's type</label>
+                        <select name="wordtype">
+                            <option value='verb'>verb</option>
+                            <option value='noun'>noun</option>
+                            <option value='adj'>adjective</option>
+                            <option value='adverb'>adverb</option>
+                            <option value='pronoun'>pronoun</option>
+                            <option value='preposition'>preposition</option>
+                            <option value='conjunction'>conjunction</option>
+                            <option value='interjection'>interjection</option>
+                        </select>
+                        <label id="wordtype"></label>
+                    </div>
 
-                <div class="form-group">
-                    <label for="txtWordmeaning">Word's meaning:</label>
-                    <input name="wordmeaning" type="text" class="form-control" id="txtWordmeaning" autofocus>
-                </div>
+                    <div class="form-group">
+                        <label for="txtWordmeaning">Word's meaning:</label>
+                        <input name="wordmeaning" type="text" class="form-control" id="txtWordmeaning" autofocus>
+                    </div>
 
-                <div class="form-group">
-                    <label for="txtWordpronounce">Word's pronounce:</label>
-                    <input name="wordpronounce" type="text" class="form-control" id="txtWordpronounce" autofocus>
-                </div>
+                    <div class="form-group">
+                        <label for="txtWordpronounce">Word's pronounce:</label>
+                        <input name="wordpronounce" type="text" class="form-control" id="txtWordpronounce" autofocus>
+                    </div>
 
-                <div class="form-group">
-                    <label for="txtWordexample">Word's example:</label>
-                    <input name="wordexample" type="text" class="form-control" id="txtWordexample" autofocus>
-                </div>
+                    <div class="form-group">
+                        <label for="txtWordexample">Word's example:</label>
+                        <input name="wordexample" type="text" class="form-control" id="txtWordexample" autofocus>
+                    </div>
 
-                <div class="form-group">
-                    <label for="fuMain">Word's avatar</label>
-                    <input type="file" multiple name="fuMain" id="fuMain">
-                </div>
+                    <div class="form-group">
+                        <label for="fuMain">Word's avatar</label>
+                        <input type="file" multiple name="fuMain" id="fuMain">
+                    </div>
 
-                <div class="card-footer text-muted">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-check" aria-hidden="true"></i>
-                        Submit
-                    </button>
-                    <a href="/admin/topicdetail/{{this.topicid}}">
-                        <button type="button" class="btn btn-primary">
+                    <div class="card-footer text-muted">
+                        <button type="submit" class="btn btn-primary">
                             <i class="fa fa-check" aria-hidden="true"></i>
-                            Back to topic
+                            Submit
                         </button>
-                    </a>
+                        <a href="/admin/topicdetail/{{this.topicid}}">
+                            <button type="button" class="btn btn-primary">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                Back to topic
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 </main>
