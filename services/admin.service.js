@@ -175,6 +175,7 @@ export default {
                 .join('words', 'multiplechoicequestions.wordid', 'words.wordid')
                 .join('topics', 'words.topicid', 'topics.topicid')
                 .where('topics.topicid', topicid)
+                .andWhere('questionavatar', '')
                 .andWhere('multiplechoicequestions.IsDelete', 0);
             return test;
         } else {
@@ -185,6 +186,7 @@ export default {
                 .join('topics', 'words.topicid', 'topics.topicid')
                 .where('topics.topicid', topicid)
                 .andWhere('answer', word)
+                .andWhere('questionavatar', '')
                 .andWhere('multiplechoicequestions.IsDelete', 0);
             return test;
         }
