@@ -472,6 +472,13 @@ export default {
     },
 
     async loginStreak(entity){
-        return await db('archives').add(entity);
+        return await db('archives').insert(entity);
+    },
+
+    async updateLoginStreak(id,date, streak){
+        return await db('archives')
+            .update('streak', streak)
+            .update('lastlogindate',date)
+            .where('userid', id)
     },
 }
