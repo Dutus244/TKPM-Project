@@ -402,6 +402,7 @@ router.get('/addtopic/:id', async function (req, res) {
     const lessonid = req.params.id
     const {lessonname} = await adminServices.getLessonname(lessonid)
     res.render('vwAdmin/addtopic', {
+        lessonid,
         lessonname,
     })
 })
@@ -434,13 +435,15 @@ router.post('/addtopic/:id', async function (req, res){
 
         await adminServices.addTopic(topic)
 
-        const topiclist = await adminServices.findAllTopic();
-        if (topiclist.length == 0) {
-        res.status(404).render("404", {
-            layout: false,
-        });
-        }
-
+        const [lesson, topiclist] = await Promise.all([
+            adminServices.getLessonDetail(lessonid),
+            adminServices.getLessonTopicList(lessonid),
+        ])
+    
+        res.render('vwAdmin/lessondetail',{
+            lesson: JSON.stringify(lesson),
+            topic: JSON.stringify(topiclist),
+        })
     })
 })
 
