@@ -1,12 +1,58 @@
 {{#section 'js'}}
 <script>
+  function confirmChangeTopicName() {
+    const modal = $('<div class="modal">');
+    const container = $('<div class="modal-container">');
+    const message = $('<p class="modal-message">Enter new topic name:</p>');
+    const input = $('<input type="text" class="modal-input">');
+    const buttonContainer = $('<div class="modal-button-container">');
+    const confirmButton = $('<button class="modal-confirm-button">Confirm</button>');
+    const cancelButton = $('<button class="modal-cancel-button">Cancel</button>');
+
+    modal.append(container);
+    container.append(message);
+    container.append(input);
+    container.append(buttonContainer);
+    buttonContainer.append(confirmButton);
+    buttonContainer.append(cancelButton);
+
+    modal.on('click', function (event) {
+      if (event.target === modal[0]) {
+        modal.remove();
+      }
+    });
+
+    cancelButton.on('click', function () {
+      modal.remove();
+    });
+
+    confirmButton.on('click', function () {
+      const newTopicName = input.val();
+      // Send an AJAX request to update the topic name
+      $.ajax({
+        type: 'POST',
+        url: '/admin/topicdetail/' + topicdetail.topicid,
+        data: { type: "name", name: newTopicName },
+        success: function (response) {
+          $('#topicname .name').text(newTopicName);
+          modal.remove();
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    });
+
+    $('body').append(modal);
+  }
   function confirmDeleteTopic() {
-    const modal = $('<div class="delete-modal">');
-    const container = $('<div class="delete-container">');
-    const message = $('<p class="delete-message">Do you really want to delete this topic?</p>');
-    const buttonContainer = $('<div class="delete-button-container">');
-    const yesButton = $('<button class="delete-yes-button">Yes</button>');
-    const cancelButton = $('<button class="delete-cancel-button">Cancel</button>');
+    const modal = $('<div class="modal">');
+    const container = $('<div class="modal-container">');
+    const message = $('<p class="modal-message">Do you really want to delete this topic?</p>');
+    const buttonContainer = $('<div class="modal-button-container">');
+    const yesButton = $('<button class="modal-yes-button">Yes</button>');
+    const cancelButton = $('<button class="modal-cancel-button">Cancel</button>');
+
 
     modal.append(container);
     container.append(message);
@@ -39,7 +85,10 @@
 
   $(document).ready(function () {
     //topic name
-    $('#topicname').text(topicdetail.topicname);
+    $('#topicname .name').text(topicdetail.topicname);
+    $('#topicname .icon').click(function () {
+      confirmChangeTopicName();
+    });
     //topic avatar
     $("#avatarsrc").attr('src', topicdetail.topicavatar);
     // edit button
@@ -185,7 +234,10 @@
 
 <main>
   <div class="topic-detail-container">
-    <div id="topicname">topicname</div>
+    <div id="topicname">
+      <div class="name"></div>
+      <img class="icon" src="../../public/img/background/edit_icon.png"></img>
+    </div>
     <div class="ava-container">
       <div class="title">Topic avatar</div>
       <img id="avatarsrc" src="/public/img/background/flashcard_background.png">

@@ -1,12 +1,104 @@
 {{#section 'js'}}
 <script>
+  function confirmChangeLessonName() {
+    const modal = $('<div class="modal">');
+    const container = $('<div class="modal-container">');
+    const message = $('<p class="modal-message">Enter new lesson name:</p>');
+    const input = $('<input type="text" class="modal-input">');
+    const buttonContainer = $('<div class="modal-button-container">');
+    const confirmButton = $('<button class="modal-confirm-button">Confirm</button>');
+    const cancelButton = $('<button class="modal-cancel-button">Cancel</button>');
+
+    modal.append(container);
+    container.append(message);
+    container.append(input);
+    container.append(buttonContainer);
+    buttonContainer.append(confirmButton);
+    buttonContainer.append(cancelButton);
+
+    modal.on('click', function (event) {
+      if (event.target === modal[0]) {
+        modal.remove();
+      }
+    });
+
+    cancelButton.on('click', function () {
+      modal.remove();
+    });
+
+    confirmButton.on('click', function () {
+      const newLessonName = input.val();
+      // Send an AJAX request to update the lesson name
+      $.ajax({
+        type: 'POST',
+        url: '/admin/lessondetail/' + lessondetail.lessonid,
+        data: { type: "name", name: newLessonName },
+        success: function (response) {
+          $('#lessonname .name').text(newLessonName);
+          modal.remove();
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    });
+
+    $('body').append(modal);
+  }
+
+  function confirmChangeLessonDescription() {
+    const modal = $('<div class="modal">');
+    const container = $('<div class="modal-container">');
+    const message = $('<p class="modal-message">Enter new lesson description:</p>');
+    const input = $('<textarea id="lesson-description-editor"></textarea>');
+    const buttonContainer = $('<div class="modal-button-container">');
+    const confirmButton = $('<button class="modal-confirm-button">Confirm</button>');
+    const cancelButton = $('<button class="modal-cancel-button">Cancel</button>');
+
+    modal.append(container);
+    container.append(message);
+    container.append(input);
+    container.append(buttonContainer);
+    buttonContainer.append(confirmButton);
+    buttonContainer.append(cancelButton);
+
+    modal.on('click', function (event) {
+      if (event.target === modal[0]) {
+        modal.remove();
+      }
+    });
+
+    cancelButton.on('click', function () {
+      modal.remove();
+    });
+
+    confirmButton.on('click', function () {
+      const newLessonDescription = "<p>" + input.val() + "</p>";
+      // Send an AJAX request to update the lesson description
+      $.ajax({
+        type: 'POST',
+        url: '/admin/lessondetail/' + lessondetail.lessonid,
+        data: { type: "description", description: newLessonDescription },
+        success: function (response) {
+          $('.description-container .description-detail').html(newLessonDescription);
+          modal.remove();
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    });
+
+    $('body').append(modal);
+  }
+
   function confirmDeleteLesson() {
-    const modal = $('<div class="delete-modal">');
-    const container = $('<div class="delete-container">');
-    const message = $('<p class="delete-message">Do you really want to delete this lesson?</p>');
-    const buttonContainer = $('<div class="delete-button-container">');
-    const yesButton = $('<button class="delete-yes-button">Yes</button>');
-    const cancelButton = $('<button class="delete-cancel-button">Cancel</button>');
+    const modal = $('<div class="modal">');
+    const container = $('<div class="modal-container">');
+    const message = $('<p class="modal-message">Do you really want to delete this lesson?</p>');
+    const buttonContainer = $('<div class="modal-button-container">');
+    const yesButton = $('<button class="modal-yes-button">Yes</button>');
+    const cancelButton = $('<button class="modal-cancel-button">Cancel</button>');
 
     modal.append(container);
     container.append(message);
@@ -38,7 +130,10 @@
 
   $(document).ready(function () {
     //lesson name
-    $('#lessonname').text(lessondetail.lessonname);
+    $('#lessonname .name').text(lessondetail.lessonname);
+    $('#lessonname .icon').click(function () {
+      confirmChangeLessonName();
+    });
     //lesson avatar
     $("#avatarsrc").attr('src', lessondetail.lessonavatar);
     // edit button
@@ -73,6 +168,11 @@
         });
       });
       input.trigger('click');
+    });
+    //lesson description
+    $('.description-container .description-detail').html(lessondetail.lessondes);
+    $('.description-container .btnEdit').on('click', function () {
+      confirmChangeLessonDescription();
     });
     //topic section
     if (topiclist.length == 0 || topiclist.length == 1)
@@ -126,10 +226,20 @@
 
 <main>
   <div class="lesson-detail-container">
-    <div id="lessonname">lesson</div>
+    <div id="lessonname">
+      <div class="name"></div>
+      <img class="icon" src="../../public/img/background/edit_icon.png"></img>
+    </div>
     <div class="ava-container">
       <div class="title">Lesson avatar</div>
       <img id="avatarsrc" src="/public/img/background/flashcard_background.png">
+      <button type="button" class="btnEdit">
+        Edit
+      </button>
+    </div>
+    <div class="description-container">
+      <div class="title">Description</div>
+      <div class="description-detail"></div>
       <button type="button" class="btnEdit">
         Edit
       </button>

@@ -17,11 +17,25 @@ main {
 
 #topicname {
     margin-top: 20px;
-    font-size: 2rem;
-    font-weight: bold;
     background-color: #aacdaf;
     border-radius: .5rem;
     padding: 0rem 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+#topicname .name {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#topicname img {
+    object-fit: contain;
+    max-width: 2rem;
+    max-height: 2rem;
+    margin-top: auto;
+    margin-bottom: auto;
+    cursor: pointer;
 }
 
 .title {
@@ -199,7 +213,7 @@ table .btnPreview {
     min-width: 10%;
 }
 
-.delete-modal {
+.modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -212,47 +226,58 @@ table .btnPreview {
     z-index: 1000;
 }
 
-.delete-container {
+.modal-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #fff;
-    width: 400px;
-    height: 200px;
+    min-width: 40%;
+    max-width: 80%;
     padding: 20px;
     border-radius: 10%;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     border: 5px solid #aacdaf;
 }
 
-.delete-message {
-    margin-bottom: 20px;
+.modal-message {
     font-size: 20px;
 }
 
-.delete-button-container {
+.modal-input {
+    width: 60%;
+    margin-top: 1rem;
+}
+
+.modal-button-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.delete-yes-button,
-.delete-cancel-button {
+.modal-confirm-button,
+.modal-yes-button,
+.modal-cancel-button {
     padding: 10px 20px;
     margin: 0 10px;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    margin-top: 1rem;
 }
 
-.delete-yes-button {
+.modal-confirm-button {
+    background-color: #aacdaf;
+    color: #fff;
+}
+
+.modal-yes-button {
     background-color: #FF4136;
     color: #fff;
 }
 
-.delete-cancel-button {
+.modal-cancel-button {
     background-color: #f4df89;
     color: #333;
 }

@@ -40,25 +40,33 @@ router.get('/lessondetail/:id', async function (req, res) {
 router.post('/lessondetail/:id', async function (req, res) {
     const lessonid = req.params.id
 
-    const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, './public/img/lesson')
-        },
-        filename: function (req, file, cb) {
-            cb(null, lessonid + '.png')
-        }
-    })
+    if (req.body.type === 'name') {
+        const lessonName = req.body.name;
+        await adminServices.editLessonName(lessonid, lessonName);
+    } else if (req.body.type === 'description') {
+        const lessondes = req.body.description;
+        await adminServices.editLessonDescription(lessonid, lessondes);
+    } else {
+        const storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, './public/img/lesson')
+            },
+            filename: function (req, file, cb) {
+                cb(null, lessonid + '.png')
+            }
+        })
 
-    const upload = multer({storage: storage}).single('avatar');
+        const upload = multer({storage: storage}).single('avatar');
 
-    upload(req, res, function (err) {
-        if (err) {
-            console.log(err);
-            return res.status(500).send('Error uploading file');
-        }
-    });
+        upload(req, res, function (err) {
+            if (err) {
+                console.log(err);
+                return res.status(500).send('Error uploading file');
+            }
+        });
 
-    await adminServices.editLessonAva(lessonid, "/public/img/lesson/" + lessonid + ".png")
+        await adminServices.editLessonAva(lessonid, "/public/img/lesson/" + lessonid + ".png");
+    }
 
     const [lesson, topic] = await Promise.all([
         adminServices.getLessonDetail(lessonid),
@@ -116,25 +124,30 @@ router.get('/topicdetail/:id', async function (req, res) {
 router.post('/topicdetail/:id', async function (req, res) {
     const topicid = req.params.id
 
-    const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, './public/img/topic')
-        },
-        filename: function (req, file, cb) {
-            cb(null, topicid + '.png')
-        }
-    })
-
-    const upload = multer({storage: storage}).single('avatar');
-
-    upload(req, res, function (err) {
-        if (err) {
-            console.log(err);
-            return res.status(500).send('Error uploading file');
-        }
-    });
-
-    await adminServices.editTopicAva(topicid, "/public/img/topic/" + topicid + ".png")
+    if (req.body.type === 'name') {
+        const topicName = req.body.name;
+        await adminServices.editTopicName(topicid, topicName);
+    } else {
+        const storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, './public/img/topic')
+            },
+            filename: function (req, file, cb) {
+                cb(null, topicid + '.png')
+            }
+        })
+    
+        const upload = multer({storage: storage}).single('avatar');
+    
+        upload(req, res, function (err) {
+            if (err) {
+                console.log(err);
+                return res.status(500).send('Error uploading file');
+            }
+        });
+    
+        await adminServices.editTopicAva(topicid, "/public/img/topic/" + topicid + ".png");
+    }
 
     const [topic, word, test] = await Promise.all([
         adminServices.getTopicDetail(topicid),
