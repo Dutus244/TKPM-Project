@@ -1,0 +1,57 @@
+{{#section 'js'}}
+<script>
+  $(document).ready(function () {
+    const questions = {{{ questions }}}
+
+    console.log(questions)
+    $('more-btn').on('click', function () {
+
+    })
+    $('.func-icons>.bi-trash3').on('click', function (e) {
+      alert('dsa')
+    })
+  })
+</script>
+{{/section}}
+
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/css/admin/questionListByWord.css">
+{{/section}}
+
+<div class="container-fluid">
+  <form class="form" action="/admin/questionList" method="get">
+    <div class="search-container">
+      <div class="search">
+        <select name="word" id="word" class="search-bar">
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="opel">Opel</option>
+          <option value="audi">Audi</option>
+        </select>
+        <button class="search-btn" type="submit"><i class="bi bi-search"></i></button>
+      </div>
+      <p class="result-number">Questions matched: 1</p>
+    </div>
+  </form>
+  {{#if found}}
+  <div class="question-group">
+    <div class="question">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, pariatur veniam sapiente placeat reprehenderit
+        laboriosam iste quidem minus voluptatem, illum necessitatibus enim quia corporis doloribus, error sit? Aperiam,
+        maiores autem?
+      </p>
+      <div class="func-icons">
+        <i class="bi bi-pencil"></i> &nbsp;&nbsp;
+        <i class="bi bi-trash3"></i>
+
+      </div>
+    </div>
+  </div>
+  <div class="btn-group">
+    <button class="more-btn">MORE</button>
+  </div>
+  {{else}}
+  <div class="question">No data</div>
+  {{/if}}
+</div>

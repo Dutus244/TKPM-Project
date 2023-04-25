@@ -464,4 +464,16 @@ router.get('/userlist', async function (req, res) {
         empty: list.length === 0,
     })
 })
+
+router.get('/edittest/:topicid', async function(req, res) {
+    const { topicid = null } = req.params
+    const { word = null } = req.query
+    const questions = await adminServices.searchQuestionByWord(word)
+    console.log(questions);
+
+    res.render('vwAdmin/questionListByWord', {
+        found: questions !=  null,
+        questions: JSON.stringify(questions),
+    })
+})
 export default router
