@@ -96,14 +96,21 @@ export default {
 
         const questions = [];
         for (const word of words) {
-            const randomType1 = getRandomInt(0, 3);
+            let check = await db('multipleChoiceQuestions')
+                .where('WordID', word.WordID)
+                .andWhere('IsDelete', false)
+
+            let randomType1 = getRandomInt(0, 3);
             const randomType2 = getRandomInt(0, 1);
+            if (check.length === 0) {
+                randomType1 = getRandomInt(3, 7);
+            }
 
             let question = {}
             question.WordID = word.WordID
 
             if (randomType1 == 0) {
-                let tempquestion = await db('multiplechoicequestions')
+                let tempquestion = await db('multipleChoiceQuestions')
                     .where('WordID', word.WordID)
                     .andWhere('IsDelete', false)
                     .orderByRaw('rand()')
@@ -128,7 +135,7 @@ export default {
                 question.QuestionType = "0"
 
             } else if (randomType1 === 1) {
-                let tempquestion = await db('multiplechoicequestions')
+                let tempquestion = await db('multipleChoiceQuestions')
                     .where('WordID', word.WordID)
                     .andWhere('IsDelete', false)
                     .orderByRaw('rand()')
@@ -152,7 +159,7 @@ export default {
                 }
                 question.QuestionType = "1"
             } else if (randomType1 === 2) {
-                const tempquestion = await db('multiplechoicequestions')
+                const tempquestion = await db('multipleChoiceQuestions')
                     .where('WordID', word.WordID)
                     .andWhere('IsDelete', false)
                     .orderByRaw('rand()')
@@ -190,6 +197,40 @@ export default {
             else if (randomType1 === 3) {
                 question.Answer = word.WordName
                 question.QuestionType = "3"
+            }
+            else if (randomType1 === 4) {
+                const meaning = await db('words')
+                    .select('wordmeaning')
+                    .where('wordid', word.WordID);
+                question.Question = meaning[0].wordmeaning
+                question.Answer = word.WordName
+                question.QuestionType = "4"
+            }
+            else if (randomType1 === 5) {
+                const meaning = await db('words')
+                    .select('wordmeaning')
+                    .where('wordid', word.WordID);
+                question.Question = meaning[0].wordmeaning
+                question.Answer = word.WordName
+                question.QuestionType = "5"
+            }
+            else if (randomType1 === 6) {
+                const avatar = await db('words')
+                    .select('wordavatar')
+                    .where('wordid', word.WordID);
+                question.Question = "What is this?"
+                question.QuestionAvatar = avatar[0].wordavatar
+                question.Answer = word.WordName
+                question.QuestionType = "6"
+            }
+            else if (randomType1 === 7) {
+                const avatar = await db('words')
+                    .select('wordavatar')
+                    .where('wordid', word.WordID);
+                question.Question = "What is this?"
+                question.QuestionAvatar = avatar[0].wordavatar
+                question.Answer = word.WordName
+                question.QuestionType = "7"
             }
             questions.push(question)
         }
