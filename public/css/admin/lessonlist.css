@@ -73,8 +73,19 @@ table .btnEdit {
   border: none;
 }
 
-.back-container .btnBack {
-  margin-top: 2rem;
+.pagination {
+  text-align: center;
+  justify-content: center;
+}
+
+.pagination .current-page {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  border: 2px solid #aacdaf;
+  padding: .4rem;
+}
+
+.pagination button {
   font-size: .9rem;
   font-weight: bold;
   color: #fff;
@@ -84,4 +95,32 @@ table .btnEdit {
   border-radius: .5rem;
   border: none;
   min-width: 10%;
+}
+
+.pagination button[disabled] {
+  background-color: #ddd;
+  cursor: default;
+  color: #000;
+}
+
+.back-container .btnBack {
+  margin-top: 2rem;
+  font-size: .9rem;
+  font-weight: bold;
+  color: #333;
+  background-color: #f4df89;
+  cursor: pointer;
+  padding: .4rem 1.5rem;
+  border-radius: .5rem;
+  border: none;
+  min-width: 10%;
+}
+
+@media screen and (max-width: 600px) {
+  .pagination {
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+
 }

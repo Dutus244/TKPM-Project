@@ -136,8 +136,8 @@ table .btnEdit {
 .delete-back-container .btnBack {
     font-size: .9rem;
     font-weight: bold;
-    color: #fff;
-    background-color: #aacdaf;
+    color: #333;
+    background-color: #f4df89;
     cursor: pointer;
     padding: .4rem 1.5rem;
     border-radius: .5rem;
@@ -199,6 +199,6 @@ table .btnEdit {
 }
 
 .delete-cancel-button {
-    background-color: #f1c40f;
+    background-color: #f4df89;
     color: #333;
 }

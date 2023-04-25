@@ -283,8 +283,12 @@ router.post('/addlesson', async function (req, res){
             // A Multer error occurred when uploading.
             // or an unknown error occurred when uploading.
             console.error(err);
-        } 
-
+        } else {
+            const lessonlist = await adminServices.getLessonList()
+            res.render('vwAdmin/lessonlist',{
+                lesson: JSON.stringify(lessonlist), 
+            })
+        }
     })
 })
 

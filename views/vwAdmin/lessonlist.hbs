@@ -4,7 +4,7 @@
   const length = lessonlist.length
 
   $(document).ready(function () {
-    //don;t show table if there is no lesson
+    //don't show table if there is no lesson
     if (lessonlist.length == 0) {
       $('.lesson-container table').hide();
     }
@@ -12,9 +12,32 @@
       $('#lessoncount').text("Total lesson: " + lessonlist.length);
     else
       $('#lessoncount').text("Total lessons: " + lessonlist.length);
-    const lessoncontainer = $('table tbody')
-    lessonlist.forEach(function (lesson) {
-      const row = $('<tr>')
+
+    //add button
+    $('.lesson-container .btnAdd').on('click', async function () {
+      window.location.href = "/admin/addlesson";
+    });
+    //back button
+    $('.back-container .btnBack').on('click', function () {
+      window.location.href = "/admin/home";
+    });
+  });
+</script>
+<script>
+  const lessoncontainer = $('#lessonTableBody');
+  const itemsPerPage = 5;
+  let currentPage = 1;
+  let totalPages = Math.ceil(lessonlist.length / itemsPerPage);
+
+  // Display lessons for the current page
+  function displayLessons() {
+    lessoncontainer.empty();
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const lessonsForCurrentPage = lessonlist.slice(startIndex, endIndex);
+
+    lessonsForCurrentPage.forEach(function (lesson) {
+      const row = $('<tr>');
       const id = $('<td>').text(lesson.lessonid);
       const name = $('<td>').text(lesson.lessonname);
       const editTopicButton = $('<button>').attr('type', 'button').addClass('btnEdit').text('Edit');
@@ -28,15 +51,50 @@
       row.append(edit);
       lessoncontainer.append(row);
     });
-    //add button
-    $('.lesson-container .btnAdd').on('click', async function () {
-      window.location.href = "/admin/addlesson";
-    });
-    //back button
-    $('.back-container .btnBack').on('click', function () {
-      window.location.href = "/admin/home";
-    });
+
+    updatePagination();
+  }
+
+  // Update the pagination buttons and current page number
+  function updatePagination() {
+    const previousPageButton = $('.previous-page');
+    const nextPageButton = $('.next-page');
+    const currentPageDiv = $('.current-page');
+
+    currentPageDiv.text(`Page ${currentPage} of ${totalPages}`);
+
+    if (currentPage === 1) {
+      previousPageButton.prop('disabled', true);
+    } else {
+      previousPageButton.prop('disabled', false);
+    }
+
+    if (currentPage === totalPages) {
+      nextPageButton.prop('disabled', true);
+    } else {
+      nextPageButton.prop('disabled', false);
+    }
+  }
+
+  // Handle clicking the previous page button
+  $('.previous-page').on('click', function () {
+    if (currentPage > 1) {
+      currentPage--;
+      displayLessons();
+    }
   });
+
+  // Handle clicking the next page button
+  $('.next-page').on('click', function () {
+    if (currentPage < totalPages) {
+      currentPage++;
+      displayLessons();
+    }
+  });
+
+  // Initialize the table with the first page of lessons
+  displayLessons();
+
 </script>
 {{/section}}
 
@@ -67,9 +125,16 @@
             <th>Edit</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="lessonTableBody">
         </tbody>
       </table>
+
+      <div class="pagination">
+        <button class="previous-page" disabled>Previous</button>
+        <div class="current-page"></div>
+        <button class="next-page">Next</button>
+      </div>
+
     </div>
     <div class="back-container">
       <button type="button" class="btnBack">
