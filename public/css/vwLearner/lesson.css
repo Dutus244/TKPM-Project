@@ -75,19 +75,40 @@ i{
     padding-left: 20px;
 }
 
+.column-input {
+    width: 80%;
+}
+.column-button {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+.column-button .btn{
+    justify-content: center;
+}
+.pagination { color:black !important; }
+
+
+.pagination > .active > a , .pagination > .active > a:hover, .pagination > .active > a:focus {
+    background-color: #AACDAF !important; border-color: #AACDAF !important;
+}
+
+.pagination > .disactive > a , .pagination > .disactive > a:hover, .pagination > .disactive > a:focus {
+    background-color: white !important;
+    color: black;
+}
+
+.pagination > .abled > a , .pagination > .abled > a:hover, .pagination > .abled > a:focus {
+    background-color: white !important;
+    color: #AACDAF;
+}
 @media screen and (max-width: 600px) {
     .column {
         width: 100%;
     }
-
     i{
         padding-left: 10px;
     }
-
-    .btn{
-        width: fit-content;
-    }
-
     .card-footer{
         /*visibility: hidden;*/
     }
@@ -113,24 +134,22 @@ i{
         align-items: center;
         justify-content: space-between;
     }
-
+    .card-body p{
+        display: none;
+    }
+    button .btn{
+        width: fit-content;
+    }
+    .title .card{
+        width: 90%;
+    }
+    .column-input {
+        width: 75%;
+    }
+    .column-button {
+        width: 25%;
+        display: inline;
+    }
 }
-.pagination { color:black !important; }
-
-
-.pagination > .active > a , .pagination > .active > a:hover, .pagination > .active > a:focus {
-    background-color: #AACDAF !important; border-color: #AACDAF !important;
-}
-
-.pagination > .disactive > a , .pagination > .disactive > a:hover, .pagination > .disactive > a:focus {
-    background-color: white !important;
-    color: black;
-}
-
-.pagination > .abled > a , .pagination > .abled > a:hover, .pagination > .abled > a:focus {
-    background-color: white !important;
-    color: #AACDAF;
-}
-
 
 

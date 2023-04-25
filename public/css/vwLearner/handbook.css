@@ -194,3 +194,11 @@ input[type="checkbox"]:checked:after {
 .dialog-body button{
     margin: 20px;
 }
+@media screen and (max-width: 600px) {
+    .subnav a{
+        width: fit-content;
+        font-size: 14px;
+        padding: 10px;
+
+    }
+}
