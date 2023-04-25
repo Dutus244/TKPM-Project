@@ -24,21 +24,21 @@
                                    role="button" aria-pressed="true">
                                     <div class="row no-gutters topic"  >
                                         {{#ifEquals isRead 0}}
-                                            <div class="col col-2">
+                                            <div class="col col-1">
                                                 <div class="d-flex justify-content-center">
                                                     <i  class="fa fa-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
                                             </div>
 
                                         {{else}}
-                                            <div class="col col-2">
+                                            <div class="col col-1">
                                                 <div class="d-flex justify-content-center">
                                                     <i  class="fa fa-check-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
                                             </div>
                                         {{/ifEquals}}
-                                        <img class="col col-2"
+                                        <img class="col col-4"
                                              src="{{TopicAvatar}}"
                                         >
-                                        <h3 class="col col-8">{{TopicName}}</h3>
+                                        <h3 class="col col-7">{{TopicName}}</h3>
                                     </div>
                                 </a>
                             </div>
