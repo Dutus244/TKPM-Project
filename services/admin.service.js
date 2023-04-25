@@ -164,7 +164,6 @@ export default{
                      FROM users
         `
         const list = await db.raw(sql)
-        console.log(list[0])
         return list[0]
     }
 }
