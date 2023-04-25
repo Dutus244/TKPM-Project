@@ -31,25 +31,31 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
-    $('#fuMain').fileinput({
-        language: 'vi',
-        theme: 'fa4',
-        dropZoneEnabled: false,
-        maxFileCount: 1,
-        allowedFileExtension: ['png', 'jpg', 'jpeg'],
-    });
+    const word = {{{ word }}}
+    $(document).ready(function () {
+        $("#txtLessonname").val(word.topicname);
+        $("#txtWordid").val(word.wordid);
+        $("#txtWordname").val(word.wordname);
+        $('select[name="wordtype"]').val(word.wordtype.toLowerCase());
+        $("#txtWordmeaning").val(word.wordmeaning);
+        $("#txtWordpronounce").val(word.wordpronounce);
+        $("#txtWordexample").val(word.wordexample);
+
+        //delete button
+        $('.btnDel').on('click', async function () {
+            window.location.href = '/admin/deleteword/' + word.wordid;
+        });
+        //back button
+        $('.btnBack').on('click', function () {
+            window.location.href = '/admin/topicdetail/' + word.topicid;
+        });
+    })
 
     $('#frmRegister').on('submit', function (e) {
         e.preventDefault();
         const wordname = $('#txtWordname').val();
         if (!wordname.length) {
             alert('Please enter a word in the name field!')
-            return
-        }
-
-        const img = $('#fuMain').val();
-        if (!img.length) {
-            alert('Please upload an image in the avatar field!')
             return
         }
 
@@ -61,7 +67,7 @@
 
         const wordpronounce = $('#txtWordpronounce').val();
         if (!wordpronounce.length) {
-            alert('Please enter a word in the pronunciation  field!')
+            alert('Please enter a word in the pronunciation field!')
             return
         }
 
@@ -87,22 +93,26 @@
         </div>
         {{/if}}
 
-        <form method="post" id="frmRegister" enctype="multipart/form-data">
+        <form method="post" id="frmRegister">
             <div class="card mb-3">
                 <h4 class="card-header">
-                    ADD NEW WORD
+                    WORD DETAIL
                 </h4>
                 <div class="card-body">
 
                     <div class="form-group">
-                        <label for="txtLessonname">Topic add:</label>
-                        <input name="lessonname" type="text" class="form-control" id="txtLessonname"
-                            placeholder="{{this.topicname}}" disabled>
+                        <label for="txtLessonname">Topic's id:</label>
+                        <input name="lessonname" type="text" class="form-control" id="txtLessonname" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtWordid">Word's id:</label>
+                        <input name="wordid" type="text" class="form-control" id="txtWordid" disabled>
                     </div>
 
                     <div class="form-group">
                         <label for="txtWordname">Word's name:</label>
-                        <input name="wordname" type="text" class="form-control" id="txtWordname" autofocus>
+                        <input name="wordname" type="text" class="form-control" id="txtWordname">
                     </div>
 
                     <div class="form-group">
@@ -122,35 +132,32 @@
 
                     <div class="form-group">
                         <label for="txtWordmeaning">Word's meaning:</label>
-                        <input name="wordmeaning" type="text" class="form-control" id="txtWordmeaning" autofocus>
+                        <input name="wordmeaning" type="text" class="form-control" id="txtWordmeaning">
                     </div>
 
                     <div class="form-group">
                         <label for="txtWordpronounce">Word's pronounce:</label>
-                        <input name="wordpronounce" type="text" class="form-control" id="txtWordpronounce" autofocus>
+                        <input name="wordpronounce" type="text" class="form-control" id="txtWordpronounce">
                     </div>
 
                     <div class="form-group">
                         <label for="txtWordexample">Word's example:</label>
-                        <input name="wordexample" type="text" class="form-control" id="txtWordexample" autofocus>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="fuMain">Word's avatar</label>
-                        <input type="file" multiple name="fuMain" id="fuMain">
+                        <input name="wordexample" type="text" class="form-control" id="txtWordexample">
                     </div>
 
                     <div class="card-footer text-muted">
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-check" aria-hidden="true"></i>
-                            Submit
+                            Update
                         </button>
-                        <a href="/admin/topicdetail/{{this.topicid}}">
-                            <button type="button" class="btn btn-primary">
-                                <i class="fa fa-check" aria-hidden="true"></i>
-                                Back to topic
-                            </button>
-                        </a>
+                        <button type="button" class="btn btn-primary btnDel">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Delete
+                        </button>
+                        <button type="button" class="btn btn-primary btnBack">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Back to topic
+                        </button>
                     </div>
                 </div>
             </div>

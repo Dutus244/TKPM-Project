@@ -36,7 +36,7 @@
         theme: 'fa4',
         dropZoneEnabled: false,
         maxFileCount: 1,
-        allowedFileExtension: ['png', 'jpg','jpeg'],
+        allowedFileExtension: ['png', 'jpg', 'jpeg'],
 
     });
 
@@ -65,53 +65,53 @@
 
 {{/section}}
 <main>
-<div class="formdes">
-    {{#if msg}}
-    <div class="alert alert-success alert-dismissible fade show text-center pr-0" role="alert">
-        {{msg}}
-        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true" class="bg-inherit">&times;</span>
-        </button>
-    </div>
-    {{/if}}
+    <div class="formdes">
+        {{#if msg}}
+        <div class="alert alert-success alert-dismissible fade show text-center pr-0" role="alert">
+            {{msg}}
+            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true" class="bg-inherit">&times;</span>
+            </button>
+        </div>
+        {{/if}}
 
-    <form method="post" id="frmRegister" enctype="multipart/form-data">
-        <div class="card mb-3">
-            <h4 class="card-header">
-                ADD NEW TOPIC
-            </h4>
-            <div class="card-body">
+        <form method="post" id="frmRegister" enctype="multipart/form-data">
+            <div class="card mb-3">
+                <h4 class="card-header">
+                    ADD NEW TOPIC
+                </h4>
+                <div class="card-body">
 
-                <div class="form-group">
-                    <label for="txtLessonname">Lesson add:</label>
-                    <input name="lessonname" type="text" class="form-control" id="txtLessonname" 
-                    placeholder="{{this.lessonname}}" disabled>
-                </div>
+                    <div class="form-group">
+                        <label for="txtLessonname">Lesson add:</label>
+                        <input name="lessonname" type="text" class="form-control" id="txtLessonname"
+                            placeholder="{{this.lessonname}}" disabled>
+                    </div>
 
-                <div class="form-group">
-                    <label for="txtTopicname">Topic's name:</label>
-                    <input name="topicname" type="text" class="form-control" id="txtTopicname" autofocus>
-                </div>
+                    <div class="form-group">
+                        <label for="txtTopicname">Topic's name:</label>
+                        <input name="topicname" type="text" class="form-control" id="txtTopicname" autofocus>
+                    </div>
 
-                <div class="form-group">
-                    <label for="fuMain">Topic's avatar</label>
-                    <input type="file" multiple name="fuMain" id="fuMain">
-                </div>
+                    <div class="form-group">
+                        <label for="fuMain">Topic's avatar</label>
+                        <input type="file" multiple name="fuMain" id="fuMain">
+                    </div>
 
-                <div class="card-footer text-muted">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-check" aria-hidden="true"></i>
-                        Save
-                    </button>
-                    <a href="/admin/topiclist">
-                        <button type="button" class="btn btn-primary">
+                    <div class="card-footer text-muted">
+                        <button type="submit" class="btn btn-primary">
                             <i class="fa fa-check" aria-hidden="true"></i>
-                            Back to topic
+                            Save
                         </button>
-                    </a>
+                        <a href="/admin/lessondetail/{{this.lessonid}}">
+                            <button type="button" class="btn btn-primary">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                Back to lesson detail
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 </main>
