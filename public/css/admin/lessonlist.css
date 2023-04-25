@@ -1,7 +1,6 @@
 main {
   display: flex;
   justify-content: center;
-  background-color: whitesmoke;
   position: relative;
 }
 
@@ -9,7 +8,7 @@ main {
   box-sizing: border-box;
 }
 
-.container {
+.lesson-list-container {
   width: 80%;
   margin-top: 2rem;
   margin-bottom: 5rem;
@@ -117,10 +116,13 @@ table .btnEdit {
 }
 
 @media screen and (max-width: 600px) {
+  .lesson-list-container {
+    width: 98%;
+  }
+
   .pagination {
     align-items: flex-end;
     justify-content: space-between;
   }
-
 
 }

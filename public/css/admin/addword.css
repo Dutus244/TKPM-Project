@@ -78,5 +78,5 @@ h4.question-header {
 }
 
 .formdes form {
-    width: 700px;
+    min-width: 700px;
 }
