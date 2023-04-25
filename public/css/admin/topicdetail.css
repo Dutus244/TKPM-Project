@@ -278,8 +278,11 @@ table .btnPreview {
         padding: .1rem;
     }
 
-    td:nth-child(4) {
-        text-align: center;
+    td:nth-child(3) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
     }
 
     table .btnEdit {
