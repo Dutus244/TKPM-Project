@@ -69,10 +69,10 @@ export default {
         const test = await db
             .select('questionid')
             .from('multiplechoicequestions')
-            .join('words', 'multiplechoicequestions.answer', 'words.wordid')
-            .join('topics', 'words.topicid', 'topics.topicid')
-            .where('topics.topicid', id)
-            .andWhere('multiplechoicequestions.IsDelete', 0);
+            .join('words','multiplechoicequestions.answer','words.wordid')
+            .join('topics','words.topicid','topics.topicid')
+            .where('topics.topicid',id)
+            .andWhere('multiplechoicequestions.IsDelete',0);
         return test;
     },
 
@@ -88,7 +88,7 @@ export default {
         return topic[0];
     },
 
-    async getWords(id) {
+    async getWords(id)  {
         const list = await db
             .select('wordid', 'wordname')
             .from('words')
@@ -167,15 +167,33 @@ export default {
         console.log(list[0])
         return list[0]
     },
-    async getQuestionByTopic(topicid) {
-        if (!topicid)
-            return null
-        const list = await db('multiplechoicequestions')
-            .select('questionid', 'question')
-            .where('isdelete', 0)
-            .andWhere('questionavatar', '')
-            .whereRaw(`answer like '%${topicid}%'`)
-        return list
+    async searchQuestionByTopicFilterByAnswer(topicid, word) {
+        if (!word) {
+            const test = await db
+                .select('questionid', 'question', 'answer')
+                .from('multiplechoicequestions')
+                .join('words', 'multiplechoicequestions.wordid', 'words.wordid')
+                .join('topics', 'words.topicid', 'topics.topicid')
+                .where('topics.topicid', topicid)
+                .andWhere('multiplechoicequestions.IsDelete', 0);
+            return test;
+        } else {
+            const test = await db
+                .select('questionid', 'question', 'answer')
+                .from('multiplechoicequestions')
+                .join('words', 'multiplechoicequestions.wordid', 'words.wordid')
+                .join('topics', 'words.topicid', 'topics.topicid')
+                .where('topics.topicid', topicid)
+                .andWhere('answer', word)
+                .andWhere('multiplechoicequestions.IsDelete', 0);
+            return test;
+        }
+    },
+    async deleteQuestion(questionid) {
+        await db('multiplechoicequestions')
+            .where('questionid', questionid)
+            .update('isdelete', 1)
+        return
     },
 }
 

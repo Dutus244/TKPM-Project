@@ -1,14 +1,31 @@
 {{#section 'js'}}
 <script>
   $(document).ready(function () {
-    const questions = {{{ questions }}}
+    const chosenOption = {{{ chosenOption }}}
+    let delQuestionId = null
+    const confirmModal = $('#deleteModalCenter')
+    const successModal = $('#success-modal')
 
-    console.log(questions)
-    $('more-btn').on('click', function () {
+    if (chosenOption) {
+      $(`select option[value='${chosenOption}']`).prop('selected', true)
+    }
+
+    $('.func-icons>.bi-pencil').on('click', function () {
 
     })
-    $('.func-icons>.bi-trash3').on('click', function (e) {
-      alert('dsa')
+    $('.func-icons>.bi-trash3').on('click', function () {
+      delQuestionId = $(this).data('question-id')
+    })
+    $('#delete-question-btn').on('click', function () {
+      $.ajax({
+        url: '/admin/delete/question/' + delQuestionId,
+        type: 'POST',
+        success: function(data) {
+          confirmModal.modal('hide')
+          successModal.modal('show')
+          setTimeout(() => window.location.reload(), 1000);
+        }
+      })
     })
   })
 </script>
@@ -19,39 +36,71 @@
 {{/section}}
 
 <div class="container-fluid">
-  <form class="form" action="/admin/questionList" method="get">
+  <form class="form" action="" method="get">
     <div class="search-container">
       <div class="search">
         <select name="word" id="word" class="search-bar">
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="opel">Opel</option>
-          <option value="audi">Audi</option>
+          <option value="">All</option>
+          {{#each wordsOption}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
         </select>
         <button class="search-btn" type="submit"><i class="bi bi-search"></i></button>
       </div>
-      <p class="result-number">Questions matched: 1</p>
+      <i class="result-number">Questions matched: {{n}}</i>
     </div>
   </form>
-  {{#if found}}
+  {{#unless empty}}
   <div class="question-group">
+    {{#each questions}}
     <div class="question">
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, pariatur veniam sapiente placeat reprehenderit
-        laboriosam iste quidem minus voluptatem, illum necessitatibus enim quia corporis doloribus, error sit? Aperiam,
-        maiores autem?
-      </p>
+      <p class="answer-word">{{answer}}</p>
+      {{{question}}}
       <div class="func-icons">
         <i class="bi bi-pencil"></i> &nbsp;&nbsp;
-        <i class="bi bi-trash3"></i>
-
+        <!-- Trigger modal -->
+        <i data-toggle="modal" data-target="#deleteModalCenter" data-question-id="{{questionid}}" 
+        class="bi bi-trash3"></i>
       </div>
     </div>
-  </div>
-  <div class="btn-group">
-    <button class="more-btn">MORE</button>
+    {{/each}}
   </div>
   {{else}}
   <div class="question">No data</div>
-  {{/if}}
+  {{/unless}}
+  <!-- Delete Warning Modal -->
+  <div class="modal fade" id="deleteModalCenter" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Warning</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Do you want to delete this question!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          <button id="delete-question-btn" type="button" class="btn btn-success">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Small modal delete question successfully -->
+  <div id="success-modal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLongTitle">Success</h5>
+        </div>
+        <div class="modal-body">
+          Delete question successfully
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
