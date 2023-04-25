@@ -285,13 +285,13 @@ router.get('/dailytest', async function (req, res) {
 
     if(!check){
         if(!streakinfo){
-            streak = 0
+            streak = 1
         }
         else{
             if (lastdayloginUTC === yesterday && timestampUTC !== yesterday) {
                 streak +=1
             } else {
-                streak =0
+                streak = 1
             }
         }
         
