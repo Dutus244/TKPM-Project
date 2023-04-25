@@ -464,7 +464,7 @@ export default {
 
     async getStreak(id){
         const streak = await db('archives')
-            .select('streak')
+            .select('lastlogindate','streak')
             .from('archives')
             .where('userid',id)
             if(streak.length !==0) return streak[0];
