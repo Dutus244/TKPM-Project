@@ -73,10 +73,18 @@ h4.question-header {
 }
 
 .formdes input {
-    min-width: 500px;
+    width: 100%;
     display: inline-block;
 }
 
 .formdes form {
-    min-width: 700px;
+    width: 100%;
+}
+
+.formdes {
+    min-width: 50%;
+}
+
+.card-footer {
+    padding-left: 0rem;
 }

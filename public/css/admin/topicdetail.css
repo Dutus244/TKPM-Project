@@ -283,9 +283,15 @@ table .btnPreview {
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        width: fit-content;
     }
 
     table .btnEdit {
+        margin: 0;
         margin-bottom: .5rem;
+    }
+
+    table .btnPreview {
+        margin: 0;
     }
 }
