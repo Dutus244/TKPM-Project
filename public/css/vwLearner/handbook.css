@@ -194,11 +194,30 @@ input[type="checkbox"]:checked:after {
 .dialog-body button{
     margin: 20px;
 }
+
+.column-input {
+    width: 80%;
+}
+.column-button {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+.column-button .btn{
+    justify-content: center;
+}
 @media screen and (max-width: 600px) {
     .subnav a{
         width: fit-content;
         font-size: 14px;
         padding: 10px;
 
+    }
+    .column-input {
+        width: 75%;
+    }
+    .column-button {
+        width: 25%;
+        display: inline;
     }
 }
