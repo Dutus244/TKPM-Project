@@ -106,19 +106,16 @@ export default {
 
             let question = {}
             question.WordID = word.WordID
-            let tempquestion;
-            let meaning;
-            let avatar;
             switch(randomType1) {
                 case 0:
-                    tempquestion = await db('multipleChoiceQuestions')
+                    const tempquestion0 = await db('multipleChoiceQuestions')
                         .where('WordID', word.WordID)
                         .andWhere('IsDelete', false)
                         .orderByRaw('rand()')
                         .limit(1)
                         .select('Question', 'QuestionAvatar', 'Answer');
 
-                    const {Question : Question0, Answer : Answer0, QuestionAvatar : QuestionAvatar0} = tempquestion[0]
+                    const {Question : Question0, Answer : Answer0, QuestionAvatar : QuestionAvatar0} = tempquestion0[0]
                     question.Question = Question0
                     question.Answer = Answer0
                     question.QuestionAvatar = QuestionAvatar0
@@ -134,14 +131,14 @@ export default {
                     question.QuestionType = "0"
                     break
                 case 1:
-                    tempquestion = await db('multipleChoiceQuestions')
+                    const tempquestion1 = await db('multipleChoiceQuestions')
                         .where('WordID', word.WordID)
                         .andWhere('IsDelete', false)
                         .orderByRaw('rand()')
                         .limit(1)
                         .select('Question', 'QuestionAvatar', 'Answer');
 
-                    const {Question : Question1, Answer : Answer1, QuestionAvatar : QuestionAvatar1} = tempquestion[0]
+                    const {Question : Question1, Answer : Answer1, QuestionAvatar : QuestionAvatar1} = tempquestion1[0]
                     question.Question = Question1
                     question.Answer = Answer1
                     question.QuestionAvatar = QuestionAvatar1
@@ -157,14 +154,14 @@ export default {
                     question.QuestionType = "1"
                     break
                 case 2:
-                    const tempquestion = await db('multipleChoiceQuestions')
+                    const tempquestion2 = await db('multipleChoiceQuestions')
                         .where('WordID', word.WordID)
                         .andWhere('IsDelete', false)
                         .orderByRaw('rand()')
                         .limit(1)
                         .select();
 
-                    const {OptionA, OptionB, OptionC, OptionD, Question : Question2, Answer : Answer2, QuestionAvatar : QuestionAvatar2} = tempquestion[0];
+                    const {OptionA, OptionB, OptionC, OptionD, Question : Question2, Answer : Answer2, QuestionAvatar : QuestionAvatar2} = tempquestion2[0];
                     const shuffledOptions = shuffleArray([
                         OptionA,
                         OptionB,
@@ -196,36 +193,36 @@ export default {
                     question.QuestionType = "3"
                     break
                 case 4:
-                    meaning = await db('words')
+                    const meaning4 = await db('words')
                         .select('wordmeaning')
                         .where('wordid', word.WordID);
-                    question.Question = meaning[0].wordmeaning
+                    question.Question = meaning4[0].wordmeaning
                     question.Answer = word.WordName
                     question.QuestionType = "4"
                     break
                 case 5:
-                    meaning = await db('words')
+                    const meaning5 = await db('words')
                         .select('wordmeaning')
                         .where('wordid', word.WordID);
-                    question.Question = meaning[0].wordmeaning
+                    question.Question = meaning5[0].wordmeaning
                     question.Answer = word.WordName
                     question.QuestionType = "5"
                     break
                 case 6:
-                    avatar = await db('words')
+                    const avatar6 = await db('words')
                         .select('wordavatar')
                         .where('wordid', word.WordID);
                     question.Question = "What is this?"
-                    question.QuestionAvatar = avatar[0].wordavatar
+                    question.QuestionAvatar = avatar6[0].wordavatar
                     question.Answer = word.WordName
                     question.QuestionType = "6"
                     break
                 case 7:
-                    avatar = await db('words')
+                    const avatar7 = await db('words')
                         .select('wordavatar')
                         .where('wordid', word.WordID);
                     question.Question = "What is this?"
-                    question.QuestionAvatar = avatar[0].wordavatar
+                    question.QuestionAvatar = avatar7[0].wordavatar
                     question.Answer = word.WordName
                     question.QuestionType = "7"
                     break
@@ -233,6 +230,7 @@ export default {
 
             questions.push(question)
         }
+        shuffleArray(questions);
         return questions
     },
     async updateMemoryLevel(UserID, WordID, check) {
