@@ -394,5 +394,37 @@ export default {
             .andWhere('isdelete', 0)
 
         return list[0]
-    }
+    },
+
+    async getLvl5Mem(user_id){
+        const list = await db('wordhistory')
+            .count({ amount: 'wordid' })
+            .from('wordhistory')
+            .where('userid', user_id)
+            .andWhere('memorylevel',5)
+        
+        return list[0]
+    },
+
+    async checkDaily(id, date){
+        const check = await db('archives')
+            .where('userid',id)
+            .andWhere('lastlogindate',date);
+            if(check.length !==0) return check[0];
+            return null;
+
+    },
+
+    async getStreak(id){
+        const streak = await db('archives')
+            .select('streak')
+            .from('archives')
+            .where('userid',id)
+            if(streak.length !==0) return streak[0];
+            return null;
+    },
+
+    async loginStreak(entity){
+        return await db('archives').add(entity);
+    },
 }
