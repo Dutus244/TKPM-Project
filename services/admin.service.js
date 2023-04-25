@@ -61,7 +61,7 @@ export default{
             .from('topics')
             .join('words','words.topicid','topics.topicid')
             .where('topics.topicid',id)
-            .andWhere('topics.IsDelete',0);
+            .andWhere('words.IsDelete',0);
         return topic;
     },
 
@@ -74,6 +74,18 @@ export default{
             .where('topics.topicid',id)
             .andWhere('multiplechoicequestions.IsDelete',0);
         return test;
+    },
+
+    async getWordDetail(id) {
+        const topic = await db
+            .select('words.topicid','topics.topicname', 'words.wordid', 
+            'words.wordname', 'words.wordtype', 'words.wordmeaning',
+            'words.wordmeaning', 'words.wordpronounce', 'words.wordexample',
+            'words.wordavatar')
+            .from('words')
+            .join('topics','words.topicid','topics.topicid')
+            .where('words.wordid',id);
+        return topic[0];
     },
 
     async getWords(id){
@@ -125,6 +137,24 @@ export default{
             .select('wordname', 'wordtype', 'wordmeaning', 'wordpronounce', 'wordexample', 'wordavatar', 'topicid')
             .where('wordid', wordid)
         return word[0]
-    }
+    },
+
+    async updateWord(word) {
+        const { wordid, topicid, wordname, wordtype, wordmeaning, wordpronounce, wordexample, wordavatar, isdelete } = word;
+        return await db('words').update({ 
+            topicid,
+            wordname,
+            wordtype,
+            wordmeaning,
+            wordpronounce,
+            wordexample,
+            wordavatar,
+            isdelete
+        }).where('words.wordid', wordid);
+    },
+
+    async deleteWord(id) {
+        return await db('words').update('isDelete', 1).where('words.wordid', id);
+    },
 }
 

@@ -1,30 +1,52 @@
 {{#section 'js'}}
 <script>
-  const lesson = {{{ lesson }}}
-  const length = lesson.length
+  const lessonlist = {{{ lesson }}}
+  const length = lessonlist.length
 
-  $(document).ready(function() {
-  const lessonList = $('.scroll-content ul');
-  lesson.forEach(function(lesson) {
-    const li = $('<span>').text(lesson.lessonname);
-    li.on('click', function() {
-      window.location.href = '/admin/lessondetail/' + lesson.lessonid;
+  $(document).ready(function () {
+    //don;t show table if there is no lesson
+    if (lessonlist.length == 0) {
+      $('.lesson-container table').hide();
+    }
+    if (lessonlist.length == 0 || lessonlist.length == 1)
+      $('#lessoncount').text("Total lesson: " + lessonlist.length);
+    else
+      $('#lessoncount').text("Total lessons: " + lessonlist.length);
+    const lessoncontainer = $('table tbody')
+    lessonlist.forEach(function (lesson) {
+      const row = $('<tr>')
+      const id = $('<td>').text(lesson.lessonid);
+      const name = $('<td>').text(lesson.lessonname);
+      const editTopicButton = $('<button>').attr('type', 'button').addClass('btnEdit').text('Edit');
+      editTopicButton.on('click', function () {
+        window.location.href = '/admin/lessondetail/' + lesson.lessonid;
+      });
+      const edit = $('<td>')
+      edit.append(editTopicButton);
+      row.append(id);
+      row.append(name);
+      row.append(edit);
+      lessoncontainer.append(row);
     });
-    lessonList.append(li);
-
-    $('#lessoncount').text('Total lessons: ' + length);
+    //add button
+    $('.lesson-container .btnAdd').on('click', async function () {
+      window.location.href = "/admin/addlesson";
+    });
+    //back button
+    $('.back-container .btnBack').on('click', function () {
+      window.location.href = "/admin/home";
+    });
   });
-});
 </script>
 {{/section}}
 
 {{#section 'css'}}
 <link rel="stylesheet" href="/public/CSS/admin/lessonlist.css">
 <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/css/fileinput.min.css"
-    integrity="sha512-sHiVTDN234pgseKqjDwH39VjS9DkyffX4S00kuAWWq+FrTq7HlFjPoWbfX/QFAxkdG9i9/1ftdG2sS+XWLcJmw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  integrity="sha512-sHiVTDN234pgseKqjDwH39VjS9DkyffX4S00kuAWWq+FrTq7HlFjPoWbfX/QFAxkdG9i9/1ftdG2sS+XWLcJmw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 {{/section}}
 
@@ -32,26 +54,27 @@
 <main>
   <div class="container">
     <div id="lessonname">LESSON LIST</div>
-     <div class="lessons">
-      <div class="lessoncount" id="lessoncount">Total lessons: 20</div>
-      <div class="custom-scrollbar">
-        <div class="scroll-content">
-            <ul>
-            </ul>
-        </div>
-        </div>
-    </div>
-
-    <div class="buttongroup">
-      <button type="button" class="btnBck">
-          Back
-      </button>
-      <a href="/admin/addtopic">
+    <div class="lesson-container">
+      <div id="lessoncount" class="title">Topic count: </div>
       <button type="button" class="btnAdd">
-          Add
+        Add
       </button>
-      </a>
-      
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Lesson ID</th>
+            <th>Lesson Name</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    <div class="back-container">
+      <button type="button" class="btnBack">
+        Back
+      </button>
     </div>
   </div>
 </main>

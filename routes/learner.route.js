@@ -1,8 +1,8 @@
 import express from "express";
 import learnerService from "../services/learner.service.js";
 import bodyParser from 'body-parser';
-import {v4} from 'uuid';
-import {PAGE_LIMIT} from './constants.js';
+import { v4 } from 'uuid';
+import { PAGE_LIMIT } from './constants.js';
 import moment from 'moment';
 
 const router = express.Router();
@@ -27,12 +27,12 @@ router.get('/revision', async function (req, res) {
 
     const { count = 0 } = await learnerService.getUserReviewWordsCount(res.locals.authUser.userid)
 
-  res.render('vwLearner/homeRevision', {
-    lessonsProgress,
-    memoryLevelCount: JSON.stringify(memoryLevelCount),
-    reviewWordsCount: count,
-    active: {Review: true }
-  })
+    res.render('vwLearner/homeRevision', {
+        lessonsProgress,
+        memoryLevelCount: JSON.stringify(memoryLevelCount),
+        reviewWordsCount: count,
+        active: { Review: true }
+    })
 })
 
 router.get("/topic/:id", async function (req, res) {
@@ -41,24 +41,26 @@ router.get("/topic/:id", async function (req, res) {
     if (!wordlist.length) {
         return res.status(404).render("404", {
             layout: false,
-            active: {Learn: true}
+            active: { Learn: true }
         });
     }
 
     res.render("vwLearner/topicLearn", {
         words: JSON.stringify(wordlist),
         firstWord: wordlist[0],
-        active: {Learn: true}
+        active: { Learn: true }
 
     });
 });
 
 router.get("/topic/:id/finish", async function (req, res) {
     const id = req.params.id
+    const { lessonid } = await learnerService.findTopic(id)
 
     res.render("vwLearner/topicLearnFinish", {
         topicId: id,
-        active: {Learn: true}
+        lessonid,
+        active: { Learn: true }
     })
 });
 
@@ -83,7 +85,7 @@ router.post("/topic/:id/finish", async function (req, res) {
     }
     words.map(word_item => {
         const wordid = word_item.wordid
-        finishWords.push({wordid, ...wordData})
+        finishWords.push({ wordid, ...wordData })
     })
     await learnerService.addWordHistory(finishWords)
 
@@ -108,7 +110,7 @@ router.get('/topic/test/:id', async function (req, res) {
 
 router.post('/topic/test/submit-answers', async function (req, res) {
     const userAnswers = await req.body;
-    const {topicid, totalQuestions, totalCorrect} = userAnswers
+    const { topicid, totalQuestions, totalCorrect } = userAnswers
     const id = v4()
     const testhistory = {
         testid: id,
@@ -136,20 +138,20 @@ router.post('/topic/test/submit-answers', async function (req, res) {
     }));
     res.render("vwLearner/topicTestFinish", {
         topicId,
-        active: {Learn: true}
+        active: { Learn: true }
     })
 });
 
 router.get('/topiclist/:lesson_id', async function (req, res) {
     const lesson_id = req.params.lesson_id;
     const user_id = res.locals.authUser.userid
-    const raw_topiclist = await learnerService.findAllTopicStudy(lesson_id,user_id);
+    const raw_topiclist = await learnerService.findAllTopicStudy(lesson_id, user_id);
     const topiclist = raw_topiclist[0]
     const lesson = await learnerService.findLessonByID(lesson_id)
     res.render('vwLearner/topic', {
         topic: topiclist,
         lesson,
-        active: {Learn: true}
+        active: { Learn: true }
     });
 })
 
@@ -200,12 +202,12 @@ router.get('/lesson', async function (req, res) {
         empty: list.length === 0,
         prePage,
         nextPage,
-        active: {Learn: true }
+        active: { Learn: true }
 
     });
 })
 router.get('/lesson/search', async function (req, res) {
-    const {lesson_letter} = req.query;
+    const { lesson_letter } = req.query;
     const total = await learnerService.countLessonSearch(lesson_letter);
     const limit = PAGE_LIMIT;
     const curPage = req.query.page || 1;
@@ -213,10 +215,10 @@ router.get('/lesson/search', async function (req, res) {
     const nPage = Math.ceil(total / limit);
     const pageNumber = [];
     for (let i = 1; i <= nPage; i++) {
-      pageNumber.push({
-        value: i,
-        isCurrent: i === +curPage,
-      });
+        pageNumber.push({
+            value: i,
+            isCurrent: i === +curPage,
+        });
     }
     const list = await learnerService.findLessonByOffsetWithLimitSearch(lesson_letter,
         offset,
@@ -230,7 +232,7 @@ router.get('/lesson/search', async function (req, res) {
         empty: list.length === 0,
         prePage,
         nextPage,
-        active: {Learn: true }
+        active: { Learn: true }
 
     });
 })
@@ -258,7 +260,7 @@ router.get('/lesson/:lesson_page', async function (req, res) {
         empty: list.length === 0,
         prePage,
         nextPage,
-        active: {Learn: true }
+        active: { Learn: true }
 
     });
 })
@@ -269,12 +271,12 @@ router.get('/dailytest', async function (req, res) {
     res.render('vwLearner/dailyTest', {
         empty: list.length === 0,
         question: list,
-        active: {Review: true}
+        active: { Review: true }
     });
 })
 router.get('/resultdailytest', async function (req, res) {
     const userID = req.session.authUser.userid
-    const {wordID, check} = req.query;
+    const { wordID, check } = req.query;
     await learnerService.updateMemoryLevel(userID, wordID, check)
 })
 router.post('/handbook', async function (req, res) {
@@ -286,21 +288,21 @@ router.post('/handbook', async function (req, res) {
 
 router.get('/handbook', async function (req, res) {
     const userID = req.session.authUser.userid
-    const words = await learnerService.getWordWithLetter(userID,'')
+    const words = await learnerService.getWordWithLetter(userID, '')
     res.render('vwLearner/handbook', {
         words,
         level: 1,
-        active: {Handbook: true }
+        active: { Handbook: true }
     });
 })
 router.get('/handbook/search', async function (req, res) {
     const userID = req.session.authUser.userid
-    const {word} = req.query;
-    const words = await learnerService.getWordWithLetter(userID,word);
+    const { word } = req.query;
+    const words = await learnerService.getWordWithLetter(userID, word);
     res.render('vwLearner/handbook', {
         words,
         level: 1,
-        active: {Handbook: true }
+        active: { Handbook: true }
     });
 })
 router.get('/topictesthistorylist', async function (req, res) {
@@ -311,7 +313,7 @@ router.get('/topictesthistorylist', async function (req, res) {
         listlesson: listlesson,
         empty: list.length === 0,
         list: list,
-        active: {Handbook: true}
+        active: { Handbook: true }
     });
 })
 router.get('/getalltopichistory', async function (req, res) {
@@ -320,18 +322,18 @@ router.get('/getalltopichistory', async function (req, res) {
     res.send(list)
 })
 router.get('/gettopichistory', async function (req, res) {
-    const {lessonid} = req.query;
+    const { lessonid } = req.query;
     const userID = req.session.authUser.userid
     const list = await learnerService.getTestHistoryByLesson(userID, lessonid)
     res.send(list)
 })
 
 router.get('/topictesthistory/:test_id', async function (req, res) {
-    const {test_id} = req.params;
+    const { test_id } = req.params;
     const list = await learnerService.getTestDetail(test_id)
     res.render('vwLearner/topicTestHistoryDetail', {
         list: list,
-        active: {Learn: true}
+        active: { Learn: true }
     });
 })
 router.get('/topictesthistorylist', async function (req, res) {
@@ -342,7 +344,7 @@ router.get('/topictesthistorylist', async function (req, res) {
         listlesson: listlesson,
         empty: list.length === 0,
         list: list,
-        active: {Handbook: true}
+        active: { Handbook: true }
     });
 })
 router.get('/getalltopichistory', async function (req, res) {
@@ -351,18 +353,18 @@ router.get('/getalltopichistory', async function (req, res) {
     res.send(list)
 })
 router.get('/gettopichistory', async function (req, res) {
-    const {lessonid} = req.query;
+    const { lessonid } = req.query;
     const userID = req.session.authUser.userid
     const list = await learnerService.getTestHistoryByLesson(userID, lessonid)
     res.send(list)
 })
 
 router.get('/topictesthistory/:test_id', async function (req, res) {
-    const {test_id} = req.params;
+    const { test_id } = req.params;
     const list = await learnerService.getTestDetail(test_id)
     res.render('vwLearner/topicTestHistoryDetail', {
         list: list,
-        active: {Learn: true}
+        active: { Learn: true }
     });
 })
 export default router;

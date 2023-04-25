@@ -176,6 +176,77 @@ router.get('/deletetopic/:id', async function (req, res) {
     }
 })
 
+router.get('/worddetail/:id', async function (req, res) {
+    const wordid = req.params.id
+
+    const word = await adminServices.getWordDetail(wordid) 
+
+    res.render('vwAdmin/worddetail', {
+        word: JSON.stringify(word)
+    })
+})
+
+router.post('/worddetail/:id', async function (req, res){
+    const wordid = req.params.id
+    const worddetail = await adminServices.getWordDetail(wordid)
+    const topicid = worddetail.topicid
+    const imagelink = '/public/img/flashcard/' + wordid + '.png'
+
+    const {wordname, wordtype, wordmeaning, wordpronounce, wordexample} = req.body;
+    const word={
+        topicid,
+        wordid,
+        wordname,
+        wordtype,
+        wordmeaning,
+        wordpronounce,
+        wordexample,
+        wordavatar: imagelink,
+        isdelete: 0,
+    }
+
+    await adminServices.updateWord(word)
+
+    const [topic, wordlist, test] = await Promise.all([
+        adminServices.getTopicDetail(topicid),
+        adminServices.getTopicWordList(topicid),
+        adminServices.getTopicTest(topicid)
+        ])
+
+    res.render('vwAdmin/topicdetail', {
+        topic: JSON.stringify(topic), 
+        word: JSON.stringify(wordlist),
+        test: JSON.stringify(test)
+    })
+})
+
+router.get('/deleteword/:id', async function (req, res) {
+    const wordid = req.params.id
+    const worddetail = await adminServices.getWordDetail(wordid)
+
+    try {
+        const deleteResult = await adminServices.deleteWord(wordid);
+        res.render('vwAdmin/deletemessagebox', {
+            result: {
+                success: true,
+                message: `Word successfully deleted`,
+                back: 'Go back to topic detail',
+                backurl: '/admin/topicdetail/' + worddetail.topicid
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.render('vwAdmin/deletemessagebox', {
+            result: {
+                success: false,
+                message: `Error deleting word`,
+                back: 'Go back to topic detail',
+                backurl: '/admin/topicdetail/' + worddetail.topicid
+            }
+        });
+    }
+})
+
 router.get('/addlesson', function (req, res) {
     res.render('vwAdmin/addlesson', {
         
@@ -331,6 +402,7 @@ router.get('/addtopic/:id', async function (req, res) {
     const lessonid = req.params.id
     const {lessonname} = await adminServices.getLessonname(lessonid)
     res.render('vwAdmin/addtopic', {
+        lessonid,
         lessonname,
     })
 })
@@ -363,13 +435,15 @@ router.post('/addtopic/:id', async function (req, res){
 
         await adminServices.addTopic(topic)
 
-        const topiclist = await adminServices.findAllTopic();
-        if (topiclist.length == 0) {
-        res.status(404).render("404", {
-            layout: false,
-        });
-        }
-
+        const [lesson, topiclist] = await Promise.all([
+            adminServices.getLessonDetail(lessonid),
+            adminServices.getLessonTopicList(lessonid),
+        ])
+    
+        res.render('vwAdmin/lessondetail',{
+            lesson: JSON.stringify(lesson),
+            topic: JSON.stringify(topiclist),
+        })
     })
 })
 
@@ -380,7 +454,8 @@ router.get('/previewWord/:wordid', async function(req, res) {
 
     res.render('vwAdmin/wordPreview', {
         word,
-        topicid: JSON.stringify(topicid)
+        topicid: JSON.stringify(topicid),
+        wordname: JSON.stringify(word.wordname),
     })
 })
 
