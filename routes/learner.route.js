@@ -269,18 +269,31 @@ router.get('/dailytest', async function (req, res) {
     const list = await learnerService.findAllQuestionDailyTest(userID)
 
     const timestamp = new Date()
-    var [check, streak] = await Promise.all([
+    const [check, streakinfo] = await Promise.all([
         learnerService.checkDaily(userID, timestamp),
         learnerService.getStreak(userID),
     ])
 
+    var streak = streakinfo.streak
+    var lastdaylogin = streakinfo.lastlogindate
+
+    const lastdayloginUTC = new Date(lastdaylogin).toISOString().slice(0, 10)
+    const timestampUTC = timestamp.toISOString().slice(0, 10)
+
+    const yesterday = new Date(timestamp.getTime() - 86400000).toISOString().slice(0, 10)
+
     if(!check){
-        if(!streak){
+        if(!streakinfo){
             streak = 0
         }
         else{
-            streak +=1
+            if (lastdayloginUTC === yesterday && timestampUTC !== yesterday) {
+                streak +=1
+            } else {
+                streak =0
+            }
         }
+        
         const dailyLogin={
             userID,
             lastlogindate: timestamp,
@@ -410,11 +423,11 @@ router.get('/loginstreak',async function(req,res){
     }
 
     const account = [
-        { memlvl: 1, numFinished: 1, accountlvl: 'seed', linkimage:"/public/img/background/seed.png" },
-        { memlvl: 3, numFinished: 10, accountlvl: 'germ', linkimage:"/public/img/background/germ.png" },
-        { memlvl: 10, numFinished: 20, accountlvl: 'bud', linkimage:"/public/img/background/bud.png" },
-        { memlvl: 40, numFinished: 30, accountlvl: 'tree', linkimage:"/public/img/background/tree.png" },
-        { memlvl: 80, numFinished: 40, accountlvl: 'flower', linkimage:"/public/img/background/flower.png" },
+        { memlvl: 1, numFinished: 1, accountlvl: 'Seed', linkimage:"/public/img/background/seed.png" },
+        { memlvl: 3, numFinished: 10, accountlvl: 'Germ', linkimage:"/public/img/background/germ.png" },
+        { memlvl: 10, numFinished: 20, accountlvl: 'Bud', linkimage:"/public/img/background/bud.png" },
+        { memlvl: 40, numFinished: 30, accountlvl: 'Tree', linkimage:"/public/img/background/tree.png" },
+        { memlvl: 80, numFinished: 40, accountlvl: 'Flower', linkimage:"/public/img/background/flower.png" },
     ]
 
     const { accountlvl, linkimage } = account.reduce((acc, cur) => {
@@ -422,7 +435,7 @@ router.get('/loginstreak',async function(req,res){
           acc = { accountlvl: cur.accountlvl, linkimage: cur.linkimage }
         }
         return acc
-      }, { accountlvl: 'seed', linkimage: "/public/img/background/seed.png" })
+      }, { accountlvl: 'Seed', linkimage: "/public/img/background/seed.png" })
 
     res.render('vwLearner/loginStreak',{
         lessons: numFinished,
