@@ -19,7 +19,6 @@ router.get('/revision', async function (req, res) {
     const maxNumber = memoryLevelCount.reduce((acc, cur) => {
         return acc > cur.number ? acc : cur.number;
     }, 0);
-    const totalWords = memoryLevelCount.reduce((acc, cur) => acc + cur.number, 0)
     memoryLevelCount = memoryLevelCount.map(it => ({
         ...it,
         percentage: (it.number / maxNumber) * 100

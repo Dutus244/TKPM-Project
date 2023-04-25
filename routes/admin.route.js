@@ -464,4 +464,26 @@ router.get('/userlist', async function (req, res) {
         empty: list.length === 0,
     })
 })
+
+router.get('/edittest/:topicid', async function(req, res) {
+    const { topicid } = req.params
+    const { word = '' } = req.query
+    const questions = await adminServices.searchQuestionByTopicFilterByAnswer(topicid, word)
+    const wordsOption = (await adminServices.getTopicWordList(topicid)).map(word => word.wordname)
+
+    res.render('vwAdmin/questionListByWord', {
+        n: questions.length,
+        empty: questions.length == 0,
+        questions,
+        wordsOption,
+        chosenOption: JSON.stringify(word),
+    })
+})
+
+router.post('/delete/question/:id', async function(req, res) {
+    const questionid = req.params.id
+    await adminServices.deleteQuestion(questionid)
+    res.status(200).send(true)
+})
+
 export default router
