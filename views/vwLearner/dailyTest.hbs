@@ -233,7 +233,7 @@
 
                     const result = letters.join("");
 
-                    if (word === result) {
+                    if (word.replace(/\s+/g, "") === result) {
                         feedback.textContent = 'You win!';
                         feedback.style.color = 'green';
                         await resultQuestion(wordID, 1)
@@ -256,10 +256,8 @@
                         const tempQuestionID = questions[currentQuestionIndex].querySelector('.id')
                         const questionID = tempQuestionID.textContent;
 
-
                         // Get the selected answer
                         const selectedAnswer = option.textContent.substring(3);
-
 
                         const isCorrect = selectedAnswer === correctAnswer;
                         const parent = option.parentNode;
@@ -318,7 +316,7 @@
                     synth.speak(speakText);
                 };
 
-                const guessInput = questions[i].querySelector('#guess0');
+                const guessInput = questions[i].querySelector('#guess1');
                 const submitButton = questions[i].querySelector('#submit0');
                 const feedback = questions[i].querySelector('#feedback0');
 
@@ -547,4 +545,4 @@
 <button type="button" id="next-btn" disabled>
     <i class="bi bi-arrow-right text-dark"></i>
 </button>
-<button type="button" id="end-btn" style="display:none;">End</button>
+<button type="button" id="end-btn" style="display:none;" onclick="window.location.href='/revision'">End</button>
