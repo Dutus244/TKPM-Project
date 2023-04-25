@@ -9,7 +9,7 @@ main {
     box-sizing: border-box;
 }
 
-.container {
+.lesson-detail-container {
     width: 80%;
     margin-top: 2rem;
     margin-bottom: 5rem;
@@ -201,4 +201,11 @@ table .btnEdit {
 .delete-cancel-button {
     background-color: #f4df89;
     color: #333;
+}
+
+@media screen and (max-width: 600px) {
+    .lesson-detail-container {
+        width: 98%;
+    }
+
 }
