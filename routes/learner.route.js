@@ -103,7 +103,8 @@ router.get('/topic/test/:id', async function (req, res) {
     res.render('vwLearner/topicTest', {
         topicid: topicid,
         question: listQuestion,
-        active: { Learn: true }
+        empty: listQuestion.length === 0,
+        active: {Learn: true}
     });
 });
 
