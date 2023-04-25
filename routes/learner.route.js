@@ -286,6 +286,12 @@ router.get('/dailytest', async function (req, res) {
     if(!check){
         if(!streakinfo){
             streak = 1
+            const dailyLogin={
+                userID,
+                lastlogindate: timestamp,
+                streak
+            }
+            await learnerService.loginStreak(dailyLogin)
         }
         else{
             if (lastdayloginUTC === yesterday && timestampUTC !== yesterday) {
@@ -293,14 +299,10 @@ router.get('/dailytest', async function (req, res) {
             } else {
                 streak = 1
             }
+            await learnerService.updateLoginStreak(req.session.authUser.userid, timestamp, streak)
         }
         
-        const dailyLogin={
-            userID,
-            lastlogindate: timestamp,
-            streak
-        }
-        await learnerService.loginStreak(dailyLogin)
+        
     }
 
     res.render('vwLearner/dailyTest', {
