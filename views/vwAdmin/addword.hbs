@@ -44,30 +44,38 @@
         const wordname = $('#txtWordname').val();
         if (!wordname.length) {
             alert('Please enter a word in the name field!')
-            return
-        }
-
-        const img = $('#fuMain').val();
-        if (!img.length) {
-            alert('Please upload an image in the avatar field!')
+            $('#txtWordname').css('background-color', '#f2cece')
+            $('#txtWordname').addClass('form-control-error')
             return
         }
 
         const wordmeaning = $('#txtWordmeaning').val();
         if (!wordmeaning.length) {
             alert('Please enter a word in the meaning field!')
+            $('#txtWordmeaning').css('background-color', '#f2cece')
+            $('#txtWordmeaning').addClass('form-control-error')
             return
         }
 
         const wordpronounce = $('#txtWordpronounce').val();
         if (!wordpronounce.length) {
             alert('Please enter a word in the pronunciation  field!')
+            $('#txtWordpronounce').css('background-color', '#f2cece')
+            $('#txtWordpronounce').addClass('form-control-error')
             return
         }
 
         const wordexample = $('#txtWordexample').val();
         if (!wordexample.length) {
             alert('Please enter a word in the example field!')
+            $('#txtWordexample').css('background-color', '#f2cece')
+            $('#txtWordexample').addClass('form-control-error')
+            return
+        }
+        
+        const img = $('#fuMain').val();
+        if (!img.length) {
+            alert('Please upload an image in the avatar field!')
             return
         }
 
