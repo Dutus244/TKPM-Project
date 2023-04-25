@@ -156,5 +156,16 @@ export default{
     async deleteWord(id) {
         return await db('words').update('isDelete', 1).where('words.wordid', id);
     },
+    async getUserList() {
+
+        const sql = `SELECT users.*,
+                            DATE_FORMAT(CreateTime, '%d/%m/%Y %H:%i:%s') AS FormattedCreateTime,
+                            DATE_FORMAT(UpdateTime, '%d/%m/%Y %H:%i:%s') AS FormattedUpdateTime
+                     FROM users
+        `
+        const list = await db.raw(sql)
+        console.log(list[0])
+        return list[0]
+    }
 }
 
