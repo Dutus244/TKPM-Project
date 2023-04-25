@@ -1,13 +1,13 @@
 import express from 'express';
 import adminServices from "../services/admin.service.js";
-import { v4, v4 as uuidv4 } from "uuid";
+import {v4} from "uuid";
 import multer from 'multer';
 import bodyParser from 'body-parser';
 
 const router = express.Router()
 
 router.use(bodyParser.json())
-router.use(bodyParser.urlencoded({ extended: true }))
+router.use(bodyParser.urlencoded({extended: true}))
 
 export const config = {
     api: {
@@ -15,15 +15,15 @@ export const config = {
     }
 }
 
-router.get('/lessonlist', async function (req, res){
+router.get('/lessonlist', async function (req, res) {
     const lesson = await adminServices.getLessonList()
 
-    res.render('vwAdmin/lessonlist',{
-        lesson: JSON.stringify(lesson), 
+    res.render('vwAdmin/lessonlist', {
+        lesson: JSON.stringify(lesson),
     })
 })
 
-router.get('/lessondetail/:id', async function (req, res){
+router.get('/lessondetail/:id', async function (req, res) {
     const lessonid = req.params.id
 
     const [lesson, topic] = await Promise.all([
@@ -31,7 +31,7 @@ router.get('/lessondetail/:id', async function (req, res){
         adminServices.getLessonTopicList(lessonid),
     ])
 
-    res.render('vwAdmin/lessondetail',{
+    res.render('vwAdmin/lessondetail', {
         lesson: JSON.stringify(lesson),
         topic: JSON.stringify(topic),
     })
@@ -49,10 +49,10 @@ router.post('/lessondetail/:id', async function (req, res) {
         }
     })
 
-    const upload = multer({ storage: storage }).single('avatar');
+    const upload = multer({storage: storage}).single('avatar');
 
-    upload(req, res, function(err) {
-        if(err) {
+    upload(req, res, function (err) {
+        if (err) {
             console.log(err);
             return res.status(500).send('Error uploading file');
         }
@@ -65,7 +65,7 @@ router.post('/lessondetail/:id', async function (req, res) {
         adminServices.getLessonTopicList(lessonid),
     ])
 
-    res.render('vwAdmin/lessondetail',{
+    res.render('vwAdmin/lessondetail', {
         lesson: JSON.stringify(lesson),
         topic: JSON.stringify(topic),
     })
@@ -107,7 +107,7 @@ router.get('/topicdetail/:id', async function (req, res) {
     ])
 
     res.render('vwAdmin/topicdetail', {
-        topic: JSON.stringify(topic), 
+        topic: JSON.stringify(topic),
         word: JSON.stringify(word),
         test: JSON.stringify(test)
     })
@@ -125,10 +125,10 @@ router.post('/topicdetail/:id', async function (req, res) {
         }
     })
 
-    const upload = multer({ storage: storage }).single('avatar');
+    const upload = multer({storage: storage}).single('avatar');
 
-    upload(req, res, function(err) {
-        if(err) {
+    upload(req, res, function (err) {
+        if (err) {
             console.log(err);
             return res.status(500).send('Error uploading file');
         }
@@ -140,10 +140,10 @@ router.post('/topicdetail/:id', async function (req, res) {
         adminServices.getTopicDetail(topicid),
         adminServices.getTopicWordList(topicid),
         adminServices.getTopicTest(topicid)
-      ])
+    ])
 
     res.render('vwAdmin/topicdetail', {
-        topic: JSON.stringify(topic), 
+        topic: JSON.stringify(topic),
         word: JSON.stringify(word),
         test: JSON.stringify(test)
     })
@@ -179,21 +179,21 @@ router.get('/deletetopic/:id', async function (req, res) {
 router.get('/worddetail/:id', async function (req, res) {
     const wordid = req.params.id
 
-    const word = await adminServices.getWordDetail(wordid) 
+    const word = await adminServices.getWordDetail(wordid)
 
     res.render('vwAdmin/worddetail', {
         word: JSON.stringify(word)
     })
 })
 
-router.post('/worddetail/:id', async function (req, res){
+router.post('/worddetail/:id', async function (req, res) {
     const wordid = req.params.id
     const worddetail = await adminServices.getWordDetail(wordid)
     const topicid = worddetail.topicid
     const imagelink = '/public/img/flashcard/' + wordid + '.png'
 
     const {wordname, wordtype, wordmeaning, wordpronounce, wordexample} = req.body;
-    const word={
+    const word = {
         topicid,
         wordid,
         wordname,
@@ -211,10 +211,10 @@ router.post('/worddetail/:id', async function (req, res){
         adminServices.getTopicDetail(topicid),
         adminServices.getTopicWordList(topicid),
         adminServices.getTopicTest(topicid)
-        ])
+    ])
 
     res.render('vwAdmin/topicdetail', {
-        topic: JSON.stringify(topic), 
+        topic: JSON.stringify(topic),
         word: JSON.stringify(wordlist),
         test: JSON.stringify(test)
     })
@@ -248,12 +248,10 @@ router.get('/deleteword/:id', async function (req, res) {
 })
 
 router.get('/addlesson', function (req, res) {
-    res.render('vwAdmin/addlesson', {
-        
-    })
+    res.render('vwAdmin/addlesson', {})
 })
 
-router.post('/addlesson', async function (req, res){
+router.post('/addlesson', async function (req, res) {
     const id = v4()
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -264,13 +262,13 @@ router.post('/addlesson', async function (req, res){
         }
     })
 
-    const upload = multer({ storage: storage })
+    const upload = multer({storage: storage})
     upload.array('fuMain', 1)(req, res, async function (err) {
-        
+
         const {lessonname, description} = req.body;
         const imagelink = '/public/img/lesson/' + id + '.png'
 
-        const lesson={
+        const lesson = {
             lessonid: id,
             lessonname,
             lessonavatar: imagelink,
@@ -278,7 +276,7 @@ router.post('/addlesson', async function (req, res){
             isdelete: 0
         }
         await adminServices.addLesson(lesson)
-    
+
         if (err || err instanceof multer.MulterError) {
             // A Multer error occurred when uploading.
             // or an unknown error occurred when uploading.
@@ -292,63 +290,63 @@ router.post('/addlesson', async function (req, res){
     })
 })
 
-router.get('/addquestion/:id', async function (req, res){
+router.get('/addquestion/:id', async function (req, res) {
     const topicid = req.params.id
     const wordlist = await adminServices.getWords(topicid)
-    res.render('vwAdmin/addquestion',{
+    res.render('vwAdmin/addquestion', {
         topicid,
         wordlist,
     })
 })
 
-router.post('/addquestion/:id', async function (req, res){
+router.post('/addquestion/:id', async function (req, res) {
     const qid = v4()
 
     const id = req.params.id
 
     const wordid = req.body.word;
-    const  optiond  = await adminServices.getWord(id, wordid)
+    const optiond = await adminServices.getWord(id, wordid)
     const wordlist = await adminServices.getWords(id)
 
-    const { wordname } = optiond[0]
+    const {wordname} = optiond[0]
 
     const {question, optiona, optionb, optionc} = req.body;
 
     const options = [optiona, optionb, optionc];
 
     if (options.some(option => option === wordname)) {
-        res.render('vwAdmin/addquestion',{
-            topicid:id,
+        res.render('vwAdmin/addquestion', {
+            topicid: id,
             wordlist,
-            msg:"The answer is same to one of the three other options",
+            msg: "The answer is same to one of the three other options",
         })
     }
-    
-        const test={
-            questionid: qid,
-            question,
-            optiona,
-            optionb,
-            optionc,
-            optiond: wordname,
-            answer: wordname,
-            wordid: wordid,
-            isdelete: 0
-        }
+
+    const test = {
+        questionid: qid,
+        question,
+        optiona,
+        optionb,
+        optionc,
+        optiond: wordname,
+        answer: wordname,
+        wordid: wordid,
+        isdelete: 0
+    }
     console.log(test)
     await adminServices.addQuestion(test)
 })
 
-router.get('/addword/:id', async function (req, res){
+router.get('/addword/:id', async function (req, res) {
     const topicid = req.params.id
     const {topicname} = await adminServices.getTopicname(topicid)
-    res.render('vwAdmin/addword',{
+    res.render('vwAdmin/addword', {
         topicid,
         topicname,
     })
 })
 
-router.post('/addword/:id', async function (req, res){
+router.post('/addword/:id', async function (req, res) {
     const id = v4()
 
     const storage = multer.diskStorage({
@@ -360,15 +358,15 @@ router.post('/addword/:id', async function (req, res){
         }
     })
 
-    const upload = multer({ storage: storage })
-    upload.array('fuMain', 1)(req, res, async function (err){
+    const upload = multer({storage: storage})
+    upload.array('fuMain', 1)(req, res, async function (err) {
 
         const topicid = req.params.id
         const imagelink = '/public/img/flashcard/' + id + '.png'
 
         const {wordname, wordtype, wordmeaning, wordpronounce, wordexample} = req.body;
 
-        const word={
+        const word = {
             topicid,
             wordid: id,
             wordname,
@@ -381,24 +379,24 @@ router.post('/addword/:id', async function (req, res){
         }
 
         await adminServices.addWord(word)
-        
+
         const [topic, wordlist, test] = await Promise.all([
             adminServices.getTopicDetail(topicid),
             adminServices.getTopicWordList(topicid),
             adminServices.getTopicTest(topicid)
-          ])
-    
+        ])
+
         res.render('vwAdmin/topicdetail', {
-            topic: JSON.stringify(topic), 
+            topic: JSON.stringify(topic),
             word: JSON.stringify(wordlist),
             test: JSON.stringify(test)
         })
-        
+
         if (err || err instanceof multer.MulterError) {
             // A Multer error occurred when uploading.
             // or an unknown error occurred when uploading.
             console.error(err);
-        } 
+        }
     })
 })
 
@@ -411,7 +409,7 @@ router.get('/addtopic/:id', async function (req, res) {
     })
 })
 
-router.post('/addtopic/:id', async function (req, res){
+router.post('/addtopic/:id', async function (req, res) {
     const id = v4()
     const lessonid = req.params.id
     const storage = multer.diskStorage({
@@ -423,13 +421,13 @@ router.post('/addtopic/:id', async function (req, res){
         }
     })
 
-    const upload = multer({ storage: storage })
+    const upload = multer({storage: storage})
     upload.array('fuMain', 1)(req, res, async function (err) {
-        
+
         const {topicname} = req.body;
         const imagelink = '/public/img/topic/' + id + '.png'
 
-        const topic={
+        const topic = {
             lessonid,
             topicid: id,
             topicname,
@@ -443,24 +441,53 @@ router.post('/addtopic/:id', async function (req, res){
             adminServices.getLessonDetail(lessonid),
             adminServices.getLessonTopicList(lessonid),
         ])
-    
-        res.render('vwAdmin/lessondetail',{
+
+        res.render('vwAdmin/lessondetail', {
             lesson: JSON.stringify(lesson),
             topic: JSON.stringify(topiclist),
         })
     })
 })
 
-router.get('/previewWord/:wordid', async function(req, res) {
+router.get('/previewWord/:wordid', async function (req, res) {
     const wordid = req.params.wordid
     const word = await adminServices.getWordAllInfo(wordid)
-    const { topicid } = word
+    const {topicid} = word
 
     res.render('vwAdmin/wordPreview', {
         word,
         topicid: JSON.stringify(topicid),
         wordname: JSON.stringify(word.wordname),
     })
+})
+router.get('/userlist', async function (req, res) {
+    const list = await adminServices.getUserList()
+
+    res.render('vwAdmin/userlist', {
+        list: list,
+        empty: list.length === 0,
+    })
+})
+
+router.get('/edittest/:topicid', async function(req, res) {
+    const { topicid } = req.params
+    const { word = '' } = req.query
+    const questions = await adminServices.searchQuestionByTopicFilterByAnswer(topicid, word)
+    const wordsOption = (await adminServices.getTopicWordList(topicid)).map(word => word.wordname)
+
+    res.render('vwAdmin/questionListByWord', {
+        n: questions.length,
+        empty: questions.length == 0,
+        questions,
+        wordsOption,
+        chosenOption: JSON.stringify(word),
+    })
+})
+
+router.post('/delete/question/:id', async function(req, res) {
+    const questionid = req.params.id
+    await adminServices.deleteQuestion(questionid)
+    res.status(200).send(true)
 })
 
 export default router

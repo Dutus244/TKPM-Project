@@ -9,12 +9,12 @@
     </script>
 {{/section}}
 <div class="container">
-    <div id="title" class="card w-75 border-0" >
+    <div id="title" class="card w-100 border-0" >
         <div id="title_content"><h1 > Lesson </h1></div>
         <div id="searchbar">
             <form>
             <div class="form-row w-100">
-                <div class="col-10">
+                <div class="column-input">
                         <input
                                 class='form-control mr-sm-2 w-100 rounded-pill searchinput'
                                 type='search'
@@ -23,13 +23,14 @@
                                 aria-label='Search'
                         />
                 </div>
-                <div class="col-2">
+                <div class="column-button">
                     <button
-                            class='btn inline form-control'
-                            type='submit'
-                            formaction="/lesson/search"
-                    ><strong>Search</strong>
-                        <i class='fa fa-search' aria-hidden='true'></i></button>
+                        class='btn d-flex'
+                        type='submit'
+                        formaction="/lesson/search">
+                            <strong>Search</strong>
+                            <i class='fa fa-search' aria-hidden='true'></i>
+                    </button>
                 </div>
             </div>
         </form>

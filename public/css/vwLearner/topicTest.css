@@ -20,13 +20,13 @@ body {
     height: 1.75rem;
     margin: 1.8rem 0px;
     border-radius: 1rem;
-    border: #afd3d2 solid 2px;
+    border: #367772 solid 2px;
     background-color: white;
 }
 
 .progress-bar {
     width: 0%;
-    background: linear-gradient(to right, greenyellow, #00ff00);
+    background: linear-gradient(to right, #AACDAF, #71ACA9);
 }
 
 .img-wrapper {
@@ -60,7 +60,7 @@ body {
 }
 
 .divOptionA {
-    width: 400px;
+    width: 390px;
     height: 80px;
     background: #f4df89;
     opacity: 1;
@@ -76,7 +76,7 @@ body {
 }
 
 .divOptionB {
-    width: 400px;
+    width: 390px;
     height: 80px;
     background: #f4df89;
     opacity: 1;
@@ -92,7 +92,7 @@ body {
 }
 
 .divOptionC {
-    width: 400px;
+    width: 390px;
     height: 80px;
     background: #f4df89;
     opacity: 1;
@@ -108,7 +108,7 @@ body {
 }
 
 .divOptionD {
-    width: 400px;
+    width: 390px;
     height: 80px;
     background: #f4df89;
     opacity: 1;
@@ -124,7 +124,7 @@ body {
 }
 
 .spanOptionA {
-    width: 380px;
+    width: 370px;
     color: rgba(0, 0, 0, 1);
     position: absolute;
     top: 590px;
@@ -137,7 +137,7 @@ body {
 }
 
 .spanOptionB {
-    width: 380px;
+    width: 370px;
     color: rgba(0, 0, 0, 1);
     position: absolute;
     top: 590px;
@@ -150,7 +150,7 @@ body {
 }
 
 .spanOptionC {
-    width: 380px;
+    width: 370px;
     color: rgba(0, 0, 0, 1);
     position: absolute;
     top: 680px;
@@ -163,7 +163,7 @@ body {
 }
 
 .spanOptionD {
-    width: 380px;
+    width: 370px;
     color: rgba(0, 0, 0, 1);
     position: absolute;
     top: 680px;
@@ -375,7 +375,7 @@ body {
         background: #f4df89;
         opacity: 1;
         position: absolute;
-        top: 440px;
+        top: 600px;
         left: 50px;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
@@ -393,7 +393,7 @@ body {
         background: #f4df89;
         opacity: 1;
         position: absolute;
-        top: 440px;
+        top: 600px;
         right: 50px;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
@@ -411,7 +411,7 @@ body {
         background: #f4df89;
         opacity: 1;
         position: absolute;
-        top: 510px;
+        top: 700px;
         left: 35%;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;

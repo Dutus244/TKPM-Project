@@ -77,7 +77,9 @@
     });
 
     //test
-
+    $('.test-container .btnEdit').on('click', function () {
+      window.location.href = "/admin/edittest/" + topicdetail.topicid;
+    });
 
     //word section
     if (wordlist.length == 0 || wordlist.length == 1)
