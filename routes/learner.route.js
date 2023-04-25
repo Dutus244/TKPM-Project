@@ -268,6 +268,28 @@ router.get('/lesson/:lesson_page', async function (req, res) {
 router.get('/dailytest', async function (req, res) {
     const userID = req.session.authUser.userid
     const list = await learnerService.findAllQuestionDailyTest(userID)
+
+    const timestamp = new Date()
+    var [check, streak] = await Promise.all([
+        learnerService.checkDaily(userID, timestamp),
+        learnerService.getStreak(userID),
+    ])
+
+    if(!check){
+        if(!streak){
+            streak = 0
+        }
+        else{
+            streak +=1
+        }
+        const dailyLogin={
+            userID,
+            lastlogindate: timestamp,
+            streak
+        }
+        await learnerService.loginStreak(dailyLogin)
+    }
+
     res.render('vwLearner/dailyTest', {
         empty: list.length === 0,
         question: list,
@@ -366,5 +388,49 @@ router.get('/topictesthistory/:test_id', async function (req, res) {
         list: list,
         active: { Learn: true }
     });
+})
+
+router.get('/loginstreak',async function(req,res){
+    let lessonsProgress = await learnerService.getLessonsProgress(res.locals.authUser.userid)
+    lessonsProgress = lessonsProgress.map(it => ({
+        lessonname: it.lessonname,
+        percentage: (it.wordshaslearned / it.totalwords) * 100,
+    }))
+    const numFinished = lessonsProgress.filter(lesson => lesson.percentage === 100).length
+    
+    const numWordLvl5 = await learnerService.getLvl5Mem(res.locals.authUser.userid)
+    const {amount} = numWordLvl5
+    var memlvl = amount/10
+    if(memlvl < 1){
+        memlvl = 1
+    }
+
+    var streak = await learnerService.getStreak(res.locals.authUser.userid)
+    if(!streak){
+        streak = 0
+    }
+
+    const account = [
+        { memlvl: 1, numFinished: 1, accountlvl: 'seed', linkimage:"/public/img/background/seed.png" },
+        { memlvl: 3, numFinished: 10, accountlvl: 'germ', linkimage:"/public/img/background/germ.png" },
+        { memlvl: 10, numFinished: 20, accountlvl: 'bud', linkimage:"/public/img/background/bud.png" },
+        { memlvl: 40, numFinished: 30, accountlvl: 'tree', linkimage:"/public/img/background/tree.png" },
+        { memlvl: 80, numFinished: 40, accountlvl: 'flower', linkimage:"/public/img/background/flower.png" },
+    ]
+
+    const { accountlvl, linkimage } = account.reduce((acc, cur) => {
+        if (memlvl >= cur.memlvl && numFinished >= cur.numFinished) {
+          acc = { accountlvl: cur.accountlvl, linkimage: cur.linkimage }
+        }
+        return acc
+      }, { accountlvl: 'seed', linkimage: "/public/img/background/seed.png" })
+
+    res.render('vwLearner/loginStreak',{
+        lessons: numFinished,
+        memlvl,
+        accountlvl,
+        linkimage,
+        streak,
+    })
 })
 export default router;
