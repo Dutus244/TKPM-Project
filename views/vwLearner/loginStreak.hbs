@@ -1,0 +1,38 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/CSS/vwLearner/loginStreak.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/css/fileinput.min.css"
+    integrity="sha512-sHiVTDN234pgseKqjDwH39VjS9DkyffX4S00kuAWWq+FrTq7HlFjPoWbfX/QFAxkdG9i9/1ftdG2sS+XWLcJmw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+{{/section}}
+
+<main>
+    <div class="container-fluid">
+        <p class="text">Your current level:</p>
+        <h1 class="account-level">{{accountlvl}}</h1>
+        <img src={{linkimage}}>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Learning streak</h5>
+                <p class="days">{{streak}} days</p>
+                <p class="card-text">Number of days you have been learning continuously</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Memory level</h5>
+                <p class="memory-level">Level {{memlvl}}</p>
+                <p class="card-text">Consistently taking daily tests to level up your memory level.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Lesson finished</h5>
+                <p class="lessons-finished">{{lessons}} lessons</p>
+                <p class="card-text">Keep learning to grow your tree</p>
+            </div>
+        </div>
+    </div>
+</main>
