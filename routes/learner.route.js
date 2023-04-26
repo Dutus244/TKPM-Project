@@ -457,6 +457,7 @@ router.get('/loginstreak',async function(req,res){
         accountlvl,
         linkimage,
         streak,
+        active: { Archive: true }
     })
 })
 export default router;
