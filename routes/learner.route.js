@@ -86,14 +86,22 @@ router.post("/topic/:id/finish", async function (req, res) {
         const wordid = word_item.wordid
         finishWords.push({ wordid, ...wordData })
     })
-    await learnerService.addWordHistory(finishWords)
+    try {
+        await learnerService.addWordHistory(finishWords)
+    } catch (error) {
+        
+    }
 
     const topic = {
         topicid,
         userid,
         createtime: timestamp,
     }
-    await learnerService.addTopicHistory(topic)
+    try {
+        await learnerService.addTopicHistory(topic)
+    } catch (error) {
+        
+    }
 })
 
 router.get('/topic/test/:id', async function (req, res) {
