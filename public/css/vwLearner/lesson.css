@@ -76,15 +76,15 @@ i{
 }
 
 .column-input {
-    width: 80%;
+    width: 90%;
 }
 .column-button {
-    width: 20%;
+    width: 10%;
     display: flex;
-    justify-content: center;
+    justify-content: end;
 }
-.column-button .btn{
-    justify-content: center;
+.container{
+    padding: 0;
 }
 .pagination { color:black !important; }
 
@@ -148,7 +148,6 @@ i{
     }
     .column-button {
         width: 25%;
-        display: inline;
     }
 }
 
