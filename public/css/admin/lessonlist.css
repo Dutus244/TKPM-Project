@@ -11,7 +11,7 @@ main {
 
 .lesson-list-container {
   width: 80%;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 5rem;
 }
 
@@ -47,6 +47,10 @@ main {
 
 table {
   width: 100%;
+}
+
+th:nth-child(3) {
+  text-align: center;
 }
 
 td:nth-child(1) {
@@ -101,19 +105,6 @@ table .btnEdit {
   background-color: #ddd;
   cursor: default;
   color: #000;
-}
-
-.back-container .btnBack {
-  margin-top: 2rem;
-  font-size: .9rem;
-  font-weight: bold;
-  color: #333;
-  background-color: #f4df89;
-  cursor: pointer;
-  padding: .4rem 1.5rem;
-  border-radius: .5rem;
-  border: none;
-  min-width: 10%;
 }
 
 @media screen and (max-width: 600px) {

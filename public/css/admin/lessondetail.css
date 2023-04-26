@@ -30,7 +30,7 @@ main {
 }
 
 #lessonname .icon {
-    object-fit: contain;
+    font-size: 2rem;
     margin-top: auto;
     margin-bottom: auto;
     cursor: pointer;
@@ -125,6 +125,10 @@ main {
 
 table {
     width: 100%;
+}
+
+th:nth-child(3) {
+    text-align: center;
 }
 
 td:nth-child(1) {
@@ -257,5 +261,4 @@ table .btnEdit {
     .lesson-detail-container {
         width: 98%;
     }
-
 }
