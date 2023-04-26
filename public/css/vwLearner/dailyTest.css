@@ -84,7 +84,7 @@ body {
 }
 
 .divOptionA {
-    width: 400px;
+    width: 38%;
     height: 80px;
     background: #f4df89;
     opacity: 1;
@@ -100,7 +100,7 @@ body {
 }
 
 .divOptionB {
-    width: 400px;
+    width: 38%;
     height: 80px;
     background: #f4df89;
     opacity: 1;
@@ -116,7 +116,7 @@ body {
 }
 
 .divOptionC {
-    width: 400px;
+    width: 38%;
     height: 80px;
     background: #f4df89;
     opacity: 1;
@@ -132,7 +132,7 @@ body {
 }
 
 .divOptionD {
-    width: 400px;
+    width: 38%;
     height: 80px;
     background: #f4df89;
     opacity: 1;
@@ -148,7 +148,7 @@ body {
 }
 
 .spanOptionA {
-    width: 380px;
+    width: 35%;
     color: rgba(0, 0, 0, 1);
     position: absolute;
     top: 590px;
@@ -161,7 +161,7 @@ body {
 }
 
 .spanOptionB {
-    width: 380px;
+    width: 35%;
     color: rgba(0, 0, 0, 1);
     position: absolute;
     top: 590px;
@@ -174,7 +174,7 @@ body {
 }
 
 .spanOptionC {
-    width: 380px;
+    width: 35%;
     color: rgba(0, 0, 0, 1);
     position: absolute;
     top: 680px;
@@ -187,7 +187,7 @@ body {
 }
 
 .spanOptionD {
-    width: 380px;
+    width: 35%;
     color: rgba(0, 0, 0, 1);
     position: absolute;
     top: 680px;

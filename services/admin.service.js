@@ -178,6 +178,19 @@ export default {
         const list = await db.raw(sql)
         return list[0]
     },
+    lock(id) {
+        const user = {
+            LockAccount: 1,
+        }
+        return db('users').where('UserID', id).update(user);
+    },
+
+    unlock(id) {
+        const user = {
+            LockAccount: 0,
+        }
+        return db('users').where('UserID', id).update(user);
+    },
     async searchQuestionByTopicFilterByAnswer(topicid, word) {
         if (!word) {
             const test = await db

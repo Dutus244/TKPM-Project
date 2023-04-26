@@ -1,0 +1,71 @@
+main {
+    display: flex;
+    justify-content: center;
+    background-color: whitesmoke;
+    position: relative;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 80%;
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+    overflow-x: auto;
+}
+
+#username {
+    margin-top: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: #aacdaf;
+    border-radius: .5rem;
+    padding: 0rem 1rem;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #aacdaf;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+table {
+    width: 100%;
+}
+
+td:nth-child(1) {
+    width: 35%;
+}
+
+td:nth-child(2) {
+    width: 15%;
+}
+
+td:nth-child(3) {
+    width: 20%;
+}
+
+td:nth-child(4) {
+    width: 20%;
+}
+
+td:nth-child(5) {
+    width: 10%;
+    text-align: center!important;
+}
+
+table .btnLock {
+    color: white;
+    border: green;
+   background-color: green;
+}
+
+table .btnUnlock {
+    color: white;
+    border: red;
+    background-color: red;
+}

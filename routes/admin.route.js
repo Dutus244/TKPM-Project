@@ -477,10 +477,24 @@ router.get('/userlist', async function (req, res) {
     const list = await adminServices.getUserList()
 
     res.render('vwAdmin/userlist', {
+        count: list.length,
         list: list,
         empty: list.length === 0,
     })
 })
+router.get('/lock', async function (req, res) {
+    const id = req.query.id || 0;
+    await adminServices.lock(id);
+
+    res.redirect('/admin/userlist');
+});
+
+router.get('/unlock', async function (req, res) {
+    const id = req.query.id || 0;
+    await adminServices.unlock(id);
+
+    res.redirect('/admin/userlist');
+});
 
 router.get('/edittest/:topicid', async function(req, res) {
     const { topicid } = req.params
@@ -502,5 +516,4 @@ router.post('/delete/question/:id', async function(req, res) {
     await adminServices.deleteQuestion(questionid)
     res.status(200).send(true)
 })
-
 export default router
