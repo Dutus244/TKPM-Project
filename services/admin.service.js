@@ -120,12 +120,24 @@ export default {
         return await db('lessons').update('isDelete', 1).where('lessons.lessonid', id);
     },
 
+    async editLessonName(id, newname) {
+        return await db('lessons').update('LessonName', newname).where('lessons.lessonid', id);
+    },
+
+    async editLessonDescription(id, newdes) {
+        return await db('lessons').update('LessonDes', newdes).where('lessons.lessonid', id);
+    },
+
     async editLessonAva(id, newava) {
         return await db('lessons').update('LessonAvatar', newava).where('lessons.lessonid', id);
     },
 
     async deleteTopic(id) {
         return await db('topics').update('isDelete', 1).where('topics.topicid', id);
+    },
+
+    async editTopicName(id, newname) {
+        return await db('topics').update('TopicName', newname).where('topics.topicid', id);
     },
 
     async editTopicAva(id, newava) {

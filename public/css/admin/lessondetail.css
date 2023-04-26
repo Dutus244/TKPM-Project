@@ -9,7 +9,7 @@ main {
     box-sizing: border-box;
 }
 
-.container {
+.lesson-detail-container {
     width: 80%;
     margin-top: 2rem;
     margin-bottom: 5rem;
@@ -17,11 +17,23 @@ main {
 
 #lessonname {
     margin-top: 20px;
-    font-size: 2rem;
-    font-weight: bold;
     background-color: #aacdaf;
     border-radius: .5rem;
     padding: 0rem 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+#lessonname .name {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#lessonname .icon {
+    object-fit: contain;
+    margin-top: auto;
+    margin-bottom: auto;
+    cursor: pointer;
 }
 
 .title {
@@ -57,6 +69,33 @@ main {
     border-radius: .5rem;
     border: none;
     min-width: 10%;
+}
+
+.description-container {
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.description-container .btnEdit {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    font-size: .9rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #aacdaf;
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+    min-width: 10%;
+}
+
+#lesson-description-editor {
+    width: 80%;
+    height: 10rem;
 }
 
 .topic-container {
@@ -136,8 +175,8 @@ table .btnEdit {
 .delete-back-container .btnBack {
     font-size: .9rem;
     font-weight: bold;
-    color: #fff;
-    background-color: #aacdaf;
+    color: #333;
+    background-color: #f4df89;
     cursor: pointer;
     padding: .4rem 1.5rem;
     border-radius: .5rem;
@@ -145,7 +184,7 @@ table .btnEdit {
     min-width: 10%;
 }
 
-.delete-modal {
+.modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -158,47 +197,65 @@ table .btnEdit {
     z-index: 1000;
 }
 
-.delete-container {
+.modal-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #fff;
-    width: 400px;
-    height: 200px;
+    min-width: 40%;
+    max-width: 80%;
     padding: 20px;
     border-radius: 10%;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     border: 5px solid #aacdaf;
 }
 
-.delete-message {
-    margin-bottom: 20px;
+.modal-message {
     font-size: 20px;
 }
 
-.delete-button-container {
+.modal-input {
+    width: 60%;
+    margin-top: 1rem;
+}
+
+.modal-button-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.delete-yes-button,
-.delete-cancel-button {
+.modal-confirm-button,
+.modal-yes-button,
+.modal-cancel-button {
     padding: 10px 20px;
     margin: 0 10px;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    margin-top: 1rem;
 }
 
-.delete-yes-button {
+.modal-confirm-button {
+    background-color: #aacdaf;
+    color: #fff;
+}
+
+.modal-yes-button {
     background-color: #FF4136;
     color: #fff;
 }
 
-.delete-cancel-button {
-    background-color: #f1c40f;
+.modal-cancel-button {
+    background-color: #f4df89;
     color: #333;
+}
+
+@media screen and (max-width: 600px) {
+    .lesson-detail-container {
+        width: 98%;
+    }
+
 }

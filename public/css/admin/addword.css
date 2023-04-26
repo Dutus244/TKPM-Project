@@ -1,8 +1,8 @@
-body{
+body {
     background-color: whitesmoke;
 }
 
-main{
+main {
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -11,72 +11,80 @@ main{
 }
 
 
-h4.card-header{
+.formdes h4.card-header {
     background-color: #AACDAF;
-    color:black;
+    color: black;
     font-weight: bold;
     text-align: center;
     letter-spacing: .2rem;
 }
 
-h4.question-header{
+h4.question-header {
     background-color: #fea71b;
-    color:black;
+    color: black;
     font-weight: bold;
     text-align: center;
     letter-spacing: .2rem;
     padding: 15px;
 }
 
-.btn{
+.btn {
     background-color: #f4df89;
     border-color: #f4df89;
-    color:black;
+    color: black;
 }
 
-.btn:hover{
+.btn:hover {
     background-color: #f69105;
     border-color: #f69105;
-    color:white;
+    color: white;
 }
 
 .form-control-error:focus {
     border-color: rgb(186, 50, 50);
     box-shadow: 0 0 0 0.2rem rgba(255, 19, 19, 0.5);
-  }
+}
 
-.dropdown {
+.formdes .dropdown {
     position: relative;
     display: inline-block;
-  }
-  
-  .dropdown-content {
+}
+
+.formdes .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 40%;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 12px 16px;
     z-index: 1;
-  }
-  
-  .dropdown:hover .dropdown-content {
+}
+
+.formdes .dropdown:hover .dropdown-content {
     display: block;
-  }
+}
 
-label{
+.formdes label {
     width: 40%;
 }
 
-select{
+.formdes select {
     width: 40%;
 }
 
-input{
-    min-width: 500px;
+.formdes input {
+    width: 100%;
     display: inline-block;
 }
 
-form{
-    width: 700px;
+.formdes form {
+    width: 100%;
+}
+
+.formdes {
+    min-width: 50%;
+}
+
+.card-footer {
+    padding-left: 0rem;
 }
