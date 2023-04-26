@@ -115,7 +115,7 @@ i{
     text-overflow:ellipsis;
     max-height: 20vw;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 850px) {
     .column {
         width: 100%;
     }
