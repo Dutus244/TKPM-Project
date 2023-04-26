@@ -35,12 +35,13 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999;
+    margin-top: 280px;
 }
 
 .img-wrapper img {
     height: 400px;
     width: 400px;
-    margin-top: 600px;
+    margin-top: 0px;
 }
 
 .question-name {
@@ -187,7 +188,6 @@ body {
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     overflow: hidden;
     font-size: 30px;
     font-weight: bold;
@@ -205,7 +205,6 @@ body {
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     overflow: hidden;
     font-size: 30px;
     font-weight: bold;
@@ -223,17 +222,24 @@ body {
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     overflow: hidden;
     font-size: 30px;
     font-weight: bold;
 }
 
 @media only screen and (max-width: 1024px) {
+    .img-wrapper {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        margin-top: 160px;
+    }
+
     .img-wrapper img {
         width: 175px;
         height: 175px;
-        margin-top: 350px;
     }
 
     .example {
