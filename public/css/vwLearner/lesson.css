@@ -3,6 +3,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
+    width: 75vw;
+}
+div#title {
+    width: 100%;
 }
 
 .btn{

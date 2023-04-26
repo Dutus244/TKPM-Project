@@ -5,6 +5,10 @@
 
 {{#section 'js'}}
     <script type="text/javascript">
+        window.onload = (event) => {
+            invisibleAllLevel()
+            visibleLevelAll()
+        };
         $(document).ready(function(){
             $('.subnav a').on('click', function() {
                 $("#level-1").removeClass('active')
@@ -117,13 +121,13 @@
             let name = ".level-"+level.toString()
             const boxes = document.querySelectorAll(name);
             boxes.forEach(box => {
-                box.style.display = 'table-row';
+                box.style.display = 'block';
             });
         }
         function visibleLevelAll(){
             var tr = document.getElementsByTagName("tr");
             for (var i = 0; i < tr.length; i++) {
-                tr[i].style.display = 'table-row';
+                tr[i].style.display = 'block';
             }
         }
     </script>
@@ -167,7 +171,7 @@
         <form id="updateDataForm" method="POST" action="/handbook">
             <table >
                 {{#each words}}
-                    <tr class="level-{{MemoryLevel}}"  {{#if isSearch}}{{else}}style="display: none" {{/if}}>
+                    <tr class="level-{{MemoryLevel}}" style="display:table-row" {{#if isSearch}}{{else}}style="display: none" {{/if}}>
                         <td class="lean" id="{{wordid}}">
                             <div class="formcheck">
                                 <input  type="checkbox" value= {{wordid}} name="id[]" id="{{wordid}}" {{#if isStudy}}checked{{/if}}>
@@ -176,6 +180,9 @@
                         <td class="wordname">{{wordname}}</td>
                         <td class="wordtype">({{wordtype}})</td>
                         <td class="wordmeaning" >{{wordmeaning}}</td>
+                        <td class="wordlevel" >
+                            <p class="level-{{MemoryLevel}}" id="active">{{MemoryLevel}}</p>
+                        </td>
                     </tr>
                 {{/each}}
             </table>

@@ -6,7 +6,7 @@
     margin-top: 20px;
     width: 75vw;
 }
-.title{
+div#title {
     width: 100%;
 }
 div#title {
@@ -55,6 +55,7 @@ div#title {
 #level-5.active{
     background-color: #71aca9;
 }
+
 .subnav a{
     color:black;
     text-decoration: none;
@@ -90,6 +91,10 @@ td.wordtype{
 td.wordmeaning{
     width: 50%;
 }
+td.wordlevel{
+    width: 2%;
+}
+
 
 #dialog{
     align-items: center;
@@ -161,7 +166,7 @@ tr {
     border: solid;
     border-width: 0;
     border-bottom-width: 1px;
-    display: table-row;
+    /*display: table-row;*/
     /*display: block;*/
 }
 
@@ -213,7 +218,8 @@ input[type="checkbox"]:checked:after {
 .column-button .btn{
     justify-content: center;
 }
-@media screen and (max-width: 600px) {
+
+@media screen and (max-width: 850px) {
     .container{
         width: 100vw;
     }
