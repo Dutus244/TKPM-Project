@@ -340,8 +340,9 @@ export default {
                                       from topics
                                                join words on topics.topicid = words.topicid
                                       group by topics.lessonid) WordsCount on WordsCount.lessonid = lessons.lessonid
-                       where userid = '${userid} and wordshaslearned != WordsCount.totalwords'
-                       group by lessons.lessonid;`;
+                       where userid = '${userid}'
+                       group by lessons.lessonid
+                       having wordshaslearned != WordsCount.totalwords;`;
 
         const list = await db.raw(query);
         return list[0]
