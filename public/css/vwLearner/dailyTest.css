@@ -240,13 +240,12 @@ body {
     background: #f4df89;
     opacity: 1;
     position: absolute;
-    top: 800px;
+    top: 850px;
     left: 40%;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     overflow: hidden;
     font-size: 30px;
     font-weight: bold;
@@ -399,7 +398,7 @@ body {
     .divOptionA {
         width: 48%;
         height: 40px;
-        background: rgba(149, 172, 254, 1);
+        background: #f4df89;
         opacity: 1;
         position: absolute;
         top: 330px;
@@ -415,7 +414,7 @@ body {
     .divOptionB {
         width: 48%;
         height: 40px;
-        background: rgba(149, 172, 254, 1);
+        background: #f4df89;
         opacity: 1;
         position: absolute;
         top: 330px;
@@ -431,7 +430,7 @@ body {
     .divOptionC {
         width: 48%;
         height: 40px;
-        background: rgba(149, 172, 254, 1);
+        background: #f4df89;
         opacity: 1;
         position: absolute;
         top: 380px;
@@ -447,7 +446,7 @@ body {
     .divOptionD {
         width: 48%;
         height: 40px;
-        background: rgba(149, 172, 254, 1);
+        background: #f4df89;
         opacity: 1;
         position: absolute;
         top: 380px;
@@ -558,7 +557,6 @@ body {
         border-top-right-radius: 20px;
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         overflow: hidden;
         font-size: 25px;
         font-weight: bold;
