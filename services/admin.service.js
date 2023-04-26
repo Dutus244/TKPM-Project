@@ -117,7 +117,13 @@ export default {
     },
 
     async deleteLesson(id) {
-        return await db('lessons').update('isDelete', 1).where('lessons.lessonid', id);
+        return await Promise.all([
+            db('lessons').update('isDelete', 1).where('lessons.lessonid', id),
+            db('topics').update('isDelete', 1).where('lessonid', id),
+            db('words').update('isDelete', 1).whereIn('topicid', function () {
+                this.select('topicid').from('topics').where('lessonid', id)
+            })    
+        ])       
     },
 
     async editLessonName(id, newname) {
@@ -133,7 +139,12 @@ export default {
     },
 
     async deleteTopic(id) {
-        return await db('topics').update('isDelete', 1).where('topics.topicid', id);
+        return await Promise.all([
+            db('topics').update('isDelete', 1).where('topics.topicid', id),
+            db('words').update('isDelete', 1).whereIn('topicid', function () {
+                this.select('topicid').from('topics').where('topics.topicid', id)
+            })    
+        ])      
     },
 
     async editTopicName(id, newname) {
@@ -168,6 +179,7 @@ export default {
     async deleteWord(id) {
         return await db('words').update('isDelete', 1).where('words.wordid', id);
     },
+
     async getUserList() {
 
         const sql = `SELECT users.*,
@@ -178,6 +190,7 @@ export default {
         const list = await db.raw(sql)
         return list[0]
     },
+    
     async searchQuestionByTopicFilterByAnswer(topicid, word) {
         if (!word) {
             const test = await db
@@ -202,6 +215,7 @@ export default {
             return test;
         }
     },
+
     async deleteQuestion(questionid) {
         await db('multiplechoicequestions')
             .where('questionid', questionid)
