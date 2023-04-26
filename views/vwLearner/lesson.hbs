@@ -37,7 +37,7 @@
         </form>
         </div>
     </div>
-    <div class="container">
+    <div class="content">
         <div class="row w-100" >
             {{#each this.lesson}}
                 <div class ="column">
@@ -48,7 +48,9 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{LessonName}}</h5>
-                                <p class="card-text">{{{LessonDes}}}</p>
+                                <div class="card-text">
+                                    {{{LessonDes}}}
+                                </div>
                             </div>
                         </div>
                     </a>
