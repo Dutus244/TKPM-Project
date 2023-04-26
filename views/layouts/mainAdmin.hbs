@@ -19,8 +19,8 @@
   <div class="nav">
     <a href="/revision" class="left">MATCHA</a>
     <nav class="navbar">
-      <a class="{{#if active.Lesson}}active{{/if}}" href="/revision">Lesson</a>
-      <a class="{{#if active.Account}}active{{/if}}" href="/lesson">Account</a>
+      <a class="{{#if active.Lesson}}active{{/if}}" href="/admin/lessonlist">Lesson</a>
+      <a class="{{#if active.Account}}active{{/if}}" href="/admin/userlist">Account</a>
     </nav>
     <div>
       <form id="frmLogout" action="/logout" method="post"></form>
@@ -29,8 +29,8 @@
     <div class="dropdown">
       <i class="more-icon bi bi-three-dots-vertical"></i>
       <div class="dropdown-content">
-        <a class="dropdown-item {{#if active.Lesson}}active{{/if}}" href="/revision">Lesson</a>
-        <a class="dropdown-item {{#if active.Account}}active{{/if}}" href="/lesson">Account</a>
+        <a class="dropdown-item {{#if active.Lesson}}active{{/if}}" href="/admin/lessonlist">Lesson</a>
+        <a class="dropdown-item {{#if active.Account}}active{{/if}}" href="/admin/userlist">Account</a>
         <form id="frmLogout" action="/logout" method="post"></form>
         <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">Log out</a>
       </div>

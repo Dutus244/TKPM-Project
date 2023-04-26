@@ -20,6 +20,7 @@ router.get('/lessonlist', async function (req, res) {
 
     res.render('vwAdmin/lessonlist',{
         layout: 'mainAdmin',
+        active: {Lesson: true},
         lesson: JSON.stringify(lesson), 
     })
 })
@@ -33,6 +34,8 @@ router.get('/lessondetail/:id', async function (req, res) {
     ])
 
     res.render('vwAdmin/lessondetail', {
+        layout: 'mainAdmin',
+        active: {Lesson: true},
         lesson: JSON.stringify(lesson),
         topic: JSON.stringify(topic),
     })
@@ -75,6 +78,8 @@ router.post('/lessondetail/:id', async function (req, res) {
     ])
 
     res.render('vwAdmin/lessondetail', {
+        layout: 'mainAdmin',
+        active: {Lesson: true},
         lesson: JSON.stringify(lesson),
         topic: JSON.stringify(topic),
     })
@@ -86,6 +91,8 @@ router.get('/deletelesson/:id', async function (req, res) {
     try {
         const deleteResult = await adminServices.deleteLesson(lessonid);
         res.render('vwAdmin/deletemessagebox', {
+            layout: 'mainAdmin',
+            active: {Lesson: true},
             result: {
                 success: true,
                 message: 'Lesson successfully deleted',
@@ -96,6 +103,8 @@ router.get('/deletelesson/:id', async function (req, res) {
     } catch (error) {
         console.log(error);
         res.render('vwAdmin/deletemessagebox', {
+            layout: 'mainAdmin',
+            active: {Lesson: true},
             result: {
                 success: false,
                 message: 'Error deleting lesson',
@@ -116,6 +125,8 @@ router.get('/topicdetail/:id', async function (req, res) {
     ])
 
     res.render('vwAdmin/topicdetail', {
+        layout: 'mainAdmin',
+        active: {Lesson: true},
         topic: JSON.stringify(topic),
         word: JSON.stringify(word),
         test: JSON.stringify(test)
@@ -157,6 +168,8 @@ router.post('/topicdetail/:id', async function (req, res) {
     ])
 
     res.render('vwAdmin/topicdetail', {
+        layout: 'mainAdmin',
+        active: {Lesson: true},
         topic: JSON.stringify(topic),
         word: JSON.stringify(word),
         test: JSON.stringify(test)
@@ -170,6 +183,8 @@ router.get('/deletetopic/:id', async function (req, res) {
     try {
         const deleteResult = await adminServices.deleteTopic(topicid);
         res.render('vwAdmin/deletemessagebox', {
+            layout: 'mainAdmin',
+            active: {Lesson: true},
             result: {
                 success: true,
                 message: `Topic successfully deleted`,
@@ -180,6 +195,8 @@ router.get('/deletetopic/:id', async function (req, res) {
     } catch (error) {
         console.log(error);
         res.render('vwAdmin/deletemessagebox', {
+            layout: 'mainAdmin',
+            active: {Lesson: true},
             result: {
                 success: false,
                 message: `Error deleting topic`,
@@ -196,6 +213,8 @@ router.get('/worddetail/:id', async function (req, res) {
     const word = await adminServices.getWordDetail(wordid)
 
     res.render('vwAdmin/worddetail', {
+        layout: 'mainAdmin',
+        active: {Lesson: true},
         word: JSON.stringify(word)
     })
 })
@@ -228,6 +247,8 @@ router.post('/worddetail/:id', async function (req, res) {
     ])
 
     res.render('vwAdmin/topicdetail', {
+        layout: 'mainAdmin',
+        active: {Lesson: true},
         topic: JSON.stringify(topic),
         word: JSON.stringify(wordlist),
         test: JSON.stringify(test)
@@ -241,6 +262,8 @@ router.get('/deleteword/:id', async function (req, res) {
     try {
         const deleteResult = await adminServices.deleteWord(wordid);
         res.render('vwAdmin/deletemessagebox', {
+            layout: 'mainAdmin',
+            active: {Lesson: true},
             result: {
                 success: true,
                 message: `Word successfully deleted`,
@@ -251,6 +274,8 @@ router.get('/deleteword/:id', async function (req, res) {
     } catch (error) {
         console.log(error);
         res.render('vwAdmin/deletemessagebox', {
+            layout: 'mainAdmin',
+            active: {Lesson: true},
             result: {
                 success: false,
                 message: `Error deleting word`,
@@ -262,8 +287,12 @@ router.get('/deleteword/:id', async function (req, res) {
 })
 
 router.get('/addlesson', function (req, res) {
-    res.render('vwAdmin/addlesson', {})
+    res.render('vwAdmin/addlesson', {
+        layout: 'mainAdmin',
+        active: {Lesson: true},
+    })
 })
+
 
 router.post('/addlesson', async function (req, res) {
     const id = v4()
@@ -298,6 +327,8 @@ router.post('/addlesson', async function (req, res) {
         } else {
             const lessonlist = await adminServices.getLessonList()
             res.render('vwAdmin/lessonlist',{
+                layout: 'mainAdmin',
+                active: {Lesson: true},
                 lesson: JSON.stringify(lessonlist), 
             })
         }
@@ -308,6 +339,8 @@ router.get('/addquestion/:id', async function (req, res) {
     const topicid = req.params.id
     const wordlist = await adminServices.getWords(topicid)
     res.render('vwAdmin/addquestion', {
+        layout: 'mainAdmin',
+        active: {Lesson: true},
         topicid,
         wordlist,
     })
@@ -330,6 +363,8 @@ router.post('/addquestion/:id', async function (req, res) {
 
     if (options.some(option => option === wordname)) {
         res.render('vwAdmin/addquestion', {
+            layout: 'mainAdmin',
+            active: {Lesson: true},
             topicid: id,
             wordlist,
             msg: "The answer is same to one of the three other options",
@@ -355,6 +390,8 @@ router.get('/addword/:id', async function (req, res) {
     const topicid = req.params.id
     const {topicname} = await adminServices.getTopicname(topicid)
     res.render('vwAdmin/addword', {
+        layout: 'mainAdmin',
+        active: {Lesson: true},
         topicid,
         topicname,
     })
@@ -401,6 +438,8 @@ router.post('/addword/:id', async function (req, res) {
         ])
 
         res.render('vwAdmin/topicdetail', {
+            layout: 'mainAdmin',
+            active: {Lesson: true},
             topic: JSON.stringify(topic),
             word: JSON.stringify(wordlist),
             test: JSON.stringify(test)
@@ -418,6 +457,8 @@ router.get('/addtopic/:id', async function (req, res) {
     const lessonid = req.params.id
     const {lessonname} = await adminServices.getLessonname(lessonid)
     res.render('vwAdmin/addtopic', {
+        layout: 'mainAdmin',
+        active: {Lesson: true},
         lessonid,
         lessonname,
     })
@@ -457,6 +498,8 @@ router.post('/addtopic/:id', async function (req, res) {
         ])
 
         res.render('vwAdmin/lessondetail', {
+            layout: 'mainAdmin',
+            active: {Lesson: true},
             lesson: JSON.stringify(lesson),
             topic: JSON.stringify(topiclist),
         })
@@ -469,6 +512,8 @@ router.get('/previewWord/:wordid', async function (req, res) {
     const {topicid} = word
 
     res.render('vwAdmin/wordPreview', {
+        layout: 'mainAdmin',
+        active: {Lesson: true},
         word,
         topicid: JSON.stringify(topicid),
         wordname: JSON.stringify(word.wordname),
@@ -478,6 +523,8 @@ router.get('/userlist', async function (req, res) {
     const list = await adminServices.getUserList()
 
     res.render('vwAdmin/userlist', {
+        layout: 'mainAdmin',
+        active: {Lesson: true},
         list: list,
         empty: list.length === 0,
     })
@@ -490,6 +537,8 @@ router.get('/edittest/:topicid', async function(req, res) {
     const wordsOption = (await adminServices.getTopicWordList(topicid)).map(word => word.wordname)
 
     res.render('vwAdmin/questionListByWord', {
+        layout: 'mainAdmin',
+        active: {Lesson: true},
         n: questions.length,
         empty: questions.length == 0,
         questions,
