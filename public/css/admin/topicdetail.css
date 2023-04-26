@@ -29,10 +29,8 @@ main {
     font-weight: bold;
 }
 
-#topicname img {
+#topicname .icon {
     object-fit: contain;
-    max-width: 2rem;
-    max-height: 2rem;
     margin-top: auto;
     margin-bottom: auto;
     cursor: pointer;
