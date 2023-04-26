@@ -60,7 +60,7 @@ body {
 }
 
 .divOptionA {
-    width: 390px;
+    width: 38%;
     height: 80px;
     background: #f4df89;
     opacity: 1;
@@ -76,7 +76,7 @@ body {
 }
 
 .divOptionB {
-    width: 390px;
+    width: 38%;
     height: 80px;
     background: #f4df89;
     opacity: 1;
@@ -92,7 +92,7 @@ body {
 }
 
 .divOptionC {
-    width: 390px;
+    width: 38%;
     height: 80px;
     background: #f4df89;
     opacity: 1;
@@ -108,7 +108,7 @@ body {
 }
 
 .divOptionD {
-    width: 390px;
+    width: 38%;
     height: 80px;
     background: #f4df89;
     opacity: 1;
@@ -124,7 +124,7 @@ body {
 }
 
 .spanOptionA {
-    width: 370px;
+    width: 35%;
     color: rgba(0, 0, 0, 1);
     position: absolute;
     top: 590px;
@@ -137,7 +137,7 @@ body {
 }
 
 .spanOptionB {
-    width: 370px;
+    width: 35%;
     color: rgba(0, 0, 0, 1);
     position: absolute;
     top: 590px;
@@ -150,7 +150,7 @@ body {
 }
 
 .spanOptionC {
-    width: 370px;
+    width: 35%;
     color: rgba(0, 0, 0, 1);
     position: absolute;
     top: 680px;
@@ -163,7 +163,7 @@ body {
 }
 
 .spanOptionD {
-    width: 370px;
+    width: 35%;
     color: rgba(0, 0, 0, 1);
     position: absolute;
     top: 680px;
@@ -217,7 +217,7 @@ body {
     background: #f4df89;
     opacity: 1;
     position: absolute;
-    top: 800px;
+    top: 850px;
     left: 40%;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -249,7 +249,7 @@ body {
     .question-name-1 {
         font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
         font-weight: Light;
-        font-size: 30px;
+        font-size: 25px;
         top: 100px
     }
 
