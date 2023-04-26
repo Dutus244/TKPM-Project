@@ -18,8 +18,9 @@ export const config = {
 router.get('/lessonlist', async function (req, res) {
     const lesson = await adminServices.getLessonList()
 
-    res.render('vwAdmin/lessonlist', {
-        lesson: JSON.stringify(lesson),
+    res.render('vwAdmin/lessonlist',{
+        layout: 'mainAdmin',
+        lesson: JSON.stringify(lesson), 
     })
 })
 
