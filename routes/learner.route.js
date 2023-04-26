@@ -19,7 +19,6 @@ router.get('/revision', async function (req, res) {
     const maxNumber = memoryLevelCount.reduce((acc, cur) => {
         return acc > cur.number ? acc : cur.number;
     }, 0);
-    const totalWords = memoryLevelCount.reduce((acc, cur) => acc + cur.number, 0)
     memoryLevelCount = memoryLevelCount.map(it => ({
         ...it,
         percentage: (it.number / maxNumber) * 100
@@ -268,6 +267,43 @@ router.get('/lesson/:lesson_page', async function (req, res) {
 router.get('/dailytest', async function (req, res) {
     const userID = req.session.authUser.userid
     const list = await learnerService.findAllQuestionDailyTest(userID)
+
+    const timestamp = new Date()
+    const [check, streakinfo] = await Promise.all([
+        learnerService.checkDaily(userID, timestamp),
+        learnerService.getStreak(userID),
+    ])
+
+    if(!check){
+        if(!streakinfo){
+            streak = 1
+            const dailyLogin={
+                userID,
+                lastlogindate: timestamp,
+                streak
+            }
+            await learnerService.loginStreak(dailyLogin)
+        }
+        else{
+            var streak = streakinfo.streak
+            var lastdaylogin = streakinfo.lastlogindate
+        
+            const lastdayloginUTC = new Date(lastdaylogin).toISOString().slice(0, 10)
+            const timestampUTC = timestamp.toISOString().slice(0, 10)
+        
+            const yesterday = new Date(timestamp.getTime() - 86400000).toISOString().slice(0, 10)
+
+            if (lastdayloginUTC === yesterday && timestampUTC !== yesterday) {
+                streak +=1
+            } else {
+                streak = 1
+            }
+            await learnerService.updateLoginStreak(req.session.authUser.userid, timestamp, streak)
+        }
+        
+        
+    }
+
     res.render('vwLearner/dailyTest', {
         empty: list.length === 0,
         question: list,
@@ -366,5 +402,53 @@ router.get('/topictesthistory/:test_id', async function (req, res) {
         list: list,
         active: { Learn: true }
     });
+})
+
+router.get('/loginstreak',async function(req,res){
+    let lessonsProgress = await learnerService.getLessonsProgress(res.locals.authUser.userid)
+    lessonsProgress = lessonsProgress.map(it => ({
+        lessonname: it.lessonname,
+        percentage: (it.wordshaslearned / it.totalwords) * 100,
+    }))
+    const numFinished = lessonsProgress.filter(lesson => lesson.percentage === 100).length
+    
+    const numWordLvl5 = await learnerService.getLvl5Mem(res.locals.authUser.userid)
+    const {amount} = numWordLvl5
+    var memlvl = amount/10
+    if(memlvl < 1){
+        memlvl = 1
+    }
+
+    const streakinfo = await learnerService.getStreak(res.locals.authUser.userid)
+    var streak =0
+    if(!streak){
+        streak = 1
+    }
+    else{
+        streak = streakinfo.streak
+    }
+
+    const account = [
+        { memlvl: 1, numFinished: 1, accountlvl: 'Seed', linkimage:"/public/img/background/seed.png" },
+        { memlvl: 3, numFinished: 10, accountlvl: 'Germ', linkimage:"/public/img/background/germ.png" },
+        { memlvl: 10, numFinished: 20, accountlvl: 'Bud', linkimage:"/public/img/background/bud.png" },
+        { memlvl: 40, numFinished: 30, accountlvl: 'Tree', linkimage:"/public/img/background/tree.png" },
+        { memlvl: 80, numFinished: 40, accountlvl: 'Flower', linkimage:"/public/img/background/flower.png" },
+    ]
+
+    const { accountlvl, linkimage } = account.reduce((acc, cur) => {
+        if (memlvl >= cur.memlvl && numFinished >= cur.numFinished) {
+          acc = { accountlvl: cur.accountlvl, linkimage: cur.linkimage }
+        }
+        return acc
+      }, { accountlvl: 'Seed', linkimage: "/public/img/background/seed.png" })
+
+    res.render('vwLearner/loginStreak',{
+        lessons: numFinished,
+        memlvl,
+        accountlvl,
+        linkimage,
+        streak,
+    })
 })
 export default router;

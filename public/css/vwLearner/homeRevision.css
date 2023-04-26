@@ -57,6 +57,7 @@
 .level-4,
 .level-5 {
   height: 100%;
+  width: calc(20% - 80px); /* 5 columns in chart, and gap between 2 column is 20px so 20 * 4 = 80 */
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
@@ -70,6 +71,7 @@
   height: 95%;
   font-family: "Sriracha";
   font-size: 1.2rem;
+  word-break: break-all;
 }
 
 .bar {
