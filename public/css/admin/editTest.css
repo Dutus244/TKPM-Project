@@ -35,20 +35,21 @@ p {
     box-shadow: 0 0 0 0.2rem #5aa3a1;
 }
 
-.search-btn {
-    width: 7.5%;
+.action-btn {
+    width: fit-content;
     background-color: #f4df89;
     border: 1px solid #f4df89;
     border-radius: 1rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    padding: 0.5rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
     font-size: 1.25rem;
     font-weight: bold;
 }
 
 .result-number {
-    margin: 5px 0 0 0;
+    margin: 5px 0 10px 0;
     width: 35%;
+    text-align: center;
 }
 
 .question {
@@ -95,10 +96,6 @@ p {
         width: 70%;
     }
 
-    .search-btn {
-        width: 50px;
-    }
-
     .result-number {
         width: 75%;
     }
@@ -109,9 +106,7 @@ p {
     .search-bar {
         width: 50%;
     }
-    .search-btn {
-        width: 10%;
-    }
+
     .result-number {
         width: 55%;
     }
@@ -122,9 +117,7 @@ p {
     .search-bar {
         width: 30%;
     }
-    .search-btn {
-        width: 7.5%;
-    }
+
     .result-number {
         width: 35%;
     }

@@ -11,7 +11,8 @@
     }
 
     $('.func-icons>.bi-pencil').on('click', function () {
-      window.location.href = '/admin/editquestion'
+      const questionId = $('.func-icons>.bi-trash3').data('question-id')
+      window.location.href = '/admin/editquestion/' + questionId
     })
     $('.func-icons>.bi-trash3').on('click', function () {
       delQuestionId = $(this).data('question-id')
@@ -32,22 +33,27 @@
 {{/section}}
 
 {{#section 'css'}}
-<link rel="stylesheet" href="/public/css/admin/questionListByWord.css">
+<link rel="stylesheet" href="/public/css/admin/editTest.css">
 {{/section}}
 
 <div class="container-fluid">
-  <form class="form" action="" method="get">
+  <form id="formSearch" class="form" action="" method="get">
     <div class="search-container">
-      <div class="search">
-        <select name="word" id="word" class="search-bar">
+      <button type="button" class="action-btn" onclick="window.location.href='/admin/topicdetail/{{topicid}}'">BACK TO
+        TOPIC</button>
+      <div class="search mt-3">
+        <select name="word" id="word" class="search-bar" onchange="javascript: $('#formSearch').submit();">
           <option value="">All</option>
           {{#each wordsOption}}
           <option value="{{this}}">{{this}}</option>
           {{/each}}
         </select>
-        <button class="search-btn" type="submit"><i class="bi bi-search"></i></button>
       </div>
       <i class="result-number">Questions matched: {{n}}</i>
+      <div>
+        <button type="button" class="action-btn" onclick="window.location.href='/admin/addquestion/{{topicid}}'">ADD
+          QUESTION</button>
+      </div>
     </div>
   </form>
   {{#unless empty}}
