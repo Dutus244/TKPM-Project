@@ -34,21 +34,23 @@ router.post("/login", async function (req, res) {
 
   req.session.auth = true;
   req.session.authUser = user;
-
-  const url = req.session.retUrl || "/";
-  delete req.session.retUrl;
-  if (user.permission === 1) {
-    // Redirect to Admin here
-  }
-  res.redirect(url);
+  req.session.save(() => {
+    const url = req.session.retUrl || "/";
+    delete req.session.retUrl;
+    if (user.permission === 1) {
+      // Redirect to Admin here
+    }
+    res.redirect(url);
+  })
 });
 
 router.post("/logout", function (req, res) {
   req.session.auth = false;
   req.session.authUser = null;
-
-  const url = req.headers.referer || "/";
-  res.redirect(url);
+  req.session.save(() => {
+    const url = req.headers.referer || "/";
+    res.redirect(url);
+  })
 });
 
 router.get("/register", function (req, res) {
