@@ -550,7 +550,7 @@ router.get('/edittest/:topicid', async function(req, res) {
     const questions = await adminServices.searchQuestionByTopicFilterByAnswer(topicid, word)
     const wordsOption = (await adminServices.getTopicWordList(topicid)).map(word => word.wordname)
 
-    res.render('vwAdmin/questionListByWord', {
+    res.render('vwAdmin/editTest', {
         layout: 'mainAdmin',
         active: {Lesson: true},
         n: questions.length,
@@ -558,6 +558,7 @@ router.get('/edittest/:topicid', async function(req, res) {
         questions,
         wordsOption,
         chosenOption: JSON.stringify(word),
+        topicid,
     })
 })
 
