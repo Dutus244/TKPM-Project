@@ -221,5 +221,31 @@ export default {
             .update('isdelete', 1)
         return
     },
+
+    async getQuestionInfo(id){
+        const question = await db('multiplechoicequestions')
+            .select('question','optiona','optionb','optionc','answer','wordid')
+            .from('multiplechoicequestions')
+            .where('questionid',id);
+        return question[0];
+    },
+
+    async editQuestion(fixquestion){
+        const { questionid, question, optiona, optionb, optionc } = fixquestion;
+        return await db('multiplechoicequestions')
+            .update('question',question)
+            .update('optiona',optiona)
+            .update('optionb',optionb)
+            .update('optionc',optionc)
+            .where('questionid',questionid)
+    },
+
+    async getTopicIdByWordId(wordid){
+        const id = await db('words')
+            .select('topicid')
+            .from('words')
+            .where('wordid',wordid)
+        return id[0]
+    },
 }
 

@@ -285,20 +285,23 @@ router.get('/dailytest', async function (req, res) {
             await learnerService.loginStreak(dailyLogin)
         }
         else{
-            var streak = streakinfo.streak
-            var lastdaylogin = streakinfo.lastlogindate
+            let streak = streakinfo.streak
+            let lastdaylogin = streakinfo.lastlogindate
+            console.log(streakinfo)
         
             const lastdayloginUTC = new Date(lastdaylogin).toISOString().slice(0, 10)
             const timestampUTC = timestamp.toISOString().slice(0, 10)
-        
             const yesterday = new Date(timestamp.getTime() - 86400000).toISOString().slice(0, 10)
-
+            
+            console.log(lastdayloginUTC)
             if (lastdayloginUTC === yesterday && timestampUTC !== yesterday) {
-                streak +=1
+                streak = streak + 1
             } else {
                 streak = 1
             }
-            await learnerService.updateLoginStreak(req.session.authUser.userid, timestamp, streak)
+            console.log(streak)
+            console.log(res.locals.authUser.userid)
+            await learnerService.updateLoginStreak(res.locals.authUser.userid, timestamp, streak)
         }
         
         
@@ -421,11 +424,11 @@ router.get('/loginstreak',async function(req,res){
 
     const streakinfo = await learnerService.getStreak(res.locals.authUser.userid)
     var streak =0
-    if(!streak){
+    if(!streakinfo){
         streak = 1
     }
     else{
-        streak = streakinfo.streak
+        streak = streakinfo.streak  
     }
 
     const account = [
