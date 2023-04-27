@@ -30,7 +30,7 @@ main {
 }
 
 #topicname .icon {
-    object-fit: contain;
+    font-size: 2rem;
     margin-top: auto;
     margin-bottom: auto;
     cursor: pointer;
@@ -120,6 +120,10 @@ table {
     width: 100%;
 }
 
+th:nth-child(4) {
+    text-align: center;
+}
+
 td:nth-child(1) {
     width: 15%;
 }
@@ -166,6 +170,10 @@ table .btnPreview {
 @media screen and (min-width: 600px) and (max-width: 1100px) {
     td:nth-child(2) {
         width: 25%;
+    }
+
+    th:nth-child(4) {
+        text-align: center;
     }
 
     td:nth-child(4) {
@@ -299,6 +307,10 @@ table .btnPreview {
 
     .delete-back-container {
         padding: .1rem;
+    }
+
+    th:nth-child(3) {
+        text-align: center;
     }
 
     td:nth-child(3) {
