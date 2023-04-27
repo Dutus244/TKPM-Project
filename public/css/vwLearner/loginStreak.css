@@ -46,3 +46,9 @@ img{
     font-weight: 500;
     font-size: 30px;
 }
+
+@media only screen and (max-width: 600px){
+    .card{
+        width: 375px; 
+    }
+}
