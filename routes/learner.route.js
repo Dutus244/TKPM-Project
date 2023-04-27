@@ -37,18 +37,18 @@ router.get('/revision', async function (req, res) {
 router.get("/topic/:id", async function (req, res) {
     const id = req.params.id;
     const wordlist = await learnerService.findAllTopicWord(id);
+    const { lessonid } = await learnerService.findTopic(id)
     if (!wordlist.length) {
         return res.status(404).render("404", {
             layout: false,
-            active: { Learn: true }
         });
     }
 
     res.render("vwLearner/topicLearn", {
         words: JSON.stringify(wordlist),
         firstWord: wordlist[0],
+        lessonid: JSON.stringify(lessonid),
         active: { Learn: true }
-
     });
 });
 
