@@ -574,4 +574,59 @@ router.post('/editquestion/:id', async function (req, res) {
     await adminServices.editQuestion(fixquestion)
     res.redirect(`/admin/edittest/${topicid}`)
 })
+
+router.get('/editquestion/:id',async function(req, res){
+    const questionid = req.params.id
+    const questioninfo = await adminServices.getQuestionInfo(questionid)
+    const wordname = questioninfo.answer
+    const wordid = questioninfo.wordid
+    const optiona = questioninfo.optiona
+    const optionb = questioninfo.optionb
+    const optionc = questioninfo.optionc
+    const question = questioninfo.question
+    const {topicid} = await adminServices.getTopicIdByWordId(wordid)
+    res.render('vwAdmin/editquestion', {
+        wordname,
+        optiona,
+        optionb,
+        optionc,
+        question,
+        wordid,
+        topicid,
+    })
+})
+
+router.post('/editquestion/:id', async function (req, res) {
+    const questionid = req.params.id
+    const {question, wordid, optiona, optionb, optionc} = req.body;
+    const options = [optiona, optionb, optionc];
+
+    const questioninfo = await adminServices.getQuestionInfo(questionid)
+    const wordname = questioninfo.answer
+
+    const {topicid} = await adminServices.getTopicIdByWordId(wordid)
+
+    if (options.some(option => option === wordname)) {
+        res.render('vwAdmin/editquestion', {
+            wordname,
+            wordid,
+            optiona,
+            optionb,
+            optionc,
+            question,
+            topicid,
+            msg: "The answer is same to one of the three other options",
+        })
+    }
+
+    const fixquestion = {
+        questionid,
+        question,
+        optiona,
+        optionb,
+        optionc,
+    }
+    await adminServices.editQuestion(fixquestion)
+    res.redirect(`/admin/edittest/${topicid}`)
+})
 export default router
