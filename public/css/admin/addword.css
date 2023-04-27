@@ -10,8 +10,7 @@ main {
     margin-top: 10px;
 }
 
-
-.formdes h4.card-header {
+h4.card-header {
     background-color: #AACDAF;
     color: black;
     font-weight: bold;
