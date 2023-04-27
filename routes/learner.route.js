@@ -275,7 +275,6 @@ router.get('/lesson/:lesson_page', async function (req, res) {
 router.get('/dailytest', async function (req, res) {
     const userID = req.session.authUser.userid
     const list = await learnerService.findAllQuestionDailyTest(userID)
-
     const timestamp = new Date()
     const [check, streakinfo] = await Promise.all([
         learnerService.checkDaily(userID, timestamp),
@@ -293,20 +292,22 @@ router.get('/dailytest', async function (req, res) {
             await learnerService.loginStreak(dailyLogin)
         }
         else{
-            var streak = streakinfo.streak
-            var lastdaylogin = streakinfo.lastlogindate
+            let streak = streakinfo.streak
+            let lastdaylogin = streakinfo.lastlogindate
         
-            const lastdayloginUTC = new Date(lastdaylogin).toISOString().slice(0, 10)
+            const lastdayloginUTC = new Date(lastdaylogin).toISOString()
+            const dateWith7HoursAdded = new Date(new Date(lastdayloginUTC).setHours
+                                        (new Date(lastdayloginUTC).getHours() + 7)).toISOString().slice(0, 10);
             const timestampUTC = timestamp.toISOString().slice(0, 10)
         
             const yesterday = new Date(timestamp.getTime() - 86400000).toISOString().slice(0, 10)
-
-            if (lastdayloginUTC === yesterday && timestampUTC !== yesterday) {
-                streak +=1
+            
+            if (dateWith7HoursAdded === yesterday && timestampUTC !== yesterday) {
+                streak = streak + 1
             } else {
                 streak = 1
             }
-            await learnerService.updateLoginStreak(req.session.authUser.userid, timestamp, streak)
+            await learnerService.updateLoginStreak(res.locals.authUser.userid, timestamp, streak)
         }
         
         
@@ -413,7 +414,7 @@ router.get('/topictesthistory/:test_id', async function (req, res) {
 })
 
 router.get('/loginstreak',async function(req,res){
-    let lessonsProgress = await learnerService.getLessonsProgress(res.locals.authUser.userid)
+    let lessonsProgress = await learnerService.getAllLessonsProgress(res.locals.authUser.userid)
     lessonsProgress = lessonsProgress.map(it => ({
         lessonname: it.lessonname,
         percentage: (it.wordshaslearned / it.totalwords) * 100,

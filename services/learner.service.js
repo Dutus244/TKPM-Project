@@ -482,4 +482,22 @@ export default {
             .update('lastlogindate',date)
             .where('userid', id)
     },
+
+    async getAllLessonsProgress(userid) {
+        const query = `select lessonname, count(wordhistory.wordid) as wordshaslearned, WordsCount.totalwords
+                       from wordhistory
+                                join words on wordhistory.wordid = words.wordid
+                                join topics on words.topicid = topics.topicid
+                                join lessons on topics.lessonid = lessons.lessonid
+                                join (select topics.lessonid, count(words.wordid) as totalwords
+                                      from topics
+                                               join words on topics.topicid = words.topicid
+                                      group by topics.lessonid) WordsCount on WordsCount.lessonid = lessons.lessonid
+                       where userid = '${userid}'
+                       group by lessons.lessonid`;
+
+        const list = await db.raw(query);
+        return list[0]
+    },
+
 }
