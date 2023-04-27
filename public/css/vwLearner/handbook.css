@@ -164,8 +164,7 @@ tr {
     border: solid;
     border-width: 0;
     border-bottom-width: 1px;
-    /*display: table-row;*/
-    /*display: block;*/
+
 }
 
 input[type="checkbox"]{

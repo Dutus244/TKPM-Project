@@ -111,7 +111,6 @@ i{
     padding-top: 2px;
     overflow:hidden;
     overflow-y:auto;
-    /*white-space:nowrap;*/
     text-overflow:ellipsis;
     max-height: 20vw;
 }
@@ -126,7 +125,6 @@ i{
         padding-left: 10px;
     }
     .card-footer{
-        /*visibility: hidden;*/
     }
 
     .card-text{
