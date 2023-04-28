@@ -3,6 +3,7 @@ import learnerService from "../services/learner.service.js";
 import bodyParser from 'body-parser';
 import { v4 } from 'uuid';
 import { PAGE_LIMIT } from './constants.js';
+import { account } from './constants.js';
 import moment from 'moment';
 
 const router = express.Router();
@@ -435,14 +436,6 @@ router.get('/loginstreak',async function(req,res){
     else{
         streak = streakinfo.streak  
     }
-
-    const account = [
-        { memlvl: 1, numFinished: 1, accountlvl: 'Seed', linkimage:"/public/img/background/seed.png" },
-        { memlvl: 3, numFinished: 10, accountlvl: 'Germ', linkimage:"/public/img/background/germ.png" },
-        { memlvl: 10, numFinished: 20, accountlvl: 'Bud', linkimage:"/public/img/background/bud.png" },
-        { memlvl: 40, numFinished: 30, accountlvl: 'Tree', linkimage:"/public/img/background/tree.png" },
-        { memlvl: 80, numFinished: 40, accountlvl: 'Flower', linkimage:"/public/img/background/flower.png" },
-    ]
 
     const { accountlvl, linkimage } = account.reduce((acc, cur) => {
         if (memlvl >= cur.memlvl && numFinished >= cur.numFinished) {
