@@ -296,14 +296,13 @@ router.get('/dailytest', async function (req, res) {
             let streak = streakinfo.streak
             let lastdaylogin = streakinfo.lastlogindate
             
-            const lastdayloginUTC = new Date(lastdaylogin).toISOString()
-            const dateWith7HoursAdded = new Date(new Date(lastdayloginUTC).setHours
-                                        (new Date(lastdayloginUTC).getHours() + 7)).toISOString().slice(0, 10);
+            const lastdayloginUTC = new Date(lastdaylogin).toISOString().slice(0,10)
             const timestampUTC = timestamp.toISOString().slice(0, 10)
-            const yesterday = new Date(timestamp.getTime() - 86400000).toISOString().slice(0, 10)
-            if (dateWith7HoursAdded === yesterday && timestampUTC !== yesterday) {
+            const yesterday = new Date((timestamp.getTime() - 86400000)).toISOString().slice(0, 10)
+
+            if (lastdayloginUTC === yesterday && timestampUTC !== yesterday) {
                 streak = streak + 1
-            }else if(timestampUTC === dateWith7HoursAdded){
+            }else if(timestampUTC === lastdayloginUTC){
                 streak
             }else {
                 streak = 1
