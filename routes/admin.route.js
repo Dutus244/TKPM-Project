@@ -72,17 +72,7 @@ router.post('/lessondetail/:id', async function (req, res) {
         await adminServices.editLessonAva(lessonid, "/public/img/lesson/" + lessonid + ".png");
     }
 
-    const [lesson, topic] = await Promise.all([
-        adminServices.getLessonDetail(lessonid),
-        adminServices.getLessonTopicList(lessonid),
-    ])
-
-    res.render('vwAdmin/lessondetail', {
-        layout: 'mainAdmin',
-        active: {Lesson: true},
-        lesson: JSON.stringify(lesson),
-        topic: JSON.stringify(topic),
-    })
+    res.redirect(`/admin/lessondetail/${lessonid}`)
 })
 
 router.get('/deletelesson/:id', async function (req, res) {
@@ -240,19 +230,7 @@ router.post('/worddetail/:id', async function (req, res) {
 
     await adminServices.updateWord(word)
 
-    const [topic, wordlist, test] = await Promise.all([
-        adminServices.getTopicDetail(topicid),
-        adminServices.getTopicWordList(topicid),
-        adminServices.getTopicTest(topicid)
-    ])
-
-    res.render('vwAdmin/topicdetail', {
-        layout: 'mainAdmin',
-        active: {Lesson: true},
-        topic: JSON.stringify(topic),
-        word: JSON.stringify(wordlist),
-        test: JSON.stringify(test)
-    })
+    res.redirect(`/admin/topicdetail/${topicid}`)
 })
 
 router.get('/deleteword/:id', async function (req, res) {
@@ -325,12 +303,7 @@ router.post('/addlesson', async function (req, res) {
             // or an unknown error occurred when uploading.
             console.error(err);
         } else {
-            const lessonlist = await adminServices.getLessonList()
-            res.render('vwAdmin/lessonlist',{
-                layout: 'mainAdmin',
-                active: {Lesson: true},
-                lesson: JSON.stringify(lessonlist), 
-            })
+            res.redirect(`/admin/lessonlist`)
         }
     })
 })
@@ -382,8 +355,9 @@ router.post('/addquestion/:id', async function (req, res) {
         wordid: wordid,
         isdelete: 0
     }
-    console.log(test)
+
     await adminServices.addQuestion(test)
+    res.redirect(`/admin/edittest/${id}`)
 })
 
 router.get('/addword/:id', async function (req, res) {
@@ -431,19 +405,7 @@ router.post('/addword/:id', async function (req, res) {
 
         await adminServices.addWord(word)
 
-        const [topic, wordlist, test] = await Promise.all([
-            adminServices.getTopicDetail(topicid),
-            adminServices.getTopicWordList(topicid),
-            adminServices.getTopicTest(topicid)
-        ])
-
-        res.render('vwAdmin/topicdetail', {
-            layout: 'mainAdmin',
-            active: {Lesson: true},
-            topic: JSON.stringify(topic),
-            word: JSON.stringify(wordlist),
-            test: JSON.stringify(test)
-        })
+        res.redirect(`/admin/topicdetail/${topicid}`)
 
         if (err || err instanceof multer.MulterError) {
             // A Multer error occurred when uploading.
@@ -492,17 +454,7 @@ router.post('/addtopic/:id', async function (req, res) {
 
         await adminServices.addTopic(topic)
 
-        const [lesson, topiclist] = await Promise.all([
-            adminServices.getLessonDetail(lessonid),
-            adminServices.getLessonTopicList(lessonid),
-        ])
-
-        res.render('vwAdmin/lessondetail', {
-            layout: 'mainAdmin',
-            active: {Lesson: true},
-            lesson: JSON.stringify(lesson),
-            topic: JSON.stringify(topiclist),
-        })
+        res.redirect(`/admin/lessondetail/${lessonid}`)
     })
 })
 
@@ -567,4 +519,56 @@ router.post('/delete/question/:id', async function(req, res) {
     await adminServices.deleteQuestion(questionid)
     res.status(200).send(true)
 })
+
+router.get('/editquestion/:id',async function(req, res){
+    const questionid = req.params.id
+    const questioninfo = await adminServices.getQuestionInfo(questionid)
+    const wordname = questioninfo.answer
+    const {wordid, optiona, optionb, optionc, question} = questioninfo
+    const {topicid} = await adminServices.getTopicIdByWordId(wordid)
+    res.render('vwAdmin/editquestion', {
+        wordname,
+        optiona,
+        optionb,
+        optionc,
+        question,
+        wordid,
+        topicid,
+    })
+})
+
+router.post('/editquestion/:id', async function (req, res) {
+    const questionid = req.params.id
+    const {question, wordid, optiona, optionb, optionc} = req.body;
+    const options = [optiona, optionb, optionc];
+
+    const questioninfo = await adminServices.getQuestionInfo(questionid)
+    const wordname = questioninfo.answer
+
+    const {topicid} = await adminServices.getTopicIdByWordId(wordid)
+
+    if (options.some(option => option === wordname)) {
+        res.render('vwAdmin/editquestion', {
+            wordname,
+            wordid,
+            optiona,
+            optionb,
+            optionc,
+            question,
+            topicid,
+            msg: "The answer is same to one of the three other options",
+        })
+    }
+
+    const fixquestion = {
+        questionid,
+        question,
+        optiona,
+        optionb,
+        optionc,
+    }
+    await adminServices.editQuestion(fixquestion)
+    res.redirect(`/admin/edittest/${topicid}`)
+})
+
 export default router

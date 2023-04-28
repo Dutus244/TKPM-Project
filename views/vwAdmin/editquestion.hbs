@@ -43,7 +43,8 @@
      $('#frmRegister').on('submit', function (e){
         e.preventDefault();
 
-        const question = $('txtQuestion').val();
+        const editor = tinymce.get('txtQuestion');
+        const question = editor.getContent();
         if(!question.length){
             alert('Please input question')
             return
@@ -99,7 +100,7 @@
             $('#txtOptionB').addClass('form-control-error')
             return
         }
-
+        
         $('#frmRegister').off('submit').submit();
      })
 </script>
@@ -120,39 +121,45 @@
 
         <div class="card mb-3">
             <h4 class="card-header">
-                ADD NEW QUESTION
+                EDIT QUESTION
             </h4>
         <div class="card-body">
 
         <input type="hidden" name="wordlist" value="{{this.wordlist}}">
 
         <div class="form-group">
-            <label for="word">Word:</label>
-            <select name="word">
-                {{#each this.wordlist}}
-                    <option value="{{wordid}}">{{wordname}}</option>
-                {{/each}}
-            </select>
+            <label for="txtWordname">Word:</label>
+            <input name="wordname" type="text" class="form-control" id="txtWordname"
+                value="{{wordname}}" disabled>
+        </div>
+
+        <div class="form-group" hidden>
+            <label for="txtWordid">Word:</label>
+            <input name="wordid" type="text" class="form-control" id="txtWordid"
+                value="{{wordid}}">
         </div>
 
         <div class="form-group">
             <label for="txtWordmeaning">Other option:</label>
-            <input name="optiona" type="text" class="form-control" id="txtOptionA" autofocus>
+            <input name="optiona" type="text" class="form-control" id="txtOptionA"
+                value="{{optiona}}" autofocus>
         </div>
 
         <div class="form-group">
             <label for="txtWordmeaning">Other option:</label>
-            <input name="optionb" type="text" class="form-control" id="txtOptionB" autofocus>
+            <input name="optionb" type="text" class="form-control" id="txtOptionB"
+                value="{{optionb}}" autofocus>
         </div>
 
         <div class="form-group">
             <label for="txtWordmeaning">Other option:</label>
-            <input name="optionc" type="text" class="form-control" id="txtOptionC" autofocus>
+            <input name="optionc" type="text" class="form-control" id="txtOptionC"
+                value="{{optionc}}" autofocus>
         </div>
 
         <div class="form-group">
             <label for="txtQuestion">Question</label>
-            <textarea name="question" type="text" class="form-control" id="txtQuestion">
+            <textarea name="question" type="text" class="form-control" id="txtQuestion">{{{question}}}</textarea>
             </textarea>
         </div>
 
