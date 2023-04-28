@@ -5,6 +5,10 @@
 
 {{#section 'js'}}
     <script type="text/javascript">
+        window.onload = (event) => {
+            invisibleAllLevel()
+            visibleLevelAll()
+        };
         $(document).ready(function(){
             $('.subnav a').on('click', function() {
                 $("#level-1").removeClass('active')
@@ -12,6 +16,7 @@
                 $("#level-3").removeClass('active')
                 $("#level-4").removeClass('active')
                 $("#level-5").removeClass('active')
+                $("#All").removeClass('active')
                 $(this).addClass('active')
             });
         })
@@ -43,6 +48,10 @@
                     case 'level-5':
                         invisibleAllLevel()
                         visibleLevel(5)
+                        break;
+                    case 'All':
+                        invisibleAllLevel()
+                        visibleLevelAll()
                         break;
                     default:
                         if(change){
@@ -112,15 +121,21 @@
             let name = ".level-"+level.toString()
             const boxes = document.querySelectorAll(name);
             boxes.forEach(box => {
-                box.style.display = 'table-row';
+                box.style.display = 'block';
             });
         }
-
+        function visibleLevelAll(){
+            var tr = document.getElementsByTagName("tr");
+            for (var i = 0; i < tr.length; i++) {
+                tr[i].style.display = 'block';
+            }
+        }
     </script>
 {{/section}}
 <div class="container" class="card-100 border-0">
     <div id="title" >
         <nav class="subnav">
+            <a id="All" class="active" href="#" >All</a>
             <a id="level-1"  href="#" >Level 1</a>
             <a id="level-2"  href="#">Level 2</a>
             <a id="level-3" href="#" >Level 3</a>
@@ -142,11 +157,11 @@
                     </div>
                     <div class="column-button">
                         <button id="searchBtn"
-                                class='btn d-flex'
+                                class='btn'
                                 type='submit'
                                 formaction="/handbook/search"
                         ><strong>Search</strong>
-                            <i class='fa fa-search' aria-hidden='true'></i></button>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -156,8 +171,7 @@
         <form id="updateDataForm" method="POST" action="/handbook">
             <table >
                 {{#each words}}
-
-                    <tr class="level-{{MemoryLevel}}"  {{#if isSearch}}{{else}}style="display: none" {{/if}}>
+                    <tr class="level-{{MemoryLevel}}" style="display:table-row" {{#if isSearch}}{{else}}style="display: none" {{/if}}>
                         <td class="lean" id="{{wordid}}">
                             <div class="formcheck">
                                 <input  type="checkbox" value= {{wordid}} name="id[]" id="{{wordid}}" {{#if isStudy}}checked{{/if}}>
@@ -166,8 +180,10 @@
                         <td class="wordname">{{wordname}}</td>
                         <td class="wordtype">({{wordtype}})</td>
                         <td class="wordmeaning" >{{wordmeaning}}</td>
+                        <td class="wordlevel">
+                            <p class="level-{{MemoryLevel}}" id="active">{{MemoryLevel}}</p>
+                        </td>
                     </tr>
-
                 {{/each}}
             </table>
         </form>
