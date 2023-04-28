@@ -2,6 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import accountService from "../services/account.service.js";
 import { v4 } from "uuid";
+import { ADMIN_PERMISSION_CODE } from "./constants.js";
 
 const router = express.Router();
 const SALT_LENGTH = 10;
@@ -37,10 +38,17 @@ router.post("/login", async function (req, res) {
   req.session.save(() => {
     const url = req.session.retUrl || "/";
     delete req.session.retUrl;
-    if (user.permission === 1) {
+    if (user.permission === ADMIN_PERMISSION_CODE) {
       // Redirect to Admin here
+      res.redirect('/admin/lessonlist')
+    } else {
+      // Redirect to Learner here
+      if (url.startsWith('/admin')) {
+        res.redirect('/')
+      } else {
+        res.redirect(url);
+      }
     }
-    res.redirect(url);
   })
 });
 

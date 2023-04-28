@@ -5,6 +5,7 @@
     var isBack = false
 
     const words = {{{ words }}}
+    const lessonid = {{{ lessonid }}}
     const length = words.length
     var percentage = Math.floor(((curWord + 1) / length) * 100)
 
@@ -54,7 +55,7 @@
       if (curWord > 0) {
         curWord--
       } else {
-        return
+        window.location.href = `/topiclist/${lessonid}`
       }
 
       percentage = Math.floor(((curWord + 1) / length) * 100)

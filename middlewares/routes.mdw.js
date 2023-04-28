@@ -3,19 +3,17 @@ import { getVisiblePage } from "../utils/helper.js";
 import learnerRoute from '../routes/learner.route.js';
 import adminRoute from '../routes/admin.route.js';
 import accountRoute from '../routes/account.route.js';
+import { ADMIN_PERMISSION_CODE, LEARNER_PERMISSION_CODE } from '../routes/constants.js';
 
 
 export default function (app) {
   app.get('/', async (req, res) => {
-    res.render('vwGuest/home', {
-      
-    })
+    res.redirect('/revision')
   })
 
-  app.use('/admin', adminRoute)
   app.use('/', accountRoute)
-  app.use('/', authWithRequiredPermission(0), learnerRoute)
-  
+  app.use('/admin', authWithRequiredPermission(ADMIN_PERMISSION_CODE), adminRoute)
+  app.use('/', authWithRequiredPermission(LEARNER_PERMISSION_CODE), learnerRoute)
 }
 
 
