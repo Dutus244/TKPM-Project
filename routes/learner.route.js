@@ -39,9 +39,7 @@ router.get("/topic/:id", async function (req, res) {
     const wordlist = await learnerService.findAllTopicWord(id);
     const { lessonid } = await learnerService.findTopic(id)
     if (!wordlist.length) {
-        return res.status(404).render("404", {
-            layout: false,
-        });
+        return res.render('vwStatusCode/204')
     }
 
     res.render("vwLearner/topicLearn", {

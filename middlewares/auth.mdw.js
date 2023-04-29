@@ -6,7 +6,7 @@ export default function authWithRequiredPermission(requiredPermission) {
     }
 
     if (req.session.authUser && req.session.authUser.permission != requiredPermission) {
-      return res.render('403', { layout: false });
+      return res.render('vwStatusCode/403', { layout: false });
     }
 
     next();
