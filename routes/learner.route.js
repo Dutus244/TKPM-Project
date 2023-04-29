@@ -3,6 +3,7 @@ import learnerService from "../services/learner.service.js";
 import bodyParser from 'body-parser';
 import { v4 } from 'uuid';
 import { PAGE_LIMIT } from './constants.js';
+import { account } from './constants.js';
 import moment from 'moment';
 
 const router = express.Router();
@@ -273,7 +274,6 @@ router.get('/lesson/:lesson_page', async function (req, res) {
 router.get('/dailytest', async function (req, res) {
     const userID = req.session.authUser.userid
     const list = await learnerService.findAllQuestionDailyTest(userID)
-
     const timestamp = new Date()
     const [check, streakinfo] = await Promise.all([
         learnerService.checkDaily(userID, timestamp),
@@ -293,14 +293,16 @@ router.get('/dailytest', async function (req, res) {
         else{
             let streak = streakinfo.streak
             let lastdaylogin = streakinfo.lastlogindate
-        
-            const lastdayloginUTC = new Date(lastdaylogin).toISOString().slice(0, 10)
-            const timestampUTC = timestamp.toISOString().slice(0, 10)
-            const yesterday = new Date(timestamp.getTime() - 86400000).toISOString().slice(0, 10)
             
+            const lastdayloginUTC = new Date(lastdaylogin).toISOString().slice(0,10)
+            const timestampUTC = timestamp.toISOString().slice(0, 10)
+            const yesterday = new Date((timestamp.getTime() - 86400000)).toISOString().slice(0, 10)
+
             if (lastdayloginUTC === yesterday && timestampUTC !== yesterday) {
                 streak = streak + 1
-            } else {
+            }else if(timestampUTC === lastdayloginUTC){
+                streak
+            }else {
                 streak = 1
             }
             await learnerService.updateLoginStreak(res.locals.authUser.userid, timestamp, streak)
@@ -410,7 +412,7 @@ router.get('/topictesthistory/:test_id', async function (req, res) {
 })
 
 router.get('/loginstreak',async function(req,res){
-    let lessonsProgress = await learnerService.getLessonsProgress(res.locals.authUser.userid)
+    let lessonsProgress = await learnerService.getAllLessonsProgress(res.locals.authUser.userid)
     lessonsProgress = lessonsProgress.map(it => ({
         lessonname: it.lessonname,
         percentage: (it.wordshaslearned / it.totalwords) * 100,
@@ -432,14 +434,6 @@ router.get('/loginstreak',async function(req,res){
     else{
         streak = streakinfo.streak  
     }
-
-    const account = [
-        { memlvl: 1, numFinished: 1, accountlvl: 'Seed', linkimage:"/public/img/background/seed.png" },
-        { memlvl: 3, numFinished: 10, accountlvl: 'Germ', linkimage:"/public/img/background/germ.png" },
-        { memlvl: 10, numFinished: 20, accountlvl: 'Bud', linkimage:"/public/img/background/bud.png" },
-        { memlvl: 40, numFinished: 30, accountlvl: 'Tree', linkimage:"/public/img/background/tree.png" },
-        { memlvl: 80, numFinished: 40, accountlvl: 'Flower', linkimage:"/public/img/background/flower.png" },
-    ]
 
     const { accountlvl, linkimage } = account.reduce((acc, cur) => {
         if (memlvl >= cur.memlvl && numFinished >= cur.numFinished) {
