@@ -40,6 +40,13 @@
         ],
     });
 
+    $(document).ready(function () {
+        //back button
+        $('.btnBack').on('click', function () {
+            window.location.href = '/admin/edittest/' + {{{topicid}}};
+        });
+    })
+
      $('#frmRegister').on('submit', function (e){
         e.preventDefault();
 
@@ -168,12 +175,10 @@
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Submit
             </button>
-            <a href="/admin/edittest/{{this.topicid}}">
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-primary btnBack">
                     <i class="fa fa-check" aria-hidden="true"></i>
                     Back to topic
                 </button>
-            </a>
         </div>
 
     </form>

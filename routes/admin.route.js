@@ -314,7 +314,7 @@ router.get('/addquestion/:id', async function (req, res) {
     res.render('vwAdmin/addquestion', {
         layout: 'mainAdmin',
         active: {Lesson: true},
-        topicid,
+        topicid: JSON.stringify(topicid),
         wordlist,
     })
 })
@@ -338,7 +338,7 @@ router.post('/addquestion/:id', async function (req, res) {
         res.render('vwAdmin/addquestion', {
             layout: 'mainAdmin',
             active: {Lesson: true},
-            topicid: id,
+            topicid: JSON.stringify(id),
             wordlist,
             msg: "The answer is same to one of the three other options",
         })
@@ -533,7 +533,7 @@ router.get('/editquestion/:id',async function(req, res){
         optionc,
         question,
         wordid,
-        topicid,
+        topicid: JSON.stringify(topicid),
     })
 })
 
@@ -555,8 +555,8 @@ router.post('/editquestion/:id', async function (req, res) {
             optionb,
             optionc,
             question,
-            topicid,
-            msg: "The answer is same to one of the three other options",
+            topicid: JSON.stringify(topicid),
+            msg: "The answer is the same as one of the three other options",
         })
     }
 

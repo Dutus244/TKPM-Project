@@ -307,8 +307,6 @@ router.get('/dailytest', async function (req, res) {
             }
             await learnerService.updateLoginStreak(res.locals.authUser.userid, timestamp, streak)
         }
-        
-        
     }
 
     res.render('vwLearner/dailyTest', {
