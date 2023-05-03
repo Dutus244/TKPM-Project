@@ -5,6 +5,11 @@
 
 {{#section 'js'}}
     <script>
+        $(document).ready(function () {
+            $('.btn').on('click', function () {
+                window.location.href = '/loginStreak';
+            });
+        })
 
         function updateCardList(data) {
             const cardListContainer = document.querySelector('.container-fluid .row'); // select the container element for the card list
@@ -108,6 +113,11 @@
 {{/section}}
 
 <div class="container">
+    <a href="/loginStreak">
+            <button type="button" class="btn btn-primary">
+                    Go to personal achivement
+            </button>
+        </a>
     <div id="title_content"><h1> Topic Test History </h1></div>
     <div class="container" style="margin-top: 10px;">
         <div class="row">

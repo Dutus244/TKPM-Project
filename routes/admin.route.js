@@ -335,7 +335,7 @@ router.post('/addquestion/:id', async function (req, res) {
     const options = [optiona, optionb, optionc];
 
     if (options.some(option => option === wordname)) {
-        res.render('vwAdmin/addquestion', {
+        return res.render('vwAdmin/addquestion', {
             layout: 'mainAdmin',
             active: {Lesson: true},
             topicid: JSON.stringify(id),
@@ -353,6 +353,7 @@ router.post('/addquestion/:id', async function (req, res) {
         optiond: wordname,
         answer: wordname,
         wordid: wordid,
+        questionavatar: "",
         isdelete: 0
     }
 

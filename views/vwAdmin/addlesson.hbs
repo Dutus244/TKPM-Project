@@ -32,6 +32,12 @@
 
 <script>
 
+    $(document).ready(function () {
+            $('.btnBack').on('click', function () {
+                window.location.href = '/admin/lessonlist';
+            });
+    })
+
     $('#fuMain').fileinput({
         language: 'vi',
         theme: 'fa4',
@@ -68,7 +74,7 @@
         }
         
         const editor = tinymce.get('txtDescription');
-        const question = editor.getContent();
+        const description = editor.getContent();
         if(!description.length){
             alert('Please input description')
             return
@@ -118,12 +124,10 @@
                             <i class="fa fa-check" aria-hidden="true"></i>
                             Save
                         </button>
-                        <a href="/admin/lessonlist">
-                            <button type="button" class="btn btn-primary">
+                            <button type="button" class="btn btn-primary btnBack">
                                 <i class="fa fa-check" aria-hidden="true"></i>
                                 Back to lesson list
                             </button>
-                        </a>
                     </div>
                 </div>
             </div>

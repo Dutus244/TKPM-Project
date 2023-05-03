@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-top: 10px;
 }
 
 #title_content {
@@ -25,11 +26,18 @@
     width: 150px;
 }
 
-.btn{
-    border-color: #F4DF89;
-    border-radius: 10%;
-    border-width: 1px;
-    background-color:#F4DF89 ;
+.btn {
+    background-color: #f4df89;
+    border-color: #f4df89;
+    color: black;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #f69105;
+    border-color: #f69105;
+    color: white;
+    font-weight: bold;
 }
 
 .searchinput{

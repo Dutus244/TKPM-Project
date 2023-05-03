@@ -354,7 +354,7 @@ router.get('/topictesthistorylist', async function (req, res) {
         listlesson: listlesson,
         empty: list.length === 0,
         list: list,
-        active: { Handbook: true }
+        active: { Archive: true }
     });
 })
 router.get('/getalltopichistory', async function (req, res) {
@@ -374,18 +374,7 @@ router.get('/topictesthistory/:test_id', async function (req, res) {
     const list = await learnerService.getTestDetail(test_id)
     res.render('vwLearner/topicTestHistoryDetail', {
         list: list,
-        active: { Learn: true }
-    });
-})
-router.get('/topictesthistorylist', async function (req, res) {
-    const userID = req.session.authUser.userid
-    const list = await learnerService.getTestHistory(userID)
-    const listlesson = await learnerService.findLesson()
-    res.render('vwLearner/topicTestHistoryList', {
-        listlesson: listlesson,
-        empty: list.length === 0,
-        list: list,
-        active: { Handbook: true }
+        active: { Archive: true }
     });
 })
 router.get('/getalltopichistory', async function (req, res) {
