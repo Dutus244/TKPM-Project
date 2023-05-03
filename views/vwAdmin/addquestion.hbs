@@ -47,134 +47,133 @@
         });
     })
 
-     $('#frmRegister').on('submit', function (e){
-        e.preventDefault();
+        $('#frmRegister').on('submit', function (e) {
+            e.preventDefault();
 
-        const editor = tinymce.get('txtQuestion');
-        const question = editor.getContent();
-        if(!question.length){
-            alert('Please input question')
-            return
-        }
-        
-        const optA = $('#txtOptionA').val();
-        if (!optA.length) {
-            alert('Please input all three other option')
-            $('#txtOptionA').css('background-color', '#f2cece')
-            $('#txtOptionA').addClass('form-control-error')
-            return
-        }
+            const editor = tinymce.get('txtQuestion');
+            const question = editor.getContent();
+            if (!question.length) {
+                alert('Please input question')
+                return
+            }
 
-        const optB = $('#txtOptionB').val();
-        if (!optB.length) {
-            alert('Please input all three other option')
-            $('#txtOptionB').css('background-color', '#f2cece')
-            $('#txtOptionB').addClass('form-control-error')
-            return
-        }
+            const optA = $('#txtOptionA').val();
+            if (!optA.length) {
+                alert('Please input all three other option')
+                $('#txtOptionA').css('background-color', '#f2cece')
+                $('#txtOptionA').addClass('form-control-error')
+                return
+            }
 
-        const optC = $('#txtOptionC').val();
-        if (!optC.length) {
-            alert('Please input all three other option')
-            $('#txtOptionC').css('background-color', '#f2cece')
-            $('#txtOptionC').addClass('form-control-error')
-            return
-        }
+            const optB = $('#txtOptionB').val();
+            if (!optB.length) {
+                alert('Please input all three other option')
+                $('#txtOptionB').css('background-color', '#f2cece')
+                $('#txtOptionB').addClass('form-control-error')
+                return
+            }
 
-        if(optA == optB){
-            alert('Same option')
-            $('#txtOptionA').css('background-color', '#f2cece')
-            $('#txtOptionA').addClass('form-control-error')
-            $('#txtOptionB').css('background-color', '#f2cece')
-            $('#txtOptionB').addClass('form-control-error')
-            return
-        }
+            const optC = $('#txtOptionC').val();
+            if (!optC.length) {
+                alert('Please input all three other option')
+                $('#txtOptionC').css('background-color', '#f2cece')
+                $('#txtOptionC').addClass('form-control-error')
+                return
+            }
 
-        if(optA == optC){
-            alert('Same option')
-            $('#txtOptionA').css('background-color', '#f2cece')
-            $('#txtOptionA').addClass('form-control-error')
-            $('#txtOptionC').css('background-color', '#f2cece')
-            $('#txtOptionC').addClass('form-control-error')
-            return
-        }
+            if (optA == optB) {
+                alert('Same option')
+                $('#txtOptionA').css('background-color', '#f2cece')
+                $('#txtOptionA').addClass('form-control-error')
+                $('#txtOptionB').css('background-color', '#f2cece')
+                $('#txtOptionB').addClass('form-control-error')
+                return
+            }
 
-        if(optB == optC){
-            alert('Same option')
-            $('#txtOptionC').css('background-color', '#f2cece')
-            $('#txtOptionC').addClass('form-control-error')
-            $('#txtOptionB').css('background-color', '#f2cece')
-            $('#txtOptionB').addClass('form-control-error')
-            return
-        }
+            if (optA == optC) {
+                alert('Same option')
+                $('#txtOptionA').css('background-color', '#f2cece')
+                $('#txtOptionA').addClass('form-control-error')
+                $('#txtOptionC').css('background-color', '#f2cece')
+                $('#txtOptionC').addClass('form-control-error')
+                return
+            }
 
-        $('#frmRegister').off('submit').submit();
-     })
-</script>
+            if (optB == optC) {
+                alert('Same option')
+                $('#txtOptionC').css('background-color', '#f2cece')
+                $('#txtOptionC').addClass('form-control-error')
+                $('#txtOptionB').css('background-color', '#f2cece')
+                $('#txtOptionB').addClass('form-control-error')
+                return
+            }
+
+            $('#frmRegister').off('submit').submit();
+        })
+    </script>
 
 {{/section}}
 <main>
-<div>
-    {{#if msg}}
-    <div class="alert alert-danger alert-dismissible fade show text-center pr-0" role="alert">
-        {{msg}}
-        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true" class="bg-inherit">&times;</span>
-        </button>
-    </div>
-    {{/if}}
-
-    <form method="post" id="frmRegister">
-
-        <div class="card mb-3">
-            <h4 class="card-header">
-                ADD NEW QUESTION
-            </h4>
-        <div class="card-body">
-
-        <input type="hidden" name="wordlist" value="{{this.wordlist}}">
-
-        <div class="form-group">
-            <label for="word">Word:</label>
-            <select name="word">
-                {{#each this.wordlist}}
-                    <option value="{{wordid}}">{{wordname}}</option>
-                {{/each}}
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="txtWordmeaning">Other option:</label>
-            <input name="optiona" type="text" class="form-control" id="txtOptionA" autofocus>
-        </div>
-
-        <div class="form-group">
-            <label for="txtWordmeaning">Other option:</label>
-            <input name="optionb" type="text" class="form-control" id="txtOptionB" autofocus>
-        </div>
-
-        <div class="form-group">
-            <label for="txtWordmeaning">Other option:</label>
-            <input name="optionc" type="text" class="form-control" id="txtOptionC" autofocus>
-        </div>
-
-        <div class="form-group">
-            <label for="txtQuestion">Question</label>
-            <textarea name="question" type="text" class="form-control" id="txtQuestion">
-            </textarea>
-        </div>
-
-        <div class="card-footer text-muted">
-            <button type="submit" class="btn">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                Submit
+    <div>
+        {{#if msg}}
+        <div class="alert alert-danger alert-dismissible fade show text-center pr-0" role="alert">
+            {{msg}}
+            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true" class="bg-inherit">&times;</span>
             </button>
-                <button type="button" class="btn btn-primary btnBack">
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    Back to topic
-                </button>
         </div>
+        {{/if}}
 
-    </form>
-</div>
+        <form method="post" id="frmRegister">
+
+            <div class="card mb-3">
+                <h4 class="card-header">
+                    ADD NEW QUESTION
+                </h4>
+                <div class="card-body">
+
+                    <input type="hidden" name="wordlist" value="{{this.wordlist}}">
+
+                    <div class="form-group">
+                        <label for="word">Word:</label>
+                        <select name="word">
+                            {{#each this.wordlist}}
+                            <option value="{{wordid}}">{{wordname}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtWordmeaning">Other option:</label>
+                        <input name="optiona" type="text" class="form-control" id="txtOptionA" autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtWordmeaning">Other option:</label>
+                        <input name="optionb" type="text" class="form-control" id="txtOptionB" autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtWordmeaning">Other option:</label>
+                        <input name="optionc" type="text" class="form-control" id="txtOptionC" autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtQuestion">Question</label>
+                        <textarea name="question" type="text" class="form-control" id="txtQuestion"></textarea>
+                    </div>
+
+                    <div class="card-footer text-muted">
+                        <button type="submit" class="btn">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Submit
+                        </button>
+                        <button type="button" class="btn btn-primary btnBack">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Back to topic
+                        </button>
+                    </div>
+
+        </form>
+    </div>
 </main>

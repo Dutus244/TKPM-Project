@@ -31,7 +31,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
-   tinymce.init({
+    tinymce.init({
         selector: "#txtQuestion",
         height: 200,
         menubar: false,
@@ -43,20 +43,21 @@
     $(document).ready(function () {
         //back button
         $('.btnBack').on('click', function () {
-            window.location.href = '/admin/edittest/' + {{{topicid}}};
-        });
+            window.location.href = '/admin/edittest/' + {{ { topicid } }
+        };
+    });
     })
 
-     $('#frmRegister').on('submit', function (e){
+    $('#frmRegister').on('submit', function (e) {
         e.preventDefault();
 
         const editor = tinymce.get('txtQuestion');
         const question = editor.getContent();
-        if(!question.length){
+        if (!question.length) {
             alert('Please input question')
             return
         }
-        
+
         const optA = $('#txtOptionA').val();
         if (!optA.length) {
             alert('Please input all three other option')
@@ -81,7 +82,7 @@
             return
         }
 
-        if(optA == optB){
+        if (optA == optB) {
             alert('Same option')
             $('#txtOptionA').css('background-color', '#f2cece')
             $('#txtOptionA').addClass('form-control-error')
@@ -90,7 +91,7 @@
             return
         }
 
-        if(optA == optC){
+        if (optA == optC) {
             alert('Same option')
             $('#txtOptionA').css('background-color', '#f2cece')
             $('#txtOptionA').addClass('form-control-error')
@@ -99,7 +100,7 @@
             return
         }
 
-        if(optB == optC){
+        if (optB == optC) {
             alert('Same option')
             $('#txtOptionC').css('background-color', '#f2cece')
             $('#txtOptionC').addClass('form-control-error')
@@ -107,80 +108,80 @@
             $('#txtOptionB').addClass('form-control-error')
             return
         }
-        
+
         $('#frmRegister').off('submit').submit();
-     })
+    })
 </script>
 
 {{/section}}
 <main>
-<div>
-    {{#if msg}}
-    <div class="alert alert-danger alert-dismissible fade show text-center pr-0" role="alert">
-        {{msg}}
-        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true" class="bg-inherit">&times;</span>
-        </button>
-    </div>
-    {{/if}}
-
-    <form method="post" id="frmRegister">
-
-        <div class="card mb-3">
-            <h4 class="card-header">
-                EDIT QUESTION
-            </h4>
-        <div class="card-body">
-
-        <input type="hidden" name="wordlist" value="{{this.wordlist}}">
-
-        <div class="form-group">
-            <label for="txtWordname">Word:</label>
-            <input name="wordname" type="text" class="form-control" id="txtWordname"
-                value="{{wordname}}" disabled>
-        </div>
-
-        <div class="form-group" hidden>
-            <label for="txtWordid">Word:</label>
-            <input name="wordid" type="text" class="form-control" id="txtWordid"
-                value="{{wordid}}">
-        </div>
-
-        <div class="form-group">
-            <label for="txtWordmeaning">Other option:</label>
-            <input name="optiona" type="text" class="form-control" id="txtOptionA"
-                value="{{optiona}}" autofocus>
-        </div>
-
-        <div class="form-group">
-            <label for="txtWordmeaning">Other option:</label>
-            <input name="optionb" type="text" class="form-control" id="txtOptionB"
-                value="{{optionb}}" autofocus>
-        </div>
-
-        <div class="form-group">
-            <label for="txtWordmeaning">Other option:</label>
-            <input name="optionc" type="text" class="form-control" id="txtOptionC"
-                value="{{optionc}}" autofocus>
-        </div>
-
-        <div class="form-group">
-            <label for="txtQuestion">Question</label>
-            <textarea name="question" type="text" class="form-control" id="txtQuestion">{{{question}}}</textarea>
-            </textarea>
-        </div>
-
-        <div class="card-footer text-muted">
-            <button type="submit" class="btn">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                Submit
+    <div>
+        {{#if msg}}
+        <div class="alert alert-danger alert-dismissible fade show text-center pr-0" role="alert">
+            {{msg}}
+            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true" class="bg-inherit">&times;</span>
             </button>
-                <button type="button" class="btn btn-primary btnBack">
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    Back to topic
-                </button>
         </div>
+        {{/if}}
 
-    </form>
-</div>
+        <form method="post" id="frmRegister">
+
+            <div class="card mb-3">
+                <h4 class="card-header">
+                    EDIT QUESTION
+                </h4>
+                <div class="card-body">
+
+                    <input type="hidden" name="wordlist" value="{{this.wordlist}}">
+
+                    <div class="form-group">
+                        <label for="txtWordname">Word:</label>
+                        <input name="wordname" type="text" class="form-control" id="txtWordname" value="{{wordname}}"
+                            disabled>
+                    </div>
+
+                    <div class="form-group" hidden>
+                        <label for="txtWordid">Word:</label>
+                        <input name="wordid" type="text" class="form-control" id="txtWordid" value="{{wordid}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtWordmeaning">Other option:</label>
+                        <input name="optiona" type="text" class="form-control" id="txtOptionA" value="{{optiona}}"
+                            autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtWordmeaning">Other option:</label>
+                        <input name="optionb" type="text" class="form-control" id="txtOptionB" value="{{optionb}}"
+                            autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtWordmeaning">Other option:</label>
+                        <input name="optionc" type="text" class="form-control" id="txtOptionC" value="{{optionc}}"
+                            autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtQuestion">Question</label>
+                        <textarea name="question" type="text" class="form-control"
+                            id="txtQuestion">{{{question}}}</textarea>
+                        </textarea>
+                    </div>
+
+                    <div class="card-footer text-muted">
+                        <button type="submit" class="btn">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Submit
+                        </button>
+                        <button type="button" class="btn btn-primary btnBack">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Back to topic
+                        </button>
+                    </div>
+
+        </form>
+    </div>
 </main>
