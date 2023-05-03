@@ -66,9 +66,10 @@
             alert('Please upload photo')
             return
         }
-
-        const description = $("#txtDescription").val();
-        if (!description.length) {
+        
+        const editor = tinymce.get('txtDescription');
+        const question = editor.getContent();
+        if(!description.length){
             alert('Please input description')
             return
         }
