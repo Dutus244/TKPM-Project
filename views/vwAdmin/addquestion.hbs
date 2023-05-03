@@ -50,7 +50,8 @@
      $('#frmRegister').on('submit', function (e){
         e.preventDefault();
 
-        const question = $('txtQuestion').val();
+        const editor = tinymce.get('txtQuestion');
+        const question = editor.getContent();
         if(!question.length){
             alert('Please input question')
             return
