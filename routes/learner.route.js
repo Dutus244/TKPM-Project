@@ -13,7 +13,7 @@ router.get('/revision', async function (req, res) {
     let lessonsProgress = await learnerService.getLessonsProgress(res.locals.authUser.userid)
     lessonsProgress = lessonsProgress.map(it => ({
         lessonname: it.lessonname,
-        percentage: (it.wordshaslearned / it.totalwords) * 100,
+        percentage: Math.floor((it.wordshaslearned / it.totalwords) * 100),
     }))
 
     let memoryLevelCount = await learnerService.getUserMemoryLevelCount(res.locals.authUser.userid)
