@@ -276,3 +276,7 @@ dist
 # End of https://www.toptal.com/developers/gitignore/api/node,intellij,visualstudiocode
 
 .env
+
+/public/img/lesson
+/public/img/topic
+/public/img/flashcard
