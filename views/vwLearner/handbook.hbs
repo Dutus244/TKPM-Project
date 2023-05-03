@@ -6,8 +6,17 @@
 {{#section 'js'}}
     <script type="text/javascript">
         window.onload = (event) => {
-            invisibleAllLevel()
-            visibleLevelAll()
+            var search = '{{{search}}}'.toString()
+            if(search === "1"){
+                alert("true")
+            }
+            else{
+                alert("false")
+                invisibleAllLevel()
+                visibleLevelAll()
+                $("#All").addClass('active')
+            }
+
         };
         $(document).ready(function(){
             $('.subnav a').on('click', function() {
