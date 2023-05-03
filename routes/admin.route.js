@@ -556,7 +556,7 @@ router.post('/editquestion/:id', async function (req, res) {
             optionc,
             question,
             topicid: JSON.stringify(topicid),
-            msg: "The answer is same to one of the three other options",
+            msg: "The answer is the same as one of the three other options",
         })
     }
 
