@@ -330,7 +330,6 @@ router.post('/handbook', async function (req, res) {
 router.get('/handbook', async function (req, res) {
     const userID = req.session.authUser.userid
     const words = await learnerService.getWordWithLetter(userID, '')
-    console.log(typeof (words[0].isSearch))
     res.render('vwLearner/handbook', {
         words,
         level: 1,
@@ -342,9 +341,6 @@ router.get('/handbook/search', async function (req, res) {
     const userID = req.session.authUser.userid
     const { word } = req.query;
     const words = await learnerService.getWordWithLetter(userID, word);
-    for(var i of words){
-        console.log(i.isSearch + " "+ typeof(i.isSearch))
-    }
     res.render('vwLearner/handbook', {
         words,
         level: 1,

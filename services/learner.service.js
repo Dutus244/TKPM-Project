@@ -284,7 +284,7 @@ export default {
     async getWordWithLetter(user_id, letter) {
         const raw = await db.raw("select words.wordid,wordname,wordtype,wordmeaning, wordhistory.isStudy,MemoryLevel , ( case when " +
             "        words.WordName like '%" + letter + "%' then true" +
-            "        else null" +
+            "        else false" +
             "        end )" +
             "        as isSearch" +
             "        from wordhistory" +
