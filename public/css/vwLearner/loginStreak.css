@@ -48,14 +48,14 @@ img{
     font-size: 30px;
 }
 
-.btn {
+#changetab.btn {
     background-color: #f4df89;
     border-color: #f4df89;
     color: black;
     font-weight: bold;
 }
 
-.btn:hover {
+#changetab.btn:hover {
     background-color: #f69105;
     border-color: #f69105;
     color: white;
