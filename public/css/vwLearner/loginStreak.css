@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding-top: 10px;
 }
 
 
@@ -45,6 +46,20 @@ img{
 .lessons-finished{
     font-weight: 500;
     font-size: 30px;
+}
+
+#changetab.btn {
+    background-color: #f4df89;
+    border-color: #f4df89;
+    color: black;
+    font-weight: bold;
+}
+
+#changetab.btn:hover {
+    background-color: #f69105;
+    border-color: #f69105;
+    color: white;
+    font-weight: bold;
 }
 
 @media only screen and (max-width: 600px){
