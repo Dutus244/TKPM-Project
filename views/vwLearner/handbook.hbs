@@ -6,8 +6,15 @@
 {{#section 'js'}}
     <script type="text/javascript">
         window.onload = (event) => {
-            invisibleAllLevel()
-            visibleLevelAll()
+            var search = '{{{search}}}'.toString()
+            if(search === "1"){
+                $("#All").removeClass('active')
+            }
+            else{
+                invisibleAllLevel()
+                visibleLevelAll()
+                $("#All").addClass('active')
+            }
         };
         $(document).ready(function(){
             $('.subnav a').on('click', function() {
@@ -112,7 +119,7 @@
     </script>
     <script>
         function invisibleAllLevel(){
-            var tr = document.getElementsByTagName("tr");
+            var tr = document.getElementsByTagName('tr:not(thead tr)');
             for (var i = 0; i < tr.length; i++) {
                 tr[i].style.display = 'none';
             }
@@ -135,7 +142,7 @@
 <div class="container" class="card-100 border-0">
     <div id="title" >
         <nav class="subnav">
-            <a id="All" class="active" href="#" >All</a>
+            <a id="All" href="#" >All</a>
             <a id="level-1"  href="#" >Level 1</a>
             <a id="level-2"  href="#">Level 2</a>
             <a id="level-3" href="#" >Level 3</a>
@@ -170,8 +177,18 @@
     <div class="content" class="card border-0">
         <form id="updateDataForm" method="POST" action="/handbook">
             <table >
+                <thead>
+                    <th class="lean" >
+                    </th>
+                    <th class="wordname">Word Name</th>
+                    <th class="wordtype">Word Type</th>
+                    <th class="wordmeaning">Word Meaning</th>
+                    <th class="wordlevel">
+                       Level
+                    </th>
+                </thead>
                 {{#each words}}
-                    <tr class="level-{{MemoryLevel}}" style="display:table-row" {{#if isSearch}}{{else}}style="display: none" {{/if}}>
+                    <tr class="level-{{MemoryLevel}}"  {{#if isSearch}}style="display:table-row"{{else}}style="display: none" {{/if}}>
                         <td class="lean" id="{{wordid}}">
                             <div class="formcheck">
                                 <input  type="checkbox" value= {{wordid}} name="id[]" id="{{wordid}}" {{#if isStudy}}checked{{/if}}>

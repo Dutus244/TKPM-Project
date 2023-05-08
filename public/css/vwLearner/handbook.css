@@ -91,9 +91,24 @@ td.wordmeaning{
 }
 td.wordlevel{
     width: 2%;
+    text-align: center;
 }
-
-
+th.lean{
+    width:5%;
+}
+th.wordname{
+    width: 25%;
+}
+th.wordtype{
+    width: 20%;
+}
+th.wordmeaning{
+    width: 50%;
+}
+th.wordlevel{
+    width: 2%;
+    text-align: center;
+}
 #dialog{
     align-items: center;
     justify-content: center;

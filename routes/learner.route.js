@@ -333,6 +333,7 @@ router.get('/handbook', async function (req, res) {
     res.render('vwLearner/handbook', {
         words,
         level: 1,
+        search: 0,
         active: { Handbook: true }
     });
 })
@@ -343,6 +344,7 @@ router.get('/handbook/search', async function (req, res) {
     res.render('vwLearner/handbook', {
         words,
         level: 1,
+        search: 1,
         active: { Handbook: true }
     });
 })
