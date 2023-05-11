@@ -40,7 +40,6 @@ export default function (app, __dirname) {
       },
     })
   );
-  console.log(__dirname);
   app.set("view engine", "hbs");
   app.set("views", __dirname + "/views");
 }
