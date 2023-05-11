@@ -279,10 +279,10 @@ router.get('/dailytest', async function (req, res) {
         learnerService.checkDaily(userID, timestamp),
         learnerService.getStreak(userID),
     ])
-
+    
     if(!check){
         if(!streakinfo){
-            streak = 1
+            let streak = 1
             const dailyLogin={
                 userID,
                 lastlogindate: timestamp,
@@ -422,6 +422,15 @@ router.get('/loginstreak',async function(req,res){
     }
     else{
         streak = streakinfo.streak  
+    }
+
+    let lastdaylogin = streakinfo.lastlogindate
+    const timestamp = new Date()            
+    const lastdayloginUTC = new Date(lastdaylogin).toISOString().slice(0,10)
+    const timestampUTC = timestamp.toISOString().slice(0, 10)
+
+    if(lastdayloginUTC !== timestampUTC){
+        streak = 1
     }
 
     const { accountlvl, linkimage } = account.reduce((acc, cur) => {
