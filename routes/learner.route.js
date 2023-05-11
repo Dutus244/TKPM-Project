@@ -282,8 +282,7 @@ router.get('/dailytest', async function (req, res) {
     
     if(!check){
         if(!streakinfo){
-            let streak = 0
-            streak = 1
+            let streak = 1
             const dailyLogin={
                 userID,
                 lastlogindate: timestamp,
