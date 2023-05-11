@@ -367,7 +367,7 @@ router.get('/addword/:id', async function (req, res) {
     res.render('vwAdmin/addword', {
         layout: 'mainAdmin',
         active: {Lesson: true},
-        topicid,
+        topicid: JSON.stringify(topicid),
         topicname,
     })
 })
