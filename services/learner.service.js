@@ -241,6 +241,7 @@ export default {
         const list = await db('words')
             .select('wordid', 'wordname', 'wordtype', 'wordmeaning', 'wordpronounce', 'wordexample', 'wordavatar')
             .where('topicid', topicId)
+            .andWhere('isdelete', 0)
 
         return list
     },

@@ -35,12 +35,13 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999;
+    margin-top: 250px;
 }
 
 .img-wrapper img {
-    height: 400px;
-    width: 400px;
-    margin-top: 600px;
+    height: 300px;
+    width: 300px;
+
 }
 
 .question-name {
@@ -230,10 +231,18 @@ body {
 }
 
 @media only screen and (max-width: 1024px) {
+    .img-wrapper {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        margin-top: 170px;
+    }
+
     .img-wrapper img {
         width: 175px;
         height: 175px;
-        margin-top: 350px;
     }
 
     .example {
