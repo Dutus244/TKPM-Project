@@ -279,7 +279,7 @@ router.get('/dailytest', async function (req, res) {
         learnerService.checkDaily(userID, timestamp),
         learnerService.getStreak(userID),
     ])
-    
+
     if(!check){
         if(!streakinfo){
             streak = 1
