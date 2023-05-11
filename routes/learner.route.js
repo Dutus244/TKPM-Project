@@ -279,9 +279,10 @@ router.get('/dailytest', async function (req, res) {
         learnerService.checkDaily(userID, timestamp),
         learnerService.getStreak(userID),
     ])
-
+    
     if(!check){
         if(!streakinfo){
+            let streak = 0
             streak = 1
             const dailyLogin={
                 userID,
