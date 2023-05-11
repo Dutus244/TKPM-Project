@@ -76,18 +76,8 @@
                 }
             });
 
-            const goToHomePage = () => {
-                const response = fetch(`/`);
-                if (response.ok) {
-
-                } else {
-                    console.error(`Error: ${response.status} - ${response.statusText}`);
-                }
-            }
-
             nextButton.addEventListener('click', goToNextQuestion);
             prevButton.addEventListener('click', goToPrevQuestion);
-            endButton.addEventListener('click', goToHomePage);
 
             hideAllQuestions()
             // show the first question and update the buttons
@@ -552,4 +542,4 @@
 <button type="button" id="next-btn" disabled>
     <i class="bi bi-arrow-right text-dark"></i>
 </button>
-<button type="button" id="end-btn" style="display:none;" onclick="window.location.href='/revision'">End</button>
+<button type="button" id="end-btn" onclick="window.location.href='/revision'">End</button>
