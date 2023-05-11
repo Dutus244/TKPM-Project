@@ -1,0 +1,97 @@
+{{#section 'js'}}
+<script>
+  $(document).ready(function() {
+    const memoryLevelCount = {{{ memoryLevelCount }}}
+
+    for (i in memoryLevelCount) {
+      const { memorylevel , number, percentage } = memoryLevelCount[i]
+      $(`.level-${memorylevel} .word-count`).height(95 - 0.85 * percentage + "%")
+      $(`.level-${memorylevel} .word-count`).text(number)
+    }
+
+    $('.instruction > .bi-question-circle').hover(function () {
+      $('.chart > .hide').css('display', 'block')
+    }, function () {
+      $(".chart > .hide").css("display", "none");
+    })
+  })
+</script>
+{{/section}}
+
+{{#section 'css'}}
+<link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">
+<link rel="stylesheet" href="/public/CSS/vwLearner/homeRevision.css">
+{{/section}}
+
+<div class="container-fluid">
+  <div class="instruction">
+    <i class="bi bi-question-circle"></i>
+  </div>
+
+  <div class="chart">
+    <div class="hide">
+      <p class="instruction-text">
+        You will learn new words and they will be divided into 5 levels. <br>
+        <b>Level 1</b> includes the new words and they will be tested daily. <br>
+        <b>Level 2</b> includes words from level 1 that you answer correctly in the review test, and these words will appear again in
+        the review test after 2 days. <br>
+        <b>Level 3</b> includes words from level 2 that you answer correctly, and they will appear again in the review test after 4
+        days. <br>
+        <b>Level 4</b> includes words from level 3 that you answer correctly, and they will appear again in the review test after 6
+        days. <br>
+        <b>Level 5</b>'s words will not appear in the review test as you have completely learned them by heart. <br>
+      </p>
+    </div>
+    <div class="level-1">
+      <div class="word-count">0</div>
+      <div class="bar"></div>
+    </div>
+    <div class="level-2">
+      <div class="word-count">0</div>
+      <div class="bar"></div>
+    </div>
+    <div class="level-3">
+      <div class="word-count">0</div>
+      <div class="bar"></div>
+    </div>
+    <div class="level-4">
+      <div class="word-count">0</div>
+      <div class="bar"></div>
+    </div>
+    <div class="level-5">
+      <div class="word-count">0</div>
+      <div class="bar"></div>
+    </div>
+  </div>
+  <div class="chart-foot"></div>
+  <div class="level-text">
+    <div class="level-1-text">1</div>
+    <div class="level-2-text">2</div>
+    <div class="level-3-text">3</div>
+    <div class="level-4-text">4</div>
+    <div class="level-5-text">5</div>
+  </div>
+
+  <div class="review mb-5">
+    <p class="review-test-text">Today review test has {{this.reviewWordsCount}} words</p>
+    <button type="button" id="review-btn" class="btn" onclick="window.location.href='/dailytest'">REVIEW</button>
+  </div>
+
+  <div class="lesson-progress">
+    <div class="lesson-progress-title mb-4">
+      Learning lessons
+    </div>
+    {{#each lessonsProgress}}
+    <div class="lesson-progress-item mb-3">
+      <div class="lesson-progress-item-name">{{this.lessonname}}</div>
+      <div class="progress-container">
+        <div class="percentage">{{this.percentage}}%</div>
+        <div class="progress">
+          <div class="progress-bar" style="width:{{this.percentage}}%;" role="progressbar" 
+            aria-valuenow="{{this.percentage}}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>

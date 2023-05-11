@@ -1,0 +1,250 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 75vw;
+}
+div#title {
+    width: 100%;
+}
+
+.searchinput{
+    border-width: 1px;
+    border-color: black;
+}
+.btn{
+    border-color: #F4DF89;
+    border-radius: 10%;
+    border-width: 1px;
+    background-color:#F4DF89 ;
+}
+.subnav a{
+    text-decoration: none;
+    color: black;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 100%;
+    width: 16.7%;
+    text-align: center;
+}
+.subnav a.active{
+    border-radius: 5px;
+    color:white;
+}
+#All.active{
+    background-color: #71aca9;
+}
+#level-1.active{
+    background-color:#ff4062 ;
+}
+#level-2.active{
+    background-color: #ff9c98;
+}
+#level-3.active{
+    background-color: #facdab;
+}
+#level-4.active{
+    background-color: #aacdaf;
+}
+#level-5.active{
+    background-color: #71aca9;
+}
+
+.subnav a{
+    color:black;
+    text-decoration: none;
+}
+.subnav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+.content {
+    margin-top: 30px;
+    width: 100%;
+}
+table{
+    width: 100%;
+}
+td button{
+    background-color: white;
+    border-width: 0;
+}
+td.lean{
+    width:5%;
+}
+td.wordname{
+    width: 25%;
+}
+td.wordtype{
+    width: 20%;
+}
+td.wordmeaning{
+    width: 50%;
+}
+td.wordlevel{
+    width: 2%;
+    text-align: center;
+}
+th.lean{
+    width:5%;
+}
+th.wordname{
+    width: 25%;
+}
+th.wordtype{
+    width: 20%;
+}
+th.wordmeaning{
+    width: 50%;
+}
+th.wordlevel{
+    width: 2%;
+    text-align: center;
+}
+#dialog{
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+}
+#cancel{
+    align-self: end;
+    font-weight: bold;
+    font-size: 1em;
+    text-decoration: none;
+    display: inline-block;
+    border: 3px solid #ffffff;
+    border-radius: 10px;
+}
+#save{
+    font-weight: bold;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 40px 10px 40px;
+    position: relative;
+    border: 3px solid #ffffff;
+    border-radius: 20px;
+}
+#leave{
+    background-color: white;
+    font-weight: bold;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    padding: 10px 40px 10px 40px;
+    position: relative;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+.dialog-body{
+    padding: 10px;
+    width: fit-content;
+    border: 2px solid black;
+    background-color: white;
+    border-radius: 20px;
+
+}
+.dialog-body button i{
+    font-size: 20px;
+}
+
+input{
+    padding-bottom:20px;
+}
+tr{
+    height: 40px;
+}
+table {
+    border-collapse: collapse;
+}
+tr {
+    border: solid;
+    border-width: 0;
+    border-bottom-width: 1px;
+
+}
+
+input[type="checkbox"]{
+    opacity: 1;
+    cursor: pointer;
+    appearance: none;
+    outline: none;
+}
+
+input[type="checkbox"]::after{
+    content: url("https://img.icons8.com/ios/16/000000/star.png");
+    border-radius: 50%;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type="checkbox"]:checked:after {
+    content: url("https://img.icons8.com/ios-filled/16/000000/star.png");
+
+}
+
+.invisible{
+    display: none;
+}
+.visible{
+    display: block;
+}
+.dialog-body h4{
+    margin-bottom: 10px;
+    text-align: center;
+}
+.dialog-body div{
+}
+.dialog-body button{
+    margin: 20px;
+}
+
+.column-input {
+    width: 90%;
+}
+.column-button {
+    width: 10%;
+    display: flex;
+    justify-content: end;
+}
+.column-button .btn{
+    justify-content: center;
+}
+
+@media screen and (max-width: 850px) {
+    .container{
+        width: 100vw;
+    }
+    .subnav a{
+        width: fit-content;
+        font-size: 14px;
+        padding: 10px;
+
+    }
+    .column-input {
+        width: 75%;
+    }
+    .column-button {
+        width: 25%;
+    }
+}

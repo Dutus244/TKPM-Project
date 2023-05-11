@@ -1,0 +1,50 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="/public/CSS/vwLearner/topic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{{/section}}
+
+{{#section 'js'}}
+{{/section}}
+        <div id="header" >
+                <img src="{{lesson.LessonAvatar}}">
+                <div id="description">
+                    <h1> {{lesson.LessonName}}</h1>
+                    <p >{{{lesson.LessonDes}}}</p>
+                </div>
+        </div>
+<h3>Topic List</h3>
+
+    <div id="content" >
+            <div class="container">
+                <div class="row">
+                        {{#each topic}}
+                            <div class ="column">
+                                <a id = "topic"href="/topic/{{TopicID}}" class="card"
+                                   class="isRead"
+                                   role="button" aria-pressed="true">
+                                    <div class="row no-gutters topic"  >
+                                        {{#ifEquals isRead 0}}
+                                            <div class="col col-1">
+                                                <div class="d-flex justify-content-center">
+                                                    <i  class="fa fa-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
+                                            </div>
+
+                                        {{else}}
+                                            <div class="col col-1">
+                                                <div class="d-flex justify-content-center">
+                                                    <i  class="fa fa-check-square-o" aria-hidden="true" style="font-size: 1.5em; color:#AACDAF"></i></div>
+                                            </div>
+                                        {{/ifEquals}}
+                                        <img class="col col-4"
+                                             src="{{TopicAvatar}}"
+                                        >
+                                        <h3 class="col col-7">{{TopicName}}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                           
+
+                        {{/each}}
+                </div>
+            </div>
+        </div>

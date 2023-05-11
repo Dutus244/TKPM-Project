@@ -1,0 +1,164 @@
+{{#section 'css'}}
+<link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">
+<link rel="stylesheet" href="/public/CSS/vwLearner/topicTestHistoryList.css">
+{{/section}}
+
+{{#section 'js'}}
+<script>
+    $(document).ready(function () {
+        $('#changetab').on('click', function () {
+            window.location.href = '/loginStreak';
+        });
+    })
+
+    function updateCardList(data) {
+        const cardListContainer = document.querySelector('.container-fluid .row'); // select the container element for the card list
+        cardListContainer.innerHTML = ''; // clear the current card list
+        const cards = document.querySelectorAll('.container-fluid .question-name-1');
+        cards.forEach(card => {
+            card.innerHTML = '';
+        });
+        if (data.length === 0) {
+            const card = document.querySelector('.container-fluid')
+            const noHistoryMessage = document.createElement('div');
+            noHistoryMessage.className = 'p-2 m-0 text-center question-name-1';
+            noHistoryMessage.textContent = 'No topic test history';
+            card.appendChild(noHistoryMessage);
+        }
+        else {
+            // Loop through the data and create new card elements with the updated data
+            data.forEach(item => {
+                const cardCol = document.createElement('div');
+                cardCol.className = 'col-md-4';
+
+                const cardLink = document.createElement('a');
+                cardLink.href = `/topictesthistory/${item.TestID}`;
+                cardLink.className = 'card';
+                cardLink.style.margin = '10px';
+
+                const card = document.createElement('div');
+                card.className = 'card lessoncard';
+
+                const cardBody = document.createElement('div');
+                cardBody.className = 'card-body';
+
+                const cardTitle1 = document.createElement('h4');
+                cardTitle1.className = 'card-title';
+                cardTitle1.textContent = item.LessonName;
+
+                const cardTitle2 = document.createElement('h5');
+                cardTitle2.className = 'card-title';
+                cardTitle2.textContent = item.TopicName;
+
+                const cardText1 = document.createElement('p');
+                cardText1.className = 'card-text';
+                cardText1.innerHTML = '<b>Time:</b> ' + item.FormattedCreateTime;
+
+                const cardText2 = document.createElement('p');
+                cardText2.className = 'card-text';
+                cardText2.innerHTML = '<b>Total corrects:</b> ' + `${item.TotalCorrect} / ${item.TotalQuestion}`;
+
+                cardBody.appendChild(cardTitle1);
+                cardBody.appendChild(cardTitle2);
+                cardBody.appendChild(cardText1);
+                cardBody.appendChild(cardText2);
+                card.appendChild(cardBody);
+                cardLink.appendChild(card);
+                cardCol.appendChild(cardLink);
+                cardListContainer.appendChild(cardCol);
+            });
+        }
+    }
+
+    const lessonDropdown = document.getElementById('lessonDropdown');
+    lessonDropdown.addEventListener('change', async () => {
+        const selectedLesson = lessonDropdown.value;
+        if (selectedLesson === "") {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/getalltopichistory`);
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    // parse the response data and update the Mã Thực đơn dropdown options
+                    const data = JSON.parse(xhr.responseText);
+                    updateCardList(data)
+                } else {
+                    // handle errors
+                    console.error('Error:', xhr.statusText);
+                }
+            };
+            xhr.onerror = () => {
+                console.error('Error:', xhr.statusText);
+            };
+            xhr.send();
+        } else {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/gettopichistory?lessonid=${selectedLesson}`);
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    // parse the response data and update the Mã Thực đơn dropdown options
+                    const data = JSON.parse(xhr.responseText);
+                    updateCardList(data)
+                } else {
+                    // handle errors
+                    console.error('Error:', xhr.statusText);
+                }
+            };
+            xhr.onerror = () => {
+                console.error('Error:', xhr.statusText);
+            };
+            xhr.send();
+        }
+    })
+</script>
+{{/section}}
+
+<div class="container">
+    <button type="button" id="changetab" class="btn btn-primary">
+        Go to personal achivement
+    </button>
+    <div id="title_content">
+        <h1> Topic Test History </h1>
+    </div>
+    <div class="container" style="margin-top: 10px;">
+        <div class="row">
+            <div class="col">
+                <label for="lessonDropdown">
+                    <h3>Lesson:</h3>
+                </label>
+            </div>
+            <div class="col">
+                <select id="lessonDropdown" class="form-control custom-dropdown">
+                    <option value=""></option>
+                    {{#each this.listlesson}}
+                    <option value="{{LessonID}}">{{LessonName}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="margin-top: 10px;">
+        {{#if this.empty}}
+        <div class="p-2 m-0 text-center question-name-1">No topic test history</div>
+        {{else}}
+        <div class="row" style="overflow-y: auto;">
+            {{#each this.list}}
+            <div class="col-md-4">
+                <a href="/topictesthistory/{{TestID}}" class="card" style="margin: 10px">
+                    <div class="card lessoncard">
+                        <div class="card-body">
+                            <h4 class="card-title">{{LessonName}}</h4>
+                            <h5 class="card-title">{{TopicName}}</h5>
+                            <p class="card-title"><b>Time:</b> {{FormattedCreateTime}}</p>
+                            <p class="card-title"><b>Total corrects:</b> {{TotalCorrect}} / {{TotalQuestion}}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+    </div>
+
+
+</div>

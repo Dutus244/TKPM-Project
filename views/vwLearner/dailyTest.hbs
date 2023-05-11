@@ -1,0 +1,545 @@
+{{#section 'css'}}
+    <link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">
+    <link rel="stylesheet" href="/public/CSS/vwLearner/dailyTest.css">
+{{/section}}
+
+{{#section 'js'}}
+    <script>
+        let questions = null
+        let currentQuestionIndex = 0;
+        const totalQuestions = {{this.question.length}};
+        const topicid = "{{this.topicid}}";
+        const listAnswer = []
+        const prevButton = document.getElementById('prev-btn');
+        const nextButton = document.getElementById('next-btn');
+        const endButton = document.getElementById('end-btn');
+
+        if (totalQuestions === 0) {
+            endButton.style.display = 'block';
+        }
+
+        if (document.getElementById('question-form') !== null) {
+            questions = document.getElementById('question-form').querySelectorAll('.question');
+            const hideAllQuestions = () => {
+                const questions = document.getElementsByClassName('question');
+                for (let i = 1; i < questions.length; i++) {
+                    questions[i].classList.add('d-none');
+                }
+            }
+
+            const hideQuestion = (index) => {
+                const questions = document.getElementsByClassName('question');
+                questions[index].classList.add('d-none');
+            }
+
+            const showQuestion = (index) => {
+                var percentage = Math.floor(((currentQuestionIndex + 1) / totalQuestions) * 100)
+                $('.progress-bar').css('width', `${percentage}%`)
+                $('.progress-bar').attr('aria-valuenow', percentage)
+                const questions = document.getElementsByClassName('question');
+                questions[index].classList.remove('d-none');
+            }
+
+            const updateButtons = (index) => {
+                prevButton.disabled = (index === 0);
+                nextButton.disabled = (index === totalQuestions - 1);
+                if (nextButton.disabled) {
+                    endButton.style.display = 'block';
+                } else {
+                    endButton.style.display = 'none';
+                }
+            }
+
+            const goToNextQuestion = () => {
+                hideQuestion(currentQuestionIndex);
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+                updateButtons(currentQuestionIndex);
+            }
+
+            const goToPrevQuestion = () => {
+                hideQuestion(currentQuestionIndex);
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+                updateButtons(currentQuestionIndex);
+            }
+
+            document.addEventListener("keydown", function (event) {
+                if (event.code === "ArrowRight") {
+                    if (currentQuestionIndex !== totalQuestions - 1) {
+                        goToNextQuestion();
+                    }
+                } else if (event.code === "ArrowLeft") {
+                    if (currentQuestionIndex !== 0) {
+                        goToPrevQuestion();
+                    }
+                }
+            });
+
+            nextButton.addEventListener('click', goToNextQuestion);
+            prevButton.addEventListener('click', goToPrevQuestion);
+
+            hideAllQuestions()
+            // show the first question and update the buttons
+            showQuestion(currentQuestionIndex);
+            updateButtons(currentQuestionIndex);
+
+            const resultQuestion = async (wordID, check) => {
+                try {
+                    const response = await fetch(`/resultdailytest?wordID=${wordID}&check=${check}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        return data;
+                    } else {
+                        console.error(`Error: ${response.status} - ${response.statusText}`);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            };
+
+
+            for (let i = 0; i < questions.length; i++) {
+                const tempType = questions[i].querySelector('.type')
+                const type = tempType.textContent;
+
+                const wordIDType = questions[i].querySelector('.wordid')
+                const wordID = wordIDType.textContent;
+                if (type === "0" || type === "4" || type === "6") {
+                    const answerType = questions[i].querySelector('.answer')
+                    const word = answerType.textContent.toLowerCase();
+
+                    // Generate the blanks for the word
+                    const blanks = word.split('').map(letter => {
+                        if (letter === ' ') {
+                            return ' ';
+                        } else {
+                            return '_';
+                        }
+                    });
+
+                    // Display the blanks on the page
+                    const wordDisplay = questions[i].querySelector('#word0');
+                    wordDisplay.textContent = blanks.join('');
+
+                    // Set the maximum number of incorrect guesses
+                    const maxIncorrectGuesses = 3;
+                    let incorrectGuesses = 0;
+
+                    // Add an event listener to the submit button to handle guesses
+                    const guessInput = questions[i].querySelector('#guess0');
+                    const submitButton = questions[i].querySelector('#submit0');
+                    const feedback = questions[i].querySelector('#feedback0');
+                    const health = questions[i].querySelector('#hp-left0');
+
+                    submitButton.addEventListener('click', async function () {
+                        const guess = guessInput.value.toLowerCase();
+
+                        if (guess.length === 1) {
+                            const correct = word.includes(guess);
+                            if (correct) {
+                                for (let i = 0; i < word.length; i++) {
+                                    if (word[i] === guess) {
+                                        blanks[i] = guess;
+                                    }
+                                }
+                                wordDisplay.textContent = blanks.join('');
+                                if (!blanks.includes('_')) {
+                                    feedback.textContent = 'You win!';
+                                    feedback.style.color = 'green';
+                                    guessInput.disabled = true;
+                                    submitButton.disabled = true;
+                                }
+                            } else {
+                                incorrectGuesses++;
+                                if (incorrectGuesses === maxIncorrectGuesses) {
+                                    feedback.textContent = `Sorry, you lost. The word was "${word}".`;
+                                    feedback.style.color = 'red';
+                                    guessInput.disabled = true;
+                                    submitButton.disabled = true;
+                                    health.textContent = 0;
+                                    await resultQuestion(wordID, 0)
+                                } else {
+                                    feedback.textContent = `Incorrect.`;
+                                    feedback.style.color = 'red';
+                                    health.textContent = maxIncorrectGuesses - incorrectGuesses
+                                }
+                            }
+                        } else {
+                            if (guess === word) {
+                                for (let i = 0; i < word.length; i++) {
+                                    blanks[i] = word[i];
+                                }
+                                wordDisplay.textContent = blanks.join('');
+                                feedback.textContent = 'You win!';
+                                feedback.style.color = 'green';
+                                guessInput.disabled = true;
+                                submitButton.disabled = true;
+                                await resultQuestion(wordID, 1)
+                            } else {
+                                incorrectGuesses++;
+                                if (incorrectGuesses === maxIncorrectGuesses) {
+                                    feedback.textContent = `Sorry, you lost. The word was "${word}".`;
+                                    feedback.style.color = 'red';
+                                    guessInput.disabled = true;
+                                    submitButton.disabled = true;
+                                    health.textContent = 0;
+                                    await resultQuestion(wordID, 0)
+                                } else {
+                                    feedback.textContent = `Incorrect.`;
+                                    feedback.style.color = 'red';
+                                    health.textContent = maxIncorrectGuesses - incorrectGuesses
+                                }
+                            }
+                        }
+                        guessInput.value = '';
+                    });
+                } else if (type === "1"  || type === "5" || type === "7") {
+                    const answerType = questions[i].querySelector('.answer')
+                    const word = answerType.textContent.toLowerCase();
+                    const feedback = questions[i].querySelector('#feedback0');
+                    const characters = word.split("");
+                    characters.sort();
+                    const sortedWord = characters.join("");
+
+                    const container1 = questions[i].querySelector("#container1");
+                    const container2 = questions[i].querySelector("#container2");
+                    const buttonsubmit = questions[i].querySelector("#submit0");
+
+                    for (let i = 0; i < sortedWord.length; i++) {
+                        const button = document.createElement("button");
+                        button.innerText = sortedWord[i];
+                        button.classList.add("word-button");
+                        button.addEventListener("click", () => {
+                            if (container1.contains(button)) {
+                                container1.removeChild(button);
+                            }
+                            container2.appendChild(button);
+                        });
+                        container1.appendChild(button);
+                    }
+                    container2.addEventListener("click", (event) => {
+                        const button = event.target;
+                        container2.removeChild(button);
+                        container1.appendChild(button);
+                    });
+
+                    buttonsubmit.addEventListener("click", async () => {
+                        const letters = Array.from(container2.children).map((button) => button.innerText);
+
+                        const result = letters.join("");
+
+                        if (word.replace(/\s+/g, "") === result) {
+                            feedback.textContent = 'You win!';
+                            feedback.style.color = 'green';
+                            await resultQuestion(wordID, 1)
+                            buttonsubmit.disabled = true;
+                        } else {
+                            feedback.textContent = `Sorry, you lost. The word was "${word}".`;
+                            feedback.style.color = 'red';
+                            await resultQuestion(wordID, 0)
+                            buttonsubmit.disabled = true;
+                        }
+                    })
+                } else if (type === "2") {
+                    const options = document.querySelectorAll('#options span');
+                    options.forEach(option => {
+                        option.addEventListener('click', async () => {
+                            // Get the correct answer for this question
+                            const tempAnswer = questions[currentQuestionIndex].querySelector('.answer')
+                            const correctAnswer = tempAnswer.textContent;
+
+                            const tempQuestionID = questions[currentQuestionIndex].querySelector('.id')
+                            const questionID = tempQuestionID.textContent;
+
+                            // Get the selected answer
+                            const selectedAnswer = option.textContent.substring(3);
+
+                            const isCorrect = selectedAnswer === correctAnswer;
+                            const parent = option.parentNode;
+                            const cell = parent.querySelector(`div[value="${selectedAnswer}"]`);
+                            const spanOptionA = parent.querySelector('.spanOptionA');
+                            const OptionA = spanOptionA.textContent.substring(3);
+
+                            const spanOptionB = parent.querySelector('.spanOptionB');
+                            const OptionB = spanOptionB.textContent.substring(3);
+
+                            const spanOptionC = parent.querySelector('.spanOptionC');
+                            const OptionC = spanOptionC.textContent.substring(3);
+
+                            const spanOptionD = parent.querySelector('.spanOptionD');
+                            const OptionD = spanOptionD.textContent.substring(3);
+
+
+                            cell.style.background = isCorrect ? 'rgb(43,190,28)' : 'rgb(231,75,75)';
+                            option.style.color = 'rgb(255,255,255)'
+                            option.style.fontWeight = 'bold'
+
+                            if (isCorrect) {
+                                await resultQuestion(wordID, 1)
+                            } else {
+                                await resultQuestion(wordID, 0)
+                            }
+
+                            options.forEach(otherOption => {
+                                if (otherOption !== option && otherOption.parentNode === option.parentNode) {
+                                    otherOption.removeEventListener('click', () => {
+                                    });
+                                    otherOption.style.pointerEvents = 'none'; // Disable pointer events on span elements
+                                }
+                            });
+                        });
+                    });
+                } else if (type === "3") {
+                    const synth = window.speechSynthesis;
+                    const answerType = questions[i].querySelector('.answer')
+                    const word = answerType.textContent.toLowerCase();
+                    questions[i].querySelector(".speak").addEventListener("click", function() {
+                        speak(word)
+                    });
+
+                    const speak = (text) => {
+                        const speakText = new SpeechSynthesisUtterance(text);
+
+                        // Get the voice by name
+                        const voices = synth.getVoices();
+                        const voice = voices.find(voice => voice.name === 'Microsoft David - English (United States)');
+
+                        // Set the voice
+                        speakText.voice = voice;
+
+                        // Speak
+                        synth.speak(speakText);
+                    };
+
+                    const guessInput = questions[i].querySelector('#guess1');
+                    const submitButton = questions[i].querySelector('#submit0');
+                    const feedback = questions[i].querySelector('#feedback0');
+
+                    submitButton.addEventListener('click', async function () {
+                        const guess = guessInput.value.toLowerCase();
+                        if (guess === word) {
+                            feedback.textContent = 'You win!';
+                            feedback.style.color = 'green';
+                            await resultQuestion(wordID, 1)
+                            submitButton.disabled = true;
+                        } else {
+                            feedback.textContent = `Sorry, you lost. The word was "${word}".`;
+                            feedback.style.color = 'red';
+                            await resultQuestion(wordID, 0)
+                            submitButton.disabled = true;
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+{{/section}}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        {{#if this.empty}}
+            <div class="p-2 m-0 text-center question-name-1">No words to do today</div>
+        {{else}}
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                     aria-valuemax="100"></div>
+            </div>
+            <div id="question-form">
+                {{#each this.question}}
+                    {{#ifEquals  this.QuestionType "0"}}
+                        {{#ifEquals  this.QuestionAvatar ""}}
+                            <div class="question" id="question{{@index}}">
+                                <div class="p-2 m-0 text-center question-name-1">{{{Question}}}</div>
+                                <div class="answer" style="display: none">{{Answer}}</div>
+                                <div class="type" style="display: none">{{QuestionType}}</div>
+                                <div class="wordid" style="display: none">{{WordID}}</div>
+                                <div class="hp"><i class="bi bi-heart-fill text-danger"></i><span>   </span><span
+                                        id="hp-left0">3</span></div>
+                                <p id="word0"></p>
+                                <input type="text" id="guess0" placeholder="Enter a letter">
+                                <button id="submit0">Submit</button>
+                                <p id="feedback0"></p>
+                            </div>
+                        {{else}}
+                            <div class="question" id="question{{@index}}">
+                                <div class="p-2 m-0 text-center question-name">{{{Question}}}</div>
+                                <div class="answer" style="display: none">{{Answer}}</div>
+                                <div class="type" style="display: none">{{QuestionType}}</div>
+                                <div class="wordid" style="display: none">{{WordID}}</div>
+                                <div class="img-wrapper">
+                                    <img src="{{QuestionAvatar}}" alt="Question Avatar">
+                                </div>
+                                <div class="hp"><i class="bi bi-heart-fill text-danger"></i><span>   </span><span
+                                        id="hp-left0"> 3</span></div>
+                                <p id="word0"></p>
+                                <input type="text" id="guess0" placeholder="Enter a letter">
+                                <button id="submit0">Submit</button>
+                                <p id="feedback0"></p>
+                            </div>
+                        {{/ifEquals}}
+                    {{/ifEquals}}
+                    {{#ifEquals this.QuestionType "1"}}
+                        {{#ifEquals  this.QuestionAvatar ""}}
+                            <div class="question" id="question{{@index}}">
+                                <div class="p-2 m-0 text-center question-name-1">{{{Question}}}</div>
+                                <div class="answer" style="display: none">{{Answer}}</div>
+                                <div class="type" style="display: none">{{QuestionType}}</div>
+                                <div class="wordid" style="display: none">{{WordID}}</div>
+                                <div class="guide1">Arrange the given letters in order to get the correct word</div>
+                                <div id="container1"></div>
+                                <div id="container2"></div>
+                                <button id="submit0">Submit</button>
+                                <p id="feedback0"></p>
+                            </div>
+                        {{else}}
+                            <div class="question" id="question{{@index}}">
+                                <div class="p-2 m-0 text-center question-name">{{{Question}}}</div>
+                                <div class="answer" style="display: none">{{Answer}}</div>
+                                <div class="type" style="display: none">{{QuestionType}}</div>
+                                <div class="wordid" style="display: none">{{WordID}}</div>
+                                <div class="img-wrapper">
+                                    <img src="{{QuestionAvatar}}" alt="Question Avatar">
+                                </div>
+                                <div class="guide1">Arrange the given letters in order to get the correct word</div>
+                                <div id="container1"></div>
+                                <div id="container2"></div>
+                                <button id="submit0">Submit</button>
+                                <p id="feedback0"></p>
+                            </div>
+                        {{/ifEquals}}
+                    {{/ifEquals}}
+                    {{#ifEquals this.QuestionType "2"}}
+                        {{#ifEquals  this.QuestionAvatar ""}}
+                            <div class="question" id="question{{@index}}">
+                                <div class="p-2 m-0 text-center question-name-1">{{{Question}}}</div>
+                                <div class="id" style="display: none">{{QuestionID}}</div>
+                                <div class="answer" style="display: none">{{Answer}}</div>
+                                <div class="type" style="display: none">{{QuestionType}}</div>
+                                <div class="wordid" style="display: none">{{WordID}}</div>
+                                <div class="" id="options">
+                                    <div class="divOptionA" value={{OptionA}}></div>
+                                    <div class="divOptionB" value={{OptionB}}></div>
+                                    <div class="divOptionC" value={{OptionC}}></div>
+                                    <div class="divOptionD" value={{OptionD}}></div>
+                                    <span class="spanOptionA">A. {{OptionA}}</span>
+                                    <span class="spanOptionB">B. {{OptionB}}</span>
+                                    <span class="spanOptionC">C. {{OptionC}}</span>
+                                    <span class="spanOptionD">D. {{OptionD}}</span>
+                                </div>
+
+                            </div>
+                        {{else}}
+                            <div class="question" id="question{{@index}}">
+                                <div class="p-2 m-0 text-center question-name">{{{Question}}}</div>
+                                <div class="id" style="display: none">{{QuestionID}}</div>
+                                <div class="answer" style="display: none">{{Answer}}</div>
+                                <div class="type" style="display: none">{{QuestionType}}</div>
+                                <div class="wordid" style="display: none">{{WordID}}</div>
+                                <div class="" id="options">
+                                    <div class="img-wrapper">
+                                        <img src="{{QuestionAvatar}}" alt="Question Avatar">
+                                    </div>
+                                    <div class="divOptionA" value={{OptionA}}></div>
+                                    <div class="divOptionB" value={{OptionB}}></div>
+                                    <div class="divOptionC" value={{OptionC}}></div>
+                                    <div class="divOptionD" value={{OptionD}}></div>
+                                    <span class="spanOptionA">A. {{OptionA}}</span>
+                                    <span class="spanOptionB">B. {{OptionB}}</span>
+                                    <span class="spanOptionC">C. {{OptionC}}</span>
+                                    <span class="spanOptionD">D. {{OptionD}}</span>
+                                </div>
+
+                            </div>
+                        {{/ifEquals}}
+                    {{/ifEquals}}
+                    {{#ifEquals this.QuestionType "3"}}
+                        <div class="question" id="question{{@index}}">
+                            <div class="answer" style="display: none">{{Answer}}</div>
+                            <div class="type" style="display: none">{{QuestionType}}</div>
+                            <div class="wordid" style="display: none">{{WordID}}</div>
+                            <button class="speak" ><i class="bi bi-volume-up"  style="font-size: 30px;"></i></button>
+                            <div class="question-name">Listen to the vocabulary and fill in the box below</div>
+                            <input type="text" id="guess1" placeholder="Enter a word">
+                            <button id="submit0">Submit</button>
+                            <p id="feedback0"></p>
+                        </div>
+                    {{/ifEquals}}
+                    {{#ifEquals this.QuestionType "4"}}
+                        <div class="question" id="question{{@index}}">
+                            <div class="p-2 m-0 text-center question-name-1">{{{Question}}}</div>
+                            <div class="answer" style="display: none">{{Answer}}</div>
+                            <div class="type" style="display: none">{{QuestionType}}</div>
+                            <div class="wordid" style="display: none">{{WordID}}</div>
+                            <div class="hp"><i class="bi bi-heart-fill text-danger"></i><span>   </span><span
+                                    id="hp-left0">3</span></div>
+                            <p id="word0"></p>
+                            <input type="text" id="guess0" placeholder="Enter a letter">
+                            <button id="submit0">Submit</button>
+                            <p id="feedback0"></p>
+                        </div>
+                    {{/ifEquals}}
+                    {{#ifEquals this.QuestionType "5"}}
+                        <div class="question" id="question{{@index}}">
+                            <div class="p-2 m-0 text-center question-name-1">{{{Question}}}</div>
+                            <div class="answer" style="display: none">{{Answer}}</div>
+                            <div class="type" style="display: none">{{QuestionType}}</div>
+                            <div class="wordid" style="display: none">{{WordID}}</div>
+                            <div class="guide1">Arrange the given letters in order to get the correct word</div>
+                            <div id="container1"></div>
+                            <div id="container2"></div>
+                            <button id="submit0">Submit</button>
+                            <p id="feedback0"></p>
+                        </div>
+                    {{/ifEquals}}
+                    {{#ifEquals this.QuestionType "6"}}
+                        <div class="question" id="question{{@index}}">
+                            <div class="p-2 m-0 text-center question-name">{{{Question}}}</div>
+                            <div class="answer" style="display: none">{{Answer}}</div>
+                            <div class="type" style="display: none">{{QuestionType}}</div>
+                            <div class="wordid" style="display: none">{{WordID}}</div>
+                            <div class="img-wrapper">
+                                <img src="{{QuestionAvatar}}" alt="Question Avatar">
+                            </div>
+                            <div class="hp"><i class="bi bi-heart-fill text-danger"></i><span>   </span><span
+                                    id="hp-left0"> 3</span></div>
+                            <p id="word0"></p>
+                            <input type="text" id="guess0" placeholder="Enter a letter">
+                            <button id="submit0">Submit</button>
+                            <p id="feedback0"></p>
+                        </div>
+                    {{/ifEquals}}
+                    {{#ifEquals this.QuestionType "7"}}
+                        <div class="question" id="question{{@index}}">
+                            <div class="p-2 m-0 text-center question-name">{{{Question}}}</div>
+                            <div class="answer" style="display: none">{{Answer}}</div>
+                            <div class="type" style="display: none">{{QuestionType}}</div>
+                            <div class="wordid" style="display: none">{{WordID}}</div>
+                            <div class="img-wrapper">
+                                <img src="{{QuestionAvatar}}" alt="Question Avatar">
+                            </div>
+                            <div class="guide1">Arrange the given letters in order to get the correct word</div>
+                            <div id="container1"></div>
+                            <div id="container2"></div>
+                            <button id="submit0">Submit</button>
+                            <p id="feedback0"></p>
+                        </div>
+                    {{/ifEquals}}
+                {{/each}}
+            </div>
+        </div>
+        {{/if}}
+    </div>
+
+</div>
+</div>
+<button type="button" id="prev-btn" disabled>
+    <i class="bi bi-arrow-left text-dark"></i>
+</button>
+<button type="button" id="next-btn" disabled>
+    <i class="bi bi-arrow-right text-dark"></i>
+</button>
+<button type="button" id="end-btn" onclick="window.location.href='/revision'">End</button>

@@ -1,0 +1,276 @@
+{{#section 'js'}}
+<script>
+  function confirmChangeTopicName() {
+    const modal = $('<div class="modal">');
+    const container = $('<div class="modal-container">');
+    const message = $('<p class="modal-message">Enter new topic name:</p>');
+    const input = $('<input type="text" class="modal-input">');
+    const buttonContainer = $('<div class="modal-button-container">');
+    const confirmButton = $('<button class="modal-confirm-button">Confirm</button>');
+    const cancelButton = $('<button class="modal-cancel-button">Cancel</button>');
+
+    modal.append(container);
+    container.append(message);
+    container.append(input);
+    container.append(buttonContainer);
+    buttonContainer.append(confirmButton);
+    buttonContainer.append(cancelButton);
+
+    modal.on('click', function (event) {
+      if (event.target === modal[0]) {
+        modal.remove();
+      }
+    });
+
+    cancelButton.on('click', function () {
+      modal.remove();
+    });
+
+    confirmButton.on('click', function () {
+      const newTopicName = input.val();
+      // Send an AJAX request to update the topic name
+      $.ajax({
+        type: 'POST',
+        url: '/admin/topicdetail/' + topicdetail.topicid,
+        data: { type: "name", name: newTopicName },
+        success: function (response) {
+          $('#topicname .name').text(newTopicName);
+          modal.remove();
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    });
+
+    $('body').append(modal);
+  }
+  function confirmDeleteTopic() {
+    const modal = $('<div class="modal">');
+    const container = $('<div class="modal-container">');
+    const message = $('<p class="modal-message">Do you really want to delete this topic?</p>');
+    const buttonContainer = $('<div class="modal-button-container">');
+    const yesButton = $('<button class="modal-yes-button">Yes</button>');
+    const cancelButton = $('<button class="modal-cancel-button">Cancel</button>');
+
+
+    modal.append(container);
+    container.append(message);
+    container.append(buttonContainer);
+    buttonContainer.append(yesButton);
+    buttonContainer.append(cancelButton);
+
+    modal.on('click', function (event) {
+      if (event.target === modal[0]) {
+        modal.remove();
+      }
+    });
+
+    cancelButton.on('click', function () {
+      modal.remove();
+    });
+
+    yesButton.on('click', function () {
+      window.location.href = "/admin/deletetopic/" + topicdetail.topicid;
+      modal.remove();
+    });
+
+    $('body').append(modal);
+  }
+</script>
+<script>
+  const topicdetail = {{{ topic }}}
+  const wordlist = {{{ word }}}
+  const testlist = {{{ test }}}
+
+  $(document).ready(function () {
+    //topic name
+    $('#topicname .name').text(topicdetail.topicname);
+    $('#topicname .icon').click(function () {
+      confirmChangeTopicName();
+    });
+    //topic avatar
+    $("#avatarsrc").attr('src', topicdetail.topicavatar);
+    // edit button
+    $('.ava-container .btnEdit').on('click', function () {
+      // create file picker
+      const input = $('<input>').attr('type', 'file');
+      // when file is selected
+      input.on('change', function () {
+        const file = this.files[0];
+        // create form data
+        const formData = new FormData();
+        formData.append('avatar', file);
+        // send post request
+        $.ajax({
+          type: 'POST',
+          url: '/admin/topicdetail/' + topicdetail.topicid,
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            console.log('success');
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              // update the src attribute of the image element with the new image data URL
+              $("#avatarsrc").attr('src', event.target.result);
+            };
+            reader.readAsDataURL(file);
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+      });
+      input.trigger('click');
+    });
+
+    //test
+    $('.test-container .btnEdit').on('click', function () {
+      window.location.href = "/admin/edittest/" + topicdetail.topicid;
+    });
+
+    //word section
+    if (wordlist.length == 0 || wordlist.length == 1)
+      $('#wordcount').text("Total word: " + wordlist.length);
+    else
+      $('#wordcount').text("Total words: " + wordlist.length);
+    //add word
+    $('.word-container .btnAdd').on('click', function () {
+      window.location.href = "/admin/addword/" + topicdetail.topicid;
+    });
+    //word table
+    if (wordlist.length == 0)
+      $('.word-container table').hide();
+    const wordfield = $('table thead')
+    const wordcontainer = $('table tbody')
+    if (screen.width < 600) {
+      const rowhead = $('<tr>')
+      const namehead = $('<th>').text('Word');
+      const defhead = $('<th>').text('Definition');
+      const editpreviewhead = $('<th>').text('Edit/Preview');
+      rowhead.append(namehead);
+      rowhead.append(defhead);
+      rowhead.append(editpreviewhead);
+      wordfield.append(rowhead);
+
+      wordlist.forEach(function (word) {
+        const row = $('<tr>')
+        const name = $('<td>').text(word.wordname);
+        const def = $('<td>').text(word.wordmeaning);
+        const editWordButton = $('<button>').attr('type', 'button').addClass('btnEdit').text('Edit');
+        editWordButton.on('click', function () {
+          window.location.href = '/admin/worddetail/' + word.wordid;
+        });
+        const previewWordButton = $('<button>').attr('type', 'button').addClass('btnPreview').text('Preview');
+        previewWordButton.on('click', function () {
+          window.location.href = '/admin/previewWord/' + word.wordid;
+        });
+        const editpreview = $('<td>')
+        editpreview.append(editWordButton);
+        editpreview.append(previewWordButton);
+        row.append(name);
+        row.append(def);
+        row.append(editpreview);
+        wordcontainer.append(row);
+      });
+    } else {
+      const rowhead = $('<tr>')
+      const namehead = $('<th>').text('Word');
+      const defhead = $('<th>').text('Definition');
+      const prohead = $('<th>').text('Pronounce');
+      const editpreviewhead = $('<th>').text('Edit/Preview');
+      rowhead.append(namehead);
+      rowhead.append(defhead);
+      rowhead.append(prohead);
+      rowhead.append(editpreviewhead);
+      wordfield.append(rowhead);
+
+      wordlist.forEach(function (word) {
+        const row = $('<tr>')
+        const name = $('<td>').text(word.wordname);
+        const def = $('<td>').text(word.wordmeaning);
+        const pro = $('<td>').text(word.wordpronounce);
+        const editWordButton = $('<button>').attr('type', 'button').addClass('btnEdit').text('Edit');
+        editWordButton.on('click', function () {
+          window.location.href = '/admin/worddetail/' + word.wordid;
+        });
+        const previewWordButton = $('<button>').attr('type', 'button').addClass('btnPreview').text('Preview');
+        previewWordButton.on('click', function () {
+          window.location.href = '/admin/previewWord/' + word.wordid;
+        });
+        const editpreview = $('<td>')
+        editpreview.append(editWordButton);
+        editpreview.append(previewWordButton);
+        row.append(name);
+        row.append(def);
+        row.append(pro);
+        row.append(editpreview);
+        wordcontainer.append(row);
+      });
+    }
+
+    //delete button
+    $('.delete-back-container .btnDel').on('click', async function () {
+      confirmDeleteTopic();
+    });
+    //back button
+    $('.delete-back-container .btnBack').on('click', function () {
+      window.location.href = '/admin/lessondetail/' + topicdetail.lessonid;
+    });
+  });
+</script>
+{{/section}}
+
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/CSS/admin/topicdetail.css">
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.2/css/fileinput.min.css"
+  integrity="sha512-sHiVTDN234pgseKqjDwH39VjS9DkyffX4S00kuAWWq+FrTq7HlFjPoWbfX/QFAxkdG9i9/1ftdG2sS+XWLcJmw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+{{/section}}
+
+<main>
+  <div class="topic-detail-container">
+    <div id="topicname">
+      <div class="name"></div>
+      <i class="icon bi bi-pencil"></i>
+    </div>
+    <div class="ava-container">
+      <div class="title">Topic avatar</div>
+      <img id="avatarsrc" src="/public/img/background/flashcard_background.png">
+      <button type="button" class="btnEdit">
+        Edit
+      </button>
+    </div>
+    <div class="test-container">
+      <div class="title">Test</div>
+      <button type="button" class="btnEdit">
+        Edit
+      </button>
+    </div>
+    <div class="word-container">
+      <div id="wordcount" class="title">Word count: </div>
+      <button type="button" class="btnAdd">
+        Add
+      </button>
+      <table class="table table-striped table-bordered">
+        <thead>
+
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    <div class="delete-back-container">
+      <button type="button" class="btnDel">
+        Delete
+      </button>
+      <button type="button" class="btnBack">
+        Back
+      </button>
+    </div>
+  </div>
+</main>

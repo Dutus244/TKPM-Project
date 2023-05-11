@@ -1,0 +1,224 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="/public/CSS/vwLearner/handbook.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{{/section}}
+
+{{#section 'js'}}
+    <script type="text/javascript">
+        window.onload = (event) => {
+            var search = '{{{search}}}'.toString()
+            if(search === "1"){
+                $("#All").removeClass('active')
+            }
+            else{
+                invisibleAllLevel()
+                visibleLevelAll()
+                $("#All").addClass('active')
+            }
+        };
+        $(document).ready(function(){
+            $('.subnav a').on('click', function() {
+                $("#level-1").removeClass('active')
+                $("#level-2").removeClass('active')
+                $("#level-3").removeClass('active')
+                $("#level-4").removeClass('active')
+                $("#level-5").removeClass('active')
+                $("#All").removeClass('active')
+                $(this).addClass('active')
+            });
+        })
+    </script>
+    <script>
+        $(document).ready(function(){
+            const modal = document.getElementById("dialog");
+            let path = "";
+            let change = false;
+            let searchAction = false;
+            $('a').on('click', function() {
+                switch(this.id){
+                    case 'level-1':
+                        invisibleAllLevel()
+                        visibleLevel(1)
+                        break;
+                    case 'level-2':
+                        invisibleAllLevel()
+                        visibleLevel(2)
+                        break;
+                    case 'level-3':
+                        invisibleAllLevel()
+                        visibleLevel(3)
+                        break;
+                    case 'level-4':
+                        invisibleAllLevel()
+                        visibleLevel(4)
+                        break;
+                    case 'level-5':
+                        invisibleAllLevel()
+                        visibleLevel(5)
+                        break;
+                    case 'All':
+                        invisibleAllLevel()
+                        visibleLevelAll()
+                        break;
+                    default:
+                        if(change){
+                            path = this.href
+                            event.preventDefault()
+                            modal.style.display="flex";
+                        }
+                        break;
+                }
+            });
+            $('button').on('click', function() {
+                switch(this.id) {
+                    case 'cancel':
+                        modal.style.display = "none";
+                        searchAction = false;
+                        break;
+                    case 'leave':
+                        location.href = path
+                        if (searchAction) {
+                            const searchform = document.getElementById("searchFrm");
+                            searchform.submit()
+                        }
+                        break;
+                    case 'save':
+                        if (!searchAction) {
+                            const form = document.getElementById("updateDataForm");
+                            const newInput = document.createElement("input");
+                            newInput.setAttribute("type", "hidden");
+                            newInput.setAttribute("name", "href");
+                            newInput.setAttribute("value", path);
+                            form.appendChild(newInput);
+                            form.submit();
+                        } else {
+                            const form = document.getElementById("updateDataForm");
+                            const newInput = document.createElement("input");
+                            let path = "/handbook/search?word=" + document.getElementById("searchTxt").value.toString();
+                            newInput.setAttribute("type", "hidden");
+                            newInput.setAttribute("name", "href");
+                            newInput.setAttribute("value", path);
+                            form.appendChild(newInput);
+                            form.submit();
+                        }
+                        break;
+                    case 'searchBtn':
+                        searchAction = true;
+                        if (change) {
+                            event.preventDefault()
+                            modal.style.display = "flex";
+                        }
+                        break;
+                }
+            });
+            $('input').on('click', function() {
+                if(this.id !== 'searchTxt')
+                change = true;
+            });
+        })
+    </script>
+    <script>
+        function invisibleAllLevel(){
+            var tr = document.getElementsByTagName('tr:not(thead tr)');
+            for (var i = 0; i < tr.length; i++) {
+                tr[i].style.display = 'none';
+            }
+        }
+        function visibleLevel(level){
+            let name = ".level-"+level.toString()
+            const boxes = document.querySelectorAll(name);
+            boxes.forEach(box => {
+                box.style.display = 'block';
+            });
+        }
+        function visibleLevelAll(){
+            var tr = document.getElementsByTagName("tr");
+            for (var i = 0; i < tr.length; i++) {
+                tr[i].style.display = 'block';
+            }
+        }
+    </script>
+{{/section}}
+<div class="container" class="card-100 border-0">
+    <div id="title" >
+        <nav class="subnav">
+            <a id="All" href="#" >All</a>
+            <a id="level-1"  href="#" >Level 1</a>
+            <a id="level-2"  href="#">Level 2</a>
+            <a id="level-3" href="#" >Level 3</a>
+            <a id="level-4" href="#" >Level 4</a>
+            <a id="level-5" href="#" >Level 5</a>
+            <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        </nav>
+        <div id="searchbar">
+            <form id="searchFrm" >
+                <div class="form-row w-100">
+                    <div class="column-input">
+                        <input id="searchTxt"
+                                class='form-control mr-sm-2 w-100 rounded-pill searchinput'
+                                type='search'
+                                placeholder='Search for anything'
+                                name="word"
+                                aria-label='Search'
+                        />
+                    </div>
+                    <div class="column-button">
+                        <button id="searchBtn"
+                                class='btn'
+                                type='submit'
+                                formaction="/handbook/search"
+                        ><strong>Search</strong>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="content" class="card border-0">
+        <form id="updateDataForm" method="POST" action="/handbook">
+            <table >
+                <thead>
+                    <th class="lean" >
+                    </th>
+                    <th class="wordname">Word Name</th>
+                    <th class="wordtype">Word Type</th>
+                    <th class="wordmeaning">Word Meaning</th>
+                    <th class="wordlevel">
+                       Level
+                    </th>
+                </thead>
+                {{#each words}}
+                    <tr class="level-{{MemoryLevel}}"  {{#if isSearch}}style="display:table-row"{{else}}style="display: none" {{/if}}>
+                        <td class="lean" id="{{wordid}}">
+                            <div class="formcheck">
+                                <input  type="checkbox" value= {{wordid}} name="id[]" id="{{wordid}}" {{#if isStudy}}checked{{/if}}>
+                            </div>
+                        </td>
+                        <td class="wordname">{{wordname}}</td>
+                        <td class="wordtype">({{wordtype}})</td>
+                        <td class="wordmeaning" >{{wordmeaning}}</td>
+                        <td class="wordlevel">
+                            <p class="level-{{MemoryLevel}}" id="active">{{MemoryLevel}}</p>
+                        </td>
+                    </tr>
+                {{/each}}
+            </table>
+        </form>
+    </div>
+    <div id="dialog" class="overplay"  id="save-change">
+        <div class="dialog-body">
+            <div class="card w-100 d-flex-justify-content-end border-0 ">
+                <button class="btn" id="cancel">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <h4 class="" >You did not save change yet</h4>
+            <button class="btn" id="leave">
+                Not save
+            </button>
+            <button class="btn" id="save">
+                Save
+            </button>
+        </div>
+    </div>
+</div>

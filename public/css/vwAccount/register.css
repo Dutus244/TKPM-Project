@@ -1,0 +1,115 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .form-div {
+    height: 400px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 5px solid #afd3d2;
+    border-radius: 2.5rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0;
+  }
+
+  .login-btn {
+    background-color: #71aca9;
+    color: white;
+    border: 2px solid #71aca9;
+    border-radius: 2.5rem;
+    width: 80%;
+    height: 2.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 20px;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .form-div {
+    height: 400px;
+    width: 70vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 5px solid #afd3d2;
+    border-radius: 2.5rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0;
+  }
+
+  .login-btn {
+    background-color: #71aca9;
+    color: white;
+    border: 2px solid #71aca9;
+    border-radius: 2.5rem;
+    width: 80%;
+    height: 2.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 20px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .form-div {
+    height: 450px;
+    width: 50vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 5px solid #afd3d2;
+    border-radius: 2.5rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+}
+
+.container-fluid {
+  min-height: calc(100vh - 60px);
+  display: grid;
+  place-items: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.input-group {
+  display: grid;
+  place-items: center;
+}
+
+.input {
+  border-radius: 1rem;
+  border: 2px solid #afd3d2;
+  height: 3rem;
+  width: 80%;
+  margin: 5px 0 5px 0;
+  padding: 10px;
+}
+
+.register-btn {
+  background-color: #71aca9;
+  color: white;
+  border: 2px solid #71aca9;
+  border-radius: 2.5rem;
+  width: 50%;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 20px;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem #5aa3a1;
+}
+
+.info-div {
+  font-size: 1.2rem;
+}

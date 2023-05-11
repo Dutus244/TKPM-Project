@@ -1,0 +1,124 @@
+.container-fluid {
+    min-height: calc(100vh - 60px);
+}
+
+p {
+    margin: 0;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.search {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-bar {
+    border-radius: 1rem;
+    border: 2px solid #afd3d2;
+    height: 3rem;
+    padding: 10px;
+    width: 30%;
+}
+
+.search-bar:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem #5aa3a1;
+}
+
+.action-btn {
+    width: fit-content;
+    background-color: #f4df89;
+    border: 1px solid #f4df89;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.result-number {
+    margin: 5px 0 10px 0;
+    width: 35%;
+    text-align: center;
+}
+
+.question {
+    border: 2px solid #9DD6D4;
+    width: 85%;
+    margin: auto;
+    padding: 1rem 2rem 1rem 2rem;
+    margin-bottom: 2rem;
+}
+
+.answer-word {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.func-icons {
+    text-align: end;
+    font-size: 1.5rem;
+}
+
+.func-icons>.bi-pencil {
+    color: green;
+    cursor: pointer;
+}
+
+.func-icons>.bi-trash3 {
+    color: red;
+    cursor: pointer;
+}
+
+.question-img {
+    text-align: center;
+}
+
+.img {
+    width: 200px;
+    height: 200px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .search-bar {
+        width: 70%;
+    }
+
+    .result-number {
+        width: 75%;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .search-bar {
+        width: 50%;
+    }
+
+    .result-number {
+        width: 55%;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .search-bar {
+        width: 30%;
+    }
+
+    .result-number {
+        width: 35%;
+    }
+}

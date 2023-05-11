@@ -1,0 +1,69 @@
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 10px;
+}
+
+
+img{
+    height: 150px;
+}
+
+.text{
+    font-size: 20px;
+    margin-bottom: 0px;
+}
+
+.card {
+    width: 600px;
+    height: 150px;
+    margin-bottom: 10px;
+    border: 5px solid #afd3d2;
+    border-radius: .5rem;
+}
+
+.card-body{
+    padding: 10px;
+}
+
+.card-body *{
+    margin-bottom: 2px;
+}
+
+.days{
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.memory-level{
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.lessons-finished{
+    font-weight: 500;
+    font-size: 30px;
+}
+
+#changetab.btn {
+    background-color: #f4df89;
+    border-color: #f4df89;
+    color: black;
+    font-weight: bold;
+}
+
+#changetab.btn:hover {
+    background-color: #f69105;
+    border-color: #f69105;
+    color: white;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 600px){
+    .card{
+        width: 375px; 
+    }
+}

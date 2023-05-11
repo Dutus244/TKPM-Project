@@ -1,0 +1,168 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 75vw;
+}
+div#title {
+    width: 100%;
+}
+
+.btn{
+    border-color: #F4DF89;
+    border-radius: 10%;
+    border-width: 1px;
+    background-color:#F4DF89 ;
+}
+
+.searchinput{
+    border-width: 1px;
+    border-color: black;
+
+}
+
+a:hover, a:link,a:visited,a:active{
+    text-decoration: none;
+}
+
+.lessoncard,.lessoncard:link ,.lessoncard:visited ,.lessoncard:hover ,.lessoncard:active  {
+    color: black;
+    text-decoration: none;
+    border-width: 2px;
+    border-color: #AACDAF;
+    height: 100%;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.row{
+    width: 70%;
+
+}
+
+.card-footer{
+    width: 70%;
+}
+
+.column {
+    width: 25%;
+    margin-top: 3px;
+    padding: 5px;
+}
+p {
+    margin-top: 0;
+}
+.column a{
+    width: 100%;
+    height: 100%;
+}
+
+
+img{
+    object-fit: scale-down;
+    padding: 5px;
+    aspect-ratio : 1/1;
+}
+
+.border{
+    border-width: 2px;
+    margin: 10px
+}
+i{
+    padding-left: 20px;
+}
+
+.column-input {
+    width: 90%;
+}
+.column-button {
+    width: 10%;
+    display: flex;
+    justify-content: end;
+}
+.column-button .btn{
+    justify-content: center;
+}
+.pagination { color:black !important; }
+
+
+.pagination > .active > a , .pagination > .active > a:hover, .pagination > .active > a:focus {
+    background-color: #AACDAF !important; border-color: #AACDAF !important;
+}
+
+.pagination > .disactive > a , .pagination > .disactive > a:hover, .pagination > .disactive > a:focus {
+    background-color: white !important;
+    color: black;
+}
+
+.pagination > .abled > a , .pagination > .abled > a:hover, .pagination > .abled > a:focus {
+    background-color: white !important;
+    color: #AACDAF;
+}
+.content {
+    width: 100%;
+}
+.row{
+    margin-left: 0;
+    margin-right: 0;
+}
+.card-body{
+    padding-top: 2px;
+    overflow:hidden;
+    overflow-y:auto;
+    text-overflow:ellipsis;
+    max-height: 20vw;
+}
+@media screen and (max-width: 850px) {
+    .container{
+        width: 100vw;
+    }
+    .column {
+        width: 100%;
+    }
+    i{
+        padding-left: 10px;
+    }
+    .card-footer{
+    }
+
+    .card-text{
+        display: none;
+    }
+
+    img{
+        object-fit: scale-down;
+        padding: 5px;
+        aspect-ratio : 1 / 1;
+    }
+
+    .border{
+        width: 25%;
+    }
+
+    .lessoncard{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .card-body p{
+        display: none;
+    }
+    button .btn{
+        width: fit-content;
+    }
+    .title .card{
+        width: 90%;
+    }
+    .column-input {
+        width: 75%;
+    }
+    .column-button {
+        width: 25%;
+    }
+}
+
+

@@ -1,0 +1,56 @@
+{{#section 'js'}}
+<script>
+  $(document).ready(function () {
+    $('#login-form').on('submit', function (e) {
+      e.preventDefault()
+
+      const username = $('#username').val()
+      if (!username.length) {
+        alert("Please fill in username")
+        return
+      }
+
+      const password = $('#password').val()
+      if (!password.length) {
+        alert('Please fill in password')
+        return
+      }
+
+      $('#login-form').off('submit').submit();
+    })
+  })
+</script>
+{{/section}}
+
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/css/vwAccount/login.css">
+{{/section}}
+
+
+<div class="container-fluid">
+  {{#if err_msg}}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{err_msg}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {{/if}}
+
+  <form id="login-form" method="post">
+    <div class="form-div">
+
+      <div class="input-group">
+        <label class="form-label" for="username"></label>
+        <input class="input" type="text" name="username" id="username" placeholder="Username">
+        <label for="password"></label>
+        <input class="input" type="password" name="password" id="password" placeholder="Password">
+      </div>
+
+      <button class="login-btn" type="submit" form="login-form">LOG IN</button>
+      <div class="info-div">
+        <p>New to Matcha? <a href="/register">Register</a></p>
+      </div>
+    </div>
+  </form>
+</div>

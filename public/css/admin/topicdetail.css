@@ -1,0 +1,332 @@
+main {
+    display: flex;
+    justify-content: center;
+    background-color: whitesmoke;
+    position: relative;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.topic-detail-container {
+    width: 80%;
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+}
+
+#topicname {
+    margin-top: 20px;
+    background-color: #aacdaf;
+    border-radius: .5rem;
+    padding: 0rem 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+#topicname .name {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#topicname .icon {
+    font-size: 2rem;
+    margin-top: auto;
+    margin-bottom: auto;
+    cursor: pointer;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #aacdaf;
+    margin-bottom: 2rem;
+}
+
+.ava-container {
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2rem;
+}
+
+.ava-container img {
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 20rem;
+}
+
+.ava-container .btnEdit {
+    margin-top: 2rem;
+    font-size: .9rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #aacdaf;
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+    min-width: 10%;
+}
+
+.test-container {
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2rem;
+}
+
+.test-container .btnEdit {
+    margin-right: 1rem;
+    font-size: .9rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #aacdaf;
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+    min-width: 10%;
+}
+
+.word-container {
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2rem;
+}
+
+.word-container .title {
+    margin-bottom: 0rem;
+}
+
+.word-container .btnAdd {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    font-size: .9rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #aacdaf;
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+    min-width: 10%;
+}
+
+table {
+    width: 100%;
+}
+
+th:nth-child(4) {
+    text-align: center;
+}
+
+td:nth-child(1) {
+    width: 15%;
+}
+
+td:nth-child(2) {
+    width: 40%;
+}
+
+td:nth-child(3) {
+    width: 15%;
+}
+
+td:nth-child(4) {
+    width: 30%;
+    text-align: center;
+}
+
+table .btnEdit {
+    display: inline-block;
+    margin-right: 1rem;
+    font-size: .9rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #aacdaf;
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+}
+
+table .btnPreview {
+    display: inline-block;
+    margin-right: 1rem;
+    font-size: .9rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #aacdaf;
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+}
+
+@media screen and (min-width: 600px) and (max-width: 1100px) {
+    td:nth-child(2) {
+        width: 25%;
+    }
+
+    th:nth-child(4) {
+        text-align: center;
+    }
+
+    td:nth-child(4) {
+        width: 45%;
+        text-align: center;
+    }
+
+    table .btnEdit {
+        margin-bottom: 1rem;
+    }
+}
+
+.delete-back-container {
+    display: flex;
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.delete-back-container .btnDel {
+    font-size: .9rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #FF4136;
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+    min-width: 10%;
+}
+
+.delete-back-container .btnBack {
+    font-size: .9rem;
+    font-weight: bold;
+    color: #333;
+    background-color: #f4df89;
+    cursor: pointer;
+    padding: .4rem 1.5rem;
+    border-radius: .5rem;
+    border: none;
+    min-width: 10%;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    min-width: 40%;
+    max-width: 80%;
+    padding: 20px;
+    border-radius: 10%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border: 5px solid #aacdaf;
+}
+
+.modal-message {
+    font-size: 20px;
+}
+
+.modal-input {
+    width: 60%;
+    margin-top: 1rem;
+}
+
+.modal-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-confirm-button,
+.modal-yes-button,
+.modal-cancel-button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.modal-confirm-button {
+    background-color: #aacdaf;
+    color: #fff;
+}
+
+.modal-yes-button {
+    background-color: #FF4136;
+    color: #fff;
+}
+
+.modal-cancel-button {
+    background-color: #f4df89;
+    color: #333;
+}
+
+@media screen and (max-width: 600px) {
+    .topic-detail-container {
+        width: 90%;
+    }
+
+    .ava-container {
+        padding: .1rem;
+    }
+
+    .test-container {
+        padding: .1rem;
+    }
+
+    .word-container {
+        padding: .1rem;
+    }
+
+    .delete-back-container {
+        padding: .1rem;
+    }
+
+    th:nth-child(3) {
+        text-align: center;
+    }
+
+    td:nth-child(3) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: fit-content;
+    }
+
+    table .btnEdit {
+        margin: 0;
+        margin-bottom: .5rem;
+    }
+
+    table .btnPreview {
+        margin: 0;
+    }
+}

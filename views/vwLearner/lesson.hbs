@@ -1,0 +1,78 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="/public/CSS/vwLearner/lesson.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{{/section}}
+
+{{#section 'js'}}
+    <script>
+    </script>
+{{/section}}
+<div class="container">
+    <div id="title"  >
+        <div id="title_content">
+            <h3>Lesson</h3>
+        </div>
+        <div id="searchbar">
+            <form>
+            <div class="form-row w-100">
+                <div class="column-input">
+                        <input
+                                class='form-control mr-sm-2 w-100 rounded-pill searchinput'
+                                type='search'
+                                placeholder='Search for anything'
+                                name="lesson_letter"
+                                aria-label='Search'
+                        />
+                </div>
+                <div class="column-button">
+                    <button
+                        class='btn'
+                        type='submit'
+                        formaction="/lesson/search">
+                            <strong>Search</strong>
+                    </button>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+    <div class="content">
+        <div class="row w-100" >
+            {{#each this.lesson}}
+                <div class ="column">
+                    <a href="/topiclist/{{LessonID}}" class="card">
+                        <div class="card lessoncard"  >
+                            <div class="card border">
+                                <img src="{{LessonAvatar}}" alt="">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{LessonName}}</h5>
+                                <div class="card-text">
+                                    {{{LessonDes}}}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="card-footer text-muted w-100">
+        <nav class="d-flex flex-row-reverse bd-highlight justify-content-center">
+            <ul class="pagination">
+                <li class="page-item {{#if this.prePage}}abled{{else}}disabled{{/if}} ">
+                    <a class="page-link" href="?page={{this.prePage}}">Previous</a>
+                </li>
+                {{#each pageNumber}}
+                    <li class="page-item {{#if isCurrent}}active{{else}}disactive{{/if}}">
+                        <a class="page-link" href="?page={{value}}">{{value}}</a>
+                    </li>
+                {{/each}}
+                <li class="page-item  {{#if this.nextPage}}abled{{else}}disabled{{/if}} ">
+                    <a class="page-link" href="?page={{this.nextPage}}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

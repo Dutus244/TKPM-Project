@@ -1,0 +1,167 @@
+{{#section 'js'}}
+<script>
+  var curWord = 0
+  $(document).ready(function () {
+    var isBack = false
+
+    const words = {{{ words }}}
+    const lessonid = {{{ lessonid }}}
+    const length = words.length
+    var percentage = Math.floor(((curWord + 1) / length) * 100)
+
+    const KEY_LEFT = 37
+    const KEY_RIGHT = 39
+
+    function finishTopic() {
+      $.ajax({
+        url: window.location.href + "/finish",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+          words: words,
+        })
+      })
+    }
+
+    function nextFlashcard() {
+      if (curWord >= length - 1) {
+        // Go to finish page
+        finishTopic()
+        window.location.href += "/finish"
+        return
+      } else {
+        curWord++
+      }
+
+      percentage = Math.floor(((curWord + 1) / length) * 100)
+      if (isBack) {
+        $('.flip-card-inner').css('transition', '0s')
+        $('.flip-card-inner').css('transform', 'rotateY(0deg)')
+        setTimeout(function () {
+          $('.flip-card-inner').css('transition', '0.6s')
+        })
+        isBack = !isBack
+      }
+      $('#wordname').text(words[curWord].wordname)
+      $('#wordpronounce').text(words[curWord].wordpronounce)
+      $('#wordmeaning').text(`${words[curWord].wordmeaning} (${words[curWord].wordtype})`)
+      $('#wordavatar').attr('src', words[curWord].wordavatar)
+      $('#wordexample').text(words[curWord].wordexample)
+      $('.progress-bar').css('width', `${percentage}%`)
+      $('.progress-bar').attr('aria-valuenow', percentage)
+    }
+
+    function prevFlashcard() {
+      if (curWord > 0) {
+        curWord--
+      } else {
+        window.location.href = `/topiclist/${lessonid}`
+      }
+
+      percentage = Math.floor(((curWord + 1) / length) * 100)
+      if (isBack) {
+        $('.flip-card-inner').css('transition', '0s')
+        $('.flip-card-inner').css('transform', 'rotateY(0deg)')
+        setTimeout(function () {
+          $('.flip-card-inner').css('transition', '0.6s')
+        })
+        isBack = !isBack
+      }
+      $('#wordname').text(words[curWord].wordname)
+      $('#wordpronounce').text(words[curWord].wordpronounce)
+      $('#wordmeaning').text(`${words[curWord].wordmeaning} (${words[curWord].wordtype})`)
+      $('#wordavatar').attr('src', words[curWord].wordavatar)
+      $('#wordexample').text(words[curWord].wordexample)
+      $('.progress-bar').css('width', `${percentage}%`)
+      $('.progress-bar').attr('aria-valuenow', percentage)
+    }
+
+
+    $('.progress-bar').css('width', `${percentage}%`)
+    $('.progress-bar').attr('aria-valuenow', percentage)
+
+    $('.flip-card-front').on('click', function (e) {
+      $('.flip-card-inner').css('transform', 'rotateY(180deg)')
+      isBack = !isBack
+    });
+    $('.flip-card-back').on('click', function (e) {
+      $('.flip-card-inner').css('transform', 'rotateY(0deg)')
+      isBack = !isBack
+    });
+
+    $('#btn-next').on('click', function (e) {
+      nextFlashcard()
+    })
+    $('#btn-back').on('click', function (e) {
+      prevFlashcard()
+    })
+    $(document).keydown(function (e) {
+      if (e.keyCode == KEY_LEFT) {
+        prevFlashcard()
+      } else if (e.keyCode == KEY_RIGHT) {
+        nextFlashcard()
+      }
+    })
+
+    // Init SpeechSynth API
+    const synth = window.speechSynthesis;
+
+    $('#btn-speak').on('click', function() {
+      speak(words[curWord].wordname)
+    })
+
+    const speak = (text) => {
+      const speakText = new SpeechSynthesisUtterance(text);
+
+      // Get the voice by name
+      const voices = synth.getVoices();
+      const voice = voices.find(voice => voice.name === 'Microsoft David - English (United States)');
+
+      // Set the voice
+      speakText.voice = voice;
+
+      // Speak
+      synth.speak(speakText);
+    };
+  });
+</script>
+{{/section}}
+
+{{#section 'css'}}
+<link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">
+<link rel="stylesheet" href="/public/CSS/vwLearner/topicLearn.css">
+{{/section}}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <button type="button" id="btn-speak"><i class="bi bi-volume-up"></i></button>
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div>
+              <p id="wordname" class="p-2 m-0 text-center word">{{firstWord.wordname}}</p>
+              <p id="wordpronounce" class="p-2 m-0 text-center phonetic">{{firstWord.wordpronounce}}</p>
+              <p id="wordmeaning" class="p-2 m-0 text-center meaning">
+                {{firstWord.wordmeaning}} ({{firstWord.wordtype}})
+              </p>
+            </div>
+          </div>
+          <div class="flip-card-back">
+            <img id="wordavatar" class="flashcard-img" src="{{firstWord.wordavatar}}" alt="">
+            <p id="wordexample" class="m-0 text-center example">{{firstWord.wordexample}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button type="button" id="btn-back" class="font">PREVIOUS</button>
+        <button type="button" id="btn-next" class="font">NEXT</button>
+      </div>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>

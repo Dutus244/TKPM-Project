@@ -1,0 +1,268 @@
+{{#section 'css'}}
+    <link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">
+    <link rel="stylesheet" href="/public/CSS/vwLearner/topicTestHistoryDetail.css">
+{{/section}}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div id="question-form">
+                {{#each this.list}}
+                    {{#ifEquals this.Answer this.UserChoose}}
+                        {{#ifEquals  this.QuestionAvatar ""}}
+                            <div class="question" id="question{{@index}}">
+                                <div class="p-2 m-0 text-center question-name-1">{{{Question}}}</div>
+                                <div class="id" style="display: none">{{QuestionID}}</div>
+                                <div class="answer" style="display: none">{{Answer}}</div>
+
+                                <div class="" id="options">
+                                    <div class="con">
+                                        {{#ifEquals this.OptionA this.UserChoose}}
+                                            <div class="divOptionA" id="divOptionA" style="background: rgb(43,190,28)"
+                                                 value="{{OptionA}}"></div>
+                                        {{else}}
+                                            <div class="divOptionA" id="divOptionA"
+                                                 value="{{OptionA}}"></div>
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals this.OptionB this.UserChoose}}
+                                            <div class="divOptionB" id="divOptionB" style="background: rgb(43,190,28)"
+                                                 value="{{OptionB}}"></div>
+                                        {{else}}
+                                            <div class="divOptionB" id="divOptionB"
+                                                 value="{{OptionB}}"></div>
+                                        {{/ifEquals}}
+
+                                        <span class="spanOptionA" for="divOptionA">A. {{OptionA}}</span>
+                                        <span class="spanOptionB" for="divOptionB">B. {{OptionB}}</span>
+                                    </div>
+
+                                    <div class="con">
+                                        {{#ifEquals this.OptionC this.UserChoose}}
+                                            <div class="divOptionC" style="background: rgb(43,190,28)"
+                                                 value={{OptionC}}></div>
+                                        {{else}}
+                                            <div class="divOptionC"
+                                                 value={{OptionC}}></div>
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals this.OptionD this.UserChoose}}
+                                            <div class="divOptionD" style="background: rgb(43,190,28)"
+                                                 value={{OptionD}}></div>
+                                        {{else}}
+                                            <div class="divOptionD"
+                                                 value={{OptionD}}></div>
+                                        {{/ifEquals}}
+
+                                        <span class="spanOptionC">C. {{OptionC}}</span>
+                                        <span class="spanOptionD">D. {{OptionD}}</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        {{else}}
+                            <div class="question" id="question{{@index}}">
+                                <div class="p-2 m-0 text-center question-name">{{{Question}}}</div>
+                                <div class="id" style="display: none">{{QuestionID}}</div>
+                                <div class="answer" style="display: none">{{Answer}}</div>
+
+                                <div class="" id="options">
+                                    <div class="img-wrapper">
+                                        <img src="{{QuestionAvatar}}" alt="Question Avatar">
+                                    </div>
+                                    <div class="con">
+                                        {{#ifEquals this.OptionA this.UserChoose}}
+                                            <div class="divOptionA" id="divOptionA" style="background: rgb(43,190,28)"
+                                                 value="{{OptionA}}"></div>
+                                        {{else}}
+                                            <div class="divOptionA" id="divOptionA"
+                                                 value="{{OptionA}}"></div>
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals this.OptionB this.UserChoose}}
+                                            <div class="divOptionB" id="divOptionB" style="background: rgb(43,190,28)"
+                                                 value="{{OptionB}}"></div>
+                                        {{else}}
+                                            <div class="divOptionB" id="divOptionB"
+                                                 value="{{OptionB}}"></div>
+                                        {{/ifEquals}}
+
+                                        <span class="spanOptionA" for="divOptionA">A. {{OptionA}}</span>
+                                        <span class="spanOptionB" for="divOptionB">B. {{OptionB}}</span>
+                                    </div>
+
+                                    <div class="con">
+                                        {{#ifEquals this.OptionC this.UserChoose}}
+                                            <div class="divOptionC" style="background: rgb(43,190,28)"
+                                                 value={{OptionC}}></div>
+                                        {{else}}
+                                            <div class="divOptionC"
+                                                 value={{OptionC}}></div>
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals this.OptionD this.UserChoose}}
+                                            <div class="divOptionD" style="background: rgb(43,190,28)"
+                                                 value={{OptionD}}></div>
+                                        {{else}}
+                                            <div class="divOptionD"
+                                                 value={{OptionD}}></div>
+                                        {{/ifEquals}}
+
+                                        <span class="spanOptionC">C. {{OptionC}}</span>
+                                        <span class="spanOptionD">D. {{OptionD}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        {{/ifEquals}}
+                    {{else}}
+                        {{#ifEquals  this.QuestionAvatar ""}}
+                            <div class="question" id="question{{@index}}">
+                                <div class="p-2 m-0 text-center question-name-1">{{{Question}}}</div>
+                                <div class="id" style="display: none">{{QuestionID}}</div>
+                                <div class="answer" style="display: none">{{Answer}}</div>
+
+                                <div class="" id="options">
+                                    <div class="con">
+                                        {{#ifEquals this.OptionA this.Answer}}
+                                            <div class="divOptionA" id="divOptionA" style="background: rgb(43,190,28)"
+                                                 value="{{OptionA}}"></div>
+                                        {{else}}
+                                            {{#ifEquals this.OptionA this.UserChoose}}
+                                                <div class="divOptionA" id="divOptionA"
+                                                     style="background: rgb(231,75,75)" value="{{OptionA}}"></div>
+                                            {{else}}
+                                                <div class="divOptionA" id="divOptionA" value="{{OptionA}}"></div>
+                                            {{/ifEquals}}
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals this.OptionB this.Answer}}
+                                            <div class="divOptionB" id="divOptionB" style="background: rgb(43,190,28)"
+                                                 value="{{OptionB}}"></div>
+                                        {{else}}
+                                            {{#ifEquals this.OptionB this.UserChoose}}
+                                                <div class="divOptionB" id="divOptionB"
+                                                     style="background: rgb(231,75,75)" value="{{OptionB}}"></div>
+                                            {{else}}
+                                                <div class="divOptionB" id="divOptionB" value="{{OptionB}}"></div>
+                                            {{/ifEquals}}
+                                        {{/ifEquals}}
+
+                                        <span class="spanOptionA" for="divOptionA">A. {{OptionA}}</span>
+                                        <span class="spanOptionB" for="divOptionB">B. {{OptionB}}</span>
+                                    </div>
+
+                                    <div class="con">
+                                        {{#ifEquals this.OptionC this.Answer}}
+                                            <div class="divOptionC" id="divOptionC" style="background: rgb(43,190,28)"
+                                                 value="{{OptionC}}"></div>
+                                        {{else}}
+                                            {{#ifEquals this.OptionC this.UserChoose}}
+                                                <div class="divOptionC" id="divOptionC"
+                                                     style="background: rgb(231,75,75)" value="{{OptionC}}"></div>
+                                            {{else}}
+                                                <div class="divOptionC" id="divOptionC" value="{{OptionC}}"></div>
+                                            {{/ifEquals}}
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals this.OptionD this.Answer}}
+                                            <div class="divOptionD" id="divOptionD" style="background: rgb(43,190,28)"
+                                                 value="{{OptionD}}"></div>
+                                        {{else}}
+                                            {{#ifEquals this.OptionD this.UserChoose}}
+                                                <div class="divOptionD" id="divOptionD"
+                                                     style="background: rgb(231,75,75)" value="{{OptionD}}"></div>
+                                            {{else}}
+                                                <div class="divOptionD" id="divOptionD" value="{{OptionD}}"></div>
+                                            {{/ifEquals}}
+                                        {{/ifEquals}}
+
+                                        <span class="spanOptionC">C. {{OptionC}}</span>
+                                        <span class="spanOptionD">D. {{OptionD}}</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        {{else}}
+                            <div class="question" id="question{{@index}}">
+                                <div class="p-2 m-0 text-center question-name">{{{Question}}}</div>
+                                <div class="id" style="display: none">{{QuestionID}}</div>
+                                <div class="answer" style="display: none">{{Answer}}</div>
+
+                                <div class="" id="options">
+                                    <div class="img-wrapper">
+                                        <img src="{{QuestionAvatar}}" alt="Question Avatar">
+                                    </div>
+                                    <div class="con">
+                                        {{#ifEquals this.OptionA this.Answer}}
+                                            <div class="divOptionA" id="divOptionA" style="background: rgb(43,190,28)"
+                                                 value="{{OptionA}}"></div>
+                                        {{else}}
+                                            {{#ifEquals this.OptionA this.UserChoose}}
+                                                <div class="divOptionA" id="divOptionA"
+                                                     style="background: rgb(231,75,75)" value="{{OptionA}}"></div>
+                                            {{else}}
+                                                <div class="divOptionA" id="divOptionA" value="{{OptionA}}"></div>
+                                            {{/ifEquals}}
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals this.OptionB this.Answer}}
+                                            <div class="divOptionB" id="divOptionB" style="background: rgb(43,190,28)"
+                                                 value="{{OptionB}}"></div>
+                                        {{else}}
+                                            {{#ifEquals this.OptionB this.UserChoose}}
+                                                <div class="divOptionB" id="divOptionB"
+                                                     style="background: rgb(231,75,75)" value="{{OptionB}}"></div>
+                                            {{else}}
+                                                <div class="divOptionB" id="divOptionB" value="{{OptionB}}"></div>
+                                            {{/ifEquals}}
+                                        {{/ifEquals}}
+
+                                        <span class="spanOptionA" for="divOptionA">A. {{OptionA}}</span>
+                                        <span class="spanOptionB" for="divOptionB">B. {{OptionB}}</span>
+                                    </div>
+
+                                    <div class="con">
+                                        {{#ifEquals this.OptionC this.Answer}}
+                                            <div class="divOptionC" id="divOptionC" style="background: rgb(43,190,28)"
+                                                 value="{{OptionC}}"></div>
+                                        {{else}}
+                                            {{#ifEquals this.OptionC this.UserChoose}}
+                                                <div class="divOptionC" id="divOptionC"
+                                                     style="background: rgb(231,75,75)" value="{{OptionC}}"></div>
+                                            {{else}}
+                                                <div class="divOptionC" id="divOptionC" value="{{OptionC}}"></div>
+                                            {{/ifEquals}}
+                                        {{/ifEquals}}
+
+                                        {{#ifEquals this.OptionD this.Answer}}
+                                            <div class="divOptionD" id="divOptionD" style="background: rgb(43,190,28)"
+                                                 value="{{OptionD}}"></div>
+                                        {{else}}
+                                            {{#ifEquals this.OptionD this.UserChoose}}
+                                                <div class="divOptionD" id="divOptionD"
+                                                     style="background: rgb(231,75,75)" value="{{OptionD}}"></div>
+                                            {{else}}
+                                                <div class="divOptionD" id="divOptionD" value="{{OptionD}}"></div>
+                                            {{/ifEquals}}
+                                        {{/ifEquals}}
+
+                                        <span class="spanOptionC">C. {{OptionC}}</span>
+                                        <span class="spanOptionD">D. {{OptionD}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        {{/ifEquals}}
+                    {{/ifEquals}}
+                {{/each}}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<button type="button" id="end-btn" onclick="window.location.href='/topictesthistorylist'">End</button>

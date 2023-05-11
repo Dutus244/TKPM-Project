@@ -1,0 +1,119 @@
+main {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.lesson-list-container {
+  width: 80%;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+}
+
+#lessonname {
+  margin-top: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: #aacdaf;
+  border-radius: .5rem;
+  padding: 0rem 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #aacdaf;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.lesson-container .btnAdd {
+  font-size: .9rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #aacdaf;
+  cursor: pointer;
+  padding: .4rem 1.5rem;
+  border-radius: .5rem;
+  border: none;
+  min-width: 10%;
+  margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+}
+
+th:nth-child(3) {
+  text-align: center;
+}
+
+td:nth-child(1) {
+  width: 40%;
+}
+
+td:nth-child(2) {
+  width: 30%;
+}
+
+td:nth-child(3) {
+  width: 30%;
+  text-align: center;
+}
+
+table .btnEdit {
+  font-size: .9rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #aacdaf;
+  cursor: pointer;
+  padding: .4rem 1.5rem;
+  border-radius: .5rem;
+  border: none;
+}
+
+.pagination {
+  text-align: center;
+  justify-content: center;
+}
+
+.pagination .current-page {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  border: 2px solid #aacdaf;
+  padding: .4rem;
+}
+
+.pagination button {
+  font-size: .9rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #aacdaf;
+  cursor: pointer;
+  padding: .4rem 1.5rem;
+  border-radius: .5rem;
+  border: none;
+  min-width: 10%;
+}
+
+.pagination button[disabled] {
+  background-color: #ddd;
+  cursor: default;
+  color: #000;
+}
+
+@media screen and (max-width: 600px) {
+  .lesson-list-container {
+    width: 98%;
+  }
+
+  .pagination {
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+}

@@ -1,0 +1,112 @@
+{{#section 'js'}}
+<script>
+  $(document).ready(function () {
+    let delQuestionId = null
+    const chosenOption = {{{ chosenOption }}}
+    const confirmModal = $('#deleteModalCenter')
+    const successModal = $('#success-modal')
+
+    if (chosenOption) {
+      $(`select option[value='${chosenOption}']`).prop('selected', true)
+    }
+
+    $('.func-icons>.bi-pencil').on('click', function () {
+      const questionId = $('.func-icons>.bi-trash3').data('question-id')
+      window.location.href = '/admin/editquestion/' + questionId
+    })
+    $('.func-icons>.bi-trash3').on('click', function () {
+      delQuestionId = $(this).data('question-id')
+    })
+    $('#delete-question-btn').on('click', function () {
+      $.ajax({
+        url: '/admin/delete/question/' + delQuestionId,
+        type: 'POST',
+        success: function(data) {
+          confirmModal.modal('hide')
+          successModal.modal('show')
+          setTimeout(() => window.location.reload(), 1000);
+        }
+      })
+    })
+  })
+</script>
+{{/section}}
+
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/css/admin/editTest.css">
+{{/section}}
+
+<div class="container-fluid">
+  <form id="formSearch" class="form" action="" method="get">
+    <div class="search-container">
+      <button type="button" class="action-btn" onclick="window.location.href='/admin/topicdetail/{{topicid}}'">BACK TO
+        TOPIC</button>
+      <div class="search mt-3">
+        <select name="word" id="word" class="search-bar" onchange="javascript: $('#formSearch').submit();">
+          <option value="">All</option>
+          {{#each wordsOption}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <i class="result-number">Questions matched: {{n}}</i>
+      <div>
+        <button type="button" class="action-btn" onclick="window.location.href='/admin/addquestion/{{topicid}}'">ADD
+          QUESTION</button>
+      </div>
+    </div>
+  </form>
+  {{#unless empty}}
+  <div class="question-group">
+    {{#each questions}}
+    <div class="question">
+      <p class="answer-word">{{answer}}</p>
+      {{{question}}}
+      <div class="func-icons">
+        <i class="bi bi-pencil"></i> &nbsp;&nbsp;
+        <!-- Trigger modal -->
+        <i data-toggle="modal" data-target="#deleteModalCenter" data-question-id="{{questionid}}" 
+        class="bi bi-trash3"></i>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{else}}
+  <div class="question">No data</div>
+  {{/unless}}
+  <!-- Delete Warning Modal -->
+  <div class="modal fade" id="deleteModalCenter" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Warning</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Do you want to delete this question?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          <button id="delete-question-btn" type="button" class="btn btn-success">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Small modal delete question successfully -->
+  <div id="success-modal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLongTitle">Success</h5>
+        </div>
+        <div class="modal-body">
+          Delete question successfully
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
