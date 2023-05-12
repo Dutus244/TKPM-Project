@@ -144,7 +144,7 @@ router.post('/topic/test/submit-answers', async function (req, res) {
     }));
     res.render("vwLearner/topicTestFinish", {
         id,
-        active: { Learn: true }
+        active: { Archive: true }
     })
 });
 
