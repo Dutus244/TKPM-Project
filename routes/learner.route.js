@@ -143,7 +143,7 @@ router.post('/topic/test/submit-answers', async function (req, res) {
         return learnerService.addTestHistoryDetail(testhistorydetail);
     }));
     res.render("vwLearner/topicTestFinish", {
-        topicid,
+        id,
         active: { Learn: true }
     })
 });
