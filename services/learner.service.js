@@ -367,6 +367,7 @@ export default {
                               JOIN topics ON topics.TopicID = testhistory.TopicID
                               JOIN lessons ON topics.LessonID = lessons.LessonID
                      WHERE testhistory.UserID = '${userid}'
+                    ORDER BY CreateTime DESC
         `
         const list = await db.raw(sql)
         return list[0]
@@ -380,6 +381,7 @@ export default {
                               JOIN topics ON topics.TopicID = testhistory.TopicID
                               JOIN lessons ON topics.LessonID = lessons.LessonID
                      WHERE testhistory.UserID = '${userid}' and lessons.LessonID = '${lessonid}'
+                     ORDER BY CreateTime DESC
         `
         const list = await db.raw(sql)
         return list[0]
