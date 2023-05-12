@@ -20,7 +20,7 @@ CREATE TABLE users (
 DROP TABLE IF EXISTS archives;  
 CREATE TABLE archives (
     UserID varchar(36) NOT NULL,
-    LastLoginDate date,
+    LastLoginDate datetime,
     Streak int,
     FOREIGN KEY (UserID) REFERENCES users(UserID),
     PRIMARY KEY(UserID)
@@ -126,19 +126,6 @@ CREATE TABLE testHistoryDetail (
     FOREIGN KEY (QuestionID) REFERENCES multipleChoiceQuestions(QuestionID),
     PRIMARY KEY(TestID,QuestionID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
-insert into categories values('211381e0-d6d5-11ed-afa1-0242ac120002','Basic','','These are topics for new users to learn English',0);
-
-insert into topics values('3068bcf4-d6d6-11ed-afa1-0242ac120002','Animal 1','/public/img/topic/bfc3143a-cb2d-11ed-afa1-0242ac120002.jpg','211381e0-d6d5-11ed-afa1-0242ac120002',0);
-
-insert into words values('e1c23566-cb2d-11ed-afa1-0242ac120002','Dog','Noun','Con chó','/dɒɡ/','That dog looks so cute','/public/img/flashcard/e1c23566-cb2d-11ed-afa1-0242ac120002.jpg','3068bcf4-d6d6-11ed-afa1-0242ac120002',0);
-insert into words values('f5080f4b-03f6-4861-bda5-daa947c787ef','Cat','Noun','Con mèo','/kat/','These 2 cats are so small','/public/img/flashcard/f5080f4b-03f6-4861-bda5-daa947c787ef.png','3068bcf4-d6d6-11ed-afa1-0242ac120002',0);
-
-insert into multiplechoicequestions values('797b1430-d6d8-11ed-afa1-0242ac120002','Which one is trained to lead the blind across the street?','Dog','Cat','Horse','Lion','Dog','e1c23566-cb2d-11ed-afa1-0242ac120002','',0);
-insert into multiplechoicequestions values('797b1430-d6d8-11ed-afa1-0242ac120003','What animal is in the picture?','Tiger','Lion','Cat','Dog','Dog','e1c23566-cb2d-11ed-afa1-0242ac120002','/public/img/flashcard/e1c23566-cb2d-11ed-afa1-0242ac120002.jpg',0);
-
-insert into multiplechoicequestions values('797b1430-d6d8-11ed-afa1-0242ac120006','What animal meows?','Chicken','Cat','Duck','Sheep','Cat','f5080f4b-03f6-4861-bda5-daa947c787ef','',0);
-insert into multiplechoicequestions values('797b1430-d6d8-11ed-afa1-0242ac120007','What animal is in the picture?','Tiger','Lion','Cat','Dog','Dog','f5080f4b-03f6-4861-bda5-daa947c787ef','/public/img/flashcard/f5080f4b-03f6-4861-bda5-daa947c787ef.png',0);
 
 DELIMITER //
 
