@@ -21,7 +21,7 @@ export default {
         let questions = await Promise.all(words.map(async (word) => {
             const result = await db('multiplechoicequestions')
                 .where('wordid', word.wordid)
-                .andWhere('isdelete', false)
+                .andWhere('isdelete', 0)
                 .orderByRaw('rand()')
                 .limit(1)
                 .select();
@@ -96,7 +96,7 @@ export default {
         for (const word of words) {
             let check = await db('multipleChoiceQuestions')
                 .where('WordID', word.WordID)
-                .andWhere('IsDelete', false)
+                .andWhere('IsDelete', 0)
 
             let randomType1 = getRandomInt(0, 3);
             const randomType2 = getRandomInt(0, 1);
@@ -110,7 +110,7 @@ export default {
                 case 0:
                     const tempquestion0 = await db('multipleChoiceQuestions')
                         .where('WordID', word.WordID)
-                        .andWhere('IsDelete', false)
+                        .andWhere('IsDelete', 0)
                         .orderByRaw('rand()')
                         .limit(1)
                         .select('Question', 'QuestionAvatar', 'Answer');
@@ -133,7 +133,7 @@ export default {
                 case 1:
                     const tempquestion1 = await db('multipleChoiceQuestions')
                         .where('WordID', word.WordID)
-                        .andWhere('IsDelete', false)
+                        .andWhere('IsDelete', 0)
                         .orderByRaw('rand()')
                         .limit(1)
                         .select('Question', 'QuestionAvatar', 'Answer');
@@ -156,7 +156,7 @@ export default {
                 case 2:
                     const tempquestion2 = await db('multipleChoiceQuestions')
                         .where('WordID', word.WordID)
-                        .andWhere('IsDelete', false)
+                        .andWhere('IsDelete', 0)
                         .orderByRaw('rand()')
                         .limit(1)
                         .select();
