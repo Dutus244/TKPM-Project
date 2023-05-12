@@ -410,7 +410,7 @@ router.get('/loginstreak',async function(req,res){
     
     const numWordLvl5 = await learnerService.getLvl5Mem(res.locals.authUser.userid)
     const {amount} = numWordLvl5
-    var memlvl = amount/10
+    var memlvl = Math.floor(amount/10)
     if(memlvl < 1){
         memlvl = 1
     }
