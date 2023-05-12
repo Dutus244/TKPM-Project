@@ -36,12 +36,12 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999;
-    margin-top: 210px;
+    margin-top: 230px;
 }
 
 .img-wrapper img {
-    height: 250px;
-    width: 250px;
+    height: 200px;
+    width: 200px;
 }
 
 .guide1 {
@@ -56,7 +56,7 @@ body {
 .question-name {
     font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     font-weight: Light;
-    font-size: 30px;
+    font-size: 20px;
     position: absolute;
     text-align: center;
     top: 120px;
