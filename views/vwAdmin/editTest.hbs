@@ -11,7 +11,7 @@
     }
 
     $('.func-icons>.bi-pencil').on('click', function () {
-      const questionId = $('.func-icons>.bi-trash3').data('question-id')
+      const questionId = $(this).siblings('.bi-trash3').data('question-id')
       window.location.href = '/admin/editquestion/' + questionId
     })
     $('.func-icons>.bi-trash3').on('click', function () {
